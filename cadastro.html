@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Criar conta</title>
+
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -14,14 +16,76 @@
 
   <main class="auth-container">
 
-    <section class="auth-card">
+    <section class="auth-card cadastro-card">
 
       <h1>Criar conta</h1>
-      <p>Cadastre seu e-mail e senha.</p>
+
+      <p>
+        Preencha seus dados para criar sua conta.
+      </p>
 
       <form id="signupForm">
 
-        <label for="email">E-mail</label>
+        <!-- DADOS PESSOAIS -->
+
+        <h2>Dados pessoais</h2>
+
+        <label for="nomeCompleto">
+          Nome completo
+        </label>
+
+        <input
+          type="text"
+          id="nomeCompleto"
+          placeholder="Seu nome completo"
+          required
+        >
+
+
+        <label for="cpf">
+          CPF
+        </label>
+
+        <input
+          type="text"
+          id="cpf"
+          placeholder="000.000.000-00"
+          maxlength="14"
+          required
+        >
+
+
+        <label for="dataNascimento">
+          Data de nascimento
+        </label>
+
+        <input
+          type="date"
+          id="dataNascimento"
+          required
+        >
+
+
+        <label for="telefone">
+          Telefone / WhatsApp
+        </label>
+
+        <input
+          type="tel"
+          id="telefone"
+          placeholder="(11) 99999-9999"
+          required
+        >
+
+
+        <!-- LOGIN -->
+
+        <h2>Acesso</h2>
+
+        <label for="email">
+          E-mail
+        </label>
+
         <input
           type="email"
           id="email"
@@ -29,7 +93,11 @@
           required
         >
 
-        <label for="password">Senha</label>
+
+        <label for="password">
+          Senha
+        </label>
+
         <input
           type="password"
           id="password"
@@ -38,51 +106,514 @@
           required
         >
 
+
+        <!-- ENDEREÇO -->
+
+        <h2>Endereço</h2>
+
+        <label for="cep">
+          CEP
+        </label>
+
+        <input
+          type="text"
+          id="cep"
+          placeholder="00000-000"
+          maxlength="9"
+          required
+        >
+
+
+        <label for="rua">
+          Rua / Avenida
+        </label>
+
+        <input
+          type="text"
+          id="rua"
+          placeholder="Nome da rua"
+          required
+        >
+
+
+        <label for="numero">
+          Número
+        </label>
+
+        <input
+          type="text"
+          id="numero"
+          placeholder="Número"
+          required
+        >
+
+
+        <label for="complemento">
+          Complemento
+        </label>
+
+        <input
+          type="text"
+          id="complemento"
+          placeholder="Apartamento, bloco, referência..."
+        >
+
+
+        <label for="bairro">
+          Bairro
+        </label>
+
+        <input
+          type="text"
+          id="bairro"
+          placeholder="Bairro"
+          required
+        >
+
+
+        <label for="cidade">
+          Cidade
+        </label>
+
+        <input
+          type="text"
+          id="cidade"
+          placeholder="Cidade"
+          required
+        >
+
+
+        <label for="estado">
+          Estado
+        </label>
+
+        <select
+          id="estado"
+          required
+        >
+
+          <option value="">
+            Selecione
+          </option>
+
+          <option value="AC">AC</option>
+          <option value="AL">AL</option>
+          <option value="AP">AP</option>
+          <option value="AM">AM</option>
+          <option value="BA">BA</option>
+          <option value="CE">CE</option>
+          <option value="DF">DF</option>
+          <option value="ES">ES</option>
+          <option value="GO">GO</option>
+          <option value="MA">MA</option>
+          <option value="MT">MT</option>
+          <option value="MS">MS</option>
+          <option value="MG">MG</option>
+          <option value="PA">PA</option>
+          <option value="PB">PB</option>
+          <option value="PR">PR</option>
+          <option value="PE">PE</option>
+          <option value="PI">PI</option>
+          <option value="RJ">RJ</option>
+          <option value="RN">RN</option>
+          <option value="RS">RS</option>
+          <option value="RO">RO</option>
+          <option value="RR">RR</option>
+          <option value="SC">SC</option>
+          <option value="SP">SP</option>
+          <option value="SE">SE</option>
+          <option value="TO">TO</option>
+
+        </select>
+
+
         <button type="submit">
           Criar conta
         </button>
 
       </form>
 
+
       <p id="signupMessage"></p>
+
 
       <p>
         Já tem conta?
-        <a href="login.html">Entrar</a>
+        <a href="login.html">
+          Entrar
+        </a>
+      </p>
+
+
+      <p>
+        <a href="index.html">
+          Voltar para o site
+        </a>
       </p>
 
     </section>
 
   </main>
 
+
   <script>
-    const signupForm = document.getElementById('signupForm');
-    const signupMessage = document.getElementById('signupMessage');
 
-    signupForm.addEventListener('submit', async (event) => {
+    const signupForm =
+      document.getElementById('signupForm');
 
-      event.preventDefault();
+    const signupMessage =
+      document.getElementById('signupMessage');
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
 
-      signupMessage.textContent = 'Criando conta...';
+    signupForm.addEventListener(
+      'submit',
+      async (event) => {
 
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-          email: email,
-          password: password
-        });
+        event.preventDefault();
 
-      if (error) {
-        signupMessage.textContent = error.message;
-        return;
+
+        signupMessage.textContent =
+          'Criando conta...';
+
+
+        const nomeCompleto =
+          document
+            .getElementById('nomeCompleto')
+            .value
+            .trim();
+
+        const cpf =
+          document
+            .getElementById('cpf')
+            .value
+            .trim();
+
+        const dataNascimento =
+          document
+            .getElementById('dataNascimento')
+            .value;
+
+        const telefone =
+          document
+            .getElementById('telefone')
+            .value
+            .trim();
+
+        const email =
+          document
+            .getElementById('email')
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById('password')
+            .value;
+
+        const cep =
+          document
+            .getElementById('cep')
+            .value
+            .trim();
+
+        const rua =
+          document
+            .getElementById('rua')
+            .value
+            .trim();
+
+        const numero =
+          document
+            .getElementById('numero')
+            .value
+            .trim();
+
+        const complemento =
+          document
+            .getElementById('complemento')
+            .value
+            .trim();
+
+        const bairro =
+          document
+            .getElementById('bairro')
+            .value
+            .trim();
+
+        const cidade =
+          document
+            .getElementById('cidade')
+            .value
+            .trim();
+
+        const estado =
+          document
+            .getElementById('estado')
+            .value;
+
+
+        try {
+
+          /*
+           * 1. CRIA USUÁRIO
+           */
+
+          const {
+            data: signupData,
+            error: signupError
+          } =
+            await supabaseClient.auth.signUp({
+              email: email,
+              password: password
+            });
+
+
+          if (signupError) {
+
+            console.error(signupError);
+
+            signupMessage.textContent =
+              'Erro ao criar conta: ' +
+              signupError.message;
+
+            return;
+          }
+
+
+          if (!signupData.user) {
+
+            signupMessage.textContent =
+              'Não foi possível criar o usuário.';
+
+            return;
+          }
+
+
+          const userId =
+            signupData.user.id;
+
+
+          /*
+           * 2. SALVA PERFIL
+           */
+
+          const {
+            error: profileError
+          } =
+            await supabaseClient
+              .from('profiles')
+              .insert({
+
+                id: userId,
+
+                nome_completo:
+                  nomeCompleto,
+
+                cpf:
+                  cpf,
+
+                data_nascimento:
+                  dataNascimento,
+
+                telefone:
+                  telefone
+
+              });
+
+
+          if (profileError) {
+
+            console.error(profileError);
+
+            signupMessage.textContent =
+              'Conta criada, mas ocorreu um erro ao salvar os dados pessoais: ' +
+              profileError.message;
+
+            return;
+          }
+
+
+          /*
+           * 3. SALVA ENDEREÇO
+           */
+
+          const {
+            error: addressError
+          } =
+            await supabaseClient
+              .from('addresses')
+              .insert({
+
+                user_id:
+                  userId,
+
+                cep:
+                  cep,
+
+                rua:
+                  rua,
+
+                numero:
+                  numero,
+
+                complemento:
+                  complemento,
+
+                bairro:
+                  bairro,
+
+                cidade:
+                  cidade,
+
+                estado:
+                  estado
+
+              });
+
+
+          if (addressError) {
+
+            console.error(addressError);
+
+            signupMessage.textContent =
+              'Conta criada, mas ocorreu um erro ao salvar o endereço: ' +
+              addressError.message;
+
+            return;
+          }
+
+
+          signupMessage.textContent =
+            'Conta criada com sucesso. Verifique seu e-mail para confirmar o cadastro.';
+
+
+          signupForm.reset();
+
+        }
+
+        catch (erro) {
+
+          console.error(erro);
+
+          signupMessage.textContent =
+            'Erro ao conectar com o sistema de cadastro.';
+
+        }
+
       }
+    );
 
-      signupMessage.textContent =
-        'Conta criada. Verifique seu e-mail para confirmar o cadastro.';
 
-    });
+    /*
+     * MÁSCARA SIMPLES DE CPF
+     */
+
+    const cpfInput =
+      document.getElementById('cpf');
+
+    cpfInput.addEventListener(
+      'input',
+      () => {
+
+        let valor =
+          cpfInput.value
+            .replace(/\D/g, '')
+            .slice(0, 11);
+
+
+        valor =
+          valor.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+          );
+
+        valor =
+          valor.replace(
+            /(\d{3})(\d)/,
+            '$1.$2'
+          );
+
+        valor =
+          valor.replace(
+            /(\d{3})(\d{1,2})$/,
+            '$1-$2'
+          );
+
+
+        cpfInput.value =
+          valor;
+
+      }
+    );
+
+
+    /*
+     * MÁSCARA SIMPLES DE CEP
+     */
+
+    const cepInput =
+      document.getElementById('cep');
+
+    cepInput.addEventListener(
+      'input',
+      () => {
+
+        let valor =
+          cepInput.value
+            .replace(/\D/g, '')
+            .slice(0, 8);
+
+
+        valor =
+          valor.replace(
+            /(\d{5})(\d)/,
+            '$1-$2'
+          );
+
+
+        cepInput.value =
+          valor;
+
+      }
+    );
+
+
+    /*
+     * MÁSCARA DE TELEFONE
+     */
+
+    const telefoneInput =
+      document.getElementById('telefone');
+
+    telefoneInput.addEventListener(
+      'input',
+      () => {
+
+        let valor =
+          telefoneInput.value
+            .replace(/\D/g, '')
+            .slice(0, 11);
+
+
+        valor =
+          valor.replace(
+            /^(\d{2})(\d)/,
+            '($1) $2'
+          );
+
+        valor =
+          valor.replace(
+            /(\d{5})(\d{4})$/,
+            '$1-$2'
+          );
+
+
+        telefoneInput.value =
+          valor;
+
+      }
+    );
+
   </script>
 
 </body>
