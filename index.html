@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
 </head>
 
 <body>
@@ -25,8 +28,7 @@
         <a href="#produtos">Produtos</a>
         <a href="#personalizar">Personalizar</a>
 
-        <!-- LINK DE LOGIN ADICIONADO AQUI -->
-        <a href="login.html">Entrar</a>
+        <a id="accountLink" href="login.html">Entrar</a>
 
         <a class="nav-cta" href="#personalizar">Fazer pedido</a>
       </nav>
@@ -577,6 +579,46 @@
 
 
   <script src="script.js"></script>
+
+  <script>
+    async function atualizarMenuConta() {
+      const accountLink = document.getElementById('accountLink');
+
+      if (!accountLink) {
+        return;
+      }
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (session) {
+        accountLink.textContent = 'Minha conta';
+        accountLink.href = 'conta.html';
+      } else {
+        accountLink.textContent = 'Entrar';
+        accountLink.href = 'login.html';
+      }
+    }
+
+    atualizarMenuConta();
+
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      const accountLink = document.getElementById('accountLink');
+
+      if (!accountLink) {
+        return;
+      }
+
+      if (session) {
+        accountLink.textContent = 'Minha conta';
+        accountLink.href = 'conta.html';
+      } else {
+        accountLink.textContent = 'Entrar';
+        accountLink.href = 'login.html';
+      }
+    });
+  </script>
 
 </body>
 </html>
