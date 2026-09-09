@@ -26,8 +26,6 @@
 
       <form id="signupForm">
 
-        <!-- DADOS PESSOAIS -->
-
         <h2>Dados pessoais</h2>
 
         <label for="nomeCompleto">
@@ -78,8 +76,6 @@
         >
 
 
-        <!-- LOGIN -->
-
         <h2>Acesso</h2>
 
         <label for="email">
@@ -106,8 +102,6 @@
           required
         >
 
-
-        <!-- ENDEREÇO -->
 
         <h2>Endereço</h2>
 
@@ -187,10 +181,7 @@
           Estado
         </label>
 
-        <select
-          id="estado"
-          required
-        >
+        <select id="estado" required>
 
           <option value="">
             Selecione
@@ -271,92 +262,74 @@
 
         event.preventDefault();
 
-
         signupMessage.textContent =
           'Criando conta...';
 
 
         const nomeCompleto =
-          document
-            .getElementById('nomeCompleto')
+          document.getElementById('nomeCompleto')
             .value
             .trim();
 
         const cpf =
-          document
-            .getElementById('cpf')
+          document.getElementById('cpf')
             .value
             .trim();
 
         const dataNascimento =
-          document
-            .getElementById('dataNascimento')
+          document.getElementById('dataNascimento')
             .value;
 
         const telefone =
-          document
-            .getElementById('telefone')
+          document.getElementById('telefone')
             .value
             .trim();
 
         const email =
-          document
-            .getElementById('email')
+          document.getElementById('email')
             .value
             .trim();
 
         const password =
-          document
-            .getElementById('password')
+          document.getElementById('password')
             .value;
 
         const cep =
-          document
-            .getElementById('cep')
+          document.getElementById('cep')
             .value
             .trim();
 
         const rua =
-          document
-            .getElementById('rua')
+          document.getElementById('rua')
             .value
             .trim();
 
         const numero =
-          document
-            .getElementById('numero')
+          document.getElementById('numero')
             .value
             .trim();
 
         const complemento =
-          document
-            .getElementById('complemento')
+          document.getElementById('complemento')
             .value
             .trim();
 
         const bairro =
-          document
-            .getElementById('bairro')
+          document.getElementById('bairro')
             .value
             .trim();
 
         const cidade =
-          document
-            .getElementById('cidade')
+          document.getElementById('cidade')
             .value
             .trim();
 
         const estado =
-          document
-            .getElementById('estado')
+          document.getElementById('estado')
             .value;
 
 
         try {
-
-          /*
-           * 1. CRIA USUÁRIO
-           */
 
           const {
             data: signupData,
@@ -364,7 +337,23 @@
           } =
             await supabaseClient.auth.signUp({
               email: email,
-              password: password
+              password: password,
+
+              options: {
+                data: {
+                  nome_completo:
+                    nomeCompleto,
+
+                  cpf:
+                    cpf,
+
+                  data_nascimento:
+                    dataNascimento,
+
+                  telefone:
+                    telefone
+                }
+              }
             });
 
 
@@ -389,98 +378,112 @@
           }
 
 
-          const userId =
-            signupData.user.id;
+          /*
+           * O perfil é criado automaticamente
+           * pelo trigger do Supabase.
+           *
+           * Não fazemos insert em profiles aqui.
+           */
 
 
           /*
-           * 2. SALVA PERFIL
+           * Se houver sessão ativa imediatamente,
+           * já podemos salvar o endereço.
+           *
+           * Se a confirmação de e-mail estiver
+           * habilitada, normalmente não haverá
+           * sessão ainda.
            */
 
-          const {
-            error: profileError
-          } =
-            await supabaseClient
-              .from('profiles')
-              .insert({
+          if (signupData.session) {
 
-                id: userId,
+            const {
+              error: addressError
+            } =
+              await supabaseClient
+                .from('addresses')
+                .insert({
 
-                nome_completo:
-                  nomeCompleto,
+                  user_id:
+                    signupData.user.id,
 
-                cpf:
-                  cpf,
+                  cep:
+                    cep,
 
-                data_nascimento:
-                  dataNascimento,
+                  rua:
+                    rua,
 
-                telefone:
-                  telefone
+                  numero:
+                    numero,
 
-              });
+                  complemento:
+                    complemento,
+
+                  bairro:
+                    bairro,
+
+                  cidade:
+                    cidade,
+
+                  estado:
+                    estado
+
+                });
 
 
-          if (profileError) {
+            if (addressError) {
 
-            console.error(profileError);
+              console.error(addressError);
 
-            signupMessage.textContent =
-              'Conta criada, mas ocorreu um erro ao salvar os dados pessoais: ' +
-              profileError.message;
+              signupMessage.textContent =
+                'Conta criada, mas ocorreu um erro ao salvar o endereço: ' +
+                addressError.message;
 
-            return;
+              return;
+            }
+
           }
 
 
           /*
-           * 3. SALVA ENDEREÇO
+           * Guardamos temporariamente o endereço
+           * no navegador.
+           *
+           * Depois que o usuário confirmar o e-mail
+           * e fizer login, poderemos salvar esses
+           * dados em addresses.
            */
 
-          const {
-            error: addressError
-          } =
-            await supabaseClient
-              .from('addresses')
-              .insert({
+          const enderecoTemporario = {
 
-                user_id:
-                  userId,
+            cep:
+              cep,
 
-                cep:
-                  cep,
+            rua:
+              rua,
 
-                rua:
-                  rua,
+            numero:
+              numero,
 
-                numero:
-                  numero,
+            complemento:
+              complemento,
 
-                complemento:
-                  complemento,
+            bairro:
+              bairro,
 
-                bairro:
-                  bairro,
+            cidade:
+              cidade,
 
-                cidade:
-                  cidade,
+            estado:
+              estado
 
-                estado:
-                  estado
-
-              });
+          };
 
 
-          if (addressError) {
-
-            console.error(addressError);
-
-            signupMessage.textContent =
-              'Conta criada, mas ocorreu um erro ao salvar o endereço: ' +
-              addressError.message;
-
-            return;
-          }
+          localStorage.setItem(
+            'enderecoCadastroPendente',
+            JSON.stringify(enderecoTemporario)
+          );
 
 
           signupMessage.textContent =
@@ -505,7 +508,7 @@
 
 
     /*
-     * MÁSCARA SIMPLES DE CPF
+     * MÁSCARA DE CPF
      */
 
     const cpfInput =
@@ -548,7 +551,7 @@
 
 
     /*
-     * MÁSCARA SIMPLES DE CEP
+     * MÁSCARA DE CEP
      */
 
     const cepInput =
