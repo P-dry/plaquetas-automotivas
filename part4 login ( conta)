@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha conta</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+</head>
+
+<body>
+
+  <main class="auth-container">
+
+    <section class="auth-card">
+
+      <h1>Minha conta</h1>
+
+      <p>
+        Logado como:
+        <strong id="userEmail">Carregando...</strong>
+      </p>
+
+      <button id="logoutBtn">
+        Sair
+      </button>
+
+      <p>
+        <a href="index.html">Voltar para o site</a>
+      </p>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    async function carregarConta() {
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      document.getElementById('userEmail').textContent =
+        session.user.email;
+
+    }
+
+    document
+      .getElementById('logoutBtn')
+      .addEventListener('click', async () => {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href = 'login.html';
+
+      });
+
+    carregarConta();
+
+  </script>
+
+</body>
+</html>
