@@ -139,3 +139,15 @@ input:focus, select:focus, textarea:focus { border-color: #65707d; }
   .plaque-sub { font-size: 18px; }
   .footer-wrap { flex-direction: column; }
 }
+.auth-card p {
+  color: #ffffff;
+}
+
+.auth-card a {
+  color: #9ecbff;
+  text-decoration: underline;
+}
+
+.auth-card a:hover {
+  color: #ffffff;
+}
