@@ -77,9 +77,11 @@
           password: password
         });
 
-      if (error) {
-        loginMessage.textContent = 'E-mail ou senha inválidos.';
-        return;
+     if (error) {
+  console.error(error);
+  loginMessage.textContent = 'Erro: ' + error.message;
+  return;
+}
       }
 
       window.location.href = 'conta.html';
