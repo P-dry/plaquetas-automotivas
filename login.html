@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+</head>
+
+<body>
+
+  <main class="auth-container">
+
+    <section class="auth-card">
+
+      <h1>Entrar</h1>
+      <p>Acesse sua conta.</p>
+
+      <form id="loginForm">
+
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="seuemail@email.com"
+          required
+        >
+
+        <label for="password">Senha</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Sua senha"
+          required
+        >
+
+        <button type="submit">
+          Entrar
+        </button>
+
+      </form>
+
+      <p id="loginMessage"></p>
+
+      <p>
+        Ainda não tem conta?
+        <a href="cadastro.html">Criar conta</a>
+      </p>
+
+      <p>
+        <a href="index.html">Voltar para o site</a>
+      </p>
+
+    </section>
+
+  </main>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginMessage = document.getElementById('loginMessage');
+
+    loginForm.addEventListener('submit', async (event) => {
+
+      event.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      loginMessage.textContent = 'Entrando...';
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+        loginMessage.textContent = 'E-mail ou senha inválidos.';
+        return;
+      }
+
+      window.location.href = 'conta.html';
+
+    });
+  </script>
+
+</body>
+</html>
