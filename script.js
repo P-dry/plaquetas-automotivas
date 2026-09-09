@@ -36,5 +36,5 @@ form.addEventListener('submit', (event) => {
   ].join('\n');
 
   const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
+  window.location.href = url;
 });
