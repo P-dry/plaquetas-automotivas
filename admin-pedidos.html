@@ -21,7 +21,6 @@
 
       <h1>Administração de pedidos</h1>
 
-
       <h2>Novo pedido</h2>
 
       <form id="pedidoForm">
@@ -78,16 +77,23 @@
 
       <p id="mensagem"></p>
 
-
       <hr>
 
-
       <h2>Pedidos existentes</h2>
+
+      <div class="filtros-pedidos">
+        <button type="button" data-status="todos">Todos</button>
+        <button type="button" data-status="aguardando_pagamento">Aguardando pagamento</button>
+        <button type="button" data-status="pago">Pago</button>
+        <button type="button" data-status="em_producao">Em produção</button>
+        <button type="button" data-status="enviado">Enviado</button>
+        <button type="button" data-status="concluido">Concluído</button>
+        <button type="button" data-status="cancelado">Cancelado</button>
+      </div>
 
       <div id="listaPedidos">
         Carregando pedidos...
       </div>
-
 
       <p>
         <a href="conta.html">
@@ -99,7 +105,6 @@
 
   </main>
 
-
   <script>
 
     const pedidoForm = document.getElementById('pedidoForm');
@@ -108,6 +113,8 @@
     const listaPedidos = document.getElementById('listaPedidos');
 
     let clientesMap = {};
+    let pedidosCarregados = [];
+    let filtroAtual = 'todos';
 
 
     function formatarValor(valor) {
@@ -131,7 +138,7 @@
 
       if (!session) {
         window.location.href = 'login.html';
-        return null;
+        return false;
       }
 
       const {
@@ -144,10 +151,10 @@
 
       if (!admin) {
         window.location.href = 'conta.html';
-        return null;
+        return false;
       }
 
-      return session.user;
+      return true;
     }
 
 
@@ -177,7 +184,6 @@
         clientesMap[cliente.id] = cliente.nome_completo;
 
         const option = document.createElement('option');
-
         option.value = cliente.id;
         option.textContent = cliente.nome_completo;
 
@@ -220,9 +226,23 @@
         return;
       }
 
-      if (!pedidos || pedidos.length === 0) {
+      pedidosCarregados = pedidos || [];
+
+      renderizarPedidos();
+    }
+
+
+    function renderizarPedidos() {
+
+      const pedidos = filtroAtual === 'todos'
+        ? pedidosCarregados
+        : pedidosCarregados.filter(
+            pedido => pedido.status === filtroAtual
+          );
+
+      if (pedidos.length === 0) {
         listaPedidos.innerHTML =
-          '<p>Nenhum pedido cadastrado.</p>';
+          '<p>Nenhum pedido encontrado.</p>';
         return;
       }
 
@@ -287,6 +307,7 @@
               id="status-${pedido.id}"
               onchange="alterarStatus(${pedido.id}, this.value)"
             >
+
               <option value="aguardando_pagamento"
                 ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
                 Aguardando pagamento
@@ -316,6 +337,7 @@
                 ${pedido.status === 'cancelado' ? 'selected' : ''}>
                 Cancelado
               </option>
+
             </select>
 
             ${
@@ -339,6 +361,19 @@
     }
 
 
+    function filtrarPedidos(status) {
+      filtroAtual = status;
+      renderizarPedidos();
+    }
+
+
+    document.querySelectorAll('.filtros-pedidos button').forEach(botao => {
+      botao.addEventListener('click', () => {
+        filtrarPedidos(botao.dataset.status);
+      });
+    });
+
+
     async function alterarStatus(pedidoId, novoStatus) {
 
       const {
@@ -358,6 +393,8 @@
 
       mensagem.textContent =
         `Pedido #${pedidoId} atualizado com sucesso.`;
+
+      await carregarPedidos();
     }
 
 
@@ -378,7 +415,6 @@
       const valorTotal =
         quantidade * valorUnitario;
 
-
       const {
         data: pedido,
         error: pedidoError
@@ -393,14 +429,12 @@
         .select()
         .single();
 
-
       if (pedidoError) {
         console.error(pedidoError);
         mensagem.textContent =
           'Erro ao criar o pedido.';
         return;
       }
-
 
       const {
         error: itemError
@@ -414,14 +448,12 @@
           detalhes_personalizacao: personalizacao
         });
 
-
       if (itemError) {
         console.error(itemError);
         mensagem.textContent =
           'Pedido criado, mas houve erro ao criar o item.';
         return;
       }
-
 
       mensagem.textContent =
         `Pedido #${pedido.id} criado com sucesso.`;
