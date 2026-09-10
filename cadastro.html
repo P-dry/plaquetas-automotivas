@@ -142,6 +142,8 @@
           required
         >
 
+        <small id="cepMessage"></small>
+
 
         <label for="rua">
           Rua / Avenida
@@ -279,21 +281,41 @@
 
   <script>
 
+    /*
+     * ============================
+     * ELEMENTOS
+     * ============================
+     */
+
     const signupForm =
-      document.getElementById(
-        'signupForm'
-      );
+      document.getElementById('signupForm');
 
     const signupMessage =
-      document.getElementById(
-        'signupMessage'
-      );
+      document.getElementById('signupMessage');
+
+    const cepInput =
+      document.getElementById('cep');
+
+    const cepMessage =
+      document.getElementById('cepMessage');
+
+    const ruaInput =
+      document.getElementById('rua');
+
+    const bairroInput =
+      document.getElementById('bairro');
+
+    const cidadeInput =
+      document.getElementById('cidade');
+
+    const estadoInput =
+      document.getElementById('estado');
 
 
     /*
-     * Página para onde o Supabase
-     * deverá enviar o cliente depois
-     * da confirmação do e-mail.
+     * Página para onde o cliente
+     * será enviado depois de
+     * confirmar o e-mail.
      */
 
     const emailRedirectUrl =
@@ -327,115 +349,84 @@
 
         const nomeCompleto =
           document
-            .getElementById(
-              'nomeCompleto'
-            )
+            .getElementById('nomeCompleto')
             .value
             .trim();
 
 
         const cpf =
           document
-            .getElementById(
-              'cpf'
-            )
+            .getElementById('cpf')
             .value
             .trim();
 
 
         const dataNascimento =
           document
-            .getElementById(
-              'dataNascimento'
-            )
+            .getElementById('dataNascimento')
             .value;
 
 
         const telefone =
           document
-            .getElementById(
-              'telefone'
-            )
+            .getElementById('telefone')
             .value
             .trim();
 
 
         const email =
           document
-            .getElementById(
-              'email'
-            )
+            .getElementById('email')
             .value
             .trim();
 
 
         const password =
           document
-            .getElementById(
-              'password'
-            )
+            .getElementById('password')
             .value;
 
 
         const cep =
-          document
-            .getElementById(
-              'cep'
-            )
+          cepInput
             .value
             .trim();
 
 
         const rua =
-          document
-            .getElementById(
-              'rua'
-            )
+          ruaInput
             .value
             .trim();
 
 
         const numero =
           document
-            .getElementById(
-              'numero'
-            )
+            .getElementById('numero')
             .value
             .trim();
 
 
         const complemento =
           document
-            .getElementById(
-              'complemento'
-            )
+            .getElementById('complemento')
             .value
             .trim();
 
 
         const bairro =
-          document
-            .getElementById(
-              'bairro'
-            )
+          bairroInput
             .value
             .trim();
 
 
         const cidade =
-          document
-            .getElementById(
-              'cidade'
-            )
+          cidadeInput
             .value
             .trim();
 
 
         const estado =
-          document
-            .getElementById(
-              'estado'
-            )
+          estadoInput
             .value;
 
 
@@ -446,13 +437,6 @@
            * ============================
            * CRIA USUÁRIO
            * ============================
-           *
-           * Os dados pessoais são enviados
-           * como metadata.
-           *
-           * O trigger que criamos no
-           * Supabase usa esses dados para
-           * criar public.profiles.
            */
 
           const {
@@ -471,22 +455,8 @@
 
                 options: {
 
-                  /*
-                   * IMPORTANTE:
-                   * depois de clicar no
-                   * e-mail de confirmação,
-                   * o usuário retorna para
-                   * confirmado.html
-                   */
-
                   emailRedirectTo:
                     emailRedirectUrl,
-
-
-                  /*
-                   * Dados que serão enviados
-                   * para raw_user_meta_data.
-                   */
 
                   data: {
 
@@ -532,11 +502,6 @@
 
 
 
-          /*
-           * Confere se o Supabase realmente
-           * retornou um usuário.
-           */
-
           if (!signupData.user) {
 
             signupMessage.textContent =
@@ -553,12 +518,8 @@
            * ENDEREÇO
            * ============================
            *
-           * Se houver uma sessão imediatamente,
-           * podemos salvar o endereço agora.
-           *
-           * Com confirmação de e-mail ligada,
-           * normalmente signupData.session será
-           * null.
+           * Caso já exista sessão,
+           * salva diretamente.
            */
 
           if (signupData.session) {
@@ -615,52 +576,52 @@
 
           }
 
+          else {
+
+            /*
+             * ============================
+             * ENDEREÇO PENDENTE
+             * ============================
+             *
+             * Se o usuário ainda precisa
+             * confirmar o e-mail, guardamos
+             * temporariamente no navegador.
+             */
+
+            const enderecoTemporario = {
+
+              cep:
+                cep,
+
+              rua:
+                rua,
+
+              numero:
+                numero,
+
+              complemento:
+                complemento,
+
+              bairro:
+                bairro,
+
+              cidade:
+                cidade,
+
+              estado:
+                estado
+
+            };
 
 
-          /*
-           * ============================
-           * ENDEREÇO PENDENTE
-           * ============================
-           *
-           * Guardamos o endereço no navegador.
-           *
-           * Após a confirmação do e-mail e
-           * primeiro login, o login.html
-           * salva esses dados no Supabase.
-           */
+            localStorage.setItem(
+              'enderecoCadastroPendente',
+              JSON.stringify(
+                enderecoTemporario
+              )
+            );
 
-          const enderecoTemporario = {
-
-            cep:
-              cep,
-
-            rua:
-              rua,
-
-            numero:
-              numero,
-
-            complemento:
-              complemento,
-
-            bairro:
-              bairro,
-
-            cidade:
-              cidade,
-
-            estado:
-              estado
-
-          };
-
-
-          localStorage.setItem(
-            'enderecoCadastroPendente',
-            JSON.stringify(
-              enderecoTemporario
-            )
-          );
+          }
 
 
 
@@ -675,6 +636,8 @@
 
 
           signupForm.reset();
+
+          cepMessage.textContent = '';
 
         }
 
@@ -701,9 +664,7 @@
      */
 
     const cpfInput =
-      document.getElementById(
-        'cpf'
-      );
+      document.getElementById('cpf');
 
 
     cpfInput.addEventListener(
@@ -713,14 +674,8 @@
         let valor =
           cpfInput
             .value
-            .replace(
-              /\D/g,
-              ''
-            )
-            .slice(
-              0,
-              11
-            );
+            .replace(/\D/g, '')
+            .slice(0, 11);
 
 
         valor =
@@ -758,12 +713,6 @@
      * ============================
      */
 
-    const cepInput =
-      document.getElementById(
-        'cep'
-      );
-
-
     cepInput.addEventListener(
       'input',
       () => {
@@ -771,14 +720,8 @@
         let valor =
           cepInput
             .value
-            .replace(
-              /\D/g,
-              ''
-            )
-            .slice(
-              0,
-              8
-            );
+            .replace(/\D/g, '')
+            .slice(0, 8);
 
 
         valor =
@@ -798,14 +741,135 @@
 
     /*
      * ============================
+     * CONSULTA AUTOMÁTICA DO CEP
+     * ============================
+     */
+
+    cepInput.addEventListener(
+      'blur',
+      async () => {
+
+        const cep =
+          cepInput
+            .value
+            .replace(/\D/g, '');
+
+
+        /*
+         * CEP precisa ter 8 números
+         */
+
+        if (cep.length !== 8) {
+
+          cepMessage.textContent =
+            'Digite um CEP válido.';
+
+          return;
+
+        }
+
+
+        cepMessage.textContent =
+          'Buscando endereço...';
+
+
+        try {
+
+          const response =
+            await fetch(
+              `https://viacep.com.br/ws/${cep}/json/`
+            );
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              'Erro na consulta do CEP.'
+            );
+
+          }
+
+
+          const data =
+            await response.json();
+
+
+
+          /*
+           * CEP não encontrado
+           */
+
+          if (data.erro) {
+
+            cepMessage.textContent =
+              'CEP não encontrado.';
+
+            return;
+
+          }
+
+
+
+          /*
+           * PREENCHE OS CAMPOS
+           */
+
+          ruaInput.value =
+            data.logradouro || '';
+
+
+          bairroInput.value =
+            data.bairro || '';
+
+
+          cidadeInput.value =
+            data.localidade || '';
+
+
+          estadoInput.value =
+            data.uf || '';
+
+
+          cepMessage.textContent =
+            'Endereço encontrado.';
+
+
+
+          /*
+           * Depois de preencher,
+           * leva o cursor para o número.
+           */
+
+          document
+            .getElementById('numero')
+            .focus();
+
+        }
+
+        catch (erro) {
+
+          console.error(
+            erro
+          );
+
+          cepMessage.textContent =
+            'Não foi possível consultar o CEP. Preencha o endereço manualmente.';
+
+        }
+
+      }
+    );
+
+
+
+    /*
+     * ============================
      * MÁSCARA DE TELEFONE
      * ============================
      */
 
     const telefoneInput =
-      document.getElementById(
-        'telefone'
-      );
+      document.getElementById('telefone');
 
 
     telefoneInput.addEventListener(
@@ -815,14 +879,8 @@
         let valor =
           telefoneInput
             .value
-            .replace(
-              /\D/g,
-              ''
-            )
-            .slice(
-              0,
-              11
-            );
+            .replace(/\D/g, '')
+            .slice(0, 11);
 
 
         valor =
