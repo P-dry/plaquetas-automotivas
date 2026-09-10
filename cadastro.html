@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Criar conta</title>
 
@@ -11,6 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 </head>
+
 
 <body>
 
@@ -24,9 +30,15 @@
         Preencha seus dados para criar sua conta.
       </p>
 
+
       <form id="signupForm">
 
+        <!-- =====================
+             DADOS PESSOAIS
+        ====================== -->
+
         <h2>Dados pessoais</h2>
+
 
         <label for="nomeCompleto">
           Nome completo
@@ -72,11 +84,18 @@
           type="tel"
           id="telefone"
           placeholder="(11) 99999-9999"
+          maxlength="15"
           required
         >
 
 
+
+        <!-- =====================
+             ACESSO
+        ====================== -->
+
         <h2>Acesso</h2>
+
 
         <label for="email">
           E-mail
@@ -103,7 +122,13 @@
         >
 
 
+
+        <!-- =====================
+             ENDEREÇO
+        ====================== -->
+
         <h2>Endereço</h2>
+
 
         <label for="cep">
           CEP
@@ -181,7 +206,10 @@
           Estado
         </label>
 
-        <select id="estado" required>
+        <select
+          id="estado"
+          required
+        >
 
           <option value="">
             Selecione
@@ -230,6 +258,7 @@
 
       <p>
         Já tem conta?
+
         <a href="login.html">
           Entrar
         </a>
@@ -247,14 +276,36 @@
   </main>
 
 
+
   <script>
 
     const signupForm =
-      document.getElementById('signupForm');
+      document.getElementById(
+        'signupForm'
+      );
 
     const signupMessage =
-      document.getElementById('signupMessage');
+      document.getElementById(
+        'signupMessage'
+      );
 
+
+    /*
+     * Página para onde o Supabase
+     * deverá enviar o cliente depois
+     * da confirmação do e-mail.
+     */
+
+    const emailRedirectUrl =
+      'https://p-dry.github.io/plaquetas-automotivas/confirmado.html';
+
+
+
+    /*
+     * ============================
+     * CADASTRO
+     * ============================
+     */
 
     signupForm.addEventListener(
       'submit',
@@ -262,112 +313,229 @@
 
         event.preventDefault();
 
+
         signupMessage.textContent =
           'Criando conta...';
 
 
+
+        /*
+         * ============================
+         * COLETA DOS DADOS
+         * ============================
+         */
+
         const nomeCompleto =
-          document.getElementById('nomeCompleto')
+          document
+            .getElementById(
+              'nomeCompleto'
+            )
             .value
             .trim();
+
 
         const cpf =
-          document.getElementById('cpf')
+          document
+            .getElementById(
+              'cpf'
+            )
             .value
             .trim();
+
 
         const dataNascimento =
-          document.getElementById('dataNascimento')
+          document
+            .getElementById(
+              'dataNascimento'
+            )
             .value;
+
 
         const telefone =
-          document.getElementById('telefone')
+          document
+            .getElementById(
+              'telefone'
+            )
             .value
             .trim();
+
 
         const email =
-          document.getElementById('email')
+          document
+            .getElementById(
+              'email'
+            )
             .value
             .trim();
+
 
         const password =
-          document.getElementById('password')
+          document
+            .getElementById(
+              'password'
+            )
             .value;
+
 
         const cep =
-          document.getElementById('cep')
+          document
+            .getElementById(
+              'cep'
+            )
             .value
             .trim();
+
 
         const rua =
-          document.getElementById('rua')
+          document
+            .getElementById(
+              'rua'
+            )
             .value
             .trim();
+
 
         const numero =
-          document.getElementById('numero')
+          document
+            .getElementById(
+              'numero'
+            )
             .value
             .trim();
+
 
         const complemento =
-          document.getElementById('complemento')
+          document
+            .getElementById(
+              'complemento'
+            )
             .value
             .trim();
+
 
         const bairro =
-          document.getElementById('bairro')
+          document
+            .getElementById(
+              'bairro'
+            )
             .value
             .trim();
+
 
         const cidade =
-          document.getElementById('cidade')
+          document
+            .getElementById(
+              'cidade'
+            )
             .value
             .trim();
 
+
         const estado =
-          document.getElementById('estado')
+          document
+            .getElementById(
+              'estado'
+            )
             .value;
+
 
 
         try {
+
+          /*
+           * ============================
+           * CRIA USUÁRIO
+           * ============================
+           *
+           * Os dados pessoais são enviados
+           * como metadata.
+           *
+           * O trigger que criamos no
+           * Supabase usa esses dados para
+           * criar public.profiles.
+           */
 
           const {
             data: signupData,
             error: signupError
           } =
-            await supabaseClient.auth.signUp({
-              email: email,
-              password: password,
+            await supabaseClient
+              .auth
+              .signUp({
 
-              options: {
-                data: {
-                  nome_completo:
-                    nomeCompleto,
+                email:
+                  email,
 
-                  cpf:
-                    cpf,
+                password:
+                  password,
 
-                  data_nascimento:
-                    dataNascimento,
+                options: {
 
-                  telefone:
-                    telefone
+                  /*
+                   * IMPORTANTE:
+                   * depois de clicar no
+                   * e-mail de confirmação,
+                   * o usuário retorna para
+                   * confirmado.html
+                   */
+
+                  emailRedirectTo:
+                    emailRedirectUrl,
+
+
+                  /*
+                   * Dados que serão enviados
+                   * para raw_user_meta_data.
+                   */
+
+                  data: {
+
+                    nome_completo:
+                      nomeCompleto,
+
+                    cpf:
+                      cpf,
+
+                    data_nascimento:
+                      dataNascimento,
+
+                    telefone:
+                      telefone
+
+                  }
+
                 }
-              }
-            });
 
+              });
+
+
+
+          /*
+           * ============================
+           * ERRO NO CADASTRO
+           * ============================
+           */
 
           if (signupError) {
 
-            console.error(signupError);
+            console.error(
+              signupError
+            );
 
             signupMessage.textContent =
               'Erro ao criar conta: ' +
               signupError.message;
 
             return;
+
           }
 
+
+
+          /*
+           * Confere se o Supabase realmente
+           * retornou um usuário.
+           */
 
           if (!signupData.user) {
 
@@ -375,24 +543,22 @@
               'Não foi possível criar o usuário.';
 
             return;
+
           }
 
 
-          /*
-           * O perfil é criado automaticamente
-           * pelo trigger do Supabase.
-           *
-           * Não fazemos insert em profiles aqui.
-           */
-
 
           /*
-           * Se houver sessão ativa imediatamente,
-           * já podemos salvar o endereço.
+           * ============================
+           * ENDEREÇO
+           * ============================
            *
-           * Se a confirmação de e-mail estiver
-           * habilitada, normalmente não haverá
-           * sessão ainda.
+           * Se houver uma sessão imediatamente,
+           * podemos salvar o endereço agora.
+           *
+           * Com confirmação de e-mail ligada,
+           * normalmente signupData.session será
+           * null.
            */
 
           if (signupData.session) {
@@ -401,7 +567,9 @@
               error: addressError
             } =
               await supabaseClient
+
                 .from('addresses')
+
                 .insert({
 
                   user_id:
@@ -433,25 +601,32 @@
 
             if (addressError) {
 
-              console.error(addressError);
+              console.error(
+                addressError
+              );
 
               signupMessage.textContent =
                 'Conta criada, mas ocorreu um erro ao salvar o endereço: ' +
                 addressError.message;
 
               return;
+
             }
 
           }
 
 
+
           /*
-           * Guardamos temporariamente o endereço
-           * no navegador.
+           * ============================
+           * ENDEREÇO PENDENTE
+           * ============================
            *
-           * Depois que o usuário confirmar o e-mail
-           * e fizer login, poderemos salvar esses
-           * dados em addresses.
+           * Guardamos o endereço no navegador.
+           *
+           * Após a confirmação do e-mail e
+           * primeiro login, o login.html
+           * salva esses dados no Supabase.
            */
 
           const enderecoTemporario = {
@@ -482,12 +657,21 @@
 
           localStorage.setItem(
             'enderecoCadastroPendente',
-            JSON.stringify(enderecoTemporario)
+            JSON.stringify(
+              enderecoTemporario
+            )
           );
 
 
+
+          /*
+           * ============================
+           * SUCESSO
+           * ============================
+           */
+
           signupMessage.textContent =
-            'Conta criada com sucesso. Verifique seu e-mail para confirmar o cadastro.';
+            'Conta criada com sucesso. Enviamos um e-mail de confirmação. Abra o e-mail e clique no link para confirmar sua conta.';
 
 
           signupForm.reset();
@@ -496,7 +680,9 @@
 
         catch (erro) {
 
-          console.error(erro);
+          console.error(
+            erro
+          );
 
           signupMessage.textContent =
             'Erro ao conectar com o sistema de cadastro.';
@@ -507,21 +693,34 @@
     );
 
 
+
     /*
+     * ============================
      * MÁSCARA DE CPF
+     * ============================
      */
 
     const cpfInput =
-      document.getElementById('cpf');
+      document.getElementById(
+        'cpf'
+      );
+
 
     cpfInput.addEventListener(
       'input',
       () => {
 
         let valor =
-          cpfInput.value
-            .replace(/\D/g, '')
-            .slice(0, 11);
+          cpfInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            )
+            .slice(
+              0,
+              11
+            );
 
 
         valor =
@@ -530,11 +729,13 @@
             '$1.$2'
           );
 
+
         valor =
           valor.replace(
             /(\d{3})(\d)/,
             '$1.$2'
           );
+
 
         valor =
           valor.replace(
@@ -550,21 +751,34 @@
     );
 
 
+
     /*
+     * ============================
      * MÁSCARA DE CEP
+     * ============================
      */
 
     const cepInput =
-      document.getElementById('cep');
+      document.getElementById(
+        'cep'
+      );
+
 
     cepInput.addEventListener(
       'input',
       () => {
 
         let valor =
-          cepInput.value
-            .replace(/\D/g, '')
-            .slice(0, 8);
+          cepInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            )
+            .slice(
+              0,
+              8
+            );
 
 
         valor =
@@ -581,21 +795,34 @@
     );
 
 
+
     /*
+     * ============================
      * MÁSCARA DE TELEFONE
+     * ============================
      */
 
     const telefoneInput =
-      document.getElementById('telefone');
+      document.getElementById(
+        'telefone'
+      );
+
 
     telefoneInput.addEventListener(
       'input',
       () => {
 
         let valor =
-          telefoneInput.value
-            .replace(/\D/g, '')
-            .slice(0, 11);
+          telefoneInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            )
+            .slice(
+              0,
+              11
+            );
 
 
         valor =
@@ -603,6 +830,7 @@
             /^(\d{2})(\d)/,
             '($1) $2'
           );
+
 
         valor =
           valor.replace(
@@ -620,4 +848,5 @@
   </script>
 
 </body>
+
 </html>
