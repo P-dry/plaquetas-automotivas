@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Login</title>
+
   <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -17,11 +19,18 @@
     <section class="auth-card">
 
       <h1>Entrar</h1>
-      <p>Acesse sua conta.</p>
+
+      <p>
+        Acesse sua conta.
+      </p>
+
 
       <form id="loginForm">
 
-        <label for="email">E-mail</label>
+        <label for="email">
+          E-mail
+        </label>
+
         <input
           type="email"
           id="email"
@@ -29,7 +38,11 @@
           required
         >
 
-        <label for="password">Senha</label>
+
+        <label for="password">
+          Senha
+        </label>
+
         <input
           type="password"
           id="password"
@@ -37,74 +50,248 @@
           required
         >
 
+
         <button type="submit">
           Entrar
         </button>
 
       </form>
 
-      <p id="loginMessage"></p>
-      <div style="margin-top: 20px; color: white;">
-  Ainda não tem conta?
-  <a
-    href="cadastro.html"
-    style="color: #66b3ff; text-decoration: underline; font-weight: bold;"
-  >
-    Criar conta
-  </a>
-</div>
 
-<div style="margin-top: 12px;">
-  <a
-    href="index.html"
-    style="color: white; text-decoration: underline;"
-  >
-    Voltar para o site
-  </a>
-</div>
+      <p id="loginMessage"></p>
+
 
       <p>
         Ainda não tem conta?
-        <a href="cadastro.html">Criar conta</a>
+        <a href="cadastro.html">
+          Criar conta
+        </a>
       </p>
 
+
       <p>
-        <a href="index.html">Voltar para o site</a>
+        <a href="index.html">
+          Voltar para o site
+        </a>
       </p>
 
     </section>
 
   </main>
 
+
   <script>
-    const loginForm = document.getElementById('loginForm');
-    const loginMessage = document.getElementById('loginMessage');
 
-    loginForm.addEventListener('submit', async (event) => {
+    const loginForm =
+      document.getElementById('loginForm');
 
-      event.preventDefault();
+    const loginMessage =
+      document.getElementById('loginMessage');
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
 
-      loginMessage.textContent = 'Entrando...';
+    loginForm.addEventListener(
+      'submit',
+      async (event) => {
 
-      const { data, error } =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
+        event.preventDefault();
 
-     if (error) {
-  console.error(error);
-  loginMessage.textContent = 'Erro: ' + error.message;
-  return;
-}
-      
+        loginMessage.textContent =
+          'Entrando...';
 
-      window.location.href = 'conta.html';
 
-    });
+        const email =
+          document
+            .getElementById('email')
+            .value
+            .trim();
+
+        const password =
+          document
+            .getElementById('password')
+            .value;
+
+
+        try {
+
+          /*
+           * 1. FAZ LOGIN
+           */
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth
+              .signInWithPassword({
+                email: email,
+                password: password
+              });
+
+
+          if (error) {
+
+            console.error(error);
+
+            loginMessage.textContent =
+              'Erro: ' + error.message;
+
+            return;
+          }
+
+
+          if (!data.user) {
+
+            loginMessage.textContent =
+              'Não foi possível identificar o usuário.';
+
+            return;
+          }
+
+
+          /*
+           * 2. VERIFICA SE EXISTE
+           * ENDEREÇO PENDENTE
+           */
+
+          const enderecoPendente =
+            localStorage.getItem(
+              'enderecoCadastroPendente'
+            );
+
+
+          if (enderecoPendente) {
+
+            const endereco =
+              JSON.parse(enderecoPendente);
+
+
+            /*
+             * Antes de inserir, verifica se
+             * este usuário já possui endereço.
+             */
+
+            const {
+              data: enderecosExistentes,
+              error: consultaEnderecoError
+            } =
+              await supabaseClient
+                .from('addresses')
+                .select('id')
+                .eq(
+                  'user_id',
+                  data.user.id
+                )
+                .limit(1);
+
+
+            if (consultaEnderecoError) {
+
+              console.error(
+                consultaEnderecoError
+              );
+
+            }
+
+
+            /*
+             * Só salva se ainda não houver
+             * endereço cadastrado.
+             */
+
+            if (
+              !consultaEnderecoError &&
+              enderecosExistentes &&
+              enderecosExistentes.length === 0
+            ) {
+
+              const {
+                error: addressError
+              } =
+                await supabaseClient
+                  .from('addresses')
+                  .insert({
+
+                    user_id:
+                      data.user.id,
+
+                    cep:
+                      endereco.cep,
+
+                    rua:
+                      endereco.rua,
+
+                    numero:
+                      endereco.numero,
+
+                    complemento:
+                      endereco.complemento,
+
+                    bairro:
+                      endereco.bairro,
+
+                    cidade:
+                      endereco.cidade,
+
+                    estado:
+                      endereco.estado
+
+                  });
+
+
+              if (addressError) {
+
+                console.error(
+                  addressError
+                );
+
+                loginMessage.textContent =
+                  'Login realizado, mas ocorreu um erro ao salvar seu endereço: ' +
+                  addressError.message;
+
+                return;
+              }
+
+            }
+
+
+            /*
+             * Após salvar ou encontrar
+             * endereço existente,
+             * remove o temporário.
+             */
+
+            localStorage.removeItem(
+              'enderecoCadastroPendente'
+            );
+
+          }
+
+
+          /*
+           * 3. LOGIN CONCLUÍDO
+           */
+
+          loginMessage.textContent =
+            'Login realizado com sucesso.';
+
+
+          window.location.href =
+            'conta.html';
+
+        }
+
+        catch (erro) {
+
+          console.error(erro);
+
+          loginMessage.textContent =
+            'Erro ao conectar com o sistema de login.';
+
+        }
+
+      }
+    );
+
   </script>
 
 </body>
