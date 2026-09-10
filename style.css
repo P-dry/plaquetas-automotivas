@@ -532,3 +532,31 @@ input:focus, select:focus, textarea:focus { border-color: #65707d; }
 .whatsapp-link:hover {
   opacity: 0.9;
 }
+@media (max-width: 700px) {
+
+  .nav a {
+    display: none;
+  }
+
+  .nav #accountLink,
+  .nav .nav-cta {
+    display: inline-flex;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav #accountLink {
+    padding: 10px 12px;
+    white-space: nowrap;
+  }
+
+  .nav .nav-cta {
+    padding: 10px 14px;
+    white-space: nowrap;
+  }
+
+}
