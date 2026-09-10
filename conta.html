@@ -351,17 +351,20 @@
        */
 
       const {
-        data: enderecos,
-        error: enderecoError
-      } =
-        await supabaseClient
-          .from('addresses')
-          .select('*')
-          .eq(
-            'user_id',
-            usuarioAtual.id
-          )
-          .limit(1);
+  data: enderecos,
+  error: enderecoError
+} =
+  await supabaseClient
+    .from('addresses')
+    .select('*')
+    .eq(
+      'user_id',
+      usuarioAtual.id
+    )
+    .order('updated_at', {
+      ascending: false
+    })
+    .limit(1);
 
 
       if (enderecoError) {
