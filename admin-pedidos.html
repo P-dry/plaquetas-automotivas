@@ -29,6 +29,7 @@
 
           <div>
             <label for="cliente">Cliente</label>
+
             <select id="cliente" required>
               <option value="">Carregando clientes...</option>
             </select>
@@ -36,6 +37,7 @@
 
           <div>
             <label for="produto">Produto</label>
+
             <input
               type="text"
               id="produto"
@@ -46,6 +48,7 @@
 
           <div>
             <label for="quantidade">Quantidade</label>
+
             <input
               type="number"
               id="quantidade"
@@ -57,6 +60,7 @@
 
           <div>
             <label for="valorUnitario">Valor unitário</label>
+
             <input
               type="number"
               id="valorUnitario"
@@ -68,6 +72,7 @@
 
           <div class="admin-form-full">
             <label for="personalizacao">Personalização</label>
+
             <textarea
               id="personalizacao"
               rows="3"
@@ -77,6 +82,7 @@
 
           <div class="admin-form-full">
             <label for="observacoes">Observações</label>
+
             <textarea
               id="observacoes"
               rows="2"
@@ -118,15 +124,60 @@
 
         </div>
 
+
         <div class="filtros-pedidos">
-          <button type="button" data-status="todos">Todos</button>
-          <button type="button" data-status="aguardando_pagamento">Aguardando</button>
-          <button type="button" data-status="pago">Pago</button>
-          <button type="button" data-status="em_producao">Produção</button>
-          <button type="button" data-status="enviado">Enviado</button>
-          <button type="button" data-status="concluido">Concluído</button>
-          <button type="button" data-status="cancelado">Cancelado</button>
+
+          <button
+            type="button"
+            data-status="todos"
+          >
+            Todos
+          </button>
+
+          <button
+            type="button"
+            data-status="aguardando_pagamento"
+          >
+            Aguardando
+          </button>
+
+          <button
+            type="button"
+            data-status="pago"
+          >
+            Pago
+          </button>
+
+          <button
+            type="button"
+            data-status="em_producao"
+          >
+            Produção
+          </button>
+
+          <button
+            type="button"
+            data-status="enviado"
+          >
+            Enviado
+          </button>
+
+          <button
+            type="button"
+            data-status="concluido"
+          >
+            Concluído
+          </button>
+
+          <button
+            type="button"
+            data-status="cancelado"
+          >
+            Cancelado
+          </button>
+
         </div>
+
 
         <div id="listaPedidos">
           Carregando pedidos...
@@ -285,6 +336,7 @@
 
 
       if (filtroAtual !== 'todos') {
+
         pedidos = pedidos.filter(
           pedido =>
             pedido.status === filtroAtual
@@ -294,6 +346,7 @@
 
       const pesquisa =
         pesquisaPedido.value.trim();
+
 
       if (pesquisa) {
 
@@ -315,7 +368,6 @@
             new Date(b.created_at) -
             new Date(a.created_at)
         );
-
       }
 
 
@@ -326,7 +378,6 @@
             new Date(a.created_at) -
             new Date(b.created_at)
         );
-
       }
 
 
@@ -336,7 +387,6 @@
           (a, b) =>
             a.id - b.id
         );
-
       }
 
 
@@ -346,7 +396,6 @@
           (a, b) =>
             b.id - a.id
         );
-
       }
 
 
@@ -411,9 +460,14 @@
               <div class="admin-pedido-topo">
 
                 <div>
-                  <strong>
-                    Pedido #${pedido.id}
-                  </strong>
+                  <a
+                    href="pedido-detalhe.html?id=${pedido.id}"
+                    class="pedido-detalhe-link"
+                  >
+                    <strong>
+                      Pedido #${pedido.id}
+                    </strong>
+                  </a>
                 </div>
 
                 <div>
@@ -447,33 +501,45 @@
                   onchange="alterarStatus(${pedido.id}, this.value)"
                 >
 
-                  <option value="aguardando_pagamento"
-                    ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
+                  <option
+                    value="aguardando_pagamento"
+                    ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}
+                  >
                     Aguardando pagamento
                   </option>
 
-                  <option value="pago"
-                    ${pedido.status === 'pago' ? 'selected' : ''}>
+                  <option
+                    value="pago"
+                    ${pedido.status === 'pago' ? 'selected' : ''}
+                  >
                     Pago
                   </option>
 
-                  <option value="em_producao"
-                    ${pedido.status === 'em_producao' ? 'selected' : ''}>
+                  <option
+                    value="em_producao"
+                    ${pedido.status === 'em_producao' ? 'selected' : ''}
+                  >
                     Em produção
                   </option>
 
-                  <option value="enviado"
-                    ${pedido.status === 'enviado' ? 'selected' : ''}>
+                  <option
+                    value="enviado"
+                    ${pedido.status === 'enviado' ? 'selected' : ''}
+                  >
                     Enviado
                   </option>
 
-                  <option value="concluido"
-                    ${pedido.status === 'concluido' ? 'selected' : ''}>
+                  <option
+                    value="concluido"
+                    ${pedido.status === 'concluido' ? 'selected' : ''}
+                  >
                     Concluído
                   </option>
 
-                  <option value="cancelado"
-                    ${pedido.status === 'cancelado' ? 'selected' : ''}>
+                  <option
+                    value="cancelado"
+                    ${pedido.status === 'cancelado' ? 'selected' : ''}
+                  >
                     Cancelado
                   </option>
 
@@ -508,17 +574,19 @@
 
     function filtrarPedidos(status) {
 
-      filtroAtual = status;
+      filtroAtual =
+        status;
 
       document
-        .querySelectorAll('.filtros-pedidos button')
+        .querySelectorAll(
+          '.filtros-pedidos button'
+        )
         .forEach(botao => {
 
           botao.classList.toggle(
             'ativo',
             botao.dataset.status === status
           );
-
         });
 
       renderizarPedidos();
@@ -526,12 +594,15 @@
 
 
     document
-      .querySelectorAll('.filtros-pedidos button')
+      .querySelectorAll(
+        '.filtros-pedidos button'
+      )
       .forEach(botao => {
 
         botao.addEventListener(
           'click',
           () => {
+
             filtrarPedidos(
               botao.dataset.status
             );
@@ -608,12 +679,16 @@
 
         const quantidade =
           Number(
-            document.getElementById('quantidade').value
+            document
+              .getElementById('quantidade')
+              .value
           );
 
         const valorUnitario =
           Number(
-            document.getElementById('valorUnitario').value
+            document
+              .getElementById('valorUnitario')
+              .value
           );
 
         const personalizacao =
