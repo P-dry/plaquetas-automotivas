@@ -597,39 +597,33 @@
          * ATUALIZA PERFIL
          */
 
-        const {
-          error: profileError
-        } =
-          await supabaseClient
-            .from('profiles')
-            .update({
+       const {
+  data: perfilAtualizado,
+  error: profileError
+} =
+  await supabaseClient
+    .from('profiles')
+    .update({
+      nome_completo:
+        document
+          .getElementById('nomeCompleto')
+          .value
+          .trim(),
 
-              nome_completo:
-                document
-                  .getElementById(
-                    'nomeCompleto'
-                  )
-                  .value
-                  .trim(),
+      telefone:
+        document
+          .getElementById('telefone')
+          .value
+          .trim(),
 
-              telefone:
-                document
-                  .getElementById(
-                    'telefone'
-                  )
-                  .value
-                  .trim(),
-
-              updated_at:
-                new Date()
-                  .toISOString()
-
-            })
-            .eq(
-              'id',
-              usuarioAtual.id
-            );
-
+      updated_at:
+        new Date().toISOString()
+    })
+    .eq(
+      'id',
+      usuarioAtual.id
+    )
+    .select();
 
         if (profileError) {
 
