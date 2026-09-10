@@ -22,6 +22,7 @@
       <h1>Administração de pedidos</h1>
 
       <section class="admin-section">
+
         <h2>Novo pedido</h2>
 
         <form id="pedidoForm" class="admin-form-grid">
@@ -91,13 +92,30 @@
         </form>
 
         <p id="mensagem"></p>
+
       </section>
 
 
       <section class="admin-section">
 
-        <div class="admin-section-title">
-          <h2>Pedidos existentes</h2>
+        <h2>Pedidos existentes</h2>
+
+        <div class="admin-controles">
+
+          <input
+            type="number"
+            id="pesquisaPedido"
+            placeholder="Pesquisar pedido #"
+            min="1"
+          >
+
+          <select id="ordenacaoPedidos">
+            <option value="recentes">Mais recentes</option>
+            <option value="antigos">Mais antigos</option>
+            <option value="numero_crescente">Número crescente</option>
+            <option value="numero_decrescente">Número decrescente</option>
+          </select>
+
         </div>
 
         <div class="filtros-pedidos">
@@ -134,6 +152,8 @@
     const clienteSelect = document.getElementById('cliente');
     const mensagem = document.getElementById('mensagem');
     const listaPedidos = document.getElementById('listaPedidos');
+    const pesquisaPedido = document.getElementById('pesquisaPedido');
+    const ordenacaoPedidos = document.getElementById('ordenacaoPedidos');
 
     let clientesMap = {};
     let pedidosCarregados = [];
@@ -204,12 +224,17 @@
 
       clientes.forEach(cliente => {
 
-        clientesMap[cliente.id] = cliente.nome_completo;
+        clientesMap[cliente.id] =
+          cliente.nome_completo;
 
-        const option = document.createElement('option');
+        const option =
+          document.createElement('option');
 
-        option.value = cliente.id;
-        option.textContent = cliente.nome_completo;
+        option.value =
+          cliente.id;
+
+        option.textContent =
+          cliente.nome_completo;
 
         clienteSelect.appendChild(option);
       });
@@ -237,16 +262,17 @@
             valor_unitario,
             detalhes_personalizacao
           )
-        `)
-        .order('created_at', { ascending: false });
+        `);
 
       if (error) {
         console.error(error);
-        listaPedidos.innerHTML = 'Erro ao carregar pedidos.';
+        listaPedidos.innerHTML =
+          'Erro ao carregar pedidos.';
         return;
       }
 
-      pedidosCarregados = pedidos || [];
+      pedidosCarregados =
+        pedidos || [];
 
       renderizarPedidos();
     }
@@ -254,141 +280,229 @@
 
     function renderizarPedidos() {
 
-      const pedidos = filtroAtual === 'todos'
-        ? pedidosCarregados
-        : pedidosCarregados.filter(
-            pedido => pedido.status === filtroAtual
-          );
+      let pedidos =
+        [...pedidosCarregados];
+
+
+      if (filtroAtual !== 'todos') {
+        pedidos = pedidos.filter(
+          pedido =>
+            pedido.status === filtroAtual
+        );
+      }
+
+
+      const pesquisa =
+        pesquisaPedido.value.trim();
+
+      if (pesquisa) {
+
+        pedidos = pedidos.filter(
+          pedido =>
+            String(pedido.id) === pesquisa
+        );
+      }
+
+
+      const ordenacao =
+        ordenacaoPedidos.value;
+
+
+      if (ordenacao === 'recentes') {
+
+        pedidos.sort(
+          (a, b) =>
+            new Date(b.created_at) -
+            new Date(a.created_at)
+        );
+
+      }
+
+
+      if (ordenacao === 'antigos') {
+
+        pedidos.sort(
+          (a, b) =>
+            new Date(a.created_at) -
+            new Date(b.created_at)
+        );
+
+      }
+
+
+      if (ordenacao === 'numero_crescente') {
+
+        pedidos.sort(
+          (a, b) =>
+            a.id - b.id
+        );
+
+      }
+
+
+      if (ordenacao === 'numero_decrescente') {
+
+        pedidos.sort(
+          (a, b) =>
+            b.id - a.id
+        );
+
+      }
+
 
       if (pedidos.length === 0) {
+
         listaPedidos.innerHTML =
           '<p>Nenhum pedido encontrado.</p>';
+
         return;
       }
 
-      listaPedidos.innerHTML = pedidos.map(pedido => {
 
-        const cliente =
-          clientesMap[pedido.user_id] || pedido.user_id;
+      listaPedidos.innerHTML =
+        pedidos.map(pedido => {
 
-        const itens = pedido.order_items || [];
+          const cliente =
+            clientesMap[pedido.user_id] ||
+            pedido.user_id;
 
-        const itensHtml = itens.map(item => `
-          <div class="admin-item-linha">
-            <span>
-              <strong>${item.produto}</strong>
-            </span>
+          const itens =
+            pedido.order_items || [];
 
-            <span>
-              Qtd: ${item.quantidade}
-            </span>
 
-            <span>
-              ${formatarValor(item.valor_unitario)}
-            </span>
+          const itensHtml =
+            itens.map(item => `
 
-            ${
-              item.detalhes_personalizacao
-                ? `
-                  <span class="admin-item-personalizacao">
-                    ${item.detalhes_personalizacao}
-                  </span>
-                `
-                : ''
-            }
-          </div>
-        `).join('');
+              <div class="admin-item-linha">
 
-        return `
-          <div class="pedido-card admin-pedido-card">
+                <span>
+                  <strong>
+                    ${item.produto}
+                  </strong>
+                </span>
 
-            <div class="admin-pedido-topo">
+                <span>
+                  Qtd: ${item.quantidade}
+                </span>
 
-              <div>
-                <strong>Pedido #${pedido.id}</strong>
+                <span>
+                  ${formatarValor(item.valor_unitario)}
+                </span>
+
+                ${
+                  item.detalhes_personalizacao
+                    ? `
+                      <span class="admin-item-personalizacao">
+                        ${item.detalhes_personalizacao}
+                      </span>
+                    `
+                    : ''
+                }
+
               </div>
 
-              <div>
-                ${cliente}
+            `).join('');
+
+
+          return `
+
+            <div class="pedido-card admin-pedido-card">
+
+              <div class="admin-pedido-topo">
+
+                <div>
+                  <strong>
+                    Pedido #${pedido.id}
+                  </strong>
+                </div>
+
+                <div>
+                  ${cliente}
+                </div>
+
+              </div>
+
+
+              <div class="admin-pedido-info">
+
+                <span>
+                  ${formatarData(pedido.created_at)}
+                </span>
+
+                <span>
+                  ${formatarValor(pedido.valor_total)}
+                </span>
+
+              </div>
+
+
+              <div class="admin-status">
+
+                <label for="status-${pedido.id}">
+                  Status
+                </label>
+
+                <select
+                  id="status-${pedido.id}"
+                  onchange="alterarStatus(${pedido.id}, this.value)"
+                >
+
+                  <option value="aguardando_pagamento"
+                    ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
+                    Aguardando pagamento
+                  </option>
+
+                  <option value="pago"
+                    ${pedido.status === 'pago' ? 'selected' : ''}>
+                    Pago
+                  </option>
+
+                  <option value="em_producao"
+                    ${pedido.status === 'em_producao' ? 'selected' : ''}>
+                    Em produção
+                  </option>
+
+                  <option value="enviado"
+                    ${pedido.status === 'enviado' ? 'selected' : ''}>
+                    Enviado
+                  </option>
+
+                  <option value="concluido"
+                    ${pedido.status === 'concluido' ? 'selected' : ''}>
+                    Concluído
+                  </option>
+
+                  <option value="cancelado"
+                    ${pedido.status === 'cancelado' ? 'selected' : ''}>
+                    Cancelado
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              ${
+                pedido.observacoes
+                  ? `
+                    <div class="admin-observacao">
+                      <strong>Obs.:</strong>
+                      ${pedido.observacoes}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              <div class="admin-itens">
+                ${itensHtml}
               </div>
 
             </div>
 
-            <div class="admin-pedido-info">
+          `;
 
-              <span>
-                ${formatarData(pedido.created_at)}
-              </span>
-
-              <span>
-                ${formatarValor(pedido.valor_total)}
-              </span>
-
-            </div>
-
-            <div class="admin-status">
-
-              <label for="status-${pedido.id}">
-                Status
-              </label>
-
-              <select
-                id="status-${pedido.id}"
-                onchange="alterarStatus(${pedido.id}, this.value)"
-              >
-
-                <option value="aguardando_pagamento"
-                  ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
-                  Aguardando pagamento
-                </option>
-
-                <option value="pago"
-                  ${pedido.status === 'pago' ? 'selected' : ''}>
-                  Pago
-                </option>
-
-                <option value="em_producao"
-                  ${pedido.status === 'em_producao' ? 'selected' : ''}>
-                  Em produção
-                </option>
-
-                <option value="enviado"
-                  ${pedido.status === 'enviado' ? 'selected' : ''}>
-                  Enviado
-                </option>
-
-                <option value="concluido"
-                  ${pedido.status === 'concluido' ? 'selected' : ''}>
-                  Concluído
-                </option>
-
-                <option value="cancelado"
-                  ${pedido.status === 'cancelado' ? 'selected' : ''}>
-                  Cancelado
-                </option>
-
-              </select>
-
-            </div>
-
-            ${
-              pedido.observacoes
-                ? `
-                  <div class="admin-observacao">
-                    <strong>Obs.:</strong>
-                    ${pedido.observacoes}
-                  </div>
-                `
-                : ''
-            }
-
-            <div class="admin-itens">
-              ${itensHtml}
-            </div>
-
-          </div>
-        `;
-      }).join('');
+        }).join('');
     }
 
 
@@ -399,10 +513,12 @@
       document
         .querySelectorAll('.filtros-pedidos button')
         .forEach(botao => {
+
           botao.classList.toggle(
             'ativo',
             botao.dataset.status === status
           );
+
         });
 
       renderizarPedidos();
@@ -413,14 +529,34 @@
       .querySelectorAll('.filtros-pedidos button')
       .forEach(botao => {
 
-        botao.addEventListener('click', () => {
-          filtrarPedidos(botao.dataset.status);
-        });
+        botao.addEventListener(
+          'click',
+          () => {
+            filtrarPedidos(
+              botao.dataset.status
+            );
+          }
+        );
 
       });
 
 
-    async function alterarStatus(pedidoId, novoStatus) {
+    pesquisaPedido.addEventListener(
+      'input',
+      renderizarPedidos
+    );
+
+
+    ordenacaoPedidos.addEventListener(
+      'change',
+      renderizarPedidos
+    );
+
+
+    async function alterarStatus(
+      pedidoId,
+      novoStatus
+    ) {
 
       const {
         error
@@ -431,11 +567,18 @@
         })
         .eq('id', pedidoId);
 
+
       if (error) {
+
         console.error(error);
-        alert('Erro ao alterar o status.');
+
+        alert(
+          'Erro ao alterar o status.'
+        );
+
         return;
       }
+
 
       mensagem.textContent =
         `Pedido #${pedidoId} atualizado com sucesso.`;
@@ -444,89 +587,116 @@
     }
 
 
-    pedidoForm.addEventListener('submit', async (event) => {
+    pedidoForm.addEventListener(
+      'submit',
+      async (event) => {
 
-      event.preventDefault();
+        event.preventDefault();
 
-      mensagem.textContent =
-        'Criando pedido...';
-
-      const userId = clienteSelect.value;
-      const produto =
-        document.getElementById('produto').value.trim();
-
-      const quantidade =
-        Number(document.getElementById('quantidade').value);
-
-      const valorUnitario =
-        Number(document.getElementById('valorUnitario').value);
-
-      const personalizacao =
-        document.getElementById('personalizacao').value.trim();
-
-      const observacoes =
-        document.getElementById('observacoes').value.trim();
-
-      const valorTotal =
-        quantidade * valorUnitario;
-
-
-      const {
-        data: pedido,
-        error: pedidoError
-      } = await supabaseClient
-        .from('orders')
-        .insert({
-          user_id: userId,
-          status: 'pago',
-          valor_total: valorTotal,
-          observacoes: observacoes
-        })
-        .select()
-        .single();
-
-
-      if (pedidoError) {
-        console.error(pedidoError);
-        mensagem.textContent = 'Erro ao criar o pedido.';
-        return;
-      }
-
-
-      const {
-        error: itemError
-      } = await supabaseClient
-        .from('order_items')
-        .insert({
-          order_id: pedido.id,
-          produto: produto,
-          quantidade: quantidade,
-          valor_unitario: valorUnitario,
-          detalhes_personalizacao: personalizacao
-        });
-
-
-      if (itemError) {
-        console.error(itemError);
         mensagem.textContent =
-          'Pedido criado, mas houve erro ao criar o item.';
-        return;
+          'Criando pedido...';
+
+
+        const userId =
+          clienteSelect.value;
+
+        const produto =
+          document
+            .getElementById('produto')
+            .value
+            .trim();
+
+        const quantidade =
+          Number(
+            document.getElementById('quantidade').value
+          );
+
+        const valorUnitario =
+          Number(
+            document.getElementById('valorUnitario').value
+          );
+
+        const personalizacao =
+          document
+            .getElementById('personalizacao')
+            .value
+            .trim();
+
+        const observacoes =
+          document
+            .getElementById('observacoes')
+            .value
+            .trim();
+
+        const valorTotal =
+          quantidade * valorUnitario;
+
+
+        const {
+          data: pedido,
+          error: pedidoError
+        } = await supabaseClient
+          .from('orders')
+          .insert({
+            user_id: userId,
+            status: 'pago',
+            valor_total: valorTotal,
+            observacoes: observacoes
+          })
+          .select()
+          .single();
+
+
+        if (pedidoError) {
+
+          console.error(pedidoError);
+
+          mensagem.textContent =
+            'Erro ao criar o pedido.';
+
+          return;
+        }
+
+
+        const {
+          error: itemError
+        } = await supabaseClient
+          .from('order_items')
+          .insert({
+            order_id: pedido.id,
+            produto: produto,
+            quantidade: quantidade,
+            valor_unitario: valorUnitario,
+            detalhes_personalizacao:
+              personalizacao
+          });
+
+
+        if (itemError) {
+
+          console.error(itemError);
+
+          mensagem.textContent =
+            'Pedido criado, mas houve erro ao criar o item.';
+
+          return;
+        }
+
+
+        mensagem.textContent =
+          `Pedido #${pedido.id} criado com sucesso.`;
+
+        pedidoForm.reset();
+
+        document.getElementById('produto').value =
+          'Plaqueta personalizada';
+
+        document.getElementById('quantidade').value =
+          '1';
+
+        await carregarPedidos();
       }
-
-
-      mensagem.textContent =
-        `Pedido #${pedido.id} criado com sucesso.`;
-
-      pedidoForm.reset();
-
-      document.getElementById('produto').value =
-        'Plaqueta personalizada';
-
-      document.getElementById('quantidade').value =
-        '1';
-
-      await carregarPedidos();
-    });
+    );
 
 
     async function iniciar() {
