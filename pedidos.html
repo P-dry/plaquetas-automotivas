@@ -99,7 +99,14 @@
           created_at,
           status,
           valor_total,
-          observacoes
+          observacoes,
+          order_items (
+            id,
+            produto,
+            quantidade,
+            valor_unitario,
+            detalhes_personalizacao
+          )
         `)
         .eq('user_id', session.user.id)
         .order('created_at', { ascending: false });
@@ -112,49 +119,82 @@
       }
 
       if (!pedidos || pedidos.length === 0) {
-        pedidosLista.innerHTML = `
-          <p>
-            Você ainda não possui pedidos.
-          </p>
-        `;
+        pedidosLista.innerHTML = '<p>Você ainda não possui pedidos.</p>';
         return;
       }
 
-      pedidosLista.innerHTML = pedidos.map(pedido => `
-        <div class="pedido-card">
+      pedidosLista.innerHTML = pedidos.map(pedido => {
 
-          <h2>
-            Pedido #${pedido.id}
-          </h2>
+        const itens = pedido.order_items || [];
 
-          <p>
-            <strong>Data:</strong>
-            ${formatarData(pedido.created_at)}
-          </p>
+        const itensHtml = itens.length > 0
+          ? itens.map(item => `
+              <div class="pedido-item">
+                <strong>${item.produto}</strong>
 
-          <p>
-            <strong>Status:</strong>
-            ${formatarStatus(pedido.status)}
-          </p>
-
-          <p>
-            <strong>Valor:</strong>
-            ${formatarValor(pedido.valor_total)}
-          </p>
-
-          ${
-            pedido.observacoes
-              ? `
                 <p>
-                  <strong>Observações:</strong>
-                  ${pedido.observacoes}
+                  Quantidade: ${item.quantidade}
                 </p>
-              `
-              : ''
-          }
 
-        </div>
-      `).join('');
+                <p>
+                  Valor unitário:
+                  ${formatarValor(item.valor_unitario)}
+                </p>
+
+                ${
+                  item.detalhes_personalizacao
+                    ? `
+                      <p>
+                        Personalização:
+                        ${item.detalhes_personalizacao}
+                      </p>
+                    `
+                    : ''
+                }
+              </div>
+            `).join('')
+          : '<p>Nenhum item cadastrado neste pedido.</p>';
+
+        return `
+          <div class="pedido-card">
+
+            <h2>
+              Pedido #${pedido.id}
+            </h2>
+
+            <p>
+              <strong>Data:</strong>
+              ${formatarData(pedido.created_at)}
+            </p>
+
+            <p>
+              <strong>Status:</strong>
+              ${formatarStatus(pedido.status)}
+            </p>
+
+            <p>
+              <strong>Valor total:</strong>
+              ${formatarValor(pedido.valor_total)}
+            </p>
+
+            ${
+              pedido.observacoes
+                ? `
+                  <p>
+                    <strong>Observações:</strong>
+                    ${pedido.observacoes}
+                  </p>
+                `
+                : ''
+            }
+
+            <h3>Itens do pedido</h3>
+
+            ${itensHtml}
+
+          </div>
+        `;
+      }).join('');
     }
 
     carregarPedidos();
