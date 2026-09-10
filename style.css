@@ -266,3 +266,15 @@ input:focus, select:focus, textarea:focus { border-color: #65707d; }
 .pedido-card p {
   margin: 8px 0;
 }
+.filtros-pedidos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filtros-pedidos button {
+  width: auto;
+  margin: 0;
+  padding: 10px 14px;
+}
