@@ -36,120 +36,44 @@
 
         <h2>Dados pessoais</h2>
 
-        <label for="nomeCompleto">
-          Nome completo
-        </label>
+        <label for="nomeCompleto">Nome completo</label>
+        <input type="text" id="nomeCompleto" disabled>
 
-        <input
-          type="text"
-          id="nomeCompleto"
-          disabled
-        >
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" disabled>
 
-        <label for="cpf">
-          CPF
-        </label>
+        <label for="dataNascimento">Data de nascimento</label>
+        <input type="date" id="dataNascimento" disabled>
 
-        <input
-          type="text"
-          id="cpf"
-          disabled
-        >
-
-        <label for="dataNascimento">
-          Data de nascimento
-        </label>
-
-        <input
-          type="date"
-          id="dataNascimento"
-          disabled
-        >
-
-        <label for="telefone">
-          Telefone / WhatsApp
-        </label>
-
-        <input
-          type="tel"
-          id="telefone"
-          disabled
-        >
+        <label for="telefone">Telefone / WhatsApp</label>
+        <input type="tel" id="telefone" disabled>
 
 
         <h2>Endereço</h2>
 
-        <label for="cep">
-          CEP
-        </label>
-
-        <input
-          type="text"
-          id="cep"
-          maxlength="9"
-          disabled
-        >
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" maxlength="9" disabled>
 
         <small id="cepMessage"></small>
 
-        <label for="rua">
-          Rua / Avenida
-        </label>
+        <label for="rua">Rua / Avenida</label>
+        <input type="text" id="rua" disabled>
 
-        <input
-          type="text"
-          id="rua"
-          disabled
-        >
+        <label for="numero">Número</label>
+        <input type="text" id="numero" disabled>
 
-        <label for="numero">
-          Número
-        </label>
+        <label for="complemento">Complemento</label>
+        <input type="text" id="complemento" disabled>
 
-        <input
-          type="text"
-          id="numero"
-          disabled
-        >
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" disabled>
 
-        <label for="complemento">
-          Complemento
-        </label>
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" disabled>
 
-        <input
-          type="text"
-          id="complemento"
-          disabled
-        >
+        <label for="estado">Estado</label>
 
-        <label for="bairro">
-          Bairro
-        </label>
-
-        <input
-          type="text"
-          id="bairro"
-          disabled
-        >
-
-        <label for="cidade">
-          Cidade
-        </label>
-
-        <input
-          type="text"
-          id="cidade"
-          disabled
-        >
-
-        <label for="estado">
-          Estado
-        </label>
-
-        <select
-          id="estado"
-          disabled
-        >
+        <select id="estado" disabled>
           <option value="">Selecione</option>
           <option value="AC">AC</option>
           <option value="AL">AL</option>
@@ -182,10 +106,7 @@
 
         <p id="accountMessage"></p>
 
-        <button
-          type="button"
-          id="editBtn"
-        >
+        <button type="button" id="editBtn">
           Editar dados
         </button>
 
@@ -215,12 +136,23 @@
       </p>
 
 
+      <p
+        id="adminLinkContainer"
+        style="display: none;"
+      >
+        <a href="admin-pedidos.html">
+          Administração de pedidos
+        </a>
+      </p>
+
+
       <button
         type="button"
         id="logoutBtn"
       >
         Sair
       </button>
+
 
       <p>
         <a href="index.html">
@@ -237,6 +169,7 @@
 
     const accountForm = document.getElementById('accountForm');
     const accountMessage = document.getElementById('accountMessage');
+
     const editBtn = document.getElementById('editBtn');
     const saveBtn = document.getElementById('saveBtn');
     const cancelBtn = document.getElementById('cancelBtn');
@@ -244,10 +177,14 @@
 
     const cepInput = document.getElementById('cep');
     const cepMessage = document.getElementById('cepMessage');
+
     const ruaInput = document.getElementById('rua');
     const bairroInput = document.getElementById('bairro');
     const cidadeInput = document.getElementById('cidade');
     const estadoInput = document.getElementById('estado');
+
+    const adminLinkContainer =
+      document.getElementById('adminLinkContainer');
 
     let usuarioAtual = null;
     let enderecoAtualId = null;
@@ -255,28 +192,61 @@
 
     async function carregarConta() {
 
-      accountMessage.textContent = 'Carregando dados...';
+      accountMessage.textContent =
+        'Carregando dados...';
 
       const {
         data: { session },
         error: sessionError
       } = await supabaseClient.auth.getSession();
 
+
       if (sessionError) {
+
         console.error(sessionError);
-        accountMessage.textContent = 'Erro ao verificar sua sessão.';
+
+        accountMessage.textContent =
+          'Erro ao verificar sua sessão.';
+
         return;
       }
 
+
       if (!session) {
-        window.location.href = 'login.html';
+
+        window.location.href =
+          'login.html';
+
         return;
       }
+
 
       usuarioAtual = session.user;
 
       document.getElementById('userEmail').textContent =
         usuarioAtual.email;
+
+
+      const {
+        data: admin,
+        error: adminError
+      } = await supabaseClient
+        .from('admins')
+        .select('user_id')
+        .eq('user_id', usuarioAtual.id)
+        .maybeSingle();
+
+
+      if (adminError) {
+        console.error(adminError);
+      }
+
+
+      if (admin) {
+        adminLinkContainer.style.display = 'block';
+      } else {
+        adminLinkContainer.style.display = 'none';
+      }
 
 
       const {
@@ -288,13 +258,18 @@
         .eq('id', usuarioAtual.id)
         .single();
 
+
       if (perfilError) {
+
         console.error(perfilError);
+
         accountMessage.textContent =
           'Erro ao carregar os dados pessoais: ' +
           perfilError.message;
+
         return;
       }
+
 
       document.getElementById('nomeCompleto').value =
         perfil.nome_completo || '';
@@ -330,13 +305,18 @@
         .order('updated_at', { ascending: false })
         .limit(1);
 
+
       if (enderecoError) {
+
         console.error(enderecoError);
+
         accountMessage.textContent =
           'Erro ao carregar o endereço: ' +
           enderecoError.message;
+
         return;
       }
+
 
       enderecoAtualId = null;
 
@@ -348,6 +328,7 @@
       cidadeInput.value = '';
       estadoInput.value = '';
       cepMessage.textContent = '';
+
 
       if (enderecos && enderecos.length > 0) {
 
@@ -364,10 +345,16 @@
         document.getElementById('complemento').value =
           endereco.complemento || '';
 
-        bairroInput.value = endereco.bairro || '';
-        cidadeInput.value = endereco.cidade || '';
-        estadoInput.value = endereco.estado || '';
+        bairroInput.value =
+          endereco.bairro || '';
+
+        cidadeInput.value =
+          endereco.cidade || '';
+
+        estadoInput.value =
+          endereco.estado || '';
       }
+
 
       accountMessage.textContent = '';
     }
@@ -380,8 +367,10 @@
 
       cepInput.disabled = false;
       ruaInput.disabled = false;
+
       document.getElementById('numero').disabled = false;
       document.getElementById('complemento').disabled = false;
+
       bairroInput.disabled = false;
       cidadeInput.disabled = false;
       estadoInput.disabled = false;
@@ -401,8 +390,10 @@
 
       cepInput.disabled = true;
       ruaInput.disabled = true;
+
       document.getElementById('numero').disabled = true;
       document.getElementById('complemento').disabled = true;
+
       bairroInput.disabled = true;
       cidadeInput.disabled = true;
       estadoInput.disabled = true;
@@ -413,248 +404,368 @@
     }
 
 
-    editBtn.addEventListener('click', ativarEdicao);
+    editBtn.addEventListener(
+      'click',
+      ativarEdicao
+    );
 
 
-    cancelBtn.addEventListener('click', async () => {
-      desativarEdicao();
-      await carregarConta();
-    });
+    cancelBtn.addEventListener(
+      'click',
+      async () => {
 
+        desativarEdicao();
 
-    accountForm.addEventListener('submit', async (event) => {
-
-      event.preventDefault();
-
-      if (!usuarioAtual) {
-        accountMessage.textContent = 'Usuário não identificado.';
-        return;
+        await carregarConta();
       }
-
-      accountMessage.textContent = 'Salvando alterações...';
-
-      const nomeCompleto =
-        document.getElementById('nomeCompleto').value.trim();
-
-      const telefone =
-        document.getElementById('telefone').value.trim();
+    );
 
 
-      const {
-        data: perfilAtualizado,
-        error: profileError
-      } = await supabaseClient
-        .from('profiles')
-        .update({
-          nome_completo: nomeCompleto,
-          telefone: telefone,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', usuarioAtual.id)
-        .select();
+    accountForm.addEventListener(
+      'submit',
+      async (event) => {
 
-      if (profileError) {
-        console.error(profileError);
+        event.preventDefault();
+
+
+        if (!usuarioAtual) {
+
+          accountMessage.textContent =
+            'Usuário não identificado.';
+
+          return;
+        }
+
+
         accountMessage.textContent =
-          'Erro ao atualizar os dados pessoais: ' +
-          profileError.message;
-        return;
-      }
-
-      if (!perfilAtualizado || perfilAtualizado.length === 0) {
-        accountMessage.textContent =
-          'Os dados pessoais não foram atualizados.';
-        return;
-      }
+          'Salvando alterações...';
 
 
-      const endereco = {
-        cep: cepInput.value.trim(),
-        rua: ruaInput.value.trim(),
-        numero: document.getElementById('numero').value.trim(),
-        complemento: document.getElementById('complemento').value.trim(),
-        bairro: bairroInput.value.trim(),
-        cidade: cidadeInput.value.trim(),
-        estado: estadoInput.value,
-        updated_at: new Date().toISOString()
-      };
+        const nomeCompleto =
+          document
+            .getElementById('nomeCompleto')
+            .value
+            .trim();
 
+        const telefone =
+          document
+            .getElementById('telefone')
+            .value
+            .trim();
 
-      if (enderecoAtualId) {
 
         const {
-          data: enderecoAtualizado,
-          error: enderecoUpdateError
+          data: perfilAtualizado,
+          error: profileError
         } = await supabaseClient
-          .from('addresses')
-          .update(endereco)
-          .eq('id', enderecoAtualId)
-          .eq('user_id', usuarioAtual.id)
+          .from('profiles')
+          .update({
+            nome_completo: nomeCompleto,
+            telefone: telefone,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', usuarioAtual.id)
           .select();
 
-        if (enderecoUpdateError) {
-          console.error(enderecoUpdateError);
+
+        if (profileError) {
+
+          console.error(profileError);
+
           accountMessage.textContent =
-            'Erro ao atualizar o endereço: ' +
-            enderecoUpdateError.message;
+            'Erro ao atualizar os dados pessoais: ' +
+            profileError.message;
+
           return;
         }
 
-        if (!enderecoAtualizado || enderecoAtualizado.length === 0) {
+
+        if (
+          !perfilAtualizado ||
+          perfilAtualizado.length === 0
+        ) {
+
           accountMessage.textContent =
-            'O endereço não foi atualizado.';
+            'Os dados pessoais não foram atualizados.';
+
           return;
         }
 
-      } else {
 
-        const {
-          data: novoEndereco,
-          error: enderecoInsertError
-        } = await supabaseClient
-          .from('addresses')
-          .insert({
-            ...endereco,
-            user_id: usuarioAtual.id
-          })
-          .select()
-          .single();
+        const endereco = {
 
-        if (enderecoInsertError) {
-          console.error(enderecoInsertError);
-          accountMessage.textContent =
-            'Erro ao salvar o endereço: ' +
-            enderecoInsertError.message;
-          return;
+          cep:
+            cepInput.value.trim(),
+
+          rua:
+            ruaInput.value.trim(),
+
+          numero:
+            document
+              .getElementById('numero')
+              .value
+              .trim(),
+
+          complemento:
+            document
+              .getElementById('complemento')
+              .value
+              .trim(),
+
+          bairro:
+            bairroInput.value.trim(),
+
+          cidade:
+            cidadeInput.value.trim(),
+
+          estado:
+            estadoInput.value,
+
+          updated_at:
+            new Date().toISOString()
+        };
+
+
+        if (enderecoAtualId) {
+
+          const {
+            data: enderecoAtualizado,
+            error: enderecoUpdateError
+          } = await supabaseClient
+            .from('addresses')
+            .update(endereco)
+            .eq('id', enderecoAtualId)
+            .eq('user_id', usuarioAtual.id)
+            .select();
+
+
+          if (enderecoUpdateError) {
+
+            console.error(
+              enderecoUpdateError
+            );
+
+            accountMessage.textContent =
+              'Erro ao atualizar o endereço: ' +
+              enderecoUpdateError.message;
+
+            return;
+          }
+
+
+          if (
+            !enderecoAtualizado ||
+            enderecoAtualizado.length === 0
+          ) {
+
+            accountMessage.textContent =
+              'O endereço não foi atualizado.';
+
+            return;
+          }
+
+        } else {
+
+          const {
+            data: novoEndereco,
+            error: enderecoInsertError
+          } = await supabaseClient
+            .from('addresses')
+            .insert({
+              ...endereco,
+              user_id: usuarioAtual.id
+            })
+            .select()
+            .single();
+
+
+          if (enderecoInsertError) {
+
+            console.error(
+              enderecoInsertError
+            );
+
+            accountMessage.textContent =
+              'Erro ao salvar o endereço: ' +
+              enderecoInsertError.message;
+
+            return;
+          }
+
+
+          enderecoAtualId =
+            novoEndereco.id;
         }
 
-        enderecoAtualId = novoEndereco.id;
-      }
 
-      desativarEdicao();
-      await carregarConta();
+        desativarEdicao();
 
-      accountMessage.textContent =
-        'Dados atualizados com sucesso.';
-    });
+        await carregarConta();
 
-
-    logoutBtn.addEventListener('click', async () => {
-
-      const { error } =
-        await supabaseClient.auth.signOut();
-
-      if (error) {
-        console.error(error);
         accountMessage.textContent =
-          'Erro ao sair da conta.';
-        return;
+          'Dados atualizados com sucesso.';
       }
+    );
 
-      window.location.href = 'index.html';
-    });
+
+    logoutBtn.addEventListener(
+      'click',
+      async () => {
+
+        const { error } =
+          await supabaseClient.auth.signOut();
+
+
+        if (error) {
+
+          console.error(error);
+
+          accountMessage.textContent =
+            'Erro ao sair da conta.';
+
+          return;
+        }
+
+
+        window.location.href =
+          'index.html';
+      }
+    );
 
 
     const telefoneInput =
       document.getElementById('telefone');
 
-    telefoneInput.addEventListener('input', () => {
 
-      let valor =
-        telefoneInput.value
-          .replace(/\D/g, '')
-          .slice(0, 11);
+    telefoneInput.addEventListener(
+      'input',
+      () => {
 
-      valor = valor.replace(
-        /^(\d{2})(\d)/,
-        '($1) $2'
-      );
-
-      valor = valor.replace(
-        /(\d{5})(\d{4})$/,
-        '$1-$2'
-      );
-
-      telefoneInput.value = valor;
-    });
+        let valor =
+          telefoneInput.value
+            .replace(/\D/g, '')
+            .slice(0, 11);
 
 
-    cepInput.addEventListener('input', () => {
-
-      let valor =
-        cepInput.value
-          .replace(/\D/g, '')
-          .slice(0, 8);
-
-      valor = valor.replace(
-        /(\d{5})(\d)/,
-        '$1-$2'
-      );
-
-      cepInput.value = valor;
-    });
+        valor = valor.replace(
+          /^(\d{2})(\d)/,
+          '($1) $2'
+        );
 
 
-    cepInput.addEventListener('blur', async () => {
+        valor = valor.replace(
+          /(\d{5})(\d{4})$/,
+          '$1-$2'
+        );
 
-      if (cepInput.disabled) {
-        return;
+
+        telefoneInput.value =
+          valor;
       }
+    );
 
-      const cep =
-        cepInput.value.replace(/\D/g, '');
 
-      if (cep.length !== 8) {
-        cepMessage.textContent =
-          'Digite um CEP válido.';
-        return;
+    cepInput.addEventListener(
+      'input',
+      () => {
+
+        let valor =
+          cepInput.value
+            .replace(/\D/g, '')
+            .slice(0, 8);
+
+
+        valor = valor.replace(
+          /(\d{5})(\d)/,
+          '$1-$2'
+        );
+
+
+        cepInput.value =
+          valor;
       }
+    );
 
-      cepMessage.textContent =
-        'Buscando endereço...';
 
-      try {
+    cepInput.addEventListener(
+      'blur',
+      async () => {
 
-        const response =
-          await fetch(
-            `https://viacep.com.br/ws/${cep}/json/`
-          );
-
-        const data =
-          await response.json();
-
-        if (data.erro) {
-          cepMessage.textContent =
-            'CEP não encontrado.';
+        if (cepInput.disabled) {
           return;
         }
 
-        ruaInput.value =
-          data.logradouro || '';
 
-        bairroInput.value =
-          data.bairro || '';
+        const cep =
+          cepInput.value.replace(
+            /\D/g,
+            ''
+          );
 
-        cidadeInput.value =
-          data.localidade || '';
 
-        estadoInput.value =
-          data.uf || '';
+        if (cep.length !== 8) {
 
-        cepMessage.textContent =
-          'Endereço encontrado.';
+          cepMessage.textContent =
+            'Digite um CEP válido.';
 
-        document.getElementById('numero').focus();
+          return;
+        }
 
-      } catch (erro) {
-
-        console.error(erro);
 
         cepMessage.textContent =
-          'Não foi possível consultar o CEP.';
+          'Buscando endereço...';
+
+
+        try {
+
+          const response =
+            await fetch(
+              `https://viacep.com.br/ws/${cep}/json/`
+            );
+
+          const data =
+            await response.json();
+
+
+          if (data.erro) {
+
+            cepMessage.textContent =
+              'CEP não encontrado.';
+
+            return;
+          }
+
+
+          ruaInput.value =
+            data.logradouro || '';
+
+          bairroInput.value =
+            data.bairro || '';
+
+          cidadeInput.value =
+            data.localidade || '';
+
+          estadoInput.value =
+            data.uf || '';
+
+
+          cepMessage.textContent =
+            'Endereço encontrado.';
+
+
+          document
+            .getElementById('numero')
+            .focus();
+
+        } catch (erro) {
+
+          console.error(erro);
+
+          cepMessage.textContent =
+            'Não foi possível consultar o CEP.';
+        }
       }
-
-    });
+    );
 
 
     carregarConta();
