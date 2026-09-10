@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Administração de pedidos</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+</head>
+
+<body>
+
+  <main class="auth-container">
+
+    <section class="auth-card">
+
+      <h1>Novo pedido</h1>
+
+      <form id="pedidoForm">
+
+        <label for="cliente">Cliente</label>
+        <select id="cliente" required>
+          <option value="">Carregando clientes...</option>
+        </select>
+
+        <label for="produto">Produto</label>
+        <input
+          type="text"
+          id="produto"
+          value="Plaqueta personalizada"
+          required
+        >
+
+        <label for="quantidade">Quantidade</label>
+        <input
+          type="number"
+          id="quantidade"
+          min="1"
+          value="1"
+          required
+        >
+
+        <label for="valorUnitario">Valor unitário</label>
+        <input
+          type="number"
+          id="valorUnitario"
+          min="0"
+          step="0.01"
+          required
+        >
+
+        <label for="personalizacao">Personalização</label>
+        <textarea
+          id="personalizacao"
+          rows="4"
+          placeholder="Ex.: Ford Verona 1991/2026"
+        ></textarea>
+
+        <label for="observacoes">Observações do pedido</label>
+        <textarea
+          id="observacoes"
+          rows="3"
+        ></textarea>
+
+        <button type="submit">
+          Criar pedido
+        </button>
+
+      </form>
+
+      <p id="mensagem"></p>
+
+      <p>
+        <a href="conta.html">
+          Voltar para minha conta
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const pedidoForm = document.getElementById('pedidoForm');
+    const clienteSelect = document.getElementById('cliente');
+    const mensagem = document.getElementById('mensagem');
+
+    async function carregarClientes() {
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const {
+        data: admin
+      } = await supabaseClient
+        .from('admins')
+        .select('user_id')
+        .eq('user_id', session.user.id)
+        .maybeSingle();
+
+      if (!admin) {
+        window.location.href = 'conta.html';
+        return;
+      }
+
+      const {
+        data: clientes,
+        error
+      } = await supabaseClient
+        .from('profiles')
+        .select('id, nome_completo')
+        .order('nome_completo');
+
+      if (error) {
+        console.error(error);
+        mensagem.textContent = 'Erro ao carregar clientes.';
+        return;
+      }
+
+      clienteSelect.innerHTML =
+        '<option value="">Selecione o cliente</option>';
+
+      clientes.forEach(cliente => {
+        const option = document.createElement('option');
+        option.value = cliente.id;
+        option.textContent = cliente.nome_completo;
+        clienteSelect.appendChild(option);
+      });
+    }
+
+
+    pedidoForm.addEventListener('submit', async (event) => {
+
+      event.preventDefault();
+
+      mensagem.textContent = 'Criando pedido...';
+
+      const userId = clienteSelect.value;
+      const produto = document.getElementById('produto').value.trim();
+      const quantidade = Number(document.getElementById('quantidade').value);
+      const valorUnitario = Number(document.getElementById('valorUnitario').value);
+      const personalizacao = document.getElementById('personalizacao').value.trim();
+      const observacoes = document.getElementById('observacoes').value.trim();
+
+      const valorTotal = quantidade * valorUnitario;
+
+      const {
+        data: pedido,
+        error: pedidoError
+      } = await supabaseClient
+        .from('orders')
+        .insert({
+          user_id: userId,
+          status: 'pago',
+          valor_total: valorTotal,
+          observacoes: observacoes
+        })
+        .select()
+        .single();
+
+      if (pedidoError) {
+        console.error(pedidoError);
+        mensagem.textContent = 'Erro ao criar o pedido.';
+        return;
+      }
+
+      const {
+        error: itemError
+      } = await supabaseClient
+        .from('order_items')
+        .insert({
+          order_id: pedido.id,
+          produto: produto,
+          quantidade: quantidade,
+          valor_unitario: valorUnitario,
+          detalhes_personalizacao: personalizacao
+        });
+
+      if (itemError) {
+        console.error(itemError);
+        mensagem.textContent = 'Pedido criado, mas houve erro ao criar o item.';
+        return;
+      }
+
+      mensagem.textContent =
+        `Pedido #${pedido.id} criado com sucesso.`;
+
+      pedidoForm.reset();
+
+      document.getElementById('produto').value =
+        'Plaqueta personalizada';
+
+      document.getElementById('quantidade').value =
+        '1';
+    });
+
+
+    carregarClientes();
+
+  </script>
+
+</body>
+
+</html>
