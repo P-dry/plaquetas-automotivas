@@ -117,6 +117,8 @@
           disabled
         >
 
+        <small id="cepMessage"></small>
+
 
         <label for="rua">
           Rua / Avenida
@@ -310,6 +312,36 @@
         'logoutBtn'
       );
 
+    const cepInput =
+      document.getElementById(
+        'cep'
+      );
+
+    const cepMessage =
+      document.getElementById(
+        'cepMessage'
+      );
+
+    const ruaInput =
+      document.getElementById(
+        'rua'
+      );
+
+    const bairroInput =
+      document.getElementById(
+        'bairro'
+      );
+
+    const cidadeInput =
+      document.getElementById(
+        'cidade'
+      );
+
+    const estadoInput =
+      document.getElementById(
+        'estado'
+      );
+
 
     let usuarioAtual = null;
 
@@ -328,10 +360,6 @@
       accountMessage.textContent =
         'Carregando dados...';
 
-
-      /*
-       * Verifica sessão
-       */
 
       const {
         data: {
@@ -357,10 +385,6 @@
 
       }
 
-
-      /*
-       * Se não estiver logado
-       */
 
       if (!session) {
 
@@ -459,10 +483,6 @@
        * ============================
        * CARREGA ENDEREÇO
        * ============================
-       *
-       * Se por algum teste anterior
-       * existirem vários endereços,
-       * pega sempre o mais recente.
        */
 
       const {
@@ -518,19 +538,16 @@
       }
 
 
+
       /*
-       * Limpa primeiro
+       * Limpa endereço atual
        */
 
       enderecoAtualId = null;
 
-      document.getElementById(
-        'cep'
-      ).value = '';
+      cepInput.value = '';
 
-      document.getElementById(
-        'rua'
-      ).value = '';
+      ruaInput.value = '';
 
       document.getElementById(
         'numero'
@@ -540,17 +557,13 @@
         'complemento'
       ).value = '';
 
-      document.getElementById(
-        'bairro'
-      ).value = '';
+      bairroInput.value = '';
 
-      document.getElementById(
-        'cidade'
-      ).value = '';
+      cidadeInput.value = '';
 
-      document.getElementById(
-        'estado'
-      ).value = '';
+      estadoInput.value = '';
+
+      cepMessage.textContent = '';
 
 
 
@@ -571,15 +584,11 @@
           endereco.id;
 
 
-        document.getElementById(
-          'cep'
-        ).value =
+        cepInput.value =
           endereco.cep || '';
 
 
-        document.getElementById(
-          'rua'
-        ).value =
+        ruaInput.value =
           endereco.rua || '';
 
 
@@ -595,21 +604,15 @@
           endereco.complemento || '';
 
 
-        document.getElementById(
-          'bairro'
-        ).value =
+        bairroInput.value =
           endereco.bairro || '';
 
 
-        document.getElementById(
-          'cidade'
-        ).value =
+        cidadeInput.value =
           endereco.cidade || '';
 
 
-        document.getElementById(
-          'estado'
-        ).value =
+        estadoInput.value =
           endereco.estado || '';
 
       }
@@ -629,10 +632,6 @@
 
     function ativarEdicao() {
 
-      /*
-       * Editáveis
-       */
-
       document.getElementById(
         'nomeCompleto'
       ).disabled =
@@ -645,15 +644,11 @@
         false;
 
 
-      document.getElementById(
-        'cep'
-      ).disabled =
+      cepInput.disabled =
         false;
 
 
-      document.getElementById(
-        'rua'
-      ).disabled =
+      ruaInput.disabled =
         false;
 
 
@@ -669,28 +664,21 @@
         false;
 
 
-      document.getElementById(
-        'bairro'
-      ).disabled =
+      bairroInput.disabled =
         false;
 
 
-      document.getElementById(
-        'cidade'
-      ).disabled =
+      cidadeInput.disabled =
         false;
 
 
-      document.getElementById(
-        'estado'
-      ).disabled =
+      estadoInput.disabled =
         false;
-
 
 
       /*
-       * CPF e nascimento continuam
-       * bloqueados propositalmente.
+       * CPF e data de nascimento
+       * continuam bloqueados.
        */
 
 
@@ -704,7 +692,8 @@
         'block';
 
 
-      accountMessage.textContent = '';
+      accountMessage.textContent =
+        '';
 
     }
 
@@ -730,15 +719,11 @@
         true;
 
 
-      document.getElementById(
-        'cep'
-      ).disabled =
+      cepInput.disabled =
         true;
 
 
-      document.getElementById(
-        'rua'
-      ).disabled =
+      ruaInput.disabled =
         true;
 
 
@@ -754,21 +739,15 @@
         true;
 
 
-      document.getElementById(
-        'bairro'
-      ).disabled =
+      bairroInput.disabled =
         true;
 
 
-      document.getElementById(
-        'cidade'
-      ).disabled =
+      cidadeInput.disabled =
         true;
 
 
-      document.getElementById(
-        'estado'
-      ).disabled =
+      estadoInput.disabled =
         true;
 
 
@@ -914,11 +893,6 @@
         }
 
 
-        /*
-         * Garante que realmente
-         * atualizou o perfil.
-         */
-
         if (
           !perfilAtualizado ||
           perfilAtualizado.length === 0
@@ -942,18 +916,12 @@
         const endereco = {
 
           cep:
-            document
-              .getElementById(
-                'cep'
-              )
+            cepInput
               .value
               .trim(),
 
           rua:
-            document
-              .getElementById(
-                'rua'
-              )
+            ruaInput
               .value
               .trim(),
 
@@ -974,26 +942,17 @@
               .trim(),
 
           bairro:
-            document
-              .getElementById(
-                'bairro'
-              )
+            bairroInput
               .value
               .trim(),
 
           cidade:
-            document
-              .getElementById(
-                'cidade'
-              )
+            cidadeInput
               .value
               .trim(),
 
           estado:
-            document
-              .getElementById(
-                'estado'
-              )
+            estadoInput
               .value,
 
           updated_at:
@@ -1052,11 +1011,6 @@
           }
 
 
-          /*
-           * Garante que realmente
-           * houve atualização.
-           */
-
           if (
             !enderecoAtualizado ||
             enderecoAtualizado.length === 0
@@ -1075,7 +1029,7 @@
 
         /*
          * ============================
-         * CRIA ENDEREÇO SE NÃO EXISTIR
+         * CRIA ENDEREÇO
          * ============================
          */
 
@@ -1136,21 +1090,8 @@
          * ============================
          */
 
-        accountMessage.textContent =
-          'Dados atualizados com sucesso.';
-
-
         desativarEdicao();
 
-
-        /*
-         * Recarrega novamente os dados
-         * diretamente do Supabase.
-         *
-         * Isso também serve como
-         * confirmação de que o banco
-         * realmente recebeu os dados.
-         */
 
         await carregarConta();
 
@@ -1260,12 +1201,6 @@
      * ============================
      */
 
-    const cepInput =
-      document.getElementById(
-        'cep'
-      );
-
-
     cepInput.addEventListener(
       'input',
       () => {
@@ -1292,6 +1227,132 @@
 
         cepInput.value =
           valor;
+
+      }
+    );
+
+
+
+    /*
+     * ============================
+     * BUSCA AUTOMÁTICA DO CEP
+     * ============================
+     */
+
+    cepInput.addEventListener(
+      'blur',
+      async () => {
+
+        /*
+         * Só consulta se o campo
+         * estiver habilitado para edição.
+         */
+
+        if (cepInput.disabled) {
+          return;
+        }
+
+
+        const cep =
+          cepInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            );
+
+
+        if (cep.length !== 8) {
+
+          cepMessage.textContent =
+            'Digite um CEP válido.';
+
+          return;
+
+        }
+
+
+        cepMessage.textContent =
+          'Buscando endereço...';
+
+
+        try {
+
+          const response =
+            await fetch(
+              `https://viacep.com.br/ws/${cep}/json/`
+            );
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              'Erro na consulta do CEP.'
+            );
+
+          }
+
+
+          const data =
+            await response.json();
+
+
+          if (data.erro) {
+
+            cepMessage.textContent =
+              'CEP não encontrado.';
+
+            return;
+
+          }
+
+
+          /*
+           * Preenche automaticamente
+           */
+
+          ruaInput.value =
+            data.logradouro || '';
+
+
+          bairroInput.value =
+            data.bairro || '';
+
+
+          cidadeInput.value =
+            data.localidade || '';
+
+
+          estadoInput.value =
+            data.uf || '';
+
+
+          cepMessage.textContent =
+            'Endereço encontrado.';
+
+
+          /*
+           * Leva o cursor para número
+           */
+
+          document
+            .getElementById(
+              'numero'
+            )
+            .focus();
+
+        }
+
+        catch (erro) {
+
+          console.error(
+            erro
+          );
+
+          cepMessage.textContent =
+            'Não foi possível consultar o CEP. Preencha o endereço manualmente.';
+
+        }
 
       }
     );
