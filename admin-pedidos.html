@@ -19,7 +19,10 @@
 
     <section class="auth-card">
 
-      <h1>Novo pedido</h1>
+      <h1>Administração de pedidos</h1>
+
+
+      <h2>Novo pedido</h2>
 
       <form id="pedidoForm">
 
@@ -61,7 +64,7 @@
           placeholder="Ex.: Ford Verona 1991/2026"
         ></textarea>
 
-        <label for="observacoes">Observações do pedido</label>
+        <label for="observacoes">Observações</label>
         <textarea
           id="observacoes"
           rows="3"
@@ -74,6 +77,17 @@
       </form>
 
       <p id="mensagem"></p>
+
+
+      <hr>
+
+
+      <h2>Pedidos existentes</h2>
+
+      <div id="listaPedidos">
+        Carregando pedidos...
+      </div>
+
 
       <p>
         <a href="conta.html">
@@ -91,8 +105,25 @@
     const pedidoForm = document.getElementById('pedidoForm');
     const clienteSelect = document.getElementById('cliente');
     const mensagem = document.getElementById('mensagem');
+    const listaPedidos = document.getElementById('listaPedidos');
 
-    async function carregarClientes() {
+    let clientesMap = {};
+
+
+    function formatarValor(valor) {
+      return Number(valor).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+
+    function formatarData(data) {
+      return new Date(data).toLocaleDateString('pt-BR');
+    }
+
+
+    async function verificarAdmin() {
 
       const {
         data: { session }
@@ -100,7 +131,7 @@
 
       if (!session) {
         window.location.href = 'login.html';
-        return;
+        return null;
       }
 
       const {
@@ -113,8 +144,14 @@
 
       if (!admin) {
         window.location.href = 'conta.html';
-        return;
+        return null;
       }
+
+      return session.user;
+    }
+
+
+    async function carregarClientes() {
 
       const {
         data: clientes,
@@ -130,15 +167,197 @@
         return;
       }
 
+      clientesMap = {};
+
       clienteSelect.innerHTML =
         '<option value="">Selecione o cliente</option>';
 
       clientes.forEach(cliente => {
+
+        clientesMap[cliente.id] = cliente.nome_completo;
+
         const option = document.createElement('option');
+
         option.value = cliente.id;
         option.textContent = cliente.nome_completo;
+
         clienteSelect.appendChild(option);
       });
+    }
+
+
+    async function carregarPedidos() {
+
+      listaPedidos.innerHTML =
+        'Carregando pedidos...';
+
+      const {
+        data: pedidos,
+        error
+      } = await supabaseClient
+        .from('orders')
+        .select(`
+          id,
+          user_id,
+          created_at,
+          status,
+          valor_total,
+          observacoes,
+          order_items (
+            id,
+            produto,
+            quantidade,
+            valor_unitario,
+            detalhes_personalizacao
+          )
+        `)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error(error);
+        listaPedidos.innerHTML =
+          'Erro ao carregar pedidos.';
+        return;
+      }
+
+      if (!pedidos || pedidos.length === 0) {
+        listaPedidos.innerHTML =
+          '<p>Nenhum pedido cadastrado.</p>';
+        return;
+      }
+
+      listaPedidos.innerHTML = pedidos.map(pedido => {
+
+        const cliente =
+          clientesMap[pedido.user_id] || pedido.user_id;
+
+        const itens = pedido.order_items || [];
+
+        const itensHtml = itens.map(item => `
+          <div class="pedido-item">
+            <strong>${item.produto}</strong>
+
+            <p>
+              Quantidade: ${item.quantidade}
+            </p>
+
+            <p>
+              Valor unitário:
+              ${formatarValor(item.valor_unitario)}
+            </p>
+
+            ${
+              item.detalhes_personalizacao
+                ? `
+                  <p>
+                    Personalização:
+                    ${item.detalhes_personalizacao}
+                  </p>
+                `
+                : ''
+            }
+          </div>
+        `).join('');
+
+        return `
+          <div class="pedido-card">
+
+            <h3>Pedido #${pedido.id}</h3>
+
+            <p>
+              <strong>Cliente:</strong>
+              ${cliente}
+            </p>
+
+            <p>
+              <strong>Data:</strong>
+              ${formatarData(pedido.created_at)}
+            </p>
+
+            <p>
+              <strong>Valor:</strong>
+              ${formatarValor(pedido.valor_total)}
+            </p>
+
+            <label for="status-${pedido.id}">
+              Status
+            </label>
+
+            <select
+              id="status-${pedido.id}"
+              onchange="alterarStatus(${pedido.id}, this.value)"
+            >
+              <option value="aguardando_pagamento"
+                ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
+                Aguardando pagamento
+              </option>
+
+              <option value="pago"
+                ${pedido.status === 'pago' ? 'selected' : ''}>
+                Pago
+              </option>
+
+              <option value="em_producao"
+                ${pedido.status === 'em_producao' ? 'selected' : ''}>
+                Em produção
+              </option>
+
+              <option value="enviado"
+                ${pedido.status === 'enviado' ? 'selected' : ''}>
+                Enviado
+              </option>
+
+              <option value="concluido"
+                ${pedido.status === 'concluido' ? 'selected' : ''}>
+                Concluído
+              </option>
+
+              <option value="cancelado"
+                ${pedido.status === 'cancelado' ? 'selected' : ''}>
+                Cancelado
+              </option>
+            </select>
+
+            ${
+              pedido.observacoes
+                ? `
+                  <p>
+                    <strong>Observações:</strong>
+                    ${pedido.observacoes}
+                  </p>
+                `
+                : ''
+            }
+
+            <h4>Itens</h4>
+
+            ${itensHtml}
+
+          </div>
+        `;
+      }).join('');
+    }
+
+
+    async function alterarStatus(pedidoId, novoStatus) {
+
+      const {
+        error
+      } = await supabaseClient
+        .from('orders')
+        .update({
+          status: novoStatus
+        })
+        .eq('id', pedidoId);
+
+      if (error) {
+        console.error(error);
+        alert('Erro ao alterar o status.');
+        return;
+      }
+
+      mensagem.textContent =
+        `Pedido #${pedidoId} atualizado com sucesso.`;
     }
 
 
@@ -146,7 +365,8 @@
 
       event.preventDefault();
 
-      mensagem.textContent = 'Criando pedido...';
+      mensagem.textContent =
+        'Criando pedido...';
 
       const userId = clienteSelect.value;
       const produto = document.getElementById('produto').value.trim();
@@ -155,7 +375,9 @@
       const personalizacao = document.getElementById('personalizacao').value.trim();
       const observacoes = document.getElementById('observacoes').value.trim();
 
-      const valorTotal = quantidade * valorUnitario;
+      const valorTotal =
+        quantidade * valorUnitario;
+
 
       const {
         data: pedido,
@@ -171,11 +393,14 @@
         .select()
         .single();
 
+
       if (pedidoError) {
         console.error(pedidoError);
-        mensagem.textContent = 'Erro ao criar o pedido.';
+        mensagem.textContent =
+          'Erro ao criar o pedido.';
         return;
       }
+
 
       const {
         error: itemError
@@ -189,11 +414,14 @@
           detalhes_personalizacao: personalizacao
         });
 
+
       if (itemError) {
         console.error(itemError);
-        mensagem.textContent = 'Pedido criado, mas houve erro ao criar o item.';
+        mensagem.textContent =
+          'Pedido criado, mas houve erro ao criar o item.';
         return;
       }
+
 
       mensagem.textContent =
         `Pedido #${pedido.id} criado com sucesso.`;
@@ -205,10 +433,26 @@
 
       document.getElementById('quantidade').value =
         '1';
+
+      await carregarPedidos();
     });
 
 
-    carregarClientes();
+    async function iniciar() {
+
+      const admin =
+        await verificarAdmin();
+
+      if (!admin) {
+        return;
+      }
+
+      await carregarClientes();
+      await carregarPedidos();
+    }
+
+
+    iniciar();
 
   </script>
 
