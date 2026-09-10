@@ -250,3 +250,19 @@ input:focus, select:focus, textarea:focus { border-color: #65707d; }
   color: #cbd5e1;
   font-size: 14px;
 }
+.pedido-card {
+  margin-top: 20px;
+  padding: 20px;
+  background: #0d1218;
+  border: 1px solid #303844;
+  border-radius: 12px;
+}
+
+.pedido-card h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.pedido-card p {
+  margin: 8px 0;
+}
