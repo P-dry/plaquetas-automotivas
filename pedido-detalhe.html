@@ -58,6 +58,22 @@
     }
 
 
+    function montarWhatsapp(telefone) {
+
+      if (!telefone) {
+        return null;
+      }
+
+      let numero = telefone.replace(/\D/g, '');
+
+      if (!numero.startsWith('55')) {
+        numero = '55' + numero;
+      }
+
+      return `https://wa.me/${numero}`;
+    }
+
+
     async function verificarAdmin() {
 
       const {
@@ -69,9 +85,7 @@
         return false;
       }
 
-      const {
-        data: admin
-      } = await supabaseClient
+      const { data: admin } = await supabaseClient
         .from('admins')
         .select('user_id')
         .eq('user_id', session.user.id)
@@ -127,17 +141,14 @@
 
 
       const {
-        data: cliente,
+        data: clientes,
         error: clienteError
-      } = await supabaseClient
-        .from('profiles')
-        .select(`
-          id,
-          nome_completo,
-          telefone
-        `)
-        .eq('id', pedido.user_id)
-        .single();
+      } = await supabaseClient.rpc(
+        'obter_cliente_admin',
+        {
+          p_user_id: pedido.user_id
+        }
+      );
 
 
       if (clienteError) {
@@ -145,8 +156,15 @@
       }
 
 
+      const cliente =
+        clientes && clientes.length > 0
+          ? clientes[0]
+          : null;
+
+
       const {
-        data: endereco
+        data: endereco,
+        error: enderecoError
       } = await supabaseClient
         .from('addresses')
         .select(`
@@ -164,24 +182,23 @@
         .maybeSingle();
 
 
-      const {
-        data: usuario
-      } = await supabaseClient
-        .from('profiles')
-        .select('id')
-        .eq('id', pedido.user_id)
-        .single();
+      if (enderecoError) {
+        console.error(enderecoError);
+      }
 
 
-      const itens = pedido.order_items || [];
+      const whatsappUrl =
+        montarWhatsapp(cliente?.telefone);
+
+
+      const itens =
+        pedido.order_items || [];
 
 
       const itensHtml = itens.map(item => `
         <div class="detalhe-item">
 
-          <div>
-            <strong>${item.produto}</strong>
-          </div>
+          <strong>${item.produto}</strong>
 
           <div class="detalhe-item-info">
             <span>Qtd: ${item.quantidade}</span>
@@ -203,12 +220,8 @@
       `).join('');
 
 
-      let enderecoHtml =
-        '<p>Endereço não cadastrado.</p>';
-
-      if (endereco) {
-
-        enderecoHtml = `
+      const enderecoHtml = endereco
+        ? `
           <p>
             ${endereco.rua || ''},
             ${endereco.numero || ''}
@@ -224,8 +237,8 @@
           <p>
             CEP: ${endereco.cep || ''}
           </p>
-        `;
-      }
+        `
+        : '<p>Endereço não cadastrado.</p>';
 
 
       conteudoPedido.innerHTML = `
@@ -302,9 +315,31 @@
             </p>
 
             <p>
+              <strong>E-mail:</strong>
+              ${cliente?.email || '-'}
+            </p>
+
+            <p>
               <strong>Telefone:</strong>
               ${cliente?.telefone || '-'}
             </p>
+
+            ${
+              whatsappUrl
+                ? `
+                  <p>
+                    <a
+                      href="${whatsappUrl}"
+                      target="_blank"
+                      rel="noopener"
+                      class="whatsapp-link"
+                    >
+                      Abrir WhatsApp
+                    </a>
+                  </p>
+                `
+                : ''
+            }
 
           </section>
 
@@ -355,33 +390,24 @@
         .getElementById('statusPedido')
         .addEventListener('change', async (event) => {
 
-          const novoStatus =
-            event.target.value;
-
-          const {
-            error
-          } = await supabaseClient
+          const { error } = await supabaseClient
             .from('orders')
             .update({
-              status: novoStatus
+              status: event.target.value
             })
             .eq('id', pedido.id);
 
 
           if (error) {
-
             console.error(error);
-
             mensagem.textContent =
               'Erro ao alterar o status.';
-
             return;
           }
 
 
           mensagem.textContent =
             'Status atualizado com sucesso.';
-
         });
     }
 
