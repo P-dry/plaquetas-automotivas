@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Detalhe do pedido</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+</head>
+
+<body>
+
+  <main class="auth-container admin-container">
+
+    <section class="auth-card admin-card">
+
+      <div id="conteudoPedido">
+        Carregando pedido...
+      </div>
+
+      <p id="mensagem"></p>
+
+      <p class="admin-voltar">
+        <a href="admin-pedidos.html">
+          Voltar para administração
+        </a>
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const conteudoPedido = document.getElementById('conteudoPedido');
+    const mensagem = document.getElementById('mensagem');
+
+    const params = new URLSearchParams(window.location.search);
+    const pedidoId = Number(params.get('id'));
+
+
+    function formatarValor(valor) {
+      return Number(valor).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      });
+    }
+
+
+    function formatarData(data) {
+      return new Date(data).toLocaleDateString('pt-BR');
+    }
+
+
+    async function verificarAdmin() {
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+        window.location.href = 'login.html';
+        return false;
+      }
+
+      const {
+        data: admin
+      } = await supabaseClient
+        .from('admins')
+        .select('user_id')
+        .eq('user_id', session.user.id)
+        .maybeSingle();
+
+      if (!admin) {
+        window.location.href = 'conta.html';
+        return false;
+      }
+
+      return true;
+    }
+
+
+    async function carregarPedido() {
+
+      if (!pedidoId) {
+        conteudoPedido.innerHTML = '<p>Pedido inválido.</p>';
+        return;
+      }
+
+
+      const {
+        data: pedido,
+        error: pedidoError
+      } = await supabaseClient
+        .from('orders')
+        .select(`
+          id,
+          user_id,
+          created_at,
+          status,
+          valor_total,
+          observacoes,
+          order_items (
+            id,
+            produto,
+            quantidade,
+            valor_unitario,
+            detalhes_personalizacao
+          )
+        `)
+        .eq('id', pedidoId)
+        .single();
+
+
+      if (pedidoError) {
+        console.error(pedidoError);
+        conteudoPedido.innerHTML =
+          '<p>Erro ao carregar o pedido.</p>';
+        return;
+      }
+
+
+      const {
+        data: cliente,
+        error: clienteError
+      } = await supabaseClient
+        .from('profiles')
+        .select(`
+          id,
+          nome_completo,
+          telefone
+        `)
+        .eq('id', pedido.user_id)
+        .single();
+
+
+      if (clienteError) {
+        console.error(clienteError);
+      }
+
+
+      const {
+        data: endereco
+      } = await supabaseClient
+        .from('addresses')
+        .select(`
+          cep,
+          rua,
+          numero,
+          complemento,
+          bairro,
+          cidade,
+          estado
+        `)
+        .eq('user_id', pedido.user_id)
+        .order('updated_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+
+      const {
+        data: usuario
+      } = await supabaseClient
+        .from('profiles')
+        .select('id')
+        .eq('id', pedido.user_id)
+        .single();
+
+
+      const itens = pedido.order_items || [];
+
+
+      const itensHtml = itens.map(item => `
+        <div class="detalhe-item">
+
+          <div>
+            <strong>${item.produto}</strong>
+          </div>
+
+          <div class="detalhe-item-info">
+            <span>Qtd: ${item.quantidade}</span>
+            <span>${formatarValor(item.valor_unitario)}</span>
+          </div>
+
+          ${
+            item.detalhes_personalizacao
+              ? `
+                <div class="detalhe-personalizacao">
+                  <strong>Personalização:</strong>
+                  ${item.detalhes_personalizacao}
+                </div>
+              `
+              : ''
+          }
+
+        </div>
+      `).join('');
+
+
+      let enderecoHtml =
+        '<p>Endereço não cadastrado.</p>';
+
+      if (endereco) {
+
+        enderecoHtml = `
+          <p>
+            ${endereco.rua || ''},
+            ${endereco.numero || ''}
+            ${endereco.complemento ? ' - ' + endereco.complemento : ''}
+          </p>
+
+          <p>
+            ${endereco.bairro || ''}
+            ${endereco.cidade ? ' - ' + endereco.cidade : ''}
+            ${endereco.estado ? '/' + endereco.estado : ''}
+          </p>
+
+          <p>
+            CEP: ${endereco.cep || ''}
+          </p>
+        `;
+      }
+
+
+      conteudoPedido.innerHTML = `
+
+        <div class="detalhe-topo">
+
+          <div>
+            <h1>Pedido #${pedido.id}</h1>
+            <p>${formatarData(pedido.created_at)}</p>
+          </div>
+
+          <div class="detalhe-valor">
+            ${formatarValor(pedido.valor_total)}
+          </div>
+
+        </div>
+
+
+        <div class="detalhe-grid">
+
+
+          <section class="detalhe-card">
+
+            <h2>Resumo</h2>
+
+            <label for="statusPedido">
+              Status
+            </label>
+
+            <select id="statusPedido">
+
+              <option value="aguardando_pagamento"
+                ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
+                Aguardando pagamento
+              </option>
+
+              <option value="pago"
+                ${pedido.status === 'pago' ? 'selected' : ''}>
+                Pago
+              </option>
+
+              <option value="em_producao"
+                ${pedido.status === 'em_producao' ? 'selected' : ''}>
+                Em produção
+              </option>
+
+              <option value="enviado"
+                ${pedido.status === 'enviado' ? 'selected' : ''}>
+                Enviado
+              </option>
+
+              <option value="concluido"
+                ${pedido.status === 'concluido' ? 'selected' : ''}>
+                Concluído
+              </option>
+
+              <option value="cancelado"
+                ${pedido.status === 'cancelado' ? 'selected' : ''}>
+                Cancelado
+              </option>
+
+            </select>
+
+          </section>
+
+
+          <section class="detalhe-card">
+
+            <h2>Cliente</h2>
+
+            <p>
+              <strong>Nome:</strong>
+              ${cliente?.nome_completo || '-'}
+            </p>
+
+            <p>
+              <strong>Telefone:</strong>
+              ${cliente?.telefone || '-'}
+            </p>
+
+          </section>
+
+
+          <section class="detalhe-card">
+
+            <h2>Endereço</h2>
+
+            ${enderecoHtml}
+
+          </section>
+
+
+          <section class="detalhe-card detalhe-card-largo">
+
+            <h2>Itens do pedido</h2>
+
+            ${
+              itensHtml ||
+              '<p>Nenhum item cadastrado.</p>'
+            }
+
+          </section>
+
+
+          ${
+            pedido.observacoes
+              ? `
+                <section class="detalhe-card detalhe-card-largo">
+
+                  <h2>Observações</h2>
+
+                  <p>
+                    ${pedido.observacoes}
+                  </p>
+
+                </section>
+              `
+              : ''
+          }
+
+        </div>
+
+      `;
+
+
+      document
+        .getElementById('statusPedido')
+        .addEventListener('change', async (event) => {
+
+          const novoStatus =
+            event.target.value;
+
+          const {
+            error
+          } = await supabaseClient
+            .from('orders')
+            .update({
+              status: novoStatus
+            })
+            .eq('id', pedido.id);
+
+
+          if (error) {
+
+            console.error(error);
+
+            mensagem.textContent =
+              'Erro ao alterar o status.';
+
+            return;
+          }
+
+
+          mensagem.textContent =
+            'Status atualizado com sucesso.';
+
+        });
+    }
+
+
+    async function iniciar() {
+
+      const admin =
+        await verificarAdmin();
+
+      if (!admin) {
+        return;
+      }
+
+      await carregarPedido();
+    }
+
+
+    iniciar();
+
+  </script>
+
+</body>
+
+</html>
