@@ -53,6 +53,7 @@
     const pedidosLista = document.getElementById('pedidosLista');
     const pedidosMessage = document.getElementById('pedidosMessage');
 
+
     function formatarValor(valor) {
       return Number(valor).toLocaleString('pt-BR', {
         style: 'currency',
@@ -60,9 +61,11 @@
       });
     }
 
+
     function formatarData(data) {
       return new Date(data).toLocaleDateString('pt-BR');
     }
+
 
     function formatarStatus(status) {
       const nomes = {
@@ -76,6 +79,7 @@
 
       return nomes[status] || status;
     }
+
 
     async function carregarPedidos() {
 
@@ -155,6 +159,10 @@
             `).join('')
           : '<p>Nenhum item cadastrado neste pedido.</p>';
 
+        const podeCancelar =
+          pedido.status === 'aguardando_pagamento' ||
+          pedido.status === 'pago';
+
         return `
           <div class="pedido-card">
 
@@ -192,10 +200,68 @@
 
             ${itensHtml}
 
+            ${
+              podeCancelar
+                ? `
+                  <button
+                    type="button"
+                    onclick="cancelarPedido(${pedido.id})"
+                  >
+                    Cancelar pedido
+                  </button>
+                `
+                : ''
+            }
+
           </div>
         `;
       }).join('');
     }
+
+
+    async function cancelarPedido(pedidoId) {
+
+      const confirmar = confirm(
+        `Deseja realmente cancelar o pedido #${pedidoId}?`
+      );
+
+      if (!confirmar) {
+        return;
+      }
+
+      pedidosMessage.textContent =
+        'Cancelando pedido...';
+
+      const {
+        data,
+        error
+      } = await supabaseClient.rpc(
+        'cancelar_meu_pedido',
+        {
+          p_order_id: pedidoId
+        }
+      );
+
+      if (error) {
+        console.error(error);
+        pedidosMessage.textContent =
+          'Erro ao cancelar o pedido.';
+        return;
+      }
+
+      if (!data) {
+        pedidosMessage.textContent =
+          'Este pedido não pode mais ser cancelado.';
+        await carregarPedidos();
+        return;
+      }
+
+      pedidosMessage.textContent =
+        `Pedido #${pedidoId} cancelado com sucesso.`;
+
+      await carregarPedidos();
+    }
+
 
     carregarPedidos();
 
