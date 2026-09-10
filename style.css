@@ -151,3 +151,102 @@ input:focus, select:focus, textarea:focus { border-color: #65707d; }
 .auth-card a:hover {
   color: #ffffff;
 }
+/* =========================
+   LOGIN / CADASTRO
+========================= */
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #0b0f14;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+  background: #11161d;
+  border: 1px solid #2a313b;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.auth-card h1 {
+  margin: 0 0 10px;
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.auth-card > p {
+  margin-bottom: 20px;
+  color: #aeb7c3;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-card label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.auth-card input,
+.auth-card select,
+.auth-card textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #0d1218;
+  color: #ffffff;
+  border: 1px solid #303844;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 15px;
+  outline: none;
+}
+
+.auth-card input:focus,
+.auth-card select:focus,
+.auth-card textarea:focus {
+  border-color: #7aa7ff;
+}
+
+.auth-card button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0b0f14;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  opacity: 0.92;
+}
+
+.auth-card a {
+  color: #8fb8ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
+
+#loginMessage,
+#signupMessage {
+  margin-top: 16px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
