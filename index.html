@@ -3,14 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Plaquetas automotivas personalizadas em alumínio anodizado preto com gravação a laser." />
- <title>ÍMALLOY | Automotive Personalisation</title>
+
+  <meta
+    name="description"
+    content="ÍMALLOY — personalização automotiva em alumínio com gravação a laser e acabamento premium."
+  />
+
+  <title>ÍMALLOY | Automotive Personalisation</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      display: block;
+      width: auto;
+      height: 46px;
+      max-width: 180px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 480px) {
+      .brand-logo img {
+        height: 34px;
+        max-width: 120px;
+      }
+    }
+  </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
@@ -19,48 +51,92 @@
 <body>
 
   <header class="topbar">
+
     <div class="container nav-wrap">
 
-      <a class="brand" href="#home">PROJECT PLATE</a>
+      <a
+        class="brand brand-logo"
+        href="#home"
+        aria-label="ÍMALLOY"
+      >
+        <img
+          src="assets/imalloy-logo.png"
+          alt="ÍMALLOY"
+        />
+      </a>
+
 
       <nav class="nav">
-        <a href="#home">Home</a>
-        <a href="#produtos">Produtos</a>
-        <a href="#personalizar">Personalizar</a>
+
+        <a href="#home">
+          Home
+        </a>
+
+        <a href="#produtos">
+          Produtos
+        </a>
+
+        <a href="#personalizar">
+          Personalizar
+        </a>
+
 
         <a
-  id="accountLink"
-  class="nav-account"
-  href="login.html"
->
-  Entrar
-</a>
+          id="accountLink"
+          class="nav-account"
+          href="login.html"
+        >
+          Entrar
+        </a>
 
-        <a class="nav-cta" href="#personalizar">Fazer pedido</a>
+
+        <a
+          class="nav-cta"
+          href="#personalizar"
+        >
+          Fazer pedido
+        </a>
+
       </nav>
 
     </div>
+
   </header>
+
 
 
   <main>
 
-    <section id="home" class="hero section">
+
+    <!-- =========================
+         HOME
+    ========================== -->
+
+    <section
+      id="home"
+      class="hero section"
+    >
 
       <div class="container hero-grid">
 
+
         <div class="hero-copy">
 
-          <span class="eyebrow">PERSONALIZAÇÃO AUTOMOTIVA</span>
+          <span class="eyebrow">
+            ÍMALLOY · AUTOMOTIVE PERSONALISATION
+          </span>
+
 
           <h1>
             Seu carro merece uma plaqueta com identidade própria.
           </h1>
 
+
           <p>
             Plaquetas automotivas personalizadas em alumínio anodizado preto,
             com gravação a laser, silhueta do veículo e acabamento premium.
           </p>
+
 
           <div class="hero-actions">
 
@@ -71,6 +147,7 @@
               Personalizar agora
             </a>
 
+
             <a
               class="btn btn-secondary"
               href="#produtos"
@@ -80,17 +157,25 @@
 
           </div>
 
+
           <div class="hero-points">
 
-            <span>100 × 40 mm</span>
+            <span>
+              100 × 40 mm
+            </span>
 
-            <span>Alumínio anodizado</span>
+            <span>
+              Alumínio anodizado
+            </span>
 
-            <span>Gravação a laser</span>
+            <span>
+              Gravação a laser
+            </span>
 
           </div>
 
         </div>
+
 
 
         <div
@@ -103,13 +188,16 @@
           <div class="hole h3"></div>
           <div class="hole h4"></div>
 
+
           <div class="plaque-title">
             Ford Verona
           </div>
 
+
           <div class="car-line">
             ▰────────╱╲───────▰
           </div>
+
 
           <div class="plaque-sub">
             1991/2026
@@ -122,6 +210,11 @@
     </section>
 
 
+
+    <!-- =========================
+         PRODUTOS
+    ========================== -->
+
     <section
       id="produtos"
       class="section section-muted"
@@ -129,15 +222,18 @@
 
       <div class="container">
 
+
         <div class="section-heading">
 
           <span class="eyebrow">
             PRODUTO INICIAL
           </span>
 
+
           <h2>
             Plaqueta automotiva personalizada
           </h2>
+
 
           <p>
             Um único produto, simples de entender e fácil de personalizar.
@@ -146,7 +242,9 @@
         </div>
 
 
+
         <div class="product-grid">
+
 
           <article class="product-card">
 
@@ -154,13 +252,16 @@
               100 × 40 mm
             </div>
 
+
             <h3>
-              Plaqueta Project
+              Plaqueta ÍMALLOY
             </h3>
+
 
             <p class="product-desc">
               Ideal para cofre do motor, garagem ou projeto automotivo.
             </p>
+
 
             <ul class="feature-list">
 
@@ -210,6 +311,7 @@
           </article>
 
 
+
           <div class="info-panel">
 
             <h3>
@@ -218,6 +320,7 @@
 
 
             <div class="steps">
+
 
               <div class="step">
 
@@ -238,6 +341,7 @@
                 </div>
 
               </div>
+
 
 
               <div class="step">
@@ -261,6 +365,7 @@
               </div>
 
 
+
               <div class="step">
 
                 <span>
@@ -280,6 +385,7 @@
                 </div>
 
               </div>
+
 
 
               <div class="step">
@@ -313,6 +419,11 @@
     </section>
 
 
+
+    <!-- =========================
+         PERSONALIZAÇÃO
+    ========================== -->
+
     <section
       id="personalizar"
       class="section"
@@ -320,21 +431,25 @@
 
       <div class="container">
 
+
         <div class="section-heading">
 
           <span class="eyebrow">
             PERSONALIZE
           </span>
 
+
           <h2>
             Monte sua plaqueta
           </h2>
+
 
           <p>
             Preencha os dados e gere seu pedido para o WhatsApp.
           </p>
 
         </div>
+
 
 
         <div class="form-grid">
@@ -363,6 +478,7 @@
             </div>
 
 
+
             <div class="field-row">
 
 
@@ -381,6 +497,7 @@
                 />
 
               </div>
+
 
 
               <div class="field">
@@ -409,6 +526,7 @@
             </div>
 
 
+
             <div class="field">
 
               <label for="frase">
@@ -429,6 +547,7 @@
               />
 
             </div>
+
 
 
             <div class="field">
@@ -467,6 +586,7 @@
             </div>
 
 
+
             <div class="field">
 
               <label for="obs">
@@ -483,6 +603,7 @@
             </div>
 
 
+
             <div class="notice">
 
               A foto do carro será enviada pelo WhatsApp
@@ -491,12 +612,14 @@
             </div>
 
 
+
             <button
               class="btn btn-whatsapp btn-full"
               type="submit"
             >
               Fazer pedido pelo WhatsApp
             </button>
+
 
 
             <a
@@ -509,6 +632,7 @@
             </a>
 
           </form>
+
 
 
           <aside class="preview-card">
@@ -567,12 +691,17 @@
   </main>
 
 
+
+  <!-- =========================
+       RODAPÉ
+  ========================== -->
+
   <footer class="footer">
 
     <div class="container footer-wrap">
 
       <span>
-        © 2026 Project Plate
+        © 2026 ÍMALLOY
       </span>
 
       <span>
@@ -584,46 +713,84 @@
   </footer>
 
 
+
   <script src="script.js"></script>
 
+
   <script>
+
     async function atualizarMenuConta() {
-      const accountLink = document.getElementById('accountLink');
+
+      const accountLink =
+        document.getElementById('accountLink');
 
       if (!accountLink) {
         return;
       }
+
 
       const {
         data: { session }
-      } = await supabaseClient.auth.getSession();
+      } =
+        await supabaseClient.auth.getSession();
+
 
       if (session) {
-        accountLink.textContent = 'Minha conta';
-        accountLink.href = 'conta.html';
+
+        accountLink.textContent =
+          'Minha conta';
+
+        accountLink.href =
+          'conta.html';
+
       } else {
-        accountLink.textContent = 'Entrar';
-        accountLink.href = 'login.html';
+
+        accountLink.textContent =
+          'Entrar';
+
+        accountLink.href =
+          'login.html';
+
       }
+
     }
+
 
     atualizarMenuConta();
 
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-      const accountLink = document.getElementById('accountLink');
 
-      if (!accountLink) {
-        return;
-      }
+    supabaseClient.auth.onAuthStateChange(
+      (event, session) => {
 
-      if (session) {
-        accountLink.textContent = 'Minha conta';
-        accountLink.href = 'conta.html';
-      } else {
-        accountLink.textContent = 'Entrar';
-        accountLink.href = 'login.html';
+        const accountLink =
+          document.getElementById('accountLink');
+
+        if (!accountLink) {
+          return;
+        }
+
+
+        if (session) {
+
+          accountLink.textContent =
+            'Minha conta';
+
+          accountLink.href =
+            'conta.html';
+
+        } else {
+
+          accountLink.textContent =
+            'Entrar';
+
+          accountLink.href =
+            'login.html';
+
+        }
+
       }
-    });
+    );
+
   </script>
 
 </body>
