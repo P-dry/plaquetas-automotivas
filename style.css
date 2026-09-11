@@ -103,12 +103,56 @@ a {
 
 
 /* =========================
+   LOGO ÍMALLOY
+========================= */
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand-logo img {
+  display: block;
+  width: auto;
+  height: 46px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+
+/* =========================
    HERO
 ========================= */
 
 .hero {
+  position: relative;
   padding-top: 110px;
+  overflow: hidden;
 }
+
+
+/* FAIXAS ITALIANAS */
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 14px;
+
+  background: linear-gradient(
+    to right,
+    #009246 0 4px,
+    #ffffff 4px 8px,
+    #ce2b37 8px 12px,
+    transparent 12px 14px
+  );
+
+  pointer-events: none;
+}
+
 
 .hero-grid {
   display: grid;
@@ -239,9 +283,11 @@ h3 {
   border: 2px solid #8a9198;
   border-radius: 16px;
   aspect-ratio: 2.5 / 1;
+
   box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.35),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+
   overflow: hidden;
 }
 
@@ -250,11 +296,13 @@ h3 {
   content: "";
   position: absolute;
   inset: 0;
+
   background: repeating-linear-gradient(
     0deg,
     rgba(255, 255, 255, 0.018) 0 1px,
     transparent 1px 3px
   );
+
   pointer-events: none;
 }
 
@@ -883,17 +931,6 @@ textarea:focus {
 
 @media (max-width: 860px) {
 
-  /*
-    ESCONDE APENAS:
-    Home
-    Produtos
-    Personalizar
-
-    MANTÉM:
-    Entrar / Minha conta
-    Fazer pedido
-  */
-
   .nav a:not(#accountLink):not(.nav-cta) {
     display: none;
   }
@@ -917,7 +954,6 @@ textarea:focus {
   .nav-cta {
     padding: 9px 14px;
   }
-
 
   .hero-grid,
   .product-grid,
@@ -1029,6 +1065,11 @@ textarea:focus {
     letter-spacing: 0.08em;
   }
 
+  .brand-logo img {
+    height: 34px;
+    max-width: 120px;
+  }
+
   .nav {
     gap: 6px;
     font-size: 12px;
@@ -1044,6 +1085,18 @@ textarea:focus {
 
   .hero {
     padding-top: 58px;
+  }
+
+  .hero::before {
+    width: 10px;
+
+    background: linear-gradient(
+      to right,
+      #009246 0 3px,
+      #ffffff 3px 6px,
+      #ce2b37 6px 9px,
+      transparent 9px 10px
+    );
   }
 
   h1 {
