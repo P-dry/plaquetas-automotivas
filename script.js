@@ -6,6 +6,9 @@ const furos = document.getElementById('furos');
 const produto = document.getElementById('produto');
 const obs = document.getElementById('obs');
 
+const campoGravacaoVerso =
+  document.getElementById('campoGravacaoVerso');
+
 const previewPlaque = document.getElementById('previewPlaque');
 const previewNome = document.getElementById('previewNome');
 const previewVisual = document.getElementById('previewVisual');
@@ -28,7 +31,8 @@ const produtos = {
     descricao:
       'Plaqueta personalizada de 100 × 40 mm, ideal para aplicação no cofre do motor. Pode ser produzida com ou sem a furação padrão do modelo.',
     visual: '▰────────╱╲───────▰',
-    classe: 'motor'
+    classe: 'motor',
+    gravacaoVerso: false
   },
 
   'retrovisor-interno': {
@@ -37,7 +41,8 @@ const produtos = {
     descricao:
       'Peça personalizada de 50 × 30 mm, desenvolvida para uso no retrovisor interno. Quando escolhida com furos, utiliza 2 furos superiores.',
     visual: 'IMAGEM DO CARRO',
-    classe: 'retrovisor'
+    classe: 'retrovisor',
+    gravacaoVerso: true
   },
 
   'chaveiro-personalizado': {
@@ -46,7 +51,8 @@ const produtos = {
     descricao:
       'Peça personalizada de 50 × 30 mm, compacta e ideal para chaveiro automotivo. Quando escolhida com furo, utiliza 1 furo superior para fixação.',
     visual: 'IMAGEM DO CARRO',
-    classe: 'keychain'
+    classe: 'keychain',
+    gravacaoVerso: true
   }
 };
 
@@ -111,6 +117,17 @@ function atualizarFormato(produtoAtual) {
   }
 }
 
+function atualizarGravacaoVerso(produtoAtual) {
+  const info = produtos[produtoAtual];
+
+  campoGravacaoVerso.hidden =
+    !info.gravacaoVerso;
+
+  if (!info.gravacaoVerso) {
+    frase.value = '';
+  }
+}
+
 function updatePreview() {
   const produtoAtual = produto.value;
   const info = produtos[produtoAtual];
@@ -135,6 +152,7 @@ function updatePreview() {
 
   atualizarFormato(produtoAtual);
   atualizarFuros(produtoAtual);
+  atualizarGravacaoVerso(produtoAtual);
 }
 
 nome.addEventListener('input', updatePreview);
@@ -156,15 +174,26 @@ form.addEventListener('submit', (event) => {
     `Medida: ${info.medida}`,
     `Veículo: ${nome.value.trim()}`,
     `Ano / período: ${ano.value.trim()}`,
-    `Frase adicional: ${frase.value.trim() || 'Não informado'}`,
-    `Furos: ${furos.value}`,
+    `Furos: ${furos.value}`
+  ];
+
+  if (
+    info.gravacaoVerso &&
+    frase.value.trim()
+  ) {
+    message.push(
+      `Gravação no verso: ${frase.value.trim()}`
+    );
+  }
+
+  message.push(
     `Observações: ${obs.value.trim() || 'Nenhuma'}`,
     '',
     'A foto do carro será enviada por aqui após o pedido.'
-  ].join('\n');
+  );
 
   const url =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message.join('\n'))}`;
 
   window.location.href = url;
 });
