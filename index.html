@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <meta
     name="description"
-    content="ÍMALLOY — personalização automotiva em alumínio com gravação a laser e acabamento premium."
+    content="ÍMALLOY — personalização automotiva com gravação a laser, identidade visual exclusiva e acabamento premium."
   />
 
   <title>ÍMALLOY | Automotive Personalisation</title>
@@ -36,17 +37,21 @@
         href="#home"
         aria-label="ÍMALLOY"
       >
+
         <span class="brand-mark-wrap">
+
           <img
             class="brand-mark"
             src="assets/imalloy-logo-branca.png?v=1"
             alt="ÍMALLOY"
           />
+
         </span>
 
         <span class="brand-name">
           ÍMALLOY
         </span>
+
       </a>
 
 
@@ -64,7 +69,6 @@
           Personalizar
         </a>
 
-
         <a
           id="accountLink"
           class="nav-account"
@@ -72,7 +76,6 @@
         >
           Entrar
         </a>
-
 
         <a
           class="nav-cta"
@@ -86,7 +89,6 @@
     </div>
 
   </header>
-
 
 
   <main>
@@ -110,15 +112,13 @@
             ÍMALLOY · AUTOMOTIVE PERSONALISATION
           </span>
 
-
           <h1>
             Seu carro merece uma plaqueta com identidade própria.
           </h1>
 
-
           <p>
-            Plaquetas automotivas personalizadas em alumínio anodizado preto,
-            com gravação a laser, silhueta do veículo e acabamento premium.
+            Peças automotivas personalizadas com gravação a laser,
+            identidade visual exclusiva e acabamento premium.
           </p>
 
 
@@ -130,7 +130,6 @@
             >
               Personalizar agora
             </a>
-
 
             <a
               class="btn btn-secondary"
@@ -149,7 +148,7 @@
             </span>
 
             <span>
-              Alumínio anodizado
+              Personalização automotiva
             </span>
 
             <span>
@@ -161,6 +160,7 @@
         </div>
 
 
+        <!-- PLAQUETA DE EXEMPLO -->
 
         <div
           class="plaque-mockup"
@@ -178,8 +178,80 @@
           </div>
 
 
-          <div class="car-line">
-            ▰────────╱╲───────▰
+          <div
+            class="plaque-silhouette"
+            aria-hidden="true"
+          >
+
+            <svg
+              viewBox="0 0 420 110"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+
+              <path
+                d="
+                  M20 73
+                  C42 72 58 68 78 59
+                  L117 39
+                  C129 33 141 29 158 28
+                  L238 28
+                  C253 28 266 33 278 42
+                  L301 58
+                  C320 60 343 62 370 66
+                  C384 68 394 72 401 78
+                  L392 82
+                  L367 82
+                  C362 68 351 60 337 60
+                  C322 60 311 68 306 82
+                  L111 82
+                  C106 68 95 60 80 60
+                  C65 60 54 68 49 82
+                  L24 82
+                  Z
+                "
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <path
+                d="
+                  M129 41
+                  L158 31
+                  L220 31
+                  L263 52
+                  L118 52
+                  Z
+                "
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+
+              <circle
+                cx="80"
+                cy="82"
+                r="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+
+              <circle
+                cx="337"
+                cy="82"
+                r="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="4"
+              />
+
+            </svg>
+
           </div>
 
 
@@ -188,6 +260,7 @@
           </div>
 
         </div>
+
 
       </div>
 
@@ -213,11 +286,9 @@
             PRODUTO INICIAL
           </span>
 
-
           <h2>
             Plaqueta automotiva personalizada
           </h2>
-
 
           <p>
             Um único produto, simples de entender e fácil de personalizar.
@@ -236,11 +307,9 @@
               100 × 40 mm
             </div>
 
-
             <h3>
               Plaqueta ÍMALLOY
             </h3>
-
 
             <p class="product-desc">
               Ideal para cofre do motor, garagem ou projeto automotivo.
@@ -392,9 +461,11 @@
 
               </div>
 
+
             </div>
 
           </div>
+
 
         </div>
 
@@ -422,11 +493,9 @@
             PERSONALIZE
           </span>
 
-
           <h2>
             Monte sua plaqueta
           </h2>
-
 
           <p>
             Preencha os dados e gere seu pedido para o WhatsApp.
@@ -506,6 +575,7 @@
                 </select>
 
               </div>
+
 
             </div>
 
@@ -615,6 +685,7 @@
               Pagamento online em breve
             </a>
 
+
           </form>
 
 
@@ -658,19 +729,20 @@
 
 
             <p class="preview-note">
-
               A prévia acima é apenas ilustrativa.
               A silhueta real será criada a partir da foto do veículo.
-
             </p>
 
+
           </aside>
+
 
         </div>
 
       </div>
 
     </section>
+
 
   </main>
 
@@ -689,7 +761,7 @@
       </span>
 
       <span>
-        Plaquetas automotivas personalizadas
+        Personalização automotiva
       </span>
 
     </div>
@@ -711,7 +783,6 @@
       if (!accountLink) {
         return;
       }
-
 
       const {
         data: { session }
@@ -753,7 +824,6 @@
           return;
         }
 
-
         if (session) {
 
           accountLink.textContent =
@@ -776,6 +846,7 @@
     );
 
   </script>
+
 
 </body>
 </html>
