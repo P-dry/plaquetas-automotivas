@@ -315,7 +315,8 @@
                   </strong>
 
                   <p>
-                    Informe produto, carro, ano, frase e opção de furos.
+                    Informe produto, carro, ano, opção de furos e,
+                    quando disponível, a gravação no verso.
                   </p>
 
                 </div>
@@ -493,11 +494,15 @@
             </div>
 
 
-            <div class="field">
+            <div
+              id="campoGravacaoVerso"
+              class="field"
+              hidden
+            >
 
               <label for="frase">
 
-                Frase adicional
+                Gravação no verso
 
                 <span>
                   (opcional)
@@ -509,7 +514,7 @@
                 id="frase"
                 name="frase"
                 type="text"
-                placeholder="Ex.: Built, not bought"
+                placeholder="Ex.: nome, frase, data, placa ou mensagem curta"
               />
 
             </div>
