@@ -118,12 +118,15 @@ function atualizarFormato(produtoAtual) {
 }
 
 function atualizarGravacaoVerso(produtoAtual) {
-  const info = produtos[produtoAtual];
+  const mostrar =
+    produtoAtual === 'retrovisor-interno' ||
+    produtoAtual === 'chaveiro-personalizado';
 
-  campoGravacaoVerso.hidden =
-    !info.gravacaoVerso;
+  campoGravacaoVerso.hidden = !mostrar;
+  campoGravacaoVerso.style.display =
+    mostrar ? '' : 'none';
 
-  if (!info.gravacaoVerso) {
+  if (!mostrar) {
     frase.value = '';
   }
 }
