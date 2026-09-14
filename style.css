@@ -96,6 +96,94 @@ a {
 
 
 /* =========================
+   TEXTURA ITALIANA
+   FUNDO DAS SEÇÕES
+========================= */
+
+.hero,
+#produtos,
+.footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero > .container,
+#produtos > .container,
+.footer > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.18) 39% 61%, transparent 62% 100%) 5% 16% / 78px 18px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.12) 39% 61%, transparent 62% 100%) 18% 8% / 66px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.18) 39% 61%, transparent 62% 100%) 31% 20% / 82px 18px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.10) 39% 61%, transparent 62% 100%) 43% 10% / 72px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.16) 39% 61%, transparent 62% 100%) 57% 26% / 76px 17px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.17) 39% 61%, transparent 62% 100%) 69% 13% / 88px 18px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.11) 39% 61%, transparent 62% 100%) 82% 24% / 72px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.17) 39% 61%, transparent 62% 100%) 94% 12% / 74px 17px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.15) 39% 61%, transparent 62% 100%) 8% 67% / 86px 18px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.10) 39% 61%, transparent 62% 100%) 24% 78% / 66px 15px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.15) 39% 61%, transparent 62% 100%) 49% 72% / 80px 17px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.16) 39% 61%, transparent 62% 100%) 65% 83% / 90px 18px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.10) 39% 61%, transparent 62% 100%) 82% 68% / 74px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.16) 39% 61%, transparent 62% 100%) 96% 81% / 78px 17px no-repeat;
+}
+
+#produtos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.12) 39% 61%, transparent 62% 100%) 4% 22% / 74px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.075) 39% 61%, transparent 62% 100%) 16% 10% / 62px 14px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.12) 39% 61%, transparent 62% 100%) 35% 18% / 76px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.11) 39% 61%, transparent 62% 100%) 58% 12% / 68px 15px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.12) 39% 61%, transparent 62% 100%) 81% 24% / 78px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.07) 39% 61%, transparent 62% 100%) 94% 13% / 66px 14px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.10) 39% 61%, transparent 62% 100%) 10% 82% / 82px 16px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.10) 39% 61%, transparent 62% 100%) 42% 72% / 70px 15px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.065) 39% 61%, transparent 62% 100%) 68% 84% / 64px 14px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.11) 39% 61%, transparent 62% 100%) 92% 70% / 82px 16px no-repeat;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.10) 39% 61%, transparent 62% 100%) 12% 50% / 68px 14px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.06) 39% 61%, transparent 62% 100%) 32% 28% / 62px 13px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.10) 39% 61%, transparent 62% 100%) 54% 60% / 72px 14px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.09) 39% 61%, transparent 62% 100%) 76% 32% / 66px 13px no-repeat,
+    linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.09) 39% 61%, transparent 62% 100%) 94% 58% / 70px 14px no-repeat;
+}
+
+@media (max-width: 860px) {
+  .hero::before {
+    background:
+      linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.14) 39% 61%, transparent 62% 100%) 8% 12% / 60px 14px no-repeat,
+      linear-gradient(55deg, transparent 0 38%, rgba(255, 255, 255, 0.08) 39% 61%, transparent 62% 100%) 42% 8% / 54px 13px no-repeat,
+      linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.14) 39% 61%, transparent 62% 100%) 82% 16% / 64px 14px no-repeat,
+      linear-gradient(55deg, transparent 0 38%, rgba(206, 43, 55, 0.12) 39% 61%, transparent 62% 100%) 12% 78% / 66px 14px no-repeat,
+      linear-gradient(55deg, transparent 0 38%, rgba(0, 146, 70, 0.12) 39% 61%, transparent 62% 100%) 86% 73% / 62px 14px no-repeat;
+  }
+}
+
+
+/* =========================
    MENU
 ========================= */
 
