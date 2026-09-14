@@ -25,6 +25,7 @@ html {
 
 body {
   margin: 0;
+  padding-left: 34px;
   font-family: Inter, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
@@ -1715,6 +1716,10 @@ textarea:focus {
     Faixas continuam visíveis,
     porém um pouco menores.
   */
+
+  body {
+    padding-left: 25px;
+  }
 
   body::before {
     width:
