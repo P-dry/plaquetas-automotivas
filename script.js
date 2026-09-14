@@ -30,9 +30,7 @@ const produtos = {
     medida: '100 × 40 mm',
     descricao:
       'Plaqueta personalizada de 100 × 40 mm, ideal para aplicação no cofre do motor. Pode ser produzida com ou sem a furação padrão do modelo.',
-    visual: '▰────────╱╲───────▰',
-    classe: 'motor',
-    gravacaoVerso: false
+    visual: '▰────────╱╲───────▰'
   },
 
   'retrovisor-interno': {
@@ -40,9 +38,7 @@ const produtos = {
     medida: '50 × 30 mm',
     descricao:
       'Peça personalizada de 50 × 30 mm, desenvolvida para uso no retrovisor interno. Quando escolhida com furos, utiliza 2 furos superiores.',
-    visual: 'IMAGEM DO CARRO',
-    classe: 'retrovisor',
-    gravacaoVerso: true
+    visual: 'IMAGEM DO CARRO'
   },
 
   'chaveiro-personalizado': {
@@ -50,9 +46,7 @@ const produtos = {
     medida: '50 × 30 mm',
     descricao:
       'Peça personalizada de 50 × 30 mm, compacta e ideal para chaveiro automotivo. Quando escolhida com furo, utiliza 1 furo superior para fixação.',
-    visual: 'IMAGEM DO CARRO',
-    classe: 'keychain',
-    gravacaoVerso: true
+    visual: 'IMAGEM DO CARRO'
   }
 };
 
@@ -122,13 +116,25 @@ function atualizarGravacaoVerso(produtoAtual) {
     produtoAtual === 'retrovisor-interno' ||
     produtoAtual === 'chaveiro-personalizado';
 
-  campoGravacaoVerso.hidden = !mostrar;
-  campoGravacaoVerso.style.display =
-    mostrar ? '' : 'none';
+  if (mostrar) {
+    campoGravacaoVerso.hidden = false;
 
-  if (!mostrar) {
-    frase.value = '';
+    campoGravacaoVerso.style.removeProperty(
+      'display'
+    );
+
+    return;
   }
+
+  campoGravacaoVerso.hidden = true;
+
+  campoGravacaoVerso.style.setProperty(
+    'display',
+    'none',
+    'important'
+  );
+
+  frase.value = '';
 }
 
 function updatePreview() {
@@ -158,45 +164,73 @@ function updatePreview() {
   atualizarGravacaoVerso(produtoAtual);
 }
 
-nome.addEventListener('input', updatePreview);
-ano.addEventListener('input', updatePreview);
-produto.addEventListener('change', updatePreview);
-furos.addEventListener('change', updatePreview);
+nome.addEventListener(
+  'input',
+  updatePreview
+);
+
+ano.addEventListener(
+  'input',
+  updatePreview
+);
+
+produto.addEventListener(
+  'change',
+  updatePreview
+);
+
+furos.addEventListener(
+  'change',
+  updatePreview
+);
 
 updatePreview();
 
-form.addEventListener('submit', (event) => {
-  event.preventDefault();
+form.addEventListener(
+  'submit',
+  (event) => {
+    event.preventDefault();
 
-  const info = produtos[produto.value];
+    const produtoAtual =
+      produto.value;
 
-  const message = [
-    'Olá! Gostaria de pedir uma peça automotiva personalizada.',
-    '',
-    `Produto: ${info.nome}`,
-    `Medida: ${info.medida}`,
-    `Veículo: ${nome.value.trim()}`,
-    `Ano / período: ${ano.value.trim()}`,
-    `Furos: ${furos.value}`
-  ];
+    const info =
+      produtos[produtoAtual];
 
-  if (
-    info.gravacaoVerso &&
-    frase.value.trim()
-  ) {
+    const message = [
+      'Olá! Gostaria de pedir uma peça automotiva personalizada.',
+      '',
+      `Produto: ${info.nome}`,
+      `Medida: ${info.medida}`,
+      `Veículo: ${nome.value.trim()}`,
+      `Ano / período: ${ano.value.trim()}`,
+      `Furos: ${furos.value}`
+    ];
+
+    const permiteGravacaoVerso =
+      produtoAtual === 'retrovisor-interno' ||
+      produtoAtual === 'chaveiro-personalizado';
+
+    if (
+      permiteGravacaoVerso &&
+      frase.value.trim()
+    ) {
+      message.push(
+        `Gravação no verso: ${frase.value.trim()}`
+      );
+    }
+
     message.push(
-      `Gravação no verso: ${frase.value.trim()}`
+      `Observações: ${obs.value.trim() || 'Nenhuma'}`,
+      '',
+      'A foto do carro será enviada por aqui após o pedido.'
     );
+
+    const url =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        message.join('\n')
+      )}`;
+
+    window.location.href = url;
   }
-
-  message.push(
-    `Observações: ${obs.value.trim() || 'Nenhuma'}`,
-    '',
-    'A foto do carro será enviada por aqui após o pedido.'
-  );
-
-  const url =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message.join('\n'))}`;
-
-  window.location.href = url;
-});
+);
