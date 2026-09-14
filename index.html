@@ -46,6 +46,35 @@
       position: relative;
     }
 
+    .product-card {
+      transition:
+        opacity 0.16s ease,
+        transform 0.16s ease;
+      will-change: opacity, transform;
+    }
+
+    .product-card.is-leaving-next {
+      opacity: 0;
+      transform: translateX(-6px);
+    }
+
+    .product-card.is-leaving-prev {
+      opacity: 0;
+      transform: translateX(6px);
+    }
+
+    .product-card.is-entering-next {
+      opacity: 0;
+      transform: translateX(6px);
+      transition: none;
+    }
+
+    .product-card.is-entering-prev {
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: none;
+    }
+
     .product-carousel-nav {
       position: absolute;
       top: 50%;
@@ -331,7 +360,10 @@
             </button>
 
 
-            <article class="product-card">
+            <article
+              id="productCard"
+              class="product-card"
+            >
 
               <div
                 id="cardProdutoMedida"
@@ -915,7 +947,13 @@
 
 
     let produtoCardAtual = 0;
+    let produtoCardAnimando = false;
 
+
+    const productCard =
+      document.getElementById(
+        'productCard'
+      );
 
     const cardProdutoMedida =
       document.getElementById(
@@ -1015,34 +1053,121 @@
     }
 
 
-    function alterarProdutoCard(direcao) {
+    function trocarProdutoCard(
+      novoIndice,
+      direcao
+    ) {
 
-      produtoCardAtual +=
+      if (
+        produtoCardAnimando ||
+        novoIndice === produtoCardAtual
+      ) {
+        return;
+      }
+
+
+      produtoCardAnimando = true;
+
+
+      const classeSaida =
+        direcao > 0
+          ? 'is-leaving-next'
+          : 'is-leaving-prev';
+
+
+      const classeEntrada =
+        direcao > 0
+          ? 'is-entering-next'
+          : 'is-entering-prev';
+
+
+      productCard.classList.add(
+        classeSaida
+      );
+
+
+      window.setTimeout(
+        () => {
+
+          produtoCardAtual =
+            novoIndice;
+
+
+          renderizarProdutoCard();
+
+
+          productCard.classList.remove(
+            classeSaida
+          );
+
+
+          productCard.classList.add(
+            classeEntrada
+          );
+
+
+          productCard.offsetHeight;
+
+
+          window.requestAnimationFrame(
+            () => {
+
+              productCard.classList.remove(
+                classeEntrada
+              );
+
+
+              window.setTimeout(
+                () => {
+
+                  produtoCardAnimando =
+                    false;
+
+                },
+                180
+              );
+
+            }
+          );
+
+        },
+        160
+      );
+
+    }
+
+
+    function alterarProdutoCard(
+      direcao
+    ) {
+
+      let novoIndice =
+        produtoCardAtual +
         direcao;
 
 
-      if (
-        produtoCardAtual <
-        0
-      ) {
+      if (novoIndice < 0) {
 
-        produtoCardAtual =
+        novoIndice =
           produtosCard.length - 1;
 
       }
 
 
       if (
-        produtoCardAtual >=
+        novoIndice >=
         produtosCard.length
       ) {
 
-        produtoCardAtual = 0;
+        novoIndice = 0;
 
       }
 
 
-      renderizarProdutoCard();
+      trocarProdutoCard(
+        novoIndice,
+        direcao
+      );
 
     }
 
@@ -1074,12 +1199,23 @@
           'click',
           () => {
 
-            produtoCardAtual =
+            const novoIndice =
               Number(
                 dot.dataset.produtoIndex
               );
 
-            renderizarProdutoCard();
+
+            const direcao =
+              novoIndice >
+              produtoCardAtual
+                ? 1
+                : -1;
+
+
+            trocarProdutoCard(
+              novoIndice,
+              direcao
+            );
 
           }
         );
@@ -1096,6 +1232,7 @@
           produtosCard[
             produtoCardAtual
           ];
+
 
         const produtoSelect =
           document.getElementById(
