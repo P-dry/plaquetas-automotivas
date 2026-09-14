@@ -33,27 +33,10 @@ body {
   position: relative;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.container {
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
-}
-
-.section {
-  padding: 88px 0;
-}
-
-.section-muted {
-  background: #0f1216;
-}
-
 
 /* =========================
    FAIXAS ITALIANAS
+   PÁGINA INTEIRA
 ========================= */
 
 body::before {
@@ -62,14 +45,18 @@ body::before {
   top: 0;
   bottom: 0;
   left: 0;
+
   width: 34px;
 
   background: linear-gradient(
     to right,
+
     #009246 0 8px,
     transparent 8px 12px,
+
     #ffffff 12px 20px,
     transparent 20px 24px,
+
     #ce2b37 24px 32px,
     transparent 32px 34px
   );
@@ -78,10 +65,33 @@ body::before {
   z-index: 100;
 }
 
+
 .topbar,
 main,
 .footer {
   position: relative;
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+.container {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+
+.section {
+  padding: 88px 0;
+}
+
+
+.section-muted {
+  background: #0f1216;
 }
 
 
@@ -93,18 +103,26 @@ main,
   position: sticky;
   top: 0;
   z-index: 50;
+
   backdrop-filter: blur(12px);
+
   background: rgba(11, 13, 16, 0.86);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.06);
 }
+
 
 .nav-wrap {
   height: 72px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 20px;
 }
+
 
 .brand {
   font-weight: 800;
@@ -113,24 +131,34 @@ main,
   white-space: nowrap;
 }
 
+
 .nav {
   display: flex;
   align-items: center;
+
   gap: 24px;
+
   font-size: 14px;
+
   color: var(--muted);
 }
+
 
 .nav a:hover {
   color: var(--text);
 }
 
+
 .nav-cta {
   padding: 10px 16px;
+
   border: 1px solid var(--line);
+
   border-radius: 999px;
+
   color: var(--text) !important;
 }
+
 
 #accountLink {
   white-space: nowrap;
@@ -144,35 +172,51 @@ main,
 .brand-logo {
   display: flex;
   align-items: center;
+
   gap: 12px;
+
   flex-shrink: 0;
 }
+
 
 .brand-mark-wrap {
   width: 64px;
   height: 52px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
+
   flex-shrink: 0;
 }
 
+
 .brand-mark {
   display: block;
+
   width: auto;
   height: 52px;
+
   max-width: none;
+
   object-fit: contain;
 }
 
+
 .brand-name {
   display: block;
+
   color: var(--text);
+
   font-size: 22px;
   font-weight: 800;
+
   letter-spacing: 0.14em;
+
   line-height: 1;
+
   white-space: nowrap;
 }
 
@@ -183,69 +227,110 @@ main,
 
 .hero {
   position: relative;
+
   padding-top: 110px;
 }
 
+
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+
+  grid-template-columns:
+    1.05fr 0.95fr;
+
   gap: 64px;
+
   align-items: center;
 }
 
+
 .eyebrow {
   display: inline-block;
+
   font-size: 12px;
   font-weight: 700;
+
   letter-spacing: 0.18em;
+
   color: #b9c2cc;
+
   margin-bottom: 14px;
 }
 
+
 h1 {
-  font-size: clamp(42px, 6vw, 72px);
+  font-size:
+    clamp(42px, 6vw, 72px);
+
   line-height: 1.02;
-  margin: 0 0 24px;
+
+  margin:
+    0 0 24px;
+
   max-width: 780px;
 }
 
+
 h2 {
-  font-size: clamp(30px, 4vw, 48px);
+  font-size:
+    clamp(30px, 4vw, 48px);
+
   line-height: 1.1;
-  margin: 0 0 12px;
+
+  margin:
+    0 0 12px;
 }
+
 
 h3 {
   margin-top: 0;
+
   font-size: 24px;
 }
+
 
 .hero-copy p,
 .section-heading p {
   color: var(--muted);
+
   font-size: 18px;
+
   max-width: 680px;
 }
 
+
 .hero-actions {
   display: flex;
+
   gap: 12px;
-  margin: 30px 0 24px;
+
+  margin:
+    30px 0 24px;
+
   flex-wrap: wrap;
 }
+
 
 .hero-points {
   display: flex;
+
   gap: 18px;
+
   flex-wrap: wrap;
+
   color: #c8ced6;
+
   font-size: 13px;
 }
 
+
 .hero-points span {
   padding-right: 18px;
-  border-right: 1px solid var(--line);
+
+  border-right:
+    1px solid var(--line);
 }
+
 
 .hero-points span:last-child {
   border-right: 0;
@@ -258,70 +343,105 @@ h3 {
 
 .btn {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
+
   min-height: 48px;
-  padding: 0 20px;
+
+  padding:
+    0 20px;
+
   border-radius: 12px;
+
   font-weight: 700;
-  border: 1px solid transparent;
+
+  border:
+    1px solid transparent;
+
   cursor: pointer;
-  transition: 0.2s ease;
+
+  transition:
+    0.2s ease;
 }
+
 
 .btn-primary {
   background: var(--text);
+
   color: #0b0d10;
 }
 
+
 .btn-primary:hover {
-  transform: translateY(-1px);
-  background: #ffffff;
+  transform:
+    translateY(-1px);
+
+  background: white;
 }
+
 
 .btn-secondary {
-  background: transparent;
+  background:
+    transparent;
+
   color: var(--text);
-  border-color: var(--line);
+
+  border-color:
+    var(--line);
 }
+
 
 .btn-secondary:hover {
-  background: var(--panel);
+  background:
+    var(--panel);
 }
 
+
 .btn-whatsapp {
-  background: var(--green);
-  color: #08120b;
+  background:
+    var(--green);
+
+  color:
+    #08120b;
 }
+
 
 .btn-full {
   width: 100%;
 }
 
+
 .disabled {
   opacity: 0.45;
+
   pointer-events: none;
 }
 
 
 /* =========================
-   PLAQUETAS
+   PLAQUETA
 ========================= */
 
 .plaque-mockup,
 .mini-plaque {
   position: relative;
 
-  background: linear-gradient(
-    180deg,
-    #1a1d21,
-    #0d0f12
-  );
+  background:
+    linear-gradient(
+      180deg,
+      #1a1d21,
+      #0d0f12
+    );
 
-  border: 2px solid #8a9198;
-  border-radius: 16px;
+  border:
+    2px solid #8a9198;
 
-  aspect-ratio: 2.5 / 1;
+  border-radius:
+    16px;
+
+  aspect-ratio:
+    2.5 / 1;
 
   box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.35),
@@ -330,162 +450,180 @@ h3 {
   overflow: hidden;
 }
 
+
 .plaque-mockup::before,
 .mini-plaque::before {
   content: "";
+
   position: absolute;
+
   inset: 0;
 
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(255, 255, 255, 0.018) 0 1px,
-    transparent 1px 3px
-  );
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 3px
+    );
 
   pointer-events: none;
 }
 
 
 /* =========================
-   PLAQUETA PRINCIPAL
+   CONTEÚDO DA PLAQUETA
 ========================= */
 
 .plaque-mockup {
   display: block;
+
   text-align: center;
+
   padding: 0;
 }
 
 
-/* Nome do veículo */
-
 .plaque-title {
   position: absolute;
 
-  top: 15%;
+  top: 20%;
   left: 50%;
 
-  transform: translateX(-50%);
-
-  width: 78%;
-
-  font-size: 36px;
-  font-weight: 700;
-
-  letter-spacing: 0.01em;
-  line-height: 1;
-
-  text-align: center;
-  white-space: nowrap;
-
-  z-index: 2;
-}
-
-
-/* Silhueta do veículo */
-
-.plaque-silhouette {
-  position: absolute;
-
-  top: 55%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
+  transform:
+    translateX(-50%);
 
   width: 76%;
 
-  color: #d8dde3;
+  font-size: 36px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-weight: 700;
 
-  z-index: 2;
-}
+  letter-spacing: 0.02em;
 
-.plaque-silhouette svg {
-  display: block;
+  line-height: 1;
 
-  width: 100%;
-  height: auto;
+  text-align: center;
 
-  max-height: 110px;
-
-  overflow: visible;
+  white-space: nowrap;
 }
 
 
-/* Ano / período */
+.car-line {
+  position: absolute;
+
+  top: 54%;
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 72%;
+
+  margin: 0;
+
+  font-size: 24px;
+
+  color: #d4d9df;
+
+  letter-spacing: 0.04em;
+
+  line-height: 1;
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
 
 .plaque-sub {
   position: absolute;
 
   left: 50%;
-  bottom: 7%;
 
-  transform: translateX(-50%);
+  bottom: 10%;
+
+  transform:
+    translateX(-50%);
 
   width: 76%;
 
   font-size: 21px;
+
   font-weight: 700;
 
   line-height: 1;
 
   text-align: center;
-  white-space: nowrap;
 
-  z-index: 2;
+  white-space: nowrap;
 }
 
-
-/* =========================
-   FUROS
-========================= */
 
 .hole,
 .mini-hole {
-  position: absolute;
+  position:
+    absolute;
 
-  border-radius: 50%;
+  border-radius:
+    50%;
 
-  background: #0b0d10;
+  background:
+    #0b0d10;
 
-  border: 3px solid #9299a1;
+  border:
+    3px solid #9299a1;
 
   box-shadow:
     inset 0 0 0 2px #252a30;
-
-  z-index: 3;
 }
+
 
 .hole {
-  width: 22px;
-  height: 22px;
+  width:
+    22px;
+
+  height:
+    22px;
 }
+
 
 .h1,
 .mh1 {
-  top: 14px;
-  left: 14px;
+  top:
+    14px;
+
+  left:
+    14px;
 }
+
 
 .h2,
 .mh2 {
-  top: 14px;
-  right: 14px;
+  top:
+    14px;
+
+  right:
+    14px;
 }
+
 
 .h3,
 .mh3 {
-  bottom: 14px;
-  left: 14px;
+  bottom:
+    14px;
+
+  left:
+    14px;
 }
+
 
 .h4,
 .mh4 {
-  bottom: 14px;
-  right: 14px;
+  bottom:
+    14px;
+
+  right:
+    14px;
 }
 
 
@@ -494,24 +632,30 @@ h3 {
 ========================= */
 
 .section-heading {
-  margin-bottom: 36px;
+  margin-bottom:
+    36px;
 }
+
 
 .product-grid,
 .form-grid {
-  display: grid;
+  display:
+    grid;
 
   grid-template-columns:
     1fr 1fr;
 
-  gap: 28px;
+  gap:
+    28px;
 }
+
 
 .product-card,
 .info-panel,
 .order-form,
 .preview-card {
-  background: var(--panel);
+  background:
+    var(--panel);
 
   border:
     1px solid var(--line);
@@ -523,8 +667,10 @@ h3 {
     28px;
 }
 
+
 .product-badge {
-  display: inline-block;
+  display:
+    inline-block;
 
   padding:
     7px 10px;
@@ -545,10 +691,12 @@ h3 {
     16px;
 }
 
+
 .product-desc {
   color:
     var(--muted);
 }
+
 
 .feature-list {
   padding-left:
@@ -558,10 +706,12 @@ h3 {
     #d4d9df;
 }
 
+
 .feature-list li {
   margin-bottom:
     8px;
 }
+
 
 .price-row {
   display:
@@ -583,6 +733,7 @@ h3 {
     22px;
 }
 
+
 .price-label {
   color:
     var(--muted);
@@ -591,15 +742,12 @@ h3 {
     13px;
 }
 
+
 .price {
   font-size:
     30px;
 }
 
-
-/* =========================
-   COMO FUNCIONA
-========================= */
 
 .steps {
   display:
@@ -608,6 +756,7 @@ h3 {
   gap:
     22px;
 }
+
 
 .step {
   display:
@@ -622,6 +771,7 @@ h3 {
   align-items:
     start;
 }
+
 
 .step > span {
   width:
@@ -646,6 +796,7 @@ h3 {
     800;
 }
 
+
 .step p {
   margin:
     4px 0 0;
@@ -658,10 +809,6 @@ h3 {
 }
 
 
-/* =========================
-   FORMULÁRIO
-========================= */
-
 .order-form {
   display:
     grid;
@@ -670,6 +817,7 @@ h3 {
     18px;
 }
 
+
 .field {
   display:
     grid;
@@ -677,6 +825,7 @@ h3 {
   gap:
     8px;
 }
+
 
 .field-row {
   display:
@@ -689,6 +838,7 @@ h3 {
     14px;
 }
 
+
 label {
   font-size:
     14px;
@@ -697,6 +847,7 @@ label {
     600;
 }
 
+
 label span {
   color:
     var(--muted);
@@ -704,6 +855,7 @@ label span {
   font-weight:
     400;
 }
+
 
 input,
 select,
@@ -733,12 +885,14 @@ textarea {
     inherit;
 }
 
+
 input:focus,
 select:focus,
 textarea:focus {
   border-color:
     #65707d;
 }
+
 
 .notice {
   color:
@@ -776,6 +930,7 @@ textarea:focus {
     100px;
 }
 
+
 .mini-plaque {
   margin-top:
     8px;
@@ -793,6 +948,7 @@ textarea:focus {
     center;
 }
 
+
 .mini-title {
   font-weight:
     800;
@@ -800,6 +956,7 @@ textarea:focus {
   font-size:
     28px;
 }
+
 
 .mini-car {
   color:
@@ -812,10 +969,12 @@ textarea:focus {
     0.08em;
 }
 
+
 .mini-sub {
   font-weight:
     700;
 }
+
 
 .mini-hole {
   width:
@@ -827,6 +986,7 @@ textarea:focus {
   border-width:
     2px;
 }
+
 
 .preview-note {
   color:
@@ -857,6 +1017,7 @@ textarea:focus {
   font-size:
     13px;
 }
+
 
 .footer-wrap {
   display:
@@ -894,6 +1055,7 @@ textarea:focus {
     #0b0f14;
 }
 
+
 .auth-card {
   width:
     100%;
@@ -917,6 +1079,7 @@ textarea:focus {
     0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
+
 .auth-card h1 {
   margin:
     0 0 10px;
@@ -928,6 +1091,7 @@ textarea:focus {
     1.1;
 }
 
+
 .auth-card > p {
   margin-bottom:
     20px;
@@ -935,6 +1099,7 @@ textarea:focus {
   color:
     #ffffff;
 }
+
 
 .auth-card form {
   display:
@@ -947,6 +1112,7 @@ textarea:focus {
     12px;
 }
 
+
 .auth-card label {
   font-size:
     14px;
@@ -957,6 +1123,7 @@ textarea:focus {
   color:
     #ffffff;
 }
+
 
 .auth-card input,
 .auth-card select,
@@ -989,12 +1156,14 @@ textarea:focus {
     none;
 }
 
+
 .auth-card input:focus,
 .auth-card select:focus,
 .auth-card textarea:focus {
   border-color:
     #7aa7ff;
 }
+
 
 .auth-card button {
   width:
@@ -1028,10 +1197,12 @@ textarea:focus {
     pointer;
 }
 
+
 .auth-card button:hover {
   opacity:
     0.92;
 }
+
 
 .auth-card a {
   color:
@@ -1044,10 +1215,12 @@ textarea:focus {
     600;
 }
 
+
 .auth-card a:hover {
   text-decoration:
     underline;
 }
+
 
 #loginMessage,
 #signupMessage {
@@ -1083,6 +1256,7 @@ textarea:focus {
     12px;
 }
 
+
 .pedido-card h2 {
   margin-top:
     0;
@@ -1090,6 +1264,7 @@ textarea:focus {
   margin-bottom:
     16px;
 }
+
 
 .pedido-card p {
   margin:
@@ -1109,15 +1284,18 @@ textarea:focus {
     30px;
 }
 
+
 .admin-card {
   max-width:
     900px;
 }
 
+
 .admin-section {
   margin-top:
     28px;
 }
+
 
 .admin-form-grid {
   display:
@@ -1130,6 +1308,7 @@ textarea:focus {
     14px;
 }
 
+
 .admin-form-grid > div {
   display:
     flex;
@@ -1141,10 +1320,12 @@ textarea:focus {
     6px;
 }
 
+
 .admin-form-full {
   grid-column:
     1 / -1;
 }
+
 
 .filtros-pedidos {
   display:
@@ -1160,6 +1341,7 @@ textarea:focus {
     14px 0 18px;
 }
 
+
 .filtros-pedidos button {
   width:
     auto;
@@ -1174,10 +1356,12 @@ textarea:focus {
     13px;
 }
 
+
 .filtros-pedidos button.ativo {
   opacity:
     0.7;
 }
+
 
 .admin-pedido-card {
   padding:
@@ -1186,6 +1370,7 @@ textarea:focus {
   margin-top:
     12px;
 }
+
 
 .admin-pedido-topo {
   display:
@@ -1201,6 +1386,7 @@ textarea:focus {
     16px;
 }
 
+
 .admin-pedido-info {
   display:
     flex;
@@ -1214,6 +1400,7 @@ textarea:focus {
   font-size:
     14px;
 }
+
 
 .admin-status {
   display:
@@ -1232,15 +1419,18 @@ textarea:focus {
     12px;
 }
 
+
 .admin-status label {
   margin:
     0;
 }
 
+
 .admin-status select {
   margin:
     0;
 }
+
 
 .admin-observacao {
   margin-top:
@@ -1250,10 +1440,12 @@ textarea:focus {
     14px;
 }
 
+
 .admin-itens {
   margin-top:
     12px;
 }
+
 
 .admin-item-linha {
   display:
@@ -1278,6 +1470,7 @@ textarea:focus {
     14px;
 }
 
+
 .admin-item-personalizacao {
   grid-column:
     1 / -1;
@@ -1286,10 +1479,12 @@ textarea:focus {
     0.8;
 }
 
+
 .admin-voltar {
   margin-top:
     24px;
 }
+
 
 .admin-controles {
   display:
@@ -1304,6 +1499,7 @@ textarea:focus {
   margin:
     12px 0;
 }
+
 
 .admin-controles input,
 .admin-controles select {
@@ -1333,15 +1529,18 @@ textarea:focus {
     20px;
 }
 
+
 .detalhe-topo h1 {
   margin-bottom:
     4px;
 }
 
+
 .detalhe-topo p {
   margin:
     0;
 }
+
 
 .detalhe-valor {
   font-size:
@@ -1350,6 +1549,7 @@ textarea:focus {
   font-weight:
     700;
 }
+
 
 .detalhe-grid {
   display:
@@ -1361,6 +1561,7 @@ textarea:focus {
   gap:
     14px;
 }
+
 
 .detalhe-card {
   padding:
@@ -1376,6 +1577,7 @@ textarea:focus {
     12px;
 }
 
+
 .detalhe-card h2 {
   margin-top:
     0;
@@ -1387,15 +1589,18 @@ textarea:focus {
     18px;
 }
 
+
 .detalhe-card p {
   margin:
     6px 0;
 }
 
+
 .detalhe-card-largo {
   grid-column:
     1 / -1;
 }
+
 
 .detalhe-item {
   padding:
@@ -1405,10 +1610,12 @@ textarea:focus {
     1px solid #252e39;
 }
 
+
 .detalhe-item:last-child {
   border-bottom:
     0;
 }
+
 
 .detalhe-item-info {
   display:
@@ -1420,6 +1627,7 @@ textarea:focus {
   margin-top:
     6px;
 }
+
 
 .detalhe-personalizacao {
   margin-top:
@@ -1457,6 +1665,7 @@ textarea:focus {
     700;
 }
 
+
 .whatsapp-link:hover {
   opacity:
     0.9;
@@ -1474,6 +1683,7 @@ textarea:focus {
       none;
   }
 
+
   #accountLink,
   .nav-cta {
     display:
@@ -1486,10 +1696,12 @@ textarea:focus {
       center;
   }
 
+
   .nav {
     gap:
       10px;
   }
+
 
   #accountLink {
     color:
@@ -1498,6 +1710,7 @@ textarea:focus {
     padding:
       9px 6px;
   }
+
 
   .nav-cta {
     padding:
@@ -1512,20 +1725,24 @@ textarea:focus {
       1fr;
   }
 
+
   .hero {
     padding-top:
       72px;
   }
+
 
   .section {
     padding:
       64px 0;
   }
 
+
   .preview-card {
     position:
       static;
   }
+
 
   .field-row {
     grid-template-columns:
@@ -1533,35 +1750,26 @@ textarea:focus {
   }
 
 
-  /* PLAQUETA */
-
   .plaque-title {
-    top:
-      15%;
+    top: 20%;
 
-    font-size:
-      28px;
+    font-size: 28px;
   }
 
-  .plaque-silhouette {
-    top:
-      55%;
 
-    width:
-      74%;
+  .car-line {
+    top: 54%;
+
+    width: 70%;
+
+    font-size: 19px;
   }
 
-  .plaque-silhouette svg {
-    max-height:
-      105px;
-  }
 
   .plaque-sub {
-    bottom:
-      7%;
+    bottom: 10%;
 
-    font-size:
-      18px;
+    font-size: 18px;
   }
 
 
@@ -1583,10 +1791,12 @@ textarea:focus {
       1fr;
   }
 
+
   .admin-form-full {
     grid-column:
       auto;
   }
+
 
   .admin-pedido-topo {
     flex-direction:
@@ -1596,6 +1806,7 @@ textarea:focus {
       4px;
   }
 
+
   .admin-pedido-info {
     flex-direction:
       column;
@@ -1604,35 +1815,42 @@ textarea:focus {
       4px;
   }
 
+
   .admin-status {
     grid-template-columns:
       1fr;
   }
+
 
   .admin-item-linha {
     grid-template-columns:
       1fr;
   }
 
+
   .admin-item-personalizacao {
     grid-column:
       auto;
   }
+
 
   .admin-controles {
     grid-template-columns:
       1fr;
   }
 
+
   .detalhe-topo {
     flex-direction:
       column;
   }
 
+
   .detalhe-grid {
     grid-template-columns:
       1fr;
   }
+
 
   .detalhe-card-largo {
     grid-column:
@@ -1651,6 +1869,7 @@ textarea:focus {
     padding-left:
       25px;
   }
+
 
   body::before {
     width:
@@ -1677,6 +1896,7 @@ textarea:focus {
       min(100% - 24px, 1120px);
   }
 
+
   .nav-wrap {
     height:
       66px;
@@ -1686,12 +1906,11 @@ textarea:focus {
   }
 
 
-  /* LOGO MOBILE */
-
   .brand-logo {
     gap:
       7px;
   }
+
 
   .brand-mark-wrap {
     width:
@@ -1701,10 +1920,12 @@ textarea:focus {
       34px;
   }
 
+
   .brand-mark {
     height:
       34px;
   }
+
 
   .brand-name {
     font-size:
@@ -1723,10 +1944,12 @@ textarea:focus {
       12px;
   }
 
+
   #accountLink {
     padding:
       8px 4px;
   }
+
 
   .nav-cta {
     padding:
@@ -1739,10 +1962,12 @@ textarea:focus {
       58px;
   }
 
+
   h1 {
     font-size:
       42px;
   }
+
 
   .hero-copy p {
     font-size:
@@ -1750,35 +1975,26 @@ textarea:focus {
   }
 
 
-  /* PLAQUETA MOBILE */
-
   .plaque-title {
-    top:
-      15%;
+    top: 20%;
 
-    font-size:
-      24px;
+    font-size: 24px;
   }
 
-  .plaque-silhouette {
-    top:
-      55%;
 
-    width:
-      72%;
+  .car-line {
+    top: 54%;
+
+    width: 68%;
+
+    font-size: 16px;
   }
 
-  .plaque-silhouette svg {
-    max-height:
-      90px;
-  }
 
   .plaque-sub {
-    bottom:
-      7%;
+    bottom: 10%;
 
-    font-size:
-      15px;
+    font-size: 15px;
   }
 
 
@@ -1786,6 +2002,7 @@ textarea:focus {
     padding:
       24px 12px;
   }
+
 
   .auth-card {
     padding:
