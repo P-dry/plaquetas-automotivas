@@ -11,7 +11,7 @@
 
   <meta
     name="description"
-    content="ÍMALLOY — personalização automotiva em alumínio com gravação a laser e acabamento premium."
+    content="ÍMALLOY — personalização automotiva com gravação a laser, identidade visual exclusiva e acabamento premium."
   />
 
   <title>ÍMALLOY | Automotive Personalisation</title>
@@ -39,6 +39,90 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+  <style>
+
+    .product-carousel {
+      position: relative;
+    }
+
+    .product-carousel-nav {
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 50%;
+      background: #14181e;
+      color: #fff;
+      font: inherit;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .product-carousel-nav:hover {
+      background: #20262e;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .product-carousel-nav:active {
+      transform: translateY(-50%) scale(0.94);
+    }
+
+    .product-carousel-prev {
+      left: -21px;
+    }
+
+    .product-carousel-next {
+      right: -21px;
+    }
+
+    .product-carousel-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .product-carousel-dot {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #4b535e;
+      cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .product-carousel-dot.active {
+      background: #fff;
+      transform: scale(1.25);
+    }
+
+    @media (max-width: 900px) {
+
+      .product-carousel-prev {
+        left: 10px;
+      }
+
+      .product-carousel-next {
+        right: 10px;
+      }
+
+    }
+
+  </style>
 </head>
 
 <body>
@@ -218,15 +302,16 @@
         <div class="section-heading">
 
           <span class="eyebrow">
-            PRODUTO INICIAL
+            PRODUTOS ÍMALLOY
           </span>
 
           <h2>
-            Plaqueta automotiva personalizada
+            Produtos personalizados ÍMALLOY
           </h2>
 
           <p>
-            Um produto simples de entender e fácil de personalizar.
+            Escolha o formato ideal para o seu projeto e personalize
+            com os dados do seu veículo.
           </p>
 
         </div>
@@ -234,64 +319,134 @@
 
         <div class="product-grid">
 
-          <article class="product-card">
+          <div class="product-carousel">
 
-            <div class="product-badge">
-              100 × 40 mm
-            </div>
-
-            <h3>
-              Plaqueta ÍMALLOY
-            </h3>
-
-            <p class="product-desc">
-              Ideal para cofre do motor, garagem ou projeto automotivo.
-            </p>
-
-            <ul class="feature-list">
-
-              <li>
-                Alumínio anodizado preto
-              </li>
-
-              <li>
-                Nome/modelo do veículo
-              </li>
-
-              <li>
-                Silhueta personalizada
-              </li>
-
-              <li>
-                Ano ou frase curta
-              </li>
-
-              <li>
-                Opção com furos
-              </li>
-
-            </ul>
-
-            <div class="price-row">
-
-              <span class="price-label">
-                Preço inicial
-              </span>
-
-              <strong class="price">
-                R$ 49,90
-              </strong>
-
-            </div>
-
-            <a
-              class="btn btn-primary btn-full"
-              href="#personalizar"
+            <button
+              id="produtoAnterior"
+              class="product-carousel-nav product-carousel-prev"
+              type="button"
+              aria-label="Produto anterior"
             >
-              Quero personalizar
-            </a>
+              ‹
+            </button>
 
-          </article>
+
+            <article class="product-card">
+
+              <div
+                id="cardProdutoMedida"
+                class="product-badge"
+              >
+                100 × 40 mm
+              </div>
+
+              <h3 id="cardProdutoNome">
+                Plaqueta de motor
+              </h3>
+
+              <p
+                id="cardProdutoDescricao"
+                class="product-desc"
+              >
+                Personalizada para aplicação no cofre do motor
+                ou em projetos automotivos.
+              </p>
+
+              <ul
+                id="cardProdutoCaracteristicas"
+                class="feature-list"
+              >
+
+                <li>
+                  Nome/modelo do veículo
+                </li>
+
+                <li>
+                  Arte personalizada
+                </li>
+
+                <li>
+                  Ano / período
+                </li>
+
+                <li>
+                  Gravação a laser
+                </li>
+
+                <li>
+                  Opção com ou sem furos
+                </li>
+
+              </ul>
+
+              <div class="price-row">
+
+                <span
+                  id="cardProdutoPrecoLabel"
+                  class="price-label"
+                >
+                  Preço inicial
+                </span>
+
+                <strong
+                  id="cardProdutoPreco"
+                  class="price"
+                >
+                  R$ 49,90
+                </strong>
+
+              </div>
+
+              <button
+                id="cardProdutoPersonalizar"
+                class="btn btn-primary btn-full"
+                type="button"
+              >
+                Quero personalizar
+              </button>
+
+            </article>
+
+
+            <button
+              id="proximoProduto"
+              class="product-carousel-nav product-carousel-next"
+              type="button"
+              aria-label="Próximo produto"
+            >
+              ›
+            </button>
+
+
+            <div
+              class="product-carousel-dots"
+              aria-label="Seleção de produto"
+            >
+
+              <button
+                class="product-carousel-dot active"
+                type="button"
+                data-produto-index="0"
+                aria-label="Plaqueta de motor"
+              ></button>
+
+              <button
+                class="product-carousel-dot"
+                type="button"
+                data-produto-index="1"
+                aria-label="Enfeite para retrovisor interno"
+              ></button>
+
+              <button
+                class="product-carousel-dot"
+                type="button"
+                data-produto-index="2"
+                aria-label="Chaveiro personalizado"
+              ></button>
+
+            </div>
+
+          </div>
 
 
           <div class="info-panel">
@@ -692,7 +847,7 @@
       </span>
 
       <span>
-        Plaquetas automotivas personalizadas
+        Produtos automotivos personalizados
       </span>
 
     </div>
@@ -705,10 +860,284 @@
 
   <script>
 
+    const produtosCard = [
+      {
+        valor: 'plaqueta-motor',
+        medida: '100 × 40 mm',
+        nome: 'Plaqueta de motor',
+        descricao:
+          'Personalizada para aplicação no cofre do motor ou em projetos automotivos.',
+        caracteristicas: [
+          'Nome/modelo do veículo',
+          'Arte personalizada',
+          'Ano / período',
+          'Gravação a laser',
+          'Opção com ou sem furos'
+        ],
+        precoLabel: 'Preço inicial',
+        preco: 'R$ 49,90'
+      },
+
+      {
+        valor: 'retrovisor-interno',
+        medida: '50 × 30 mm',
+        nome: 'Enfeite para retrovisor interno',
+        descricao:
+          'Peça personalizada para deixar o interior do veículo com identidade própria.',
+        caracteristicas: [
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
+          '2 furos superiores',
+          'Gravação a laser',
+          'Gravação opcional no verso'
+        ],
+        precoLabel: 'Preço',
+        preco: 'Sob consulta'
+      },
+
+      {
+        valor: 'chaveiro-personalizado',
+        medida: '50 × 30 mm',
+        nome: 'Chaveiro personalizado',
+        descricao:
+          'Uma peça compacta e personalizada para levar a identidade do seu carro com você.',
+        caracteristicas: [
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
+          '1 furo superior',
+          'Gravação a laser',
+          'Gravação opcional no verso'
+        ],
+        precoLabel: 'Preço',
+        preco: 'Sob consulta'
+      }
+    ];
+
+
+    let produtoCardAtual = 0;
+
+
+    const cardProdutoMedida =
+      document.getElementById(
+        'cardProdutoMedida'
+      );
+
+    const cardProdutoNome =
+      document.getElementById(
+        'cardProdutoNome'
+      );
+
+    const cardProdutoDescricao =
+      document.getElementById(
+        'cardProdutoDescricao'
+      );
+
+    const cardProdutoCaracteristicas =
+      document.getElementById(
+        'cardProdutoCaracteristicas'
+      );
+
+    const cardProdutoPrecoLabel =
+      document.getElementById(
+        'cardProdutoPrecoLabel'
+      );
+
+    const cardProdutoPreco =
+      document.getElementById(
+        'cardProdutoPreco'
+      );
+
+    const produtoAnterior =
+      document.getElementById(
+        'produtoAnterior'
+      );
+
+    const proximoProduto =
+      document.getElementById(
+        'proximoProduto'
+      );
+
+    const cardProdutoPersonalizar =
+      document.getElementById(
+        'cardProdutoPersonalizar'
+      );
+
+    const produtoDots =
+      document.querySelectorAll(
+        '.product-carousel-dot'
+      );
+
+
+    function renderizarProdutoCard() {
+
+      const item =
+        produtosCard[
+          produtoCardAtual
+        ];
+
+
+      cardProdutoMedida.textContent =
+        item.medida;
+
+      cardProdutoNome.textContent =
+        item.nome;
+
+      cardProdutoDescricao.textContent =
+        item.descricao;
+
+      cardProdutoPrecoLabel.textContent =
+        item.precoLabel;
+
+      cardProdutoPreco.textContent =
+        item.preco;
+
+
+      cardProdutoCaracteristicas.innerHTML =
+        item.caracteristicas
+          .map(
+            caracteristica =>
+              `<li>${caracteristica}</li>`
+          )
+          .join('');
+
+
+      produtoDots.forEach(
+        (dot, index) => {
+
+          dot.classList.toggle(
+            'active',
+            index === produtoCardAtual
+          );
+
+        }
+      );
+
+    }
+
+
+    function alterarProdutoCard(direcao) {
+
+      produtoCardAtual +=
+        direcao;
+
+
+      if (
+        produtoCardAtual <
+        0
+      ) {
+
+        produtoCardAtual =
+          produtosCard.length - 1;
+
+      }
+
+
+      if (
+        produtoCardAtual >=
+        produtosCard.length
+      ) {
+
+        produtoCardAtual = 0;
+
+      }
+
+
+      renderizarProdutoCard();
+
+    }
+
+
+    produtoAnterior.addEventListener(
+      'click',
+      () => {
+
+        alterarProdutoCard(-1);
+
+      }
+    );
+
+
+    proximoProduto.addEventListener(
+      'click',
+      () => {
+
+        alterarProdutoCard(1);
+
+      }
+    );
+
+
+    produtoDots.forEach(
+      dot => {
+
+        dot.addEventListener(
+          'click',
+          () => {
+
+            produtoCardAtual =
+              Number(
+                dot.dataset.produtoIndex
+              );
+
+            renderizarProdutoCard();
+
+          }
+        );
+
+      }
+    );
+
+
+    cardProdutoPersonalizar.addEventListener(
+      'click',
+      () => {
+
+        const item =
+          produtosCard[
+            produtoCardAtual
+          ];
+
+        const produtoSelect =
+          document.getElementById(
+            'produto'
+          );
+
+
+        produtoSelect.value =
+          item.valor;
+
+
+        produtoSelect.dispatchEvent(
+          new Event(
+            'change',
+            {
+              bubbles: true
+            }
+          )
+        );
+
+
+        document
+          .getElementById(
+            'personalizar'
+          )
+          .scrollIntoView({
+            behavior: 'smooth'
+          });
+
+      }
+    );
+
+
+    renderizarProdutoCard();
+
+
     async function atualizarMenuConta() {
 
       const accountLink =
-        document.getElementById('accountLink');
+        document.getElementById(
+          'accountLink'
+        );
 
       if (!accountLink) {
         return;
@@ -718,7 +1147,9 @@
       const {
         data: { session }
       } =
-        await supabaseClient.auth.getSession();
+        await supabaseClient
+          .auth
+          .getSession();
 
 
       if (session) {
@@ -749,7 +1180,9 @@
       (event, session) => {
 
         const accountLink =
-          document.getElementById('accountLink');
+          document.getElementById(
+            'accountLink'
+          );
 
         if (!accountLink) {
           return;
