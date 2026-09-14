@@ -11,6 +11,45 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+  <style>
+    .cliente-busca-wrap {
+      position: relative;
+    }
+
+    .cliente-ajuda {
+      margin-top: 6px;
+      color: #8f99a5;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .veiculo-titulo {
+      grid-column: 1 / -1;
+      margin: 8px 0 -2px;
+      padding-top: 18px;
+      border-top: 1px solid #2a313b;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .admin-item-veiculo {
+      grid-column: 1 / -1;
+      color: #b8c0ca;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      .veiculo-titulo {
+        grid-column: auto;
+      }
+
+      .admin-item-veiculo {
+        grid-column: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -25,29 +64,68 @@
 
         <h2>Novo pedido</h2>
 
-        <form id="pedidoForm" class="admin-form-grid">
+        <form
+          id="pedidoForm"
+          class="admin-form-grid"
+        >
 
-          <div>
-            <label for="cliente">Cliente</label>
+          <div class="admin-form-full cliente-busca-wrap">
 
-            <select id="cliente" required>
-              <option value="">Carregando clientes...</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="produto">Produto</label>
+            <label for="clientePesquisa">
+              Cliente
+            </label>
 
             <input
               type="text"
-              id="produto"
-              value="Plaqueta personalizada"
+              id="clientePesquisa"
+              list="clientesLista"
+              placeholder="Pesquisar por nome, telefone ou e-mail"
+              autocomplete="off"
               required
             >
+
+            <datalist id="clientesLista"></datalist>
+
+            <div class="cliente-ajuda">
+              Digite parte do nome, telefone ou e-mail e selecione o cliente.
+            </div>
+
           </div>
 
+
           <div>
-            <label for="quantidade">Quantidade</label>
+
+            <label for="produto">
+              Produto
+            </label>
+
+            <select
+              id="produto"
+              required
+            >
+
+              <option value="Plaqueta de motor">
+                Plaqueta de motor
+              </option>
+
+              <option value="Enfeite para retrovisor interno">
+                Enfeite para retrovisor interno
+              </option>
+
+              <option value="Chaveiro personalizado">
+                Chaveiro personalizado
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div>
+
+            <label for="quantidade">
+              Quantidade
+            </label>
 
             <input
               type="number"
@@ -56,10 +134,15 @@
               value="1"
               required
             >
+
           </div>
 
+
           <div>
-            <label for="valorUnitario">Valor unitário</label>
+
+            <label for="valorUnitario">
+              Valor unitário
+            </label>
 
             <input
               type="number"
@@ -68,31 +151,108 @@
               step="0.01"
               required
             >
+
           </div>
 
-          <div class="admin-form-full">
-            <label for="personalizacao">Personalização</label>
 
-            <textarea
-              id="personalizacao"
-              rows="3"
-              placeholder="Ex.: Ford Verona 1991/2026"
-            ></textarea>
+          <div class="veiculo-titulo">
+            Dados do veículo
           </div>
 
+
+          <div>
+
+            <label for="marcaVeiculo">
+              Marca
+            </label>
+
+            <input
+              type="text"
+              id="marcaVeiculo"
+              placeholder="Ex.: Ford"
+              required
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="modeloVeiculo">
+              Modelo
+            </label>
+
+            <input
+              type="text"
+              id="modeloVeiculo"
+              placeholder="Ex.: Verona GLX"
+              required
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="anoVeiculo">
+              Ano / período
+            </label>
+
+            <input
+              type="text"
+              id="anoVeiculo"
+              placeholder="Ex.: 1991/2026"
+              required
+            >
+
+          </div>
+
+
+          <div>
+
+            <label for="furos">
+              Furos
+            </label>
+
+            <select
+              id="furos"
+              required
+            >
+
+              <option value="Sim">
+                Sim
+              </option>
+
+              <option value="Não">
+                Não
+              </option>
+
+            </select>
+
+          </div>
+
+
           <div class="admin-form-full">
-            <label for="observacoes">Observações</label>
+
+            <label for="observacoes">
+              Observações
+            </label>
 
             <textarea
               id="observacoes"
-              rows="2"
+              rows="3"
+              placeholder="Informações adicionais sobre o pedido"
             ></textarea>
+
           </div>
 
+
           <div class="admin-form-full">
+
             <button type="submit">
               Criar pedido
             </button>
+
           </div>
 
         </form>
@@ -116,10 +276,23 @@
           >
 
           <select id="ordenacaoPedidos">
-            <option value="recentes">Mais recentes</option>
-            <option value="antigos">Mais antigos</option>
-            <option value="numero_crescente">Número crescente</option>
-            <option value="numero_decrescente">Número decrescente</option>
+
+            <option value="recentes">
+              Mais recentes
+            </option>
+
+            <option value="antigos">
+              Mais antigos
+            </option>
+
+            <option value="numero_crescente">
+              Número crescente
+            </option>
+
+            <option value="numero_decrescente">
+              Número decrescente
+            </option>
+
           </select>
 
         </div>
@@ -187,9 +360,11 @@
 
 
       <p class="admin-voltar">
+
         <a href="conta.html">
           Voltar para minha conta
         </a>
+
       </p>
 
     </section>
@@ -199,28 +374,272 @@
 
   <script>
 
-    const pedidoForm = document.getElementById('pedidoForm');
-    const clienteSelect = document.getElementById('cliente');
-    const mensagem = document.getElementById('mensagem');
-    const listaPedidos = document.getElementById('listaPedidos');
-    const pesquisaPedido = document.getElementById('pesquisaPedido');
-    const ordenacaoPedidos = document.getElementById('ordenacaoPedidos');
+    const pedidoForm =
+      document.getElementById('pedidoForm');
 
+    const clientePesquisa =
+      document.getElementById('clientePesquisa');
+
+    const clientesLista =
+      document.getElementById('clientesLista');
+
+    const mensagem =
+      document.getElementById('mensagem');
+
+    const listaPedidos =
+      document.getElementById('listaPedidos');
+
+    const pesquisaPedido =
+      document.getElementById('pesquisaPedido');
+
+    const ordenacaoPedidos =
+      document.getElementById('ordenacaoPedidos');
+
+
+    let clientes = [];
     let clientesMap = {};
     let pedidosCarregados = [];
     let filtroAtual = 'todos';
 
 
     function formatarValor(valor) {
-      return Number(valor).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
+
+      return Number(valor).toLocaleString(
+        'pt-BR',
+        {
+          style: 'currency',
+          currency: 'BRL'
+        }
+      );
+
     }
 
 
     function formatarData(data) {
-      return new Date(data).toLocaleDateString('pt-BR');
+
+      return new Date(data)
+        .toLocaleDateString('pt-BR');
+
+    }
+
+
+    function escaparHtml(valor) {
+
+      return String(valor ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+    }
+
+
+    function normalizarTexto(valor) {
+
+      return String(valor ?? '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+
+    }
+
+
+    function montarLabelCliente(cliente) {
+
+      return [
+        cliente.nome_completo,
+        cliente.telefone,
+        cliente.email
+      ]
+        .filter(Boolean)
+        .join(' · ');
+
+    }
+
+
+    function localizarCliente() {
+
+      const pesquisa =
+        normalizarTexto(
+          clientePesquisa.value
+        );
+
+      if (!pesquisa) {
+        return null;
+      }
+
+
+      const exato =
+        clientes.find(
+          cliente =>
+            normalizarTexto(cliente.label) ===
+            pesquisa
+        );
+
+      if (exato) {
+        return exato;
+      }
+
+
+      const encontrados =
+        clientes.filter(
+          cliente =>
+            normalizarTexto(cliente.label)
+              .includes(pesquisa)
+        );
+
+
+      if (encontrados.length === 1) {
+        return encontrados[0];
+      }
+
+
+      return null;
+
+    }
+
+
+    function montarDetalhesVeiculo(
+      marca,
+      modelo,
+      ano,
+      furos
+    ) {
+
+      return [
+        `Marca: ${marca}`,
+        `Modelo: ${modelo}`,
+        `Ano/período: ${ano}`,
+        `Furos: ${furos}`
+      ].join(' | ');
+
+    }
+
+
+    function lerDetalhesVeiculo(texto) {
+
+      if (!texto) {
+        return null;
+      }
+
+
+      const dados = {};
+
+
+      texto
+        .split('|')
+        .map(parte => parte.trim())
+        .forEach(parte => {
+
+          const indice =
+            parte.indexOf(':');
+
+          if (indice === -1) {
+            return;
+          }
+
+
+          const chave =
+            parte
+              .slice(0, indice)
+              .trim()
+              .toLowerCase();
+
+          const valor =
+            parte
+              .slice(indice + 1)
+              .trim();
+
+
+          dados[chave] =
+            valor;
+
+        });
+
+
+      const marca =
+        dados['marca'];
+
+      const modelo =
+        dados['modelo'];
+
+      const ano =
+        dados['ano/período'];
+
+      const furos =
+        dados['furos'];
+
+
+      if (
+        !marca &&
+        !modelo &&
+        !ano &&
+        !furos
+      ) {
+        return null;
+      }
+
+
+      return {
+        marca,
+        modelo,
+        ano,
+        furos
+      };
+
+    }
+
+
+    function formatarDetalhesVeiculo(texto) {
+
+      const dados =
+        lerDetalhesVeiculo(texto);
+
+
+      if (!dados) {
+        return escaparHtml(texto);
+      }
+
+
+      const veiculo =
+        [
+          dados.marca,
+          dados.modelo
+        ]
+          .filter(Boolean)
+          .join(' ');
+
+
+      const partes = [];
+
+
+      if (veiculo) {
+        partes.push(veiculo);
+      }
+
+
+      if (dados.ano) {
+        partes.push(dados.ano);
+      }
+
+
+      if (dados.furos) {
+
+        partes.push(
+          dados.furos === 'Sim'
+            ? 'Com furos'
+            : 'Sem furos'
+        );
+
+      }
+
+
+      return partes
+        .map(escaparHtml)
+        .join(' · ');
+
     }
 
 
@@ -228,67 +647,148 @@
 
       const {
         data: { session }
-      } = await supabaseClient.auth.getSession();
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
 
       if (!session) {
-        window.location.href = 'login.html';
+
+        window.location.href =
+          'login.html';
+
         return false;
+
       }
+
 
       const {
         data: admin
-      } = await supabaseClient
-        .from('admins')
-        .select('user_id')
-        .eq('user_id', session.user.id)
-        .maybeSingle();
+      } =
+        await supabaseClient
+          .from('admins')
+          .select('user_id')
+          .eq(
+            'user_id',
+            session.user.id
+          )
+          .maybeSingle();
+
 
       if (!admin) {
-        window.location.href = 'conta.html';
+
+        window.location.href =
+          'conta.html';
+
         return false;
+
       }
 
+
       return true;
+
+    }
+
+
+    async function consultarClientes() {
+
+      const primeiraTentativa =
+        await supabaseClient
+          .from('profiles')
+          .select(
+            'id, nome_completo, telefone, email'
+          )
+          .order('nome_completo');
+
+
+      if (!primeiraTentativa.error) {
+
+        return {
+          data:
+            primeiraTentativa.data || [],
+          error: null
+        };
+
+      }
+
+
+      console.info(
+        'E-mail não disponível em profiles. Usando nome e telefone.'
+      );
+
+
+      const segundaTentativa =
+        await supabaseClient
+          .from('profiles')
+          .select(
+            'id, nome_completo, telefone'
+          )
+          .order('nome_completo');
+
+
+      return segundaTentativa;
+
     }
 
 
     async function carregarClientes() {
 
       const {
-        data: clientes,
+        data,
         error
-      } = await supabaseClient
-        .from('profiles')
-        .select('id, nome_completo')
-        .order('nome_completo');
+      } =
+        await consultarClientes();
+
 
       if (error) {
+
         console.error(error);
-        mensagem.textContent = 'Erro ao carregar clientes.';
+
+        mensagem.textContent =
+          'Erro ao carregar clientes.';
+
         return;
+
       }
+
+
+      clientes =
+        (data || [])
+          .map(cliente => ({
+            ...cliente,
+            label:
+              montarLabelCliente(cliente)
+          }));
+
 
       clientesMap = {};
 
-      clienteSelect.innerHTML =
-        '<option value="">Selecione o cliente</option>';
+
+      clientesLista.innerHTML = '';
+
 
       clientes.forEach(cliente => {
 
         clientesMap[cliente.id] =
           cliente.nome_completo;
 
+
         const option =
-          document.createElement('option');
+          document.createElement(
+            'option'
+          );
+
 
         option.value =
-          cliente.id;
+          cliente.label;
 
-        option.textContent =
-          cliente.nome_completo;
 
-        clienteSelect.appendChild(option);
+        clientesLista
+          .appendChild(option);
+
       });
+
     }
 
 
@@ -297,35 +797,44 @@
       const {
         data: pedidos,
         error
-      } = await supabaseClient
-        .from('orders')
-        .select(`
-          id,
-          user_id,
-          created_at,
-          status,
-          valor_total,
-          observacoes,
-          order_items (
+      } =
+        await supabaseClient
+          .from('orders')
+          .select(`
             id,
-            produto,
-            quantidade,
-            valor_unitario,
-            detalhes_personalizacao
-          )
-        `);
+            user_id,
+            created_at,
+            status,
+            valor_total,
+            observacoes,
+            order_items (
+              id,
+              produto,
+              quantidade,
+              valor_unitario,
+              detalhes_personalizacao
+            )
+          `);
+
 
       if (error) {
+
         console.error(error);
+
         listaPedidos.innerHTML =
           'Erro ao carregar pedidos.';
+
         return;
+
       }
+
 
       pedidosCarregados =
         pedidos || [];
 
+
       renderizarPedidos();
+
     }
 
 
@@ -335,25 +844,36 @@
         [...pedidosCarregados];
 
 
-      if (filtroAtual !== 'todos') {
+      if (
+        filtroAtual !==
+        'todos'
+      ) {
 
-        pedidos = pedidos.filter(
-          pedido =>
-            pedido.status === filtroAtual
-        );
+        pedidos =
+          pedidos.filter(
+            pedido =>
+              pedido.status ===
+              filtroAtual
+          );
+
       }
 
 
       const pesquisa =
-        pesquisaPedido.value.trim();
+        pesquisaPedido
+          .value
+          .trim();
 
 
       if (pesquisa) {
 
-        pedidos = pedidos.filter(
-          pedido =>
-            String(pedido.id) === pesquisa
-        );
+        pedidos =
+          pedidos.filter(
+            pedido =>
+              String(pedido.id) ===
+              pesquisa
+          );
+
       }
 
 
@@ -361,214 +881,297 @@
         ordenacaoPedidos.value;
 
 
-      if (ordenacao === 'recentes') {
+      if (
+        ordenacao ===
+        'recentes'
+      ) {
 
         pedidos.sort(
           (a, b) =>
             new Date(b.created_at) -
             new Date(a.created_at)
         );
+
       }
 
 
-      if (ordenacao === 'antigos') {
+      if (
+        ordenacao ===
+        'antigos'
+      ) {
 
         pedidos.sort(
           (a, b) =>
             new Date(a.created_at) -
             new Date(b.created_at)
         );
+
       }
 
 
-      if (ordenacao === 'numero_crescente') {
+      if (
+        ordenacao ===
+        'numero_crescente'
+      ) {
 
         pedidos.sort(
           (a, b) =>
             a.id - b.id
         );
+
       }
 
 
-      if (ordenacao === 'numero_decrescente') {
+      if (
+        ordenacao ===
+        'numero_decrescente'
+      ) {
 
         pedidos.sort(
           (a, b) =>
             b.id - a.id
         );
+
       }
 
 
-      if (pedidos.length === 0) {
+      if (
+        pedidos.length === 0
+      ) {
 
         listaPedidos.innerHTML =
           '<p>Nenhum pedido encontrado.</p>';
 
         return;
+
       }
 
 
       listaPedidos.innerHTML =
-        pedidos.map(pedido => {
+        pedidos
+          .map(pedido => {
 
-          const cliente =
-            clientesMap[pedido.user_id] ||
-            pedido.user_id;
+            const cliente =
+              clientesMap[
+                pedido.user_id
+              ] ||
+              pedido.user_id;
 
-          const itens =
-            pedido.order_items || [];
+
+            const itens =
+              pedido.order_items ||
+              [];
 
 
-          const itensHtml =
-            itens.map(item => `
+            const itensHtml =
+              itens
+                .map(item => {
 
-              <div class="admin-item-linha">
+                  const detalhes =
+                    item
+                      .detalhes_personalizacao;
 
-                <span>
-                  <strong>
-                    ${item.produto}
-                  </strong>
-                </span>
 
-                <span>
-                  Qtd: ${item.quantidade}
-                </span>
+                  return `
 
-                <span>
-                  ${formatarValor(item.valor_unitario)}
-                </span>
+                    <div class="admin-item-linha">
+
+                      <span>
+
+                        <strong>
+                          ${escaparHtml(item.produto)}
+                        </strong>
+
+                      </span>
+
+                      <span>
+                        Qtd:
+                        ${escaparHtml(item.quantidade)}
+                      </span>
+
+                      <span>
+                        ${formatarValor(item.valor_unitario)}
+                      </span>
+
+                      ${
+                        detalhes
+                          ? `
+                            <span class="admin-item-veiculo">
+                              ${formatarDetalhesVeiculo(detalhes)}
+                            </span>
+                          `
+                          : ''
+                      }
+
+                    </div>
+
+                  `;
+
+                })
+                .join('');
+
+
+            return `
+
+              <div class="pedido-card admin-pedido-card">
+
+                <div class="admin-pedido-topo">
+
+                  <div>
+
+                    <a
+                      href="pedido-detalhe.html?id=${pedido.id}"
+                      class="pedido-detalhe-link"
+                    >
+
+                      <strong>
+                        Pedido #${pedido.id}
+                      </strong>
+
+                    </a>
+
+                  </div>
+
+                  <div>
+                    ${escaparHtml(cliente)}
+                  </div>
+
+                </div>
+
+
+                <div class="admin-pedido-info">
+
+                  <span>
+                    ${formatarData(pedido.created_at)}
+                  </span>
+
+                  <span>
+                    ${formatarValor(pedido.valor_total)}
+                  </span>
+
+                </div>
+
+
+                <div class="admin-status">
+
+                  <label
+                    for="status-${pedido.id}"
+                  >
+                    Status
+                  </label>
+
+                  <select
+                    id="status-${pedido.id}"
+                    onchange="alterarStatus(${pedido.id}, this.value)"
+                  >
+
+                    <option
+                      value="aguardando_pagamento"
+                      ${
+                        pedido.status ===
+                        'aguardando_pagamento'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Aguardando pagamento
+                    </option>
+
+                    <option
+                      value="pago"
+                      ${
+                        pedido.status ===
+                        'pago'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Pago
+                    </option>
+
+                    <option
+                      value="em_producao"
+                      ${
+                        pedido.status ===
+                        'em_producao'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Em produção
+                    </option>
+
+                    <option
+                      value="enviado"
+                      ${
+                        pedido.status ===
+                        'enviado'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Enviado
+                    </option>
+
+                    <option
+                      value="concluido"
+                      ${
+                        pedido.status ===
+                        'concluido'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Concluído
+                    </option>
+
+                    <option
+                      value="cancelado"
+                      ${
+                        pedido.status ===
+                        'cancelado'
+                          ? 'selected'
+                          : ''
+                      }
+                    >
+                      Cancelado
+                    </option>
+
+                  </select>
+
+                </div>
+
 
                 ${
-                  item.detalhes_personalizacao
+                  pedido.observacoes
                     ? `
-                      <span class="admin-item-personalizacao">
-                        ${item.detalhes_personalizacao}
-                      </span>
+
+                      <div class="admin-observacao">
+
+                        <strong>
+                          Obs.:
+                        </strong>
+
+                        ${escaparHtml(pedido.observacoes)}
+
+                      </div>
+
                     `
                     : ''
                 }
 
-              </div>
 
-            `).join('');
-
-
-          return `
-
-            <div class="pedido-card admin-pedido-card">
-
-              <div class="admin-pedido-topo">
-
-                <div>
-                  <a
-                    href="pedido-detalhe.html?id=${pedido.id}"
-                    class="pedido-detalhe-link"
-                  >
-                    <strong>
-                      Pedido #${pedido.id}
-                    </strong>
-                  </a>
-                </div>
-
-                <div>
-                  ${cliente}
+                <div class="admin-itens">
+                  ${itensHtml}
                 </div>
 
               </div>
 
+            `;
 
-              <div class="admin-pedido-info">
+          })
+          .join('');
 
-                <span>
-                  ${formatarData(pedido.created_at)}
-                </span>
-
-                <span>
-                  ${formatarValor(pedido.valor_total)}
-                </span>
-
-              </div>
-
-
-              <div class="admin-status">
-
-                <label for="status-${pedido.id}">
-                  Status
-                </label>
-
-                <select
-                  id="status-${pedido.id}"
-                  onchange="alterarStatus(${pedido.id}, this.value)"
-                >
-
-                  <option
-                    value="aguardando_pagamento"
-                    ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}
-                  >
-                    Aguardando pagamento
-                  </option>
-
-                  <option
-                    value="pago"
-                    ${pedido.status === 'pago' ? 'selected' : ''}
-                  >
-                    Pago
-                  </option>
-
-                  <option
-                    value="em_producao"
-                    ${pedido.status === 'em_producao' ? 'selected' : ''}
-                  >
-                    Em produção
-                  </option>
-
-                  <option
-                    value="enviado"
-                    ${pedido.status === 'enviado' ? 'selected' : ''}
-                  >
-                    Enviado
-                  </option>
-
-                  <option
-                    value="concluido"
-                    ${pedido.status === 'concluido' ? 'selected' : ''}
-                  >
-                    Concluído
-                  </option>
-
-                  <option
-                    value="cancelado"
-                    ${pedido.status === 'cancelado' ? 'selected' : ''}
-                  >
-                    Cancelado
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              ${
-                pedido.observacoes
-                  ? `
-                    <div class="admin-observacao">
-                      <strong>Obs.:</strong>
-                      ${pedido.observacoes}
-                    </div>
-                  `
-                  : ''
-              }
-
-
-              <div class="admin-itens">
-                ${itensHtml}
-              </div>
-
-            </div>
-
-          `;
-
-        }).join('');
     }
 
 
@@ -576,6 +1179,7 @@
 
       filtroAtual =
         status;
+
 
       document
         .querySelectorAll(
@@ -585,11 +1189,15 @@
 
           botao.classList.toggle(
             'ativo',
-            botao.dataset.status === status
+            botao.dataset.status ===
+              status
           );
+
         });
 
+
       renderizarPedidos();
+
     }
 
 
@@ -606,22 +1214,25 @@
             filtrarPedidos(
               botao.dataset.status
             );
+
           }
         );
 
       });
 
 
-    pesquisaPedido.addEventListener(
-      'input',
-      renderizarPedidos
-    );
+    pesquisaPedido
+      .addEventListener(
+        'input',
+        renderizarPedidos
+      );
 
 
-    ordenacaoPedidos.addEventListener(
-      'change',
-      renderizarPedidos
-    );
+    ordenacaoPedidos
+      .addEventListener(
+        'change',
+        renderizarPedidos
+      );
 
 
     async function alterarStatus(
@@ -631,12 +1242,16 @@
 
       const {
         error
-      } = await supabaseClient
-        .from('orders')
-        .update({
-          status: novoStatus
-        })
-        .eq('id', pedidoId);
+      } =
+        await supabaseClient
+          .from('orders')
+          .update({
+            status: novoStatus
+          })
+          .eq(
+            'id',
+            pedidoId
+          );
 
 
       if (error) {
@@ -648,130 +1263,246 @@
         );
 
         return;
+
       }
 
 
       mensagem.textContent =
         `Pedido #${pedidoId} atualizado com sucesso.`;
 
+
       await carregarPedidos();
+
     }
 
 
-    pedidoForm.addEventListener(
-      'submit',
-      async (event) => {
+    pedidoForm
+      .addEventListener(
+        'submit',
+        async event => {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        mensagem.textContent =
-          'Criando pedido...';
-
-
-        const userId =
-          clienteSelect.value;
-
-        const produto =
-          document
-            .getElementById('produto')
-            .value
-            .trim();
-
-        const quantidade =
-          Number(
-            document
-              .getElementById('quantidade')
-              .value
-          );
-
-        const valorUnitario =
-          Number(
-            document
-              .getElementById('valorUnitario')
-              .value
-          );
-
-        const personalizacao =
-          document
-            .getElementById('personalizacao')
-            .value
-            .trim();
-
-        const observacoes =
-          document
-            .getElementById('observacoes')
-            .value
-            .trim();
-
-        const valorTotal =
-          quantidade * valorUnitario;
-
-
-        const {
-          data: pedido,
-          error: pedidoError
-        } = await supabaseClient
-          .from('orders')
-          .insert({
-            user_id: userId,
-            status: 'pago',
-            valor_total: valorTotal,
-            observacoes: observacoes
-          })
-          .select()
-          .single();
-
-
-        if (pedidoError) {
-
-          console.error(pedidoError);
 
           mensagem.textContent =
-            'Erro ao criar o pedido.';
-
-          return;
-        }
+            'Criando pedido...';
 
 
-        const {
-          error: itemError
-        } = await supabaseClient
-          .from('order_items')
-          .insert({
-            order_id: pedido.id,
-            produto: produto,
-            quantidade: quantidade,
-            valor_unitario: valorUnitario,
-            detalhes_personalizacao:
-              personalizacao
-          });
+          const cliente =
+            localizarCliente();
 
 
-        if (itemError) {
+          if (!cliente) {
 
-          console.error(itemError);
+            mensagem.textContent =
+              'Selecione um cliente válido na pesquisa.';
+
+            clientePesquisa.focus();
+
+            return;
+
+          }
+
+
+          const produto =
+            document
+              .getElementById(
+                'produto'
+              )
+              .value;
+
+
+          const quantidade =
+            Number(
+              document
+                .getElementById(
+                  'quantidade'
+                )
+                .value
+            );
+
+
+          const valorUnitario =
+            Number(
+              document
+                .getElementById(
+                  'valorUnitario'
+                )
+                .value
+            );
+
+
+          const marca =
+            document
+              .getElementById(
+                'marcaVeiculo'
+              )
+              .value
+              .trim();
+
+
+          const modelo =
+            document
+              .getElementById(
+                'modeloVeiculo'
+              )
+              .value
+              .trim();
+
+
+          const ano =
+            document
+              .getElementById(
+                'anoVeiculo'
+              )
+              .value
+              .trim();
+
+
+          const furos =
+            document
+              .getElementById(
+                'furos'
+              )
+              .value;
+
+
+          const observacoes =
+            document
+              .getElementById(
+                'observacoes'
+              )
+              .value
+              .trim();
+
+
+          const detalhesVeiculo =
+            montarDetalhesVeiculo(
+              marca,
+              modelo,
+              ano,
+              furos
+            );
+
+
+          const valorTotal =
+            quantidade *
+            valorUnitario;
+
+
+          const {
+            data: pedido,
+            error: pedidoError
+          } =
+            await supabaseClient
+              .from('orders')
+              .insert({
+                user_id:
+                  cliente.id,
+
+                status:
+                  'pago',
+
+                valor_total:
+                  valorTotal,
+
+                observacoes:
+                  observacoes
+              })
+              .select()
+              .single();
+
+
+          if (pedidoError) {
+
+            console.error(
+              pedidoError
+            );
+
+            mensagem.textContent =
+              'Erro ao criar o pedido.';
+
+            return;
+
+          }
+
+
+          const {
+            error: itemError
+          } =
+            await supabaseClient
+              .from('order_items')
+              .insert({
+                order_id:
+                  pedido.id,
+
+                produto:
+                  produto,
+
+                quantidade:
+                  quantidade,
+
+                valor_unitario:
+                  valorUnitario,
+
+                detalhes_personalizacao:
+                  detalhesVeiculo
+              });
+
+
+          if (itemError) {
+
+            console.error(
+              itemError
+            );
+
+            mensagem.textContent =
+              'Pedido criado, mas houve erro ao criar o item.';
+
+            return;
+
+          }
+
 
           mensagem.textContent =
-            'Pedido criado, mas houve erro ao criar o item.';
+            `Pedido #${pedido.id} criado com sucesso.`;
 
-          return;
+
+          pedidoForm.reset();
+
+
+          clientePesquisa.value =
+            '';
+
+
+          document
+            .getElementById(
+              'produto'
+            )
+            .value =
+              'Plaqueta de motor';
+
+
+          document
+            .getElementById(
+              'quantidade'
+            )
+            .value =
+              '1';
+
+
+          document
+            .getElementById(
+              'furos'
+            )
+            .value =
+              'Sim';
+
+
+          await carregarPedidos();
+
         }
-
-
-        mensagem.textContent =
-          `Pedido #${pedido.id} criado com sucesso.`;
-
-        pedidoForm.reset();
-
-        document.getElementById('produto').value =
-          'Plaqueta personalizada';
-
-        document.getElementById('quantidade').value =
-          '1';
-
-        await carregarPedidos();
-      }
-    );
+      );
 
 
     async function iniciar() {
@@ -779,14 +1510,17 @@
       const admin =
         await verificarAdmin();
 
+
       if (!admin) {
         return;
       }
+
 
       await carregarClientes();
       await carregarPedidos();
 
       filtrarPedidos('todos');
+
     }
 
 
