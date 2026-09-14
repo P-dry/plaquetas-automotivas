@@ -1024,6 +1024,75 @@ textarea:focus {
 }
 
 
+
+/* =========================
+   FORMATO VERTICAL
+   CHAVEIRO / RETROVISOR
+========================= */
+
+body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque,
+body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque {
+  width: 180px;
+  max-width: 180px !important;
+  aspect-ratio: 3 / 5 !important;
+  padding: 46px 18px 28px;
+  margin: 8px auto 0;
+}
+
+body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-title,
+body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-title {
+  width: 88%;
+  font-size: 18px;
+  line-height: 1.15;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-car,
+body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-car {
+  width: 90%;
+  margin: 20px 0;
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  white-space: normal;
+  overflow: visible;
+}
+
+body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-sub,
+body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-sub {
+  width: 88%;
+  font-size: 14px;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+@media (max-width: 480px) {
+  body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque,
+  body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque {
+    width: 160px;
+    max-width: 160px !important;
+    padding: 42px 16px 24px;
+  }
+
+  body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-title,
+  body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-title {
+    font-size: 16px;
+  }
+
+  body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-car,
+  body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-car {
+    font-size: 11px;
+  }
+
+  body:has(#produto option[value="retrovisor-interno"]:checked) #previewPlaque .mini-sub,
+  body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque .mini-sub {
+    font-size: 13px;
+  }
+}
+
 /* =========================
    INFORMAÇÕES DO PRODUTO
 ========================= */
