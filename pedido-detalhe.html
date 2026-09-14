@@ -38,23 +38,44 @@
 
   <script>
 
-    const conteudoPedido = document.getElementById('conteudoPedido');
-    const mensagem = document.getElementById('mensagem');
+    const conteudoPedido =
+      document.getElementById('conteudoPedido');
 
-    const params = new URLSearchParams(window.location.search);
-    const pedidoId = Number(params.get('id'));
+    const mensagem =
+      document.getElementById('mensagem');
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const pedidoId =
+      Number(
+        params.get('id')
+      );
 
 
     function formatarValor(valor) {
-      return Number(valor).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
+
+      return Number(valor)
+        .toLocaleString(
+          'pt-BR',
+          {
+            style: 'currency',
+            currency: 'BRL'
+          }
+        );
+
     }
 
 
     function formatarData(data) {
-      return new Date(data).toLocaleDateString('pt-BR');
+
+      return new Date(data)
+        .toLocaleDateString(
+          'pt-BR'
+        );
+
     }
 
 
@@ -64,13 +85,183 @@
         return null;
       }
 
-      let numero = telefone.replace(/\D/g, '');
 
-      if (!numero.startsWith('55')) {
-        numero = '55' + numero;
+      let numero =
+        telefone.replace(
+          /\D/g,
+          ''
+        );
+
+
+      if (
+        !numero.startsWith('55')
+      ) {
+
+        numero =
+          '55' + numero;
+
       }
 
+
       return `https://wa.me/${numero}`;
+
+    }
+
+
+    function lerDetalhesVeiculo(texto) {
+
+      if (!texto) {
+        return null;
+      }
+
+
+      const dados = {};
+
+
+      texto
+        .split('|')
+        .map(
+          parte =>
+            parte.trim()
+        )
+        .forEach(parte => {
+
+          const indice =
+            parte.indexOf(':');
+
+
+          if (indice === -1) {
+            return;
+          }
+
+
+          const chave =
+            parte
+              .slice(
+                0,
+                indice
+              )
+              .trim()
+              .toLowerCase();
+
+
+          const valor =
+            parte
+              .slice(
+                indice + 1
+              )
+              .trim();
+
+
+          dados[chave] =
+            valor;
+
+        });
+
+
+      const marca =
+        dados['marca'];
+
+      const modelo =
+        dados['modelo'];
+
+      const ano =
+        dados['ano/período'];
+
+      const furos =
+        dados['furos'];
+
+
+      if (
+        !marca &&
+        !modelo &&
+        !ano &&
+        !furos
+      ) {
+
+        return null;
+
+      }
+
+
+      return {
+        marca,
+        modelo,
+        ano,
+        furos
+      };
+
+    }
+
+
+    function montarDetalhesItem(item) {
+
+      if (
+        !item.detalhes_personalizacao
+      ) {
+
+        return '';
+
+      }
+
+
+      const veiculo =
+        lerDetalhesVeiculo(
+          item.detalhes_personalizacao
+        );
+
+
+      if (!veiculo) {
+
+        return `
+
+          <div class="detalhe-personalizacao">
+
+            <strong>
+              Personalização:
+            </strong>
+
+            ${item.detalhes_personalizacao}
+
+          </div>
+
+        `;
+
+      }
+
+
+      return `
+
+        <div class="detalhe-personalizacao">
+
+          <strong>
+            Dados do veículo
+          </strong>
+
+          <p>
+            <strong>Marca:</strong>
+            ${veiculo.marca || '-'}
+          </p>
+
+          <p>
+            <strong>Modelo:</strong>
+            ${veiculo.modelo || '-'}
+          </p>
+
+          <p>
+            <strong>Ano / período:</strong>
+            ${veiculo.ano || '-'}
+          </p>
+
+          <p>
+            <strong>Furos:</strong>
+            ${veiculo.furos || '-'}
+          </p>
+
+        </div>
+
+      `;
+
     }
 
 
@@ -78,86 +269,130 @@
 
       const {
         data: { session }
-      } = await supabaseClient.auth.getSession();
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
 
       if (!session) {
-        window.location.href = 'login.html';
+
+        window.location.href =
+          'login.html';
+
         return false;
+
       }
 
-      const { data: admin } = await supabaseClient
-        .from('admins')
-        .select('user_id')
-        .eq('user_id', session.user.id)
-        .maybeSingle();
+
+      const {
+        data: admin
+      } =
+        await supabaseClient
+          .from('admins')
+          .select('user_id')
+          .eq(
+            'user_id',
+            session.user.id
+          )
+          .maybeSingle();
+
 
       if (!admin) {
-        window.location.href = 'conta.html';
+
+        window.location.href =
+          'conta.html';
+
         return false;
+
       }
 
+
       return true;
+
     }
 
 
     async function carregarPedido() {
 
       if (!pedidoId) {
-        conteudoPedido.innerHTML = '<p>Pedido inválido.</p>';
+
+        conteudoPedido.innerHTML =
+          '<p>Pedido inválido.</p>';
+
         return;
+
       }
 
 
       const {
         data: pedido,
         error: pedidoError
-      } = await supabaseClient
-        .from('orders')
-        .select(`
-          id,
-          user_id,
-          created_at,
-          status,
-          valor_total,
-          observacoes,
-          order_items (
+      } =
+        await supabaseClient
+          .from('orders')
+          .select(`
             id,
-            produto,
-            quantidade,
-            valor_unitario,
-            detalhes_personalizacao
+            user_id,
+            created_at,
+            status,
+            valor_total,
+            observacoes,
+            order_items (
+              id,
+              produto,
+              quantidade,
+              valor_unitario,
+              detalhes_personalizacao
+            )
+          `)
+          .eq(
+            'id',
+            pedidoId
           )
-        `)
-        .eq('id', pedidoId)
-        .single();
+          .single();
 
 
       if (pedidoError) {
-        console.error(pedidoError);
+
+        console.error(
+          pedidoError
+        );
+
         conteudoPedido.innerHTML =
           '<p>Erro ao carregar o pedido.</p>';
+
         return;
+
       }
 
 
       const {
         data: clientes,
         error: clienteError
-      } = await supabaseClient.rpc(
-        'obter_cliente_admin',
-        {
-          p_user_id: pedido.user_id
-        }
-      );
+      } =
+        await supabaseClient
+          .rpc(
+            'obter_cliente_admin',
+            {
+              p_user_id:
+                pedido.user_id
+            }
+          );
 
 
       if (clienteError) {
-        console.error(clienteError);
+
+        console.error(
+          clienteError
+        );
+
       }
 
 
       const cliente =
-        clientes && clientes.length > 0
+        clientes &&
+        clientes.length > 0
           ? clientes[0]
           : null;
 
@@ -165,80 +400,120 @@
       const {
         data: endereco,
         error: enderecoError
-      } = await supabaseClient
-        .from('addresses')
-        .select(`
-          cep,
-          rua,
-          numero,
-          complemento,
-          bairro,
-          cidade,
-          estado
-        `)
-        .eq('user_id', pedido.user_id)
-        .order('updated_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
+      } =
+        await supabaseClient
+          .from('addresses')
+          .select(`
+            cep,
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado
+          `)
+          .eq(
+            'user_id',
+            pedido.user_id
+          )
+          .order(
+            'updated_at',
+            {
+              ascending: false
+            }
+          )
+          .limit(1)
+          .maybeSingle();
 
 
       if (enderecoError) {
-        console.error(enderecoError);
+
+        console.error(
+          enderecoError
+        );
+
       }
 
 
       const whatsappUrl =
-        montarWhatsapp(cliente?.telefone);
+        montarWhatsapp(
+          cliente?.telefone
+        );
 
 
       const itens =
-        pedido.order_items || [];
+        pedido.order_items ||
+        [];
 
 
-      const itensHtml = itens.map(item => `
-        <div class="detalhe-item">
+      const itensHtml =
+        itens
+          .map(item => `
 
-          <strong>${item.produto}</strong>
+            <div class="detalhe-item">
 
-          <div class="detalhe-item-info">
-            <span>Qtd: ${item.quantidade}</span>
-            <span>${formatarValor(item.valor_unitario)}</span>
-          </div>
+              <strong>
+                ${item.produto}
+              </strong>
 
-          ${
-            item.detalhes_personalizacao
-              ? `
-                <div class="detalhe-personalizacao">
-                  <strong>Personalização:</strong>
-                  ${item.detalhes_personalizacao}
-                </div>
-              `
-              : ''
-          }
+              <div class="detalhe-item-info">
 
-        </div>
-      `).join('');
+                <span>
+                  Qtd: ${item.quantidade}
+                </span>
+
+                <span>
+                  ${formatarValor(item.valor_unitario)}
+                </span>
+
+              </div>
+
+              ${montarDetalhesItem(item)}
+
+            </div>
+
+          `)
+          .join('');
 
 
-      const enderecoHtml = endereco
-        ? `
-          <p>
-            ${endereco.rua || ''},
-            ${endereco.numero || ''}
-            ${endereco.complemento ? ' - ' + endereco.complemento : ''}
-          </p>
+      const enderecoHtml =
+        endereco
+          ? `
 
-          <p>
-            ${endereco.bairro || ''}
-            ${endereco.cidade ? ' - ' + endereco.cidade : ''}
-            ${endereco.estado ? '/' + endereco.estado : ''}
-          </p>
+            <p>
+              ${endereco.rua || ''},
+              ${endereco.numero || ''}
+              ${
+                endereco.complemento
+                  ? ' - ' +
+                    endereco.complemento
+                  : ''
+              }
+            </p>
 
-          <p>
-            CEP: ${endereco.cep || ''}
-          </p>
-        `
-        : '<p>Endereço não cadastrado.</p>';
+            <p>
+              ${endereco.bairro || ''}
+              ${
+                endereco.cidade
+                  ? ' - ' +
+                    endereco.cidade
+                  : ''
+              }
+              ${
+                endereco.estado
+                  ? '/' +
+                    endereco.estado
+                  : ''
+              }
+            </p>
+
+            <p>
+              CEP:
+              ${endereco.cep || ''}
+            </p>
+
+          `
+          : '<p>Endereço não cadastrado.</p>';
 
 
       conteudoPedido.innerHTML = `
@@ -246,8 +521,15 @@
         <div class="detalhe-topo">
 
           <div>
-            <h1>Pedido #${pedido.id}</h1>
-            <p>${formatarData(pedido.created_at)}</p>
+
+            <h1>
+              Pedido #${pedido.id}
+            </h1>
+
+            <p>
+              ${formatarData(pedido.created_at)}
+            </p>
+
           </div>
 
           <div class="detalhe-valor">
@@ -270,33 +552,75 @@
 
             <select id="statusPedido">
 
-              <option value="aguardando_pagamento"
-                ${pedido.status === 'aguardando_pagamento' ? 'selected' : ''}>
+              <option
+                value="aguardando_pagamento"
+                ${
+                  pedido.status ===
+                  'aguardando_pagamento'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Aguardando pagamento
               </option>
 
-              <option value="pago"
-                ${pedido.status === 'pago' ? 'selected' : ''}>
+              <option
+                value="pago"
+                ${
+                  pedido.status ===
+                  'pago'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Pago
               </option>
 
-              <option value="em_producao"
-                ${pedido.status === 'em_producao' ? 'selected' : ''}>
+              <option
+                value="em_producao"
+                ${
+                  pedido.status ===
+                  'em_producao'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Em produção
               </option>
 
-              <option value="enviado"
-                ${pedido.status === 'enviado' ? 'selected' : ''}>
+              <option
+                value="enviado"
+                ${
+                  pedido.status ===
+                  'enviado'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Enviado
               </option>
 
-              <option value="concluido"
-                ${pedido.status === 'concluido' ? 'selected' : ''}>
+              <option
+                value="concluido"
+                ${
+                  pedido.status ===
+                  'concluido'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Concluído
               </option>
 
-              <option value="cancelado"
-                ${pedido.status === 'cancelado' ? 'selected' : ''}>
+              <option
+                value="cancelado"
+                ${
+                  pedido.status ===
+                  'cancelado'
+                    ? 'selected'
+                    : ''
+                }
+              >
                 Cancelado
               </option>
 
@@ -327,7 +651,9 @@
             ${
               whatsappUrl
                 ? `
+
                   <p>
+
                     <a
                       href="${whatsappUrl}"
                       target="_blank"
@@ -336,7 +662,9 @@
                     >
                       Abrir WhatsApp
                     </a>
+
                   </p>
+
                 `
                 : ''
             }
@@ -368,15 +696,19 @@
           ${
             pedido.observacoes
               ? `
+
                 <section class="detalhe-card detalhe-card-largo">
 
-                  <h2>Observações</h2>
+                  <h2>
+                    Observações
+                  </h2>
 
                   <p>
                     ${pedido.observacoes}
                   </p>
 
                 </section>
+
               `
               : ''
           }
@@ -387,28 +719,48 @@
 
 
       document
-        .getElementById('statusPedido')
-        .addEventListener('change', async (event) => {
+        .getElementById(
+          'statusPedido'
+        )
+        .addEventListener(
+          'change',
+          async event => {
 
-          const { error } = await supabaseClient
-            .from('orders')
-            .update({
-              status: event.target.value
-            })
-            .eq('id', pedido.id);
+            const {
+              error
+            } =
+              await supabaseClient
+                .from('orders')
+                .update({
+                  status:
+                    event.target.value
+                })
+                .eq(
+                  'id',
+                  pedido.id
+                );
 
 
-          if (error) {
-            console.error(error);
+            if (error) {
+
+              console.error(
+                error
+              );
+
+              mensagem.textContent =
+                'Erro ao alterar o status.';
+
+              return;
+
+            }
+
+
             mensagem.textContent =
-              'Erro ao alterar o status.';
-            return;
+              'Status atualizado com sucesso.';
+
           }
+        );
 
-
-          mensagem.textContent =
-            'Status atualizado com sucesso.';
-        });
     }
 
 
@@ -417,11 +769,14 @@
       const admin =
         await verificarAdmin();
 
+
       if (!admin) {
         return;
       }
 
+
       await carregarPedido();
+
     }
 
 
