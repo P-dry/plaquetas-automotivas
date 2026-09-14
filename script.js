@@ -25,45 +25,46 @@ const produtos = {
   'plaqueta-motor': {
     nome: 'Plaqueta de motor',
     medida: '100 × 40 mm',
-    descricao: 'Plaqueta personalizada de 100 × 40 mm, ideal para aplicação no cofre do motor. Pode ser produzida com ou sem a furação padrão do modelo.',
+    descricao:
+      'Plaqueta personalizada de 100 × 40 mm, ideal para aplicação no cofre do motor. Pode ser produzida com ou sem a furação padrão do modelo.',
     visual: '▰────────╱╲───────▰',
-    formato: 'motor'
+    classe: 'motor'
   },
 
   'retrovisor-interno': {
     nome: 'Enfeite para retrovisor interno',
     medida: '50 × 30 mm',
-    descricao: 'Peça personalizada de 50 × 30 mm, desenvolvida para uso no retrovisor interno. Quando escolhida com furos, utiliza 2 furos superiores.',
-    visual: '◻ IMAGEM ◻',
-    formato: 'compacto'
+    descricao:
+      'Peça personalizada de 50 × 30 mm, desenvolvida para uso no retrovisor interno. Quando escolhida com furos, utiliza 2 furos superiores.',
+    visual: 'IMAGEM DO CARRO',
+    classe: 'retrovisor'
   },
 
   'chaveiro-personalizado': {
     nome: 'Chaveiro personalizado',
     medida: '50 × 30 mm',
-    descricao: 'Peça personalizada de 50 × 30 mm, compacta e ideal para chaveiro automotivo. Quando escolhida com furo, utiliza 1 furo superior para fixação.',
-    visual: '◻ IMAGEM ◻',
-    formato: 'compacto'
+    descricao:
+      'Peça personalizada de 50 × 30 mm, compacta e ideal para chaveiro automotivo. Quando escolhida com furo, utiliza 1 furo superior para fixação.',
+    visual: 'IMAGEM DO CARRO',
+    classe: 'keychain'
   }
 };
 
-function resetPreviewHoles() {
-  const holes = [previewHole1, previewHole2, previewHole3, previewHole4];
-
-  holes.forEach((hole) => {
+function ocultarFuros() {
+  [
+    previewHole1,
+    previewHole2,
+    previewHole3,
+    previewHole4
+  ].forEach((hole) => {
     hole.style.display = 'none';
-    hole.style.left = '';
-    hole.style.right = '';
-    hole.style.top = '';
-    hole.style.bottom = '';
-    hole.style.transform = '';
   });
 }
 
-function applyPreviewHoles(produtoAtual, furosAtivos) {
-  resetPreviewHoles();
+function atualizarFuros(produtoAtual) {
+  ocultarFuros();
 
-  if (!furosAtivos) {
+  if (furos.value !== 'Sim') {
     return;
   }
 
@@ -83,42 +84,57 @@ function applyPreviewHoles(produtoAtual, furosAtivos) {
 
   if (produtoAtual === 'chaveiro-personalizado') {
     previewHole1.style.display = 'block';
-    previewHole1.style.left = '50%';
-    previewHole1.style.right = 'auto';
-    previewHole1.style.top = '10px';
-    previewHole1.style.bottom = 'auto';
-    previewHole1.style.transform = 'translateX(-50%)';
   }
 }
 
-function updatePreviewFormat(produtoAtual) {
-  const info = produtos[produtoAtual];
+function atualizarFormato(produtoAtual) {
+  previewPlaque.classList.remove(
+    'motor',
+    'vertical',
+    'retrovisor',
+    'keychain'
+  );
 
-  if (info.formato === 'motor') {
-    previewPlaque.style.aspectRatio = '2.5 / 1';
-    previewPlaque.style.maxWidth = '100%';
-    previewVisual.textContent = info.visual;
-  } else {
-    previewPlaque.style.aspectRatio = '5 / 3';
-    previewPlaque.style.maxWidth = '240px';
-    previewVisual.textContent = info.visual;
+  if (produtoAtual === 'plaqueta-motor') {
+    previewPlaque.classList.add('motor');
+    return;
   }
 
-  previewPlaque.style.marginInline = 'auto';
-  previewProduto.textContent = info.nome;
-  previewMedida.textContent = info.medida;
-  previewDescricao.textContent = info.descricao;
+  previewPlaque.classList.add('vertical');
+
+  if (produtoAtual === 'retrovisor-interno') {
+    previewPlaque.classList.add('retrovisor');
+  }
+
+  if (produtoAtual === 'chaveiro-personalizado') {
+    previewPlaque.classList.add('keychain');
+  }
 }
 
 function updatePreview() {
   const produtoAtual = produto.value;
   const info = produtos[produtoAtual];
 
-  previewNome.textContent = nome.value.trim() || 'Seu veículo';
-  previewAno.textContent = ano.value.trim() || 'Ano / período';
+  previewNome.textContent =
+    nome.value.trim() || 'Seu veículo';
 
-  updatePreviewFormat(produtoAtual);
-  applyPreviewHoles(produtoAtual, furos.value === 'Sim');
+  previewAno.textContent =
+    ano.value.trim() || 'Ano / período';
+
+  previewVisual.textContent =
+    info.visual;
+
+  previewProduto.textContent =
+    info.nome;
+
+  previewMedida.textContent =
+    info.medida;
+
+  previewDescricao.textContent =
+    info.descricao;
+
+  atualizarFormato(produtoAtual);
+  atualizarFuros(produtoAtual);
 }
 
 nome.addEventListener('input', updatePreview);
@@ -131,13 +147,13 @@ updatePreview();
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const produtoAtual = produtos[produto.value];
+  const info = produtos[produto.value];
 
   const message = [
     'Olá! Gostaria de pedir uma peça automotiva personalizada.',
     '',
-    `Produto: ${produtoAtual.nome}`,
-    `Medida: ${produtoAtual.medida}`,
+    `Produto: ${info.nome}`,
+    `Medida: ${info.medida}`,
     `Veículo: ${nome.value.trim()}`,
     `Ano / período: ${ano.value.trim()}`,
     `Frase adicional: ${frase.value.trim() || 'Não informado'}`,
@@ -147,6 +163,8 @@ form.addEventListener('submit', (event) => {
     'A foto do carro será enviada por aqui após o pedido.'
   ].join('\n');
 
-  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const url =
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
   window.location.href = url;
 });
