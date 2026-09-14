@@ -460,47 +460,48 @@ h3 {
 }
 
 .plaque-mockup {
-  display: grid;
-
-  place-items: center;
-
+  display: block;
   text-align: center;
-
-  padding:
-    34px 58px;
+  padding: 0;
 }
 
 .plaque-title {
-  font-size:
-    38px;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    0.02em;
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76%;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .car-line {
-  font-size:
-    28px;
-
-  color:
-    #d4d9df;
-
-  letter-spacing:
-    0.08em;
-
-  margin:
-    12px 0;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68%;
+  margin: 0;
+  font-size: 28px;
+  color: #d4d9df;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .plaque-sub {
-  font-size:
-    22px;
-
-  font-weight:
-    700;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translateX(-50%);
+  width: 76%;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .hole,
@@ -1614,20 +1615,20 @@ textarea:focus {
     grid-template-columns:
       1fr;
   }
-
   .plaque-title {
-    font-size:
-      28px;
+    top: 18%;
+    font-size: 28px;
   }
 
   .car-line {
-    font-size:
-      20px;
+    top: 52%;
+    width: 64%;
+    font-size: 20px;
   }
 
   .plaque-sub {
-    font-size:
-      18px;
+    bottom: 10%;
+    font-size: 18px;
   }
 
   .footer-wrap {
@@ -1817,6 +1818,22 @@ textarea:focus {
   .hero-copy p {
     font-size:
       16px;
+  }
+
+  .plaque-title {
+    top: 18%;
+    font-size: 24px;
+  }
+
+  .car-line {
+    top: 52%;
+    width: 62%;
+    font-size: 17px;
+  }
+
+  .plaque-sub {
+    bottom: 10%;
+    font-size: 15px;
   }
 
   .auth-container {
