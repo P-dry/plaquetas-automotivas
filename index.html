@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
 <head>
 
   <meta charset="UTF-8" />
@@ -20,11 +23,6 @@
     rel="canonical"
     href="https://imalloy.com.br/"
   />
-
-
-  <!-- =========================
-       OPEN GRAPH
-  ========================== -->
 
   <meta
     property="og:type"
@@ -51,11 +49,6 @@
     content="https://imalloy.com.br/"
   />
 
-
-  <!-- =========================
-       FONTE
-  ========================== -->
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -72,29 +65,13 @@
     rel="stylesheet"
   >
 
-
-  <!-- =========================
-       CSS
-  ========================== -->
-
   <link
     rel="stylesheet"
     href="style.css"
   />
 
-
-  <!-- =========================
-       SUPABASE
-  ========================== -->
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script src="supabase.js"></script>
-
-
-  <!-- =========================
-       CARROSSEL
-  ========================== -->
 
   <style>
 
@@ -236,3 +213,1277 @@
   </style>
 
 </head>
+
+
+<body>
+
+
+  <header class="topbar">
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand brand-logo"
+        href="#home"
+        aria-label="ÍMALLOY"
+      >
+
+        <span class="brand-mark-wrap">
+
+          <img
+            class="brand-mark"
+            src="assets/imalloy-logo-branca.png?v=1"
+            alt="ÍMALLOY"
+          />
+
+        </span>
+
+        <span class="brand-name">
+          ÍMALLOY
+        </span>
+
+      </a>
+
+
+      <nav class="nav">
+
+        <a href="#home">
+          Home
+        </a>
+
+        <a href="#produtos">
+          Produtos
+        </a>
+
+        <a href="#personalizar">
+          Personalizar
+        </a>
+
+        <a
+          id="accountLink"
+          class="nav-account"
+          href="login.html"
+        >
+          Entrar
+        </a>
+
+        <a
+          class="nav-cta"
+          href="#personalizar"
+        >
+          Fazer pedido
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+
+    <section
+      id="home"
+      class="hero section"
+    >
+
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+
+          <span class="eyebrow">
+            ÍMALLOY · AUTOMOTIVE PERSONALISATION
+          </span>
+
+          <h1>
+            Seu carro merece detalhes com identidade própria.
+          </h1>
+
+          <p>
+            Peças automotivas personalizadas com gravação a laser,
+            design exclusivo e acabamento pensado para cada projeto.
+          </p>
+
+
+          <div class="hero-actions">
+
+            <a
+              class="btn btn-primary"
+              href="#personalizar"
+            >
+              Personalizar agora
+            </a>
+
+            <a
+              class="btn btn-secondary"
+              href="#produtos"
+            >
+              Ver produtos
+            </a>
+
+          </div>
+
+
+          <div class="hero-points">
+
+            <span>
+              Design exclusivo
+            </span>
+
+            <span>
+              Personalização automotiva
+            </span>
+
+            <span>
+              Gravação a laser
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="plaque-mockup"
+          aria-label="Exemplo de plaqueta automotiva"
+        >
+
+          <div class="hole h1"></div>
+          <div class="hole h2"></div>
+          <div class="hole h3"></div>
+          <div class="hole h4"></div>
+
+
+          <div class="plaque-content">
+
+            <div class="plaque-title">
+              Ford Verona
+            </div>
+
+            <div class="car-line">
+              ▰────────╱╲───────▰
+            </div>
+
+            <div class="plaque-sub">
+              1991/2026
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section
+      id="produtos"
+      class="section section-muted"
+    >
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span class="eyebrow">
+            PRODUTOS ÍMALLOY
+          </span>
+
+          <h2>
+            Produtos personalizados ÍMALLOY
+          </h2>
+
+          <p>
+            Escolha o formato ideal para o seu projeto
+            e personalize com os dados do seu veículo.
+          </p>
+
+        </div>
+
+
+        <div class="product-grid">
+
+
+          <div class="product-carousel">
+
+            <button
+              id="produtoAnterior"
+              class="product-carousel-nav product-carousel-prev"
+              type="button"
+              aria-label="Produto anterior"
+            >
+              ‹
+            </button>
+
+
+            <article
+              id="productCard"
+              class="product-card"
+            >
+
+              <div
+                id="cardProdutoMedida"
+                class="product-badge"
+              >
+                100 × 40 mm
+              </div>
+
+
+              <h3 id="cardProdutoNome">
+                Plaqueta de motor
+              </h3>
+
+
+              <p
+                id="cardProdutoDescricao"
+                class="product-desc"
+              >
+                Personalizada para aplicação no cofre do motor
+                ou em projetos automotivos.
+              </p>
+
+
+              <ul
+                id="cardProdutoCaracteristicas"
+                class="feature-list"
+              >
+
+                <li>
+                  Nome/modelo do veículo
+                </li>
+
+                <li>
+                  Arte personalizada
+                </li>
+
+                <li>
+                  Ano / período
+                </li>
+
+                <li>
+                  Gravação a laser
+                </li>
+
+                <li>
+                  Opção com ou sem furos
+                </li>
+
+              </ul>
+
+
+              <div class="price-row">
+
+                <span
+                  id="cardProdutoPrecoLabel"
+                  class="price-label"
+                >
+                  Preço inicial
+                </span>
+
+                <strong
+                  id="cardProdutoPreco"
+                  class="price"
+                >
+                  R$ 49,90
+                </strong>
+
+              </div>
+
+
+              <button
+                id="cardProdutoPersonalizar"
+                class="btn btn-primary btn-full"
+                type="button"
+              >
+                Quero personalizar
+              </button>
+
+            </article>
+
+
+            <button
+              id="proximoProduto"
+              class="product-carousel-nav product-carousel-next"
+              type="button"
+              aria-label="Próximo produto"
+            >
+              ›
+            </button>
+
+
+            <div
+              class="product-carousel-dots"
+              aria-label="Seleção de produto"
+            >
+
+              <button
+                class="product-carousel-dot active"
+                type="button"
+                data-produto-index="0"
+                aria-label="Plaqueta de motor"
+              ></button>
+
+              <button
+                class="product-carousel-dot"
+                type="button"
+                data-produto-index="1"
+                aria-label="Enfeite para retrovisor interno"
+              ></button>
+
+              <button
+                class="product-carousel-dot"
+                type="button"
+                data-produto-index="2"
+                aria-label="Chaveiro personalizado"
+              ></button>
+
+            </div>
+
+          </div>
+
+
+          <div class="info-panel">
+
+            <h3>
+              Como funciona
+            </h3>
+
+            <div class="steps">
+
+
+              <div class="step">
+
+                <span>
+                  1
+                </span>
+
+                <div>
+
+                  <strong>
+                    Escolha os dados
+                  </strong>
+
+                  <p>
+                    Informe produto, carro, ano, opção de furos
+                    e, quando disponível, a gravação no verso.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="step">
+
+                <span>
+                  2
+                </span>
+
+                <div>
+
+                  <strong>
+                    Envie a foto
+                  </strong>
+
+                  <p>
+                    Após o pedido, envie a foto do carro pelo WhatsApp.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="step">
+
+                <span>
+                  3
+                </span>
+
+                <div>
+
+                  <strong>
+                    Aprovação da arte
+                  </strong>
+
+                  <p>
+                    Você recebe a prévia antes da gravação.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="step">
+
+                <span>
+                  4
+                </span>
+
+                <div>
+
+                  <strong>
+                    Produção
+                  </strong>
+
+                  <p>
+                    A peça é gravada e preparada para envio.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section
+      id="personalizar"
+      class="section"
+    >
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span class="eyebrow">
+            PERSONALIZE
+          </span>
+
+          <h2>
+            Monte seu produto
+          </h2>
+
+          <p>
+            Preencha os dados e gere seu pedido para o WhatsApp.
+          </p>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+          <form
+            id="orderForm"
+            class="order-form"
+          >
+
+
+            <div class="field">
+
+              <label for="nome">
+                Nome do veículo
+              </label>
+
+              <input
+                id="nome"
+                name="nome"
+                type="text"
+                placeholder="Ex.: Ford Verona"
+                required
+              />
+
+            </div>
+
+
+            <div class="field-row">
+
+
+              <div class="field">
+
+                <label for="ano">
+                  Ano / período
+                </label>
+
+                <input
+                  id="ano"
+                  name="ano"
+                  type="text"
+                  placeholder="Ex.: 1991/2026"
+                  required
+                />
+
+              </div>
+
+
+              <div class="field">
+
+                <label for="furos">
+                  Furos
+                </label>
+
+                <select
+                  id="furos"
+                  name="furos"
+                >
+
+                  <option value="Sim">
+                    Sim
+                  </option>
+
+                  <option value="Não">
+                    Não
+                  </option>
+
+                </select>
+
+              </div>
+
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="produto">
+                Produto
+              </label>
+
+              <select
+                id="produto"
+                name="produto"
+              >
+
+                <option value="plaqueta-motor">
+                  Plaqueta de motor
+                </option>
+
+                <option value="retrovisor-interno">
+                  Enfeite para retrovisor interno
+                </option>
+
+                <option value="chaveiro-personalizado">
+                  Chaveiro personalizado
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div
+              id="campoGravacaoVerso"
+              class="field"
+              hidden
+            >
+
+              <label for="frase">
+
+                Gravação no verso
+
+                <span>
+                  (opcional)
+                </span>
+
+              </label>
+
+              <input
+                id="frase"
+                name="frase"
+                type="text"
+                placeholder="Ex.: nome, frase, data, placa ou mensagem curta"
+              />
+
+            </div>
+
+
+            <div class="field">
+
+              <label for="obs">
+                Observações
+              </label>
+
+              <textarea
+                id="obs"
+                name="obs"
+                rows="4"
+                placeholder="Ex.: detalhes, preferências ou informações importantes para a arte"
+              ></textarea>
+
+            </div>
+
+
+            <div class="notice">
+              A foto do carro será enviada pelo WhatsApp
+              depois que você clicar em “Fazer pedido”.
+            </div>
+
+
+            <button
+              class="btn btn-whatsapp btn-full"
+              type="submit"
+            >
+              Fazer pedido pelo WhatsApp
+            </button>
+
+
+            <a
+              id="paymentLink"
+              class="btn btn-secondary btn-full disabled"
+              href="#"
+              aria-disabled="true"
+            >
+              Pagamento online em breve
+            </a>
+
+
+          </form>
+
+
+          <aside class="preview-card">
+
+            <span class="eyebrow">
+              PRÉVIA
+            </span>
+
+
+            <div
+              id="previewPlaque"
+              class="mini-plaque"
+            >
+
+              <div class="mini-hole mh1"></div>
+              <div class="mini-hole mh2"></div>
+              <div class="mini-hole mh3"></div>
+              <div class="mini-hole mh4"></div>
+
+
+              <div
+                id="previewNome"
+                class="mini-title"
+              >
+                Seu veículo
+              </div>
+
+
+              <div
+                id="previewVisual"
+                class="mini-car"
+              >
+                ▰────────╱╲───────▰
+              </div>
+
+
+              <div
+                id="previewAno"
+                class="mini-sub"
+              >
+                Ano / período
+              </div>
+
+            </div>
+
+
+            <div class="preview-product-info">
+
+              <strong
+                id="previewProduto"
+                class="preview-product-name"
+              >
+                Plaqueta de motor
+              </strong>
+
+
+              <span
+                id="previewMedida"
+                class="preview-product-size"
+              >
+                100 × 40 mm
+              </span>
+
+
+              <p
+                id="previewDescricao"
+                class="preview-product-description"
+              >
+                Plaqueta personalizada de 100 × 40 mm,
+                ideal para aplicação no cofre do motor.
+                Pode ser produzida com ou sem a furação padrão do modelo.
+              </p>
+
+            </div>
+
+
+            <p class="preview-note">
+
+              A prévia acima é apenas ilustrativa.
+
+              A arte final será desenvolvida a partir da foto
+              e das informações enviadas pelo cliente.
+
+            </p>
+
+
+          </aside>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <footer class="footer">
+
+    <div class="container footer-wrap">
+
+      <span>
+        © 2026 ÍMALLOY
+      </span>
+
+      <span>
+        Produtos automotivos personalizados
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+
+  <script>
+
+    const produtosCard = [
+
+      {
+        valor: 'plaqueta-motor',
+
+        medida:
+          '100 × 40 mm',
+
+        nome:
+          'Plaqueta de motor',
+
+        descricao:
+          'Personalizada para aplicação no cofre do motor ou em projetos automotivos.',
+
+        caracteristicas: [
+          'Nome/modelo do veículo',
+          'Arte personalizada',
+          'Ano / período',
+          'Gravação a laser',
+          'Opção com ou sem furos'
+        ],
+
+        precoLabel:
+          'Preço inicial',
+
+        preco:
+          'R$ 49,90'
+      },
+
+
+      {
+        valor:
+          'retrovisor-interno',
+
+        medida:
+          '50 × 30 mm',
+
+        nome:
+          'Enfeite para retrovisor interno',
+
+        descricao:
+          'Peça personalizada para deixar o interior do veículo com identidade própria.',
+
+        caracteristicas: [
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
+          '2 furos superiores',
+          'Gravação a laser',
+          'Gravação opcional no verso'
+        ],
+
+        precoLabel:
+          'Preço',
+
+        preco:
+          'Sob consulta'
+      },
+
+
+      {
+        valor:
+          'chaveiro-personalizado',
+
+        medida:
+          '50 × 30 mm',
+
+        nome:
+          'Chaveiro personalizado',
+
+        descricao:
+          'Uma peça compacta e personalizada para levar a identidade do seu carro com você.',
+
+        caracteristicas: [
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
+          '1 furo superior',
+          'Gravação a laser',
+          'Gravação opcional no verso'
+        ],
+
+        precoLabel:
+          'Preço',
+
+        preco:
+          'Sob consulta'
+      }
+
+    ];
+
+
+    let produtoCardAtual = 0;
+
+    let produtoCardAnimando =
+      false;
+
+
+    const productCard =
+      document.getElementById(
+        'productCard'
+      );
+
+
+    const cardProdutoMedida =
+      document.getElementById(
+        'cardProdutoMedida'
+      );
+
+
+    const cardProdutoNome =
+      document.getElementById(
+        'cardProdutoNome'
+      );
+
+
+    const cardProdutoDescricao =
+      document.getElementById(
+        'cardProdutoDescricao'
+      );
+
+
+    const cardProdutoCaracteristicas =
+      document.getElementById(
+        'cardProdutoCaracteristicas'
+      );
+
+
+    const cardProdutoPrecoLabel =
+      document.getElementById(
+        'cardProdutoPrecoLabel'
+      );
+
+
+    const cardProdutoPreco =
+      document.getElementById(
+        'cardProdutoPreco'
+      );
+
+
+    const produtoAnterior =
+      document.getElementById(
+        'produtoAnterior'
+      );
+
+
+    const proximoProduto =
+      document.getElementById(
+        'proximoProduto'
+      );
+
+
+    const cardProdutoPersonalizar =
+      document.getElementById(
+        'cardProdutoPersonalizar'
+      );
+
+
+    const produtoDots =
+      document.querySelectorAll(
+        '.product-carousel-dot'
+      );
+
+
+    function renderizarProdutoCard() {
+
+      const item =
+        produtosCard[
+          produtoCardAtual
+        ];
+
+
+      cardProdutoMedida.textContent =
+        item.medida;
+
+
+      cardProdutoNome.textContent =
+        item.nome;
+
+
+      cardProdutoDescricao.textContent =
+        item.descricao;
+
+
+      cardProdutoPrecoLabel.textContent =
+        item.precoLabel;
+
+
+      cardProdutoPreco.textContent =
+        item.preco;
+
+
+      cardProdutoCaracteristicas.innerHTML =
+        item.caracteristicas
+          .map(
+            caracteristica =>
+              `<li>${caracteristica}</li>`
+          )
+          .join('');
+
+
+      produtoDots.forEach(
+        (dot, index) => {
+
+          dot.classList.toggle(
+            'active',
+            index === produtoCardAtual
+          );
+
+        }
+      );
+
+    }
+
+
+    function trocarProdutoCard(
+      novoIndice,
+      direcao
+    ) {
+
+      if (
+        produtoCardAnimando ||
+        novoIndice === produtoCardAtual
+      ) {
+
+        return;
+
+      }
+
+
+      produtoCardAnimando =
+        true;
+
+
+      const classeSaida =
+        direcao > 0
+          ? 'is-leaving-next'
+          : 'is-leaving-prev';
+
+
+      const classeEntrada =
+        direcao > 0
+          ? 'is-entering-next'
+          : 'is-entering-prev';
+
+
+      productCard.classList.add(
+        classeSaida
+      );
+
+
+      window.setTimeout(
+        () => {
+
+          produtoCardAtual =
+            novoIndice;
+
+
+          renderizarProdutoCard();
+
+
+          productCard.classList.remove(
+            classeSaida
+          );
+
+
+          productCard.classList.add(
+            classeEntrada
+          );
+
+
+          productCard.offsetHeight;
+
+
+          window.requestAnimationFrame(
+            () => {
+
+              productCard.classList.remove(
+                classeEntrada
+              );
+
+
+              window.setTimeout(
+                () => {
+
+                  produtoCardAnimando =
+                    false;
+
+                },
+                180
+              );
+
+            }
+          );
+
+        },
+        160
+      );
+
+    }
+
+
+    function alterarProdutoCard(
+      direcao
+    ) {
+
+      let novoIndice =
+        produtoCardAtual +
+        direcao;
+
+
+      if (novoIndice < 0) {
+
+        novoIndice =
+          produtosCard.length - 1;
+
+      }
+
+
+      if (
+        novoIndice >=
+        produtosCard.length
+      ) {
+
+        novoIndice = 0;
+
+      }
+
+
+      trocarProdutoCard(
+        novoIndice,
+        direcao
+      );
+
+    }
+
+
+    produtoAnterior.addEventListener(
+      'click',
+      () => {
+
+        alterarProdutoCard(-1);
+
+      }
+    );
+
+
+    proximoProduto.addEventListener(
+      'click',
+      () => {
+
+        alterarProdutoCard(1);
+
+      }
+    );
+
+
+    produtoDots.forEach(
+      dot => {
+
+        dot.addEventListener(
+          'click',
+          () => {
+
+            const novoIndice =
+              Number(
+                dot.dataset.produtoIndex
+              );
+
+
+            const direcao =
+              novoIndice >
+              produtoCardAtual
+                ? 1
+                : -1;
+
+
+            trocarProdutoCard(
+              novoIndice,
+              direcao
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    cardProdutoPersonalizar.addEventListener(
+      'click',
+      () => {
+
+        const item =
+          produtosCard[
+            produtoCardAtual
+          ];
+
+
+        const produtoSelect =
+          document.getElementById(
+            'produto'
+          );
+
+
+        produtoSelect.value =
+          item.valor;
+
+
+        produtoSelect.dispatchEvent(
+          new Event(
+            'change',
+            {
+              bubbles: true
+            }
+          )
+        );
+
+
+        document
+          .getElementById(
+            'personalizar'
+          )
+          .scrollIntoView({
+            behavior: 'smooth'
+          });
+
+      }
+    );
+
+
+    renderizarProdutoCard();
+
+
+    async function atualizarMenuConta() {
+
+      const accountLink =
+        document.getElementById(
+          'accountLink'
+        );
+
+
+      if (!accountLink) {
+
+        return;
+
+      }
+
+
+      const {
+        data: { session }
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
+
+      if (session) {
+
+        accountLink.textContent =
+          'Minha conta';
+
+        accountLink.href =
+          'conta.html';
+
+      } else {
+
+        accountLink.textContent =
+          'Entrar';
+
+        accountLink.href =
+          'login.html';
+
+      }
+
+    }
+
+
+    atualizarMenuConta();
+
+
+    supabaseClient
+      .auth
+      .onAuthStateChange(
+        (event, session) => {
+
+          const accountLink =
+            document.getElementById(
+              'accountLink'
+            );
+
+
+          if (!accountLink) {
+
+            return;
+
+          }
+
+
+          if (session) {
+
+            accountLink.textContent =
+              'Minha conta';
+
+            accountLink.href =
+              'conta.html';
+
+          } else {
+
+            accountLink.textContent =
+              'Entrar';
+
+            accountLink.href =
+              'login.html';
+
+          }
+
+        }
+      );
+
+  </script>
+
+
+</body>
+
+</html>
