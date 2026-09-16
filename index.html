@@ -198,6 +198,212 @@
         scale(1.25);
     }
 
+
+    /* =========================
+       FRETE GRÁTIS
+    ========================== */
+
+    .shipping-free {
+      margin-top: 12px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      letter-spacing: 0.02em;
+
+      color: #ffffff;
+    }
+
+
+    /* =========================
+       KITS
+    ========================== */
+
+    .kits-block {
+      margin-top: 56px;
+    }
+
+    .kits-heading {
+      max-width: 720px;
+      margin-bottom: 26px;
+    }
+
+    .kits-heading h3 {
+      margin:
+        8px
+        0
+        8px;
+
+      font-size:
+        clamp(
+          24px,
+          3vw,
+          34px
+        );
+    }
+
+    .kits-heading p {
+      margin: 0;
+
+      color: var(--muted);
+    }
+
+    .kits-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(0, 1fr)
+        );
+
+      gap: 18px;
+    }
+
+    .kit-card {
+      display: flex;
+      flex-direction: column;
+
+      min-height: 100%;
+
+      padding: 24px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        rgba(18, 22, 27, 0.92);
+    }
+
+    .kit-card-featured {
+      border-color:
+        rgba(255, 255, 255, 0.22);
+
+      background:
+        rgba(23, 28, 34, 0.96);
+    }
+
+    .kit-badge {
+      display: inline-flex;
+      align-self: flex-start;
+
+      margin-bottom: 16px;
+
+      padding:
+        6px
+        10px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+
+      border-radius: 999px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      letter-spacing: 0.04em;
+
+      color: #ffffff;
+    }
+
+    .kit-card h4 {
+      margin:
+        0
+        0
+        8px;
+
+      font-size: 21px;
+    }
+
+    .kit-card p {
+      margin:
+        0
+        0
+        18px;
+
+      color: var(--muted);
+    }
+
+    .kit-list {
+      display: grid;
+
+      gap: 9px;
+
+      margin:
+        0
+        0
+        24px;
+
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .kit-list li {
+      position: relative;
+
+      padding-left: 18px;
+
+      color: #e4e8ed;
+    }
+
+    .kit-list li::before {
+      content: "✓";
+
+      position: absolute;
+      left: 0;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      color: #ffffff;
+    }
+
+    .kit-price {
+      margin-top: auto;
+      margin-bottom: 18px;
+    }
+
+    .kit-price span {
+      display: block;
+
+      margin-bottom: 3px;
+
+      font-size: 13px;
+
+      color: var(--muted);
+    }
+
+    .kit-price strong {
+      display: block;
+
+      font-size: 27px;
+      line-height: 1.1;
+
+      color: #ffffff;
+    }
+
+    .kit-price small {
+      display: block;
+
+      margin-top: 8px;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      color: #ffffff;
+    }
+
+    .kit-button {
+      width: 100%;
+    }
+
+
     @media (max-width: 900px) {
 
       .product-carousel-prev {
@@ -206,6 +412,14 @@
 
       .product-carousel-next {
         right: 10px;
+      }
+
+      .kits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kits-block {
+        margin-top: 42px;
       }
 
     }
@@ -283,6 +497,10 @@
 
   <main>
 
+
+    <!-- =========================
+         HOME
+    ========================== -->
 
     <section
       id="home"
@@ -379,6 +597,10 @@
     </section>
 
 
+    <!-- =========================
+         PRODUTOS
+    ========================== -->
+
     <section
       id="produtos"
       class="section section-muted"
@@ -406,6 +628,8 @@
 
         <div class="product-grid">
 
+
+          <!-- CARROSSEL -->
 
           <div class="product-carousel">
 
@@ -480,16 +704,21 @@
                   id="cardProdutoPrecoLabel"
                   class="price-label"
                 >
-                  Preço inicial
+                  Preço
                 </span>
 
                 <strong
                   id="cardProdutoPreco"
                   class="price"
                 >
-                  R$ 49,90
+                  R$ 89,90
                 </strong>
 
+              </div>
+
+
+              <div class="shipping-free">
+                Frete grátis em todo o país
               </div>
 
 
@@ -544,6 +773,8 @@
 
           </div>
 
+
+          <!-- COMO FUNCIONA -->
 
           <div class="info-panel">
 
@@ -645,10 +876,239 @@
 
         </div>
 
+
+        <!-- =========================
+             KITS
+        ========================== -->
+
+        <div class="kits-block">
+
+          <div class="kits-heading">
+
+            <span class="eyebrow">
+              KITS ÍMALLOY
+            </span>
+
+            <h3>
+              Mais detalhes para o seu projeto
+            </h3>
+
+            <p>
+              Combine as peças e aproveite condições especiais
+              no mesmo pedido.
+            </p>
+
+          </div>
+
+
+          <div class="kits-grid">
+
+
+            <article class="kit-card">
+
+              <span class="kit-badge">
+                KIT 2 PEÇAS
+              </span>
+
+              <h4>
+                Plaqueta + Retrovisor
+              </h4>
+
+              <p>
+                Personalização combinada para o cofre do motor
+                e o interior do veículo.
+              </p>
+
+              <ul class="kit-list">
+
+                <li>
+                  Plaqueta de motor 100 × 40 mm
+                </li>
+
+                <li>
+                  Enfeite para retrovisor 50 × 30 mm
+                </li>
+
+                <li>
+                  Arte personalizada
+                </li>
+
+                <li>
+                  Gravação a laser
+                </li>
+
+              </ul>
+
+              <div class="kit-price">
+
+                <span>
+                  Kit
+                </span>
+
+                <strong>
+                  R$ 114,80
+                </strong>
+
+                <small>
+                  Frete grátis em todo o país
+                </small>
+
+              </div>
+
+              <button
+                class="btn btn-primary kit-button"
+                type="button"
+                data-kit="Plaqueta de motor + Enfeite para retrovisor interno"
+                data-preco="R$ 114,80"
+              >
+                Quero este kit
+              </button>
+
+            </article>
+
+
+            <article class="kit-card">
+
+              <span class="kit-badge">
+                KIT 2 PEÇAS
+              </span>
+
+              <h4>
+                Plaqueta + Chaveiro
+              </h4>
+
+              <p>
+                A identidade do seu carro no projeto
+                e também com você.
+              </p>
+
+              <ul class="kit-list">
+
+                <li>
+                  Plaqueta de motor 100 × 40 mm
+                </li>
+
+                <li>
+                  Chaveiro personalizado 50 × 30 mm
+                </li>
+
+                <li>
+                  Arte personalizada
+                </li>
+
+                <li>
+                  Gravação a laser
+                </li>
+
+              </ul>
+
+              <div class="kit-price">
+
+                <span>
+                  Kit
+                </span>
+
+                <strong>
+                  R$ 114,80
+                </strong>
+
+                <small>
+                  Frete grátis em todo o país
+                </small>
+
+              </div>
+
+              <button
+                class="btn btn-primary kit-button"
+                type="button"
+                data-kit="Plaqueta de motor + Chaveiro personalizado"
+                data-preco="R$ 114,80"
+              >
+                Quero este kit
+              </button>
+
+            </article>
+
+
+            <article class="kit-card kit-card-featured">
+
+              <span class="kit-badge">
+                KIT COMPLETO
+              </span>
+
+              <h4>
+                Kit completo ÍMALLOY
+              </h4>
+
+              <p>
+                O conjunto completo para levar a personalização
+                do veículo a todos os detalhes.
+              </p>
+
+              <ul class="kit-list">
+
+                <li>
+                  Plaqueta de motor 100 × 40 mm
+                </li>
+
+                <li>
+                  Enfeite para retrovisor 50 × 30 mm
+                </li>
+
+                <li>
+                  Chaveiro personalizado 50 × 30 mm
+                </li>
+
+                <li>
+                  Arte personalizada
+                </li>
+
+                <li>
+                  Gravação a laser
+                </li>
+
+              </ul>
+
+              <div class="kit-price">
+
+                <span>
+                  Kit completo
+                </span>
+
+                <strong>
+                  R$ 139,70
+                </strong>
+
+                <small>
+                  Frete grátis em todo o país
+                </small>
+
+              </div>
+
+              <button
+                class="btn btn-primary kit-button"
+                type="button"
+                data-kit="Kit completo: Plaqueta de motor + Enfeite para retrovisor interno + Chaveiro personalizado"
+                data-preco="R$ 139,70"
+              >
+                Quero o kit completo
+              </button>
+
+            </article>
+
+
+          </div>
+
+        </div>
+
       </div>
 
     </section>
 
+
+    <!-- =========================
+         PERSONALIZAÇÃO
+    ========================== -->
 
     <section
       id="personalizar"
@@ -844,6 +1304,10 @@
           </form>
 
 
+          <!-- =========================
+               PRÉVIA
+          ========================== -->
+
           <aside class="preview-card">
 
             <span class="eyebrow">
@@ -941,6 +1405,10 @@
   </main>
 
 
+  <!-- =========================
+       RODAPÉ
+  ========================== -->
+
   <footer class="footer">
 
     <div class="container footer-wrap">
@@ -963,10 +1431,15 @@
 
   <script>
 
+    /* =========================
+       PRODUTOS
+    ========================== */
+
     const produtosCard = [
 
       {
-        valor: 'plaqueta-motor',
+        valor:
+          'plaqueta-motor',
 
         medida:
           '100 × 40 mm',
@@ -986,10 +1459,10 @@
         ],
 
         precoLabel:
-          'Preço inicial',
+          'Preço',
 
         preco:
-          'R$ 49,90'
+          'R$ 89,90'
       },
 
 
@@ -1018,7 +1491,7 @@
           'Preço',
 
         preco:
-          'Sob consulta'
+          'R$ 69,90'
       },
 
 
@@ -1047,7 +1520,7 @@
           'Preço',
 
         preco:
-          'Sob consulta'
+          'R$ 69,90'
       }
 
     ];
@@ -1394,6 +1867,65 @@
 
     renderizarProdutoCard();
 
+
+    /* =========================
+       KITS → WHATSAPP
+    ========================== */
+
+    const whatsappKits =
+      '5511911801381';
+
+
+    const kitButtons =
+      document.querySelectorAll(
+        '.kit-button'
+      );
+
+
+    kitButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          'click',
+          () => {
+
+            const kit =
+              button.dataset.kit;
+
+            const preco =
+              button.dataset.preco;
+
+
+            const mensagem = [
+              'Olá! Gostaria de pedir um kit ÍMALLOY.',
+              '',
+              `Kit: ${kit}`,
+              `Valor: ${preco}`,
+              'Frete grátis em todo o país.',
+              '',
+              'Gostaria de enviar os dados e a foto do veículo para personalização.'
+            ];
+
+
+            const url =
+              `https://wa.me/${whatsappKits}?text=${encodeURIComponent(
+                mensagem.join('\n')
+              )}`;
+
+
+            window.location.href =
+              url;
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================
+       LOGIN / CONTA
+    ========================== */
 
     async function atualizarMenuConta() {
 
