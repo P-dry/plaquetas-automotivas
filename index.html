@@ -73,7 +73,12 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
+
   <style>
+
+    /* =========================
+       CARROSSEL
+    ========================== */
 
     .product-carousel {
       position: relative;
@@ -200,7 +205,7 @@
 
 
     /* =========================
-       FRETE GRÁTIS
+       FRETE
     ========================== */
 
     .shipping-free {
@@ -209,46 +214,20 @@
       font-size: 13px;
       font-weight: 700;
 
-      letter-spacing: 0.02em;
-
       color: #ffffff;
     }
 
 
     /* =========================
-       KITS
+       SELEÇÃO DE PRODUTOS
     ========================== */
 
-    .kits-block {
-      margin-top: 56px;
+    .multi-order-form {
+      display: grid;
+      gap: 26px;
     }
 
-    .kits-heading {
-      max-width: 720px;
-      margin-bottom: 26px;
-    }
-
-    .kits-heading h3 {
-      margin:
-        8px
-        0
-        8px;
-
-      font-size:
-        clamp(
-          24px,
-          3vw,
-          34px
-        );
-    }
-
-    .kits-heading p {
-      margin: 0;
-
-      color: var(--muted);
-    }
-
-    .kits-grid {
+    .product-selector {
       display: grid;
 
       grid-template-columns:
@@ -257,152 +236,268 @@
           minmax(0, 1fr)
         );
 
-      gap: 18px;
+      gap: 14px;
     }
 
-    .kit-card {
+    .product-option {
+      position: relative;
+
+      display: block;
+
+      cursor: pointer;
+    }
+
+    .product-option input {
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .product-option-content {
       display: flex;
       flex-direction: column;
 
-      min-height: 100%;
+      gap: 5px;
 
-      padding: 24px;
+      min-height: 118px;
+
+      padding: 18px;
 
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
 
-      border-radius:
-        var(--radius);
+      border-radius: 14px;
 
       background:
-        rgba(18, 22, 27, 0.92);
+        rgba(18, 22, 27, 0.88);
+
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        transform 0.18s ease;
     }
 
-    .kit-card-featured {
-      border-color:
-        rgba(255, 255, 255, 0.22);
-
-      background:
-        rgba(23, 28, 34, 0.96);
-    }
-
-    .kit-badge {
-      display: inline-flex;
-      align-self: flex-start;
-
-      margin-bottom: 16px;
-
-      padding:
-        6px
-        10px;
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-
-      border-radius: 999px;
-
-      font-size: 12px;
-      font-weight: 700;
-
-      letter-spacing: 0.04em;
+    .product-option-content strong {
+      font-size: 16px;
 
       color: #ffffff;
     }
 
-    .kit-card h4 {
-      margin:
-        0
-        0
-        8px;
-
-      font-size: 21px;
-    }
-
-    .kit-card p {
-      margin:
-        0
-        0
-        18px;
-
+    .product-option-content small {
       color: var(--muted);
     }
 
-    .kit-list {
-      display: grid;
+    .product-option-content b {
+      margin-top: auto;
 
-      gap: 9px;
-
-      margin:
-        0
-        0
-        24px;
-
-      padding: 0;
-
-      list-style: none;
-    }
-
-    .kit-list li {
-      position: relative;
-
-      padding-left: 18px;
-
-      color: #e4e8ed;
-    }
-
-    .kit-list li::before {
-      content: "✓";
-
-      position: absolute;
-      left: 0;
-
-      font-size: 12px;
-      font-weight: 800;
+      font-size: 20px;
 
       color: #ffffff;
     }
 
-    .kit-price {
-      margin-top: auto;
-      margin-bottom: 18px;
+    .product-option input:checked
+    + .product-option-content {
+      border-color:
+        rgba(255, 255, 255, 0.48);
+
+      background:
+        #1b2027;
+
+      transform:
+        translateY(-2px);
     }
 
-    .kit-price span {
-      display: block;
 
-      margin-bottom: 3px;
+    /* =========================
+       RESUMO
+    ========================== */
 
+    .order-summary {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding: 18px 20px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      border-radius: 14px;
+
+      background: #12161b;
+    }
+
+    .order-summary > div {
+      display: grid;
+
+      gap: 2px;
+    }
+
+    .order-summary span {
       font-size: 13px;
 
       color: var(--muted);
     }
 
-    .kit-price strong {
-      display: block;
-
+    .order-summary strong {
       font-size: 27px;
+
       line-height: 1.1;
 
       color: #ffffff;
     }
 
-    .kit-price small {
-      display: block;
-
-      margin-top: 8px;
-
-      font-size: 13px;
-      font-weight: 600;
+    .order-summary .free-shipping {
+      font-weight: 700;
 
       color: #ffffff;
     }
 
-    .kit-button {
-      width: 100%;
+
+    /* =========================
+       MESMOS DADOS
+    ========================== */
+
+    .same-data-option {
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      cursor: pointer;
+
+      color: #dfe4ea;
     }
 
+    .same-data-option input {
+      width: 18px;
+      height: 18px;
+    }
+
+
+    /* =========================
+       PERSONALIZAÇÃO MÚLTIPLA
+    ========================== */
+
+    .multi-personalization-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.05fr)
+        minmax(320px, 0.95fr);
+
+      gap: 28px;
+
+      align-items: start;
+    }
+
+    .personalization-fields {
+      display: grid;
+
+      gap: 18px;
+
+      margin-bottom: 18px;
+    }
+
+    .personalization-block {
+      padding: 20px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      border-radius: 16px;
+
+      background:
+        rgba(18, 22, 27, 0.84);
+    }
+
+    .personalization-block-header {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      margin-bottom: 18px;
+    }
+
+    .personalization-block-header h3 {
+      margin: 0;
+
+      font-size: 18px;
+    }
+
+    .personalization-block-header span {
+      font-size: 12px;
+
+      color: var(--muted);
+    }
+
+    .personalization-block-fields {
+      display: grid;
+
+      gap: 16px;
+    }
+
+
+    /* =========================
+       PRÉVIAS
+    ========================== */
+
+    .preview-list {
+      display: grid;
+
+      gap: 22px;
+
+      margin-top: 16px;
+    }
+
+    .order-preview-item {
+      padding-bottom: 20px;
+
+      border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+    }
+
+    .order-preview-item:last-child {
+      padding-bottom: 0;
+
+      border-bottom: 0;
+    }
+
+    .order-preview-label {
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 12px;
+
+      font-size: 13px;
+
+      color: var(--muted);
+    }
+
+    .order-preview-label strong {
+      color: #ffffff;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
 
     @media (max-width: 900px) {
 
@@ -414,12 +509,18 @@
         right: 10px;
       }
 
-      .kits-grid {
+      .product-selector {
         grid-template-columns: 1fr;
       }
 
-      .kits-block {
-        margin-top: 42px;
+      .multi-personalization-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .order-summary {
+        align-items: flex-start;
+
+        flex-direction: column;
       }
 
     }
@@ -431,6 +532,10 @@
 
 <body>
 
+
+  <!-- =========================
+       MENU
+  ========================== -->
 
   <header class="topbar">
 
@@ -629,7 +734,9 @@
         <div class="product-grid">
 
 
-          <!-- CARROSSEL -->
+          <!-- =========================
+               CARROSSEL
+          ========================== -->
 
           <div class="product-carousel">
 
@@ -774,7 +881,9 @@
           </div>
 
 
-          <!-- COMO FUNCIONA -->
+          <!-- =========================
+               COMO FUNCIONA
+          ========================== -->
 
           <div class="info-panel">
 
@@ -794,12 +903,11 @@
                 <div>
 
                   <strong>
-                    Escolha os dados
+                    Escolha os produtos
                   </strong>
 
                   <p>
-                    Informe produto, carro, ano, opção de furos
-                    e, quando disponível, a gravação no verso.
+                    Selecione uma ou mais peças para o seu pedido.
                   </p>
 
                 </div>
@@ -811,6 +919,28 @@
 
                 <span>
                   2
+                </span>
+
+                <div>
+
+                  <strong>
+                    Personalize
+                  </strong>
+
+                  <p>
+                    Informe veículo, ano, furos e os detalhes
+                    de cada produto escolhido.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="step">
+
+                <span>
+                  3
                 </span>
 
                 <div>
@@ -831,13 +961,13 @@
               <div class="step">
 
                 <span>
-                  3
+                  4
                 </span>
 
                 <div>
 
                   <strong>
-                    Aprovação da arte
+                    Aprovação e produção
                   </strong>
 
                   <p>
@@ -849,253 +979,7 @@
               </div>
 
 
-              <div class="step">
-
-                <span>
-                  4
-                </span>
-
-                <div>
-
-                  <strong>
-                    Produção
-                  </strong>
-
-                  <p>
-                    A peça é gravada e preparada para envio.
-                  </p>
-
-                </div>
-
-              </div>
-
-
             </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- =========================
-             KITS
-        ========================== -->
-
-        <div class="kits-block">
-
-          <div class="kits-heading">
-
-            <span class="eyebrow">
-              KITS ÍMALLOY
-            </span>
-
-            <h3>
-              Mais detalhes para o seu projeto
-            </h3>
-
-            <p>
-              Combine as peças e aproveite condições especiais
-              no mesmo pedido.
-            </p>
-
-          </div>
-
-
-          <div class="kits-grid">
-
-
-            <article class="kit-card">
-
-              <span class="kit-badge">
-                KIT 2 PEÇAS
-              </span>
-
-              <h4>
-                Plaqueta + Retrovisor
-              </h4>
-
-              <p>
-                Personalização combinada para o cofre do motor
-                e o interior do veículo.
-              </p>
-
-              <ul class="kit-list">
-
-                <li>
-                  Plaqueta de motor 100 × 40 mm
-                </li>
-
-                <li>
-                  Enfeite para retrovisor 50 × 30 mm
-                </li>
-
-                <li>
-                  Arte personalizada
-                </li>
-
-                <li>
-                  Gravação a laser
-                </li>
-
-              </ul>
-
-              <div class="kit-price">
-
-                <span>
-                  Kit
-                </span>
-
-                <strong>
-                  R$ 114,80
-                </strong>
-
-                <small>
-                  Frete grátis em todo o país
-                </small>
-
-              </div>
-
-              <button
-                class="btn btn-primary kit-button"
-                type="button"
-                data-kit="Plaqueta de motor + Enfeite para retrovisor interno"
-                data-preco="R$ 114,80"
-              >
-                Quero este kit
-              </button>
-
-            </article>
-
-
-            <article class="kit-card">
-
-              <span class="kit-badge">
-                KIT 2 PEÇAS
-              </span>
-
-              <h4>
-                Plaqueta + Chaveiro
-              </h4>
-
-              <p>
-                A identidade do seu carro no projeto
-                e também com você.
-              </p>
-
-              <ul class="kit-list">
-
-                <li>
-                  Plaqueta de motor 100 × 40 mm
-                </li>
-
-                <li>
-                  Chaveiro personalizado 50 × 30 mm
-                </li>
-
-                <li>
-                  Arte personalizada
-                </li>
-
-                <li>
-                  Gravação a laser
-                </li>
-
-              </ul>
-
-              <div class="kit-price">
-
-                <span>
-                  Kit
-                </span>
-
-                <strong>
-                  R$ 114,80
-                </strong>
-
-                <small>
-                  Frete grátis em todo o país
-                </small>
-
-              </div>
-
-              <button
-                class="btn btn-primary kit-button"
-                type="button"
-                data-kit="Plaqueta de motor + Chaveiro personalizado"
-                data-preco="R$ 114,80"
-              >
-                Quero este kit
-              </button>
-
-            </article>
-
-
-            <article class="kit-card kit-card-featured">
-
-              <span class="kit-badge">
-                KIT COMPLETO
-              </span>
-
-              <h4>
-                Kit completo ÍMALLOY
-              </h4>
-
-              <p>
-                O conjunto completo para levar a personalização
-                do veículo a todos os detalhes.
-              </p>
-
-              <ul class="kit-list">
-
-                <li>
-                  Plaqueta de motor 100 × 40 mm
-                </li>
-
-                <li>
-                  Enfeite para retrovisor 50 × 30 mm
-                </li>
-
-                <li>
-                  Chaveiro personalizado 50 × 30 mm
-                </li>
-
-                <li>
-                  Arte personalizada
-                </li>
-
-                <li>
-                  Gravação a laser
-                </li>
-
-              </ul>
-
-              <div class="kit-price">
-
-                <span>
-                  Kit completo
-                </span>
-
-                <strong>
-                  R$ 139,70
-                </strong>
-
-                <small>
-                  Frete grátis em todo o país
-                </small>
-
-              </div>
-
-              <button
-                class="btn btn-primary kit-button"
-                type="button"
-                data-kit="Kit completo: Plaqueta de motor + Enfeite para retrovisor interno + Chaveiro personalizado"
-                data-preco="R$ 139,70"
-              >
-                Quero o kit completo
-              </button>
-
-            </article>
-
 
           </div>
 
@@ -1124,278 +1008,247 @@
           </span>
 
           <h2>
-            Monte seu produto
+            Monte seu pedido
           </h2>
 
           <p>
-            Preencha os dados e gere seu pedido para o WhatsApp.
+            Escolha um ou mais produtos e personalize cada peça.
           </p>
 
         </div>
 
 
-        <div class="form-grid">
-
-
-          <form
-            id="orderForm"
-            class="order-form"
-          >
-
-
-            <div class="field">
-
-              <label for="nome">
-                Nome do veículo
-              </label>
-
-              <input
-                id="nome"
-                name="nome"
-                type="text"
-                placeholder="Ex.: Ford Verona"
-                required
-              />
-
-            </div>
-
-
-            <div class="field-row">
-
-
-              <div class="field">
-
-                <label for="ano">
-                  Ano / período
-                </label>
-
-                <input
-                  id="ano"
-                  name="ano"
-                  type="text"
-                  placeholder="Ex.: 1991/2026"
-                  required
-                />
-
-              </div>
-
-
-              <div class="field">
-
-                <label for="furos">
-                  Furos
-                </label>
-
-                <select
-                  id="furos"
-                  name="furos"
-                >
-
-                  <option value="Sim">
-                    Sim
-                  </option>
-
-                  <option value="Não">
-                    Não
-                  </option>
-
-                </select>
-
-              </div>
-
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="produto">
-                Produto
-              </label>
-
-              <select
-                id="produto"
-                name="produto"
-              >
-
-                <option value="plaqueta-motor">
-                  Plaqueta de motor
-                </option>
-
-                <option value="retrovisor-interno">
-                  Enfeite para retrovisor interno
-                </option>
-
-                <option value="chaveiro-personalizado">
-                  Chaveiro personalizado
-                </option>
-
-              </select>
-
-            </div>
-
-
-            <div
-              id="campoGravacaoVerso"
-              class="field"
-              hidden
-            >
-
-              <label for="frase">
-
-                Gravação no verso
-
-                <span>
-                  (opcional)
-                </span>
-
-              </label>
-
-              <input
-                id="frase"
-                name="frase"
-                type="text"
-                placeholder="Ex.: nome, frase, data, placa ou mensagem curta"
-              />
-
-            </div>
-
-
-            <div class="field">
-
-              <label for="obs">
-                Observações
-              </label>
-
-              <textarea
-                id="obs"
-                name="obs"
-                rows="4"
-                placeholder="Ex.: detalhes, preferências ou informações importantes para a arte"
-              ></textarea>
-
-            </div>
-
-
-            <div class="notice">
-              A foto do carro será enviada pelo WhatsApp
-              depois que você clicar em “Fazer pedido”.
-            </div>
-
-
-            <button
-              class="btn btn-whatsapp btn-full"
-              type="submit"
-            >
-              Fazer pedido pelo WhatsApp
-            </button>
-
-
-            <a
-              id="paymentLink"
-              class="btn btn-secondary btn-full disabled"
-              href="#"
-              aria-disabled="true"
-            >
-              Pagamento online em breve
-            </a>
-
-
-          </form>
+        <form
+          id="orderForm"
+          class="multi-order-form"
+        >
 
 
           <!-- =========================
-               PRÉVIA
+               ESCOLHA DOS PRODUTOS
           ========================== -->
 
-          <aside class="preview-card">
+          <div class="product-selector">
 
-            <span class="eyebrow">
-              PRÉVIA
+
+            <label class="product-option">
+
+              <input
+                type="checkbox"
+                name="produtos"
+                value="plaqueta-motor"
+                checked
+              >
+
+              <span class="product-option-content">
+
+                <strong>
+                  Plaqueta de motor
+                </strong>
+
+                <small>
+                  100 × 40 mm
+                </small>
+
+                <b>
+                  R$ 89,90
+                </b>
+
+              </span>
+
+            </label>
+
+
+            <label class="product-option">
+
+              <input
+                type="checkbox"
+                name="produtos"
+                value="retrovisor-interno"
+              >
+
+              <span class="product-option-content">
+
+                <strong>
+                  Enfeite para retrovisor
+                </strong>
+
+                <small>
+                  50 × 30 mm
+                </small>
+
+                <b>
+                  R$ 69,90
+                </b>
+
+              </span>
+
+            </label>
+
+
+            <label class="product-option">
+
+              <input
+                type="checkbox"
+                name="produtos"
+                value="chaveiro-personalizado"
+              >
+
+              <span class="product-option-content">
+
+                <strong>
+                  Chaveiro personalizado
+                </strong>
+
+                <small>
+                  50 × 30 mm
+                </small>
+
+                <b>
+                  R$ 69,90
+                </b>
+
+              </span>
+
+            </label>
+
+
+          </div>
+
+
+          <!-- =========================
+               RESUMO
+          ========================== -->
+
+          <div class="order-summary">
+
+            <div>
+
+              <span>
+                Total do pedido
+              </span>
+
+              <strong id="orderTotal">
+                R$ 89,90
+              </strong>
+
+            </div>
+
+            <span class="free-shipping">
+              Frete grátis em todo o país
             </span>
 
+          </div>
 
-            <div
-              id="previewPlaque"
-              class="mini-plaque"
+
+          <!-- =========================
+               MESMOS DADOS
+          ========================== -->
+
+          <label class="same-data-option">
+
+            <input
+              id="usarMesmosDados"
+              type="checkbox"
+              checked
             >
 
-              <div class="mini-hole mh1"></div>
-              <div class="mini-hole mh2"></div>
-              <div class="mini-hole mh3"></div>
-              <div class="mini-hole mh4"></div>
+            <span>
+              Usar o mesmo veículo e ano em todos os produtos
+            </span>
 
+          </label>
+
+
+          <div class="multi-personalization-grid">
+
+
+            <!-- =========================
+                 CAMPOS
+            ========================== -->
+
+            <div>
 
               <div
-                id="previewNome"
-                class="mini-title"
-              >
-                Seu veículo
+                id="personalizationFields"
+                class="personalization-fields"
+              ></div>
+
+
+              <div class="field">
+
+                <label for="obs">
+                  Observações gerais
+                </label>
+
+                <textarea
+                  id="obs"
+                  name="obs"
+                  rows="4"
+                  placeholder="Ex.: detalhes, preferências ou informações importantes para a arte"
+                ></textarea>
+
               </div>
 
 
-              <div
-                id="previewVisual"
-                class="mini-car"
-              >
-                ▰────────╱╲───────▰
+              <div class="notice">
+                A foto do carro será enviada pelo WhatsApp
+                depois que você clicar em “Fazer pedido”.
               </div>
 
 
-              <div
-                id="previewAno"
-                class="mini-sub"
+              <button
+                class="btn btn-whatsapp btn-full"
+                type="submit"
               >
-                Ano / período
-              </div>
+                Fazer pedido pelo WhatsApp
+              </button>
+
+
+              <a
+                id="paymentLink"
+                class="btn btn-secondary btn-full disabled"
+                href="#"
+                aria-disabled="true"
+              >
+                Pagamento online em breve
+              </a>
 
             </div>
 
 
-            <div class="preview-product-info">
+            <!-- =========================
+                 PRÉVIAS
+            ========================== -->
 
-              <strong
-                id="previewProduto"
-                class="preview-product-name"
-              >
-                Plaqueta de motor
-              </strong>
+            <aside class="preview-card">
 
-
-              <span
-                id="previewMedida"
-                class="preview-product-size"
-              >
-                100 × 40 mm
+              <span class="eyebrow">
+                PRÉVIA DO PEDIDO
               </span>
 
 
-              <p
-                id="previewDescricao"
-                class="preview-product-description"
-              >
-                Plaqueta personalizada de 100 × 40 mm,
-                ideal para aplicação no cofre do motor.
-                Pode ser produzida com ou sem a furação padrão do modelo.
+              <div
+                id="previewList"
+                class="preview-list"
+              ></div>
+
+
+              <p class="preview-note">
+
+                As prévias acima são apenas ilustrativas.
+
+                A arte final será desenvolvida a partir das fotos
+                e das informações enviadas pelo cliente.
+
               </p>
 
-            </div>
+            </aside>
 
 
-            <p class="preview-note">
+          </div>
 
-              A prévia acima é apenas ilustrativa.
-
-              A arte final será desenvolvida a partir da foto
-              e das informações enviadas pelo cliente.
-
-            </p>
-
-
-          </aside>
-
-
-        </div>
+        </form>
 
       </div>
 
@@ -1426,13 +1279,92 @@
   </footer>
 
 
-  <script src="script.js"></script>
-
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script>
 
+
     /* =========================
        PRODUTOS
+    ========================== */
+
+    const produtos = {
+
+      'plaqueta-motor': {
+
+        nome:
+          'Plaqueta de motor',
+
+        medida:
+          '100 × 40 mm',
+
+        preco:
+          89.90,
+
+        visual:
+          '▰────────╱╲───────▰',
+
+        tipo:
+          'motor',
+
+        gravacaoVerso:
+          false
+
+      },
+
+
+      'retrovisor-interno': {
+
+        nome:
+          'Enfeite para retrovisor interno',
+
+        medida:
+          '50 × 30 mm',
+
+        preco:
+          69.90,
+
+        visual:
+          'IMAGEM DO CARRO',
+
+        tipo:
+          'retrovisor',
+
+        gravacaoVerso:
+          true
+
+      },
+
+
+      'chaveiro-personalizado': {
+
+        nome:
+          'Chaveiro personalizado',
+
+        medida:
+          '50 × 30 mm',
+
+        preco:
+          69.90,
+
+        visual:
+          'IMAGEM DO CARRO',
+
+        tipo:
+          'keychain',
+
+        gravacaoVerso:
+          true
+
+      }
+
+    };
+
+
+    /* =========================
+       CARROSSEL
     ========================== */
 
     const produtosCard = [
@@ -1526,7 +1458,9 @@
     ];
 
 
-    let produtoCardAtual = 0;
+    let produtoCardAtual =
+      0;
+
 
     let produtoCardAnimando =
       false;
@@ -1636,7 +1570,10 @@
 
 
       produtoDots.forEach(
-        (dot, index) => {
+        (
+          dot,
+          index
+        ) => {
 
           dot.classList.toggle(
             'active',
@@ -1745,7 +1682,9 @@
         direcao;
 
 
-      if (novoIndice < 0) {
+      if (
+        novoIndice < 0
+      ) {
 
         novoIndice =
           produtosCard.length - 1;
@@ -1758,7 +1697,8 @@
         produtosCard.length
       ) {
 
-        novoIndice = 0;
+        novoIndice =
+          0;
 
       }
 
@@ -1775,7 +1715,9 @@
       'click',
       () => {
 
-        alterarProdutoCard(-1);
+        alterarProdutoCard(
+          -1
+        );
 
       }
     );
@@ -1785,7 +1727,9 @@
       'click',
       () => {
 
-        alterarProdutoCard(1);
+        alterarProdutoCard(
+          1
+        );
 
       }
     );
@@ -1823,6 +1767,843 @@
     );
 
 
+    renderizarProdutoCard();
+
+
+    /* =========================
+       PEDIDO
+    ========================== */
+
+    const form =
+      document.getElementById(
+        'orderForm'
+      );
+
+
+    const obs =
+      document.getElementById(
+        'obs'
+      );
+
+
+    const personalizationFields =
+      document.getElementById(
+        'personalizationFields'
+      );
+
+
+    const previewList =
+      document.getElementById(
+        'previewList'
+      );
+
+
+    const orderTotal =
+      document.getElementById(
+        'orderTotal'
+      );
+
+
+    const usarMesmosDados =
+      document.getElementById(
+        'usarMesmosDados'
+      );
+
+
+    const productCheckboxes =
+      document.querySelectorAll(
+        'input[name="produtos"]'
+      );
+
+
+    const whatsappNumber =
+      '5511911801381';
+
+
+    function moeda(
+      valor
+    ) {
+
+      return valor
+        .toLocaleString(
+          'pt-BR',
+          {
+            style: 'currency',
+            currency: 'BRL'
+          }
+        );
+
+    }
+
+
+    function produtosSelecionados() {
+
+      return Array
+        .from(
+          productCheckboxes
+        )
+        .filter(
+          checkbox =>
+            checkbox.checked
+        )
+        .map(
+          checkbox =>
+            checkbox.value
+        );
+
+    }
+
+
+    function calcularTotal(
+      selecionados
+    ) {
+
+      const temPlaqueta =
+        selecionados.includes(
+          'plaqueta-motor'
+        );
+
+
+      const temRetrovisor =
+        selecionados.includes(
+          'retrovisor-interno'
+        );
+
+
+      const temChaveiro =
+        selecionados.includes(
+          'chaveiro-personalizado'
+        );
+
+
+      if (
+        temPlaqueta &&
+        temRetrovisor &&
+        temChaveiro
+      ) {
+
+        return 139.70;
+
+      }
+
+
+      if (
+        temPlaqueta &&
+        (
+          temRetrovisor ||
+          temChaveiro
+        )
+      ) {
+
+        return 114.80;
+
+      }
+
+
+      return selecionados
+        .reduce(
+          (
+            total,
+            produtoId
+          ) => {
+
+            return total +
+              produtos[
+                produtoId
+              ].preco;
+
+          },
+          0
+        );
+
+    }
+
+
+    function criarCamposProduto(
+      produtoId,
+      index
+    ) {
+
+      const produto =
+        produtos[
+          produtoId
+        ];
+
+
+      const gravacao =
+        produto.gravacaoVerso
+          ? `
+
+            <div class="field">
+
+              <label
+                for="${produtoId}-verso"
+              >
+                Gravação no verso
+
+                <span>
+                  (opcional)
+                </span>
+
+              </label>
+
+              <input
+                id="${produtoId}-verso"
+                data-field="verso"
+                type="text"
+                placeholder="Ex.: nome, frase, data, placa ou mensagem curta"
+              >
+
+            </div>
+
+          `
+          : '';
+
+
+      return `
+
+        <div
+          class="personalization-block"
+          data-product="${produtoId}"
+          data-index="${index}"
+        >
+
+          <div
+            class="personalization-block-header"
+          >
+
+            <h3>
+              ${produto.nome}
+            </h3>
+
+            <span>
+              ${produto.medida}
+            </span>
+
+          </div>
+
+
+          <div
+            class="personalization-block-fields"
+          >
+
+            <div class="field">
+
+              <label
+                for="${produtoId}-veiculo"
+              >
+                Nome do veículo
+              </label>
+
+              <input
+                id="${produtoId}-veiculo"
+                data-field="veiculo"
+                type="text"
+                placeholder="Ex.: Ford Verona"
+                required
+              >
+
+            </div>
+
+
+            <div class="field-row">
+
+
+              <div class="field">
+
+                <label
+                  for="${produtoId}-ano"
+                >
+                  Ano / período
+                </label>
+
+                <input
+                  id="${produtoId}-ano"
+                  data-field="ano"
+                  type="text"
+                  placeholder="Ex.: 1991/2026"
+                  required
+                >
+
+              </div>
+
+
+              <div class="field">
+
+                <label
+                  for="${produtoId}-furos"
+                >
+                  Furos
+                </label>
+
+                <select
+                  id="${produtoId}-furos"
+                  data-field="furos"
+                >
+
+                  <option value="Sim">
+                    Sim
+                  </option>
+
+                  <option value="Não">
+                    Não
+                  </option>
+
+                </select>
+
+              </div>
+
+
+            </div>
+
+
+            ${gravacao}
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    function holesHtml(
+      produtoId,
+      furos
+    ) {
+
+      if (
+        furos !== 'Sim'
+      ) {
+
+        return '';
+
+      }
+
+
+      if (
+        produtoId ===
+        'plaqueta-motor'
+      ) {
+
+        return `
+
+          <div class="mini-hole mh1"></div>
+          <div class="mini-hole mh2"></div>
+          <div class="mini-hole mh3"></div>
+          <div class="mini-hole mh4"></div>
+
+        `;
+
+      }
+
+
+      if (
+        produtoId ===
+        'retrovisor-interno'
+      ) {
+
+        return `
+
+          <div class="mini-hole mh1"></div>
+          <div class="mini-hole mh2"></div>
+
+        `;
+
+      }
+
+
+      return `
+
+        <div class="mini-hole mh1"></div>
+
+      `;
+
+    }
+
+
+    function criarPreview(
+      produtoId
+    ) {
+
+      const produto =
+        produtos[
+          produtoId
+        ];
+
+
+      const bloco =
+        document.querySelector(
+          `.personalization-block[data-product="${produtoId}"]`
+        );
+
+
+      const veiculo =
+        bloco
+          ?.querySelector(
+            '[data-field="veiculo"]'
+          )
+          ?.value
+          .trim()
+          ||
+          'Seu veículo';
+
+
+      const ano =
+        bloco
+          ?.querySelector(
+            '[data-field="ano"]'
+          )
+          ?.value
+          .trim()
+          ||
+          'Ano / período';
+
+
+      const furos =
+        bloco
+          ?.querySelector(
+            '[data-field="furos"]'
+          )
+          ?.value
+          ||
+          'Sim';
+
+
+      let classes =
+        'mini-plaque';
+
+
+      if (
+        produto.tipo ===
+        'motor'
+      ) {
+
+        classes +=
+          ' motor';
+
+      } else {
+
+        classes +=
+          ' vertical';
+
+      }
+
+
+      if (
+        produto.tipo ===
+        'retrovisor'
+      ) {
+
+        classes +=
+          ' retrovisor';
+
+      }
+
+
+      if (
+        produto.tipo ===
+        'keychain'
+      ) {
+
+        classes +=
+          ' keychain';
+
+      }
+
+
+      return `
+
+        <div
+          class="order-preview-item"
+          data-preview="${produtoId}"
+        >
+
+          <div
+            class="order-preview-label"
+          >
+
+            <strong>
+              ${produto.nome}
+            </strong>
+
+            <span>
+              ${produto.medida}
+            </span>
+
+          </div>
+
+
+          <div class="${classes}">
+
+            ${holesHtml(
+              produtoId,
+              furos
+            )}
+
+
+            <div class="mini-title">
+              ${veiculo}
+            </div>
+
+
+            <div class="mini-car">
+              ${produto.visual}
+            </div>
+
+
+            <div class="mini-sub">
+              ${ano}
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    function atualizarPreviews() {
+
+      const selecionados =
+        produtosSelecionados();
+
+
+      previewList.innerHTML =
+        selecionados
+          .map(
+            produtoId =>
+              criarPreview(
+                produtoId
+              )
+          )
+          .join('');
+
+    }
+
+
+    function sincronizarDados(
+      origem
+    ) {
+
+      if (
+        !usarMesmosDados.checked
+      ) {
+
+        return;
+
+      }
+
+
+      const field =
+        origem.dataset.field;
+
+
+      if (
+        field !== 'veiculo' &&
+        field !== 'ano'
+      ) {
+
+        return;
+
+      }
+
+
+      document
+        .querySelectorAll(
+          `.personalization-block [data-field="${field}"]`
+        )
+        .forEach(
+          input => {
+
+            if (
+              input !== origem
+            ) {
+
+              input.value =
+                origem.value;
+
+            }
+
+          }
+        );
+
+    }
+
+
+    function ativarEventosCampos() {
+
+      personalizationFields
+        .querySelectorAll(
+          'input, select'
+        )
+        .forEach(
+          campo => {
+
+            campo.addEventListener(
+              'input',
+              () => {
+
+                sincronizarDados(
+                  campo
+                );
+
+                atualizarPreviews();
+
+              }
+            );
+
+
+            campo.addEventListener(
+              'change',
+              () => {
+
+                sincronizarDados(
+                  campo
+                );
+
+                atualizarPreviews();
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    function atualizarFormulario() {
+
+      const selecionados =
+        produtosSelecionados();
+
+
+      if (
+        selecionados.length === 0
+      ) {
+
+        const primeiro =
+          productCheckboxes[
+            0
+          ];
+
+
+        primeiro.checked =
+          true;
+
+
+        selecionados.push(
+          primeiro.value
+        );
+
+      }
+
+
+      const valoresAtuais =
+        {};
+
+
+      document
+        .querySelectorAll(
+          '.personalization-block'
+        )
+        .forEach(
+          bloco => {
+
+            const produtoId =
+              bloco.dataset.product;
+
+
+            valoresAtuais[
+              produtoId
+            ] = {};
+
+
+            bloco
+              .querySelectorAll(
+                '[data-field]'
+              )
+              .forEach(
+                campo => {
+
+                  valoresAtuais[
+                    produtoId
+                  ][
+                    campo.dataset.field
+                  ] =
+                    campo.value;
+
+                }
+              );
+
+          }
+        );
+
+
+      personalizationFields.innerHTML =
+        selecionados
+          .map(
+            (
+              produtoId,
+              index
+            ) =>
+              criarCamposProduto(
+                produtoId,
+                index
+              )
+          )
+          .join('');
+
+
+      selecionados.forEach(
+        produtoId => {
+
+          const valores =
+            valoresAtuais[
+              produtoId
+            ];
+
+
+          if (
+            !valores
+          ) {
+
+            return;
+
+          }
+
+
+          Object
+            .entries(
+              valores
+            )
+            .forEach(
+              (
+                [
+                  field,
+                  value
+                ]
+              ) => {
+
+                const input =
+                  personalizationFields
+                    .querySelector(
+                      `.personalization-block[data-product="${produtoId}"] [data-field="${field}"]`
+                    );
+
+
+                if (
+                  input
+                ) {
+
+                  input.value =
+                    value;
+
+                }
+
+              }
+            );
+
+        }
+      );
+
+
+      const total =
+        calcularTotal(
+          selecionados
+        );
+
+
+      orderTotal.textContent =
+        moeda(
+          total
+        );
+
+
+      ativarEventosCampos();
+
+      atualizarPreviews();
+
+    }
+
+
+    productCheckboxes
+      .forEach(
+        checkbox => {
+
+          checkbox.addEventListener(
+            'change',
+            atualizarFormulario
+          );
+
+        }
+      );
+
+
+    usarMesmosDados
+      .addEventListener(
+        'change',
+        () => {
+
+          if (
+            usarMesmosDados.checked
+          ) {
+
+            const primeiro =
+              personalizationFields
+                .querySelector(
+                  '.personalization-block'
+                );
+
+
+            const veiculo =
+              primeiro
+                ?.querySelector(
+                  '[data-field="veiculo"]'
+                );
+
+
+            const ano =
+              primeiro
+                ?.querySelector(
+                  '[data-field="ano"]'
+                );
+
+
+            if (
+              veiculo
+            ) {
+
+              sincronizarDados(
+                veiculo
+              );
+
+            }
+
+
+            if (
+              ano
+            ) {
+
+              sincronizarDados(
+                ano
+              );
+
+            }
+
+          }
+
+
+          atualizarPreviews();
+
+        }
+      );
+
+
     cardProdutoPersonalizar.addEventListener(
       'click',
       () => {
@@ -1833,24 +2614,19 @@
           ];
 
 
-        const produtoSelect =
-          document.getElementById(
-            'produto'
+        productCheckboxes
+          .forEach(
+            checkbox => {
+
+              checkbox.checked =
+                checkbox.value ===
+                item.valor;
+
+            }
           );
 
 
-        produtoSelect.value =
-          item.valor;
-
-
-        produtoSelect.dispatchEvent(
-          new Event(
-            'change',
-            {
-              bubbles: true
-            }
-          )
-        );
+        atualizarFormulario();
 
 
         document
@@ -1858,73 +2634,174 @@
             'personalizar'
           )
           .scrollIntoView({
-            behavior: 'smooth'
+            behavior:
+              'smooth'
           });
 
       }
     );
 
 
-    renderizarProdutoCard();
+    atualizarFormulario();
 
 
     /* =========================
-       KITS → WHATSAPP
+       WHATSAPP
     ========================== */
 
-    const whatsappKits =
-      '5511911801381';
+    form.addEventListener(
+      'submit',
+      event => {
+
+        event.preventDefault();
 
 
-    const kitButtons =
-      document.querySelectorAll(
-        '.kit-button'
-      );
+        const selecionados =
+          produtosSelecionados();
 
 
-    kitButtons.forEach(
-      button => {
+        if (
+          selecionados.length === 0
+        ) {
 
-        button.addEventListener(
-          'click',
-          () => {
+          return;
 
-            const kit =
-              button.dataset.kit;
-
-            const preco =
-              button.dataset.preco;
+        }
 
 
-            const mensagem = [
-              'Olá! Gostaria de pedir um kit ÍMALLOY.',
-              '',
-              `Kit: ${kit}`,
-              `Valor: ${preco}`,
-              'Frete grátis em todo o país.',
-              '',
-              'Gostaria de enviar os dados e a foto do veículo para personalização.'
-            ];
+        const total =
+          calcularTotal(
+            selecionados
+          );
 
 
-            const url =
-              `https://wa.me/${whatsappKits}?text=${encodeURIComponent(
-                mensagem.join('\n')
-              )}`;
+        const message = [
+
+          'Olá! Gostaria de fazer um pedido ÍMALLOY.',
+
+          '',
+
+          `Valor total: ${moeda(total)}`,
+
+          'Frete grátis em todo o país.',
+
+          ''
+
+        ];
 
 
-            window.location.href =
-              url;
+        selecionados.forEach(
+          (
+            produtoId,
+            index
+          ) => {
+
+            const produto =
+              produtos[
+                produtoId
+              ];
+
+
+            const bloco =
+              document.querySelector(
+                `.personalization-block[data-product="${produtoId}"]`
+              );
+
+
+            const veiculo =
+              bloco
+                .querySelector(
+                  '[data-field="veiculo"]'
+                )
+                .value
+                .trim();
+
+
+            const ano =
+              bloco
+                .querySelector(
+                  '[data-field="ano"]'
+                )
+                .value
+                .trim();
+
+
+            const furos =
+              bloco
+                .querySelector(
+                  '[data-field="furos"]'
+                )
+                .value;
+
+
+            const verso =
+              bloco
+                .querySelector(
+                  '[data-field="verso"]'
+                );
+
+
+            message.push(
+
+              `${index + 1}. ${produto.nome}`,
+
+              `Medida: ${produto.medida}`,
+
+              `Veículo: ${veiculo}`,
+
+              `Ano / período: ${ano}`,
+
+              `Furos: ${furos}`
+
+            );
+
+
+            if (
+              verso &&
+              verso.value.trim()
+            ) {
+
+              message.push(
+                `Gravação no verso: ${verso.value.trim()}`
+              );
+
+            }
+
+
+            message.push(
+              ''
+            );
 
           }
         );
+
+
+        message.push(
+
+          `Observações gerais: ${obs.value.trim() || 'Nenhuma'}`,
+
+          '',
+
+          'A foto ou as fotos dos veículos serão enviadas por aqui.'
+
+        );
+
+
+        const url =
+          `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+            message.join('\n')
+          )}`;
+
+
+        window.location.href =
+          url;
 
       }
     );
 
 
     /* =========================
-       LOGIN / CONTA
+       CONTA
     ========================== */
 
     async function atualizarMenuConta() {
@@ -1935,7 +2812,9 @@
         );
 
 
-      if (!accountLink) {
+      if (
+        !accountLink
+      ) {
 
         return;
 
@@ -1943,14 +2822,18 @@
 
 
       const {
-        data: { session }
+        data: {
+          session
+        }
       } =
         await supabaseClient
           .auth
           .getSession();
 
 
-      if (session) {
+      if (
+        session
+      ) {
 
         accountLink.textContent =
           'Minha conta';
@@ -1977,7 +2860,10 @@
     supabaseClient
       .auth
       .onAuthStateChange(
-        (event, session) => {
+        (
+          event,
+          session
+        ) => {
 
           const accountLink =
             document.getElementById(
@@ -1985,14 +2871,18 @@
             );
 
 
-          if (!accountLink) {
+          if (
+            !accountLink
+          ) {
 
             return;
 
           }
 
 
-          if (session) {
+          if (
+            session
+          ) {
 
             accountLink.textContent =
               'Minha conta';
