@@ -15,17 +15,25 @@
    BASE
 ========================= */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   padding-left: 34px;
+  overflow-x: hidden;
   font-family: Inter, Arial, sans-serif;
   color: var(--text);
   background: var(--bg);
@@ -81,6 +89,8 @@ a {
 
 .container {
   width: min(1120px, calc(100% - 32px));
+  max-width: 100%;
+  min-width: 0;
   margin: 0 auto;
 }
 
@@ -1974,10 +1984,67 @@ body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque
 
 
 /* =========================
+   CONTROLE DE LARGURA
+   EVITA ROLAGEM HORIZONTAL
+========================= */
+
+.topbar,
+main,
+.footer,
+.section,
+.container,
+.product-grid,
+.form-grid,
+.multi-order-form,
+.product-selector,
+.order-summary,
+.multi-personalization-grid,
+.personalization-fields,
+.personalization-block,
+.preview-card,
+.order-preview-item {
+  max-width: 100%;
+  min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* =========================
    RESPONSIVO
 ========================= */
 
 @media (max-width: 860px) {
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .container,
+  .section,
+  .product-grid,
+  .form-grid,
+  .multi-order-form,
+  .product-selector,
+  .order-summary,
+  .multi-personalization-grid,
+  .personalization-fields,
+  .personalization-block,
+  .preview-card,
+  .order-preview-item {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
 
   .nav a:not(#accountLink):not(.nav-cta) {
     display:
