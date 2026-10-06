@@ -906,7 +906,7 @@
                 </li>
 
                 <li>
-                  Ano / período
+                  Assinatura
                 </li>
 
                 <li>
@@ -1043,7 +1043,7 @@
                   </strong>
 
                   <p>
-                    Informe veículo, ano, furos e os detalhes
+                    Informe veículo, assinatura, furos e os detalhes
                     de cada produto escolhido.
                   </p>
 
@@ -1269,7 +1269,7 @@
             >
 
             <span>
-              Usar o mesmo veículo e ano em todos os produtos
+              Usar o mesmo veículo e assinatura em todos os produtos
             </span>
 
           </label>
@@ -1500,7 +1500,7 @@
         caracteristicas: [
           'Nome/modelo do veículo',
           'Arte personalizada',
-          'Ano / período',
+          'Assinatura personalizada',
           'Gravação a laser',
           'Opção com ou sem furos'
         ],
@@ -2129,14 +2129,14 @@
                 <label
                   for="${produtoId}-ano"
                 >
-                  Ano / período
+                  Assinatura
                 </label>
 
                 <input
                   id="${produtoId}-ano"
                   data-field="ano"
                   type="text"
-                  placeholder="Ex.: 1991/2026"
+                  placeholder="Ex.: 1991, GLX, apelido do carro, placa ou frase curta"
                   required
                 >
 
@@ -2273,7 +2273,7 @@
           ?.value
           .trim()
           ||
-          'Ano / período';
+          'Assinatura';
 
 
       const furos =
@@ -2864,7 +2864,7 @@
 
               `Veículo: ${veiculo}`,
 
-              `Ano / período: ${ano}`,
+              `Assinatura: ${ano}`,
 
               `Furos: ${furos}`
 
