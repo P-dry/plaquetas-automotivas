@@ -25,10 +25,6 @@
 
   <style>
 
-    /* =========================
-       ESTRUTURA GERAL
-    ========================== */
-
     body {
       background: #0b0f14;
     }
@@ -36,9 +32,7 @@
     .pedidos-admin-page {
       width: 100%;
       min-height: 100vh;
-
-      padding:
-        34px 28px 60px;
+      padding: 34px 28px 60px;
     }
 
     .pedidos-admin-shell {
@@ -48,60 +42,42 @@
 
 
     /* =========================
-       TOPO
+       CABEÇALHO
     ========================== */
 
     .pedidos-admin-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-
       gap: 24px;
-
       margin-bottom: 24px;
-    }
-
-    .pedidos-admin-header-copy {
-      min-width: 0;
     }
 
     .pedidos-admin-eyebrow {
       display: block;
-
       margin-bottom: 7px;
-
       color: #8f99a5;
-
       font-size: 12px;
       font-weight: 700;
-
       letter-spacing: 0.16em;
     }
 
     .pedidos-admin-header h1 {
       margin: 0;
-
       color: #ffffff;
-
-      font-size:
-        clamp(30px, 4vw, 44px);
-
+      font-size: clamp(30px, 4vw, 44px);
       line-height: 1.05;
     }
 
     .pedidos-admin-header p {
-      margin:
-        9px 0 0;
-
+      margin: 9px 0 0;
       color: #9ba5b1;
     }
 
     .pedidos-admin-actions {
       display: flex;
       align-items: center;
-
       gap: 10px;
-
       flex-shrink: 0;
     }
 
@@ -116,13 +92,9 @@
       justify-content: center;
 
       min-height: 44px;
+      padding: 0 17px;
 
-      padding:
-        0 17px;
-
-      border:
-        1px solid #303844;
-
+      border: 1px solid #303844;
       border-radius: 10px;
 
       background: #11161d;
@@ -145,21 +117,24 @@
     .admin-btn:hover {
       background: #171d25;
       border-color: #45505f;
-
-      transform:
-        translateY(-1px);
+      transform: translateY(-1px);
     }
 
     .admin-btn-primary {
       background: #ffffff;
       color: #0b0f14;
-
       border-color: #ffffff;
     }
 
     .admin-btn-primary:hover {
       background: #e8ebef;
       border-color: #e8ebef;
+    }
+
+    .admin-btn-danger {
+      color: #e25c66;
+      border-color: rgba(226, 92, 102, 0.45);
+      background: transparent;
     }
 
 
@@ -169,30 +144,21 @@
 
     .status-kpis {
       display: grid;
-
       grid-template-columns:
         repeat(
           6,
           minmax(0, 1fr)
         );
-
       gap: 10px;
-
       margin-bottom: 20px;
     }
 
     .status-kpi {
       min-width: 0;
-
       padding: 15px 16px;
-
-      border:
-        1px solid #252e39;
-
+      border: 1px solid #252e39;
       border-radius: 12px;
-
       background: #10151c;
-
       cursor: pointer;
 
       transition:
@@ -204,9 +170,7 @@
     .status-kpi:hover {
       border-color: #3c4654;
       background: #141a22;
-
-      transform:
-        translateY(-1px);
+      transform: translateY(-1px);
     }
 
     .status-kpi.ativo {
@@ -216,28 +180,20 @@
 
     .status-kpi-label {
       display: block;
-
       overflow: hidden;
-
       color: #98a3af;
-
       font-size: 12px;
       font-weight: 700;
-
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .status-kpi-number {
       display: block;
-
       margin-top: 5px;
-
       color: #ffffff;
-
       font-size: 25px;
       font-weight: 800;
-
       line-height: 1;
     }
 
@@ -248,54 +204,36 @@
 
     .pedidos-panel {
       overflow: hidden;
-
-      border:
-        1px solid #29323d;
-
+      border: 1px solid #29323d;
       border-radius: 15px;
-
       background: #10151c;
     }
 
 
     /* =========================
-       FERRAMENTAS
+       PESQUISA
     ========================== */
 
     .pedidos-toolbar {
       display: grid;
-
       grid-template-columns:
         minmax(250px, 1fr)
         210px;
-
       gap: 12px;
-
       padding: 16px;
-
-      border-bottom:
-        1px solid #29323d;
+      border-bottom: 1px solid #29323d;
     }
 
     .pedidos-toolbar input,
     .pedidos-toolbar select {
       width: 100%;
-
       margin: 0;
-
-      padding:
-        12px 14px;
-
-      border:
-        1px solid #303844;
-
+      padding: 12px 14px;
+      border: 1px solid #303844;
       border-radius: 10px;
-
       background: #0b1016;
       color: #ffffff;
-
       font: inherit;
-
       outline: none;
     }
 
@@ -312,35 +250,21 @@
     .status-tabs {
       display: flex;
       align-items: center;
-
       gap: 7px;
-
       overflow-x: auto;
-
-      padding:
-        0 16px 14px;
-
-      scrollbar-width: thin;
+      padding: 0 16px 14px;
     }
 
     .status-tab {
       flex-shrink: 0;
-
-      padding:
-        8px 12px;
-
-      border:
-        1px solid #2f3844;
-
+      padding: 8px 12px;
+      border: 1px solid #2f3844;
       border-radius: 999px;
-
       background: #0c1117;
       color: #aeb7c2;
-
       font: inherit;
       font-size: 12px;
       font-weight: 700;
-
       cursor: pointer;
     }
 
@@ -352,7 +276,6 @@
     .status-tab.ativo {
       background: #ffffff;
       color: #0b0f14;
-
       border-color: #ffffff;
     }
 
@@ -363,55 +286,33 @@
 
     .pedidos-table-wrap {
       width: 100%;
-
       overflow-x: auto;
     }
 
     .pedidos-table {
       width: 100%;
-
       border-collapse: collapse;
-
       table-layout: fixed;
     }
 
     .pedidos-table th {
-      padding:
-        11px 14px;
-
-      border-bottom:
-        1px solid #29323d;
-
+      padding: 11px 14px;
+      border-bottom: 1px solid #29323d;
       color: #818c99;
-
       background: #0d1218;
-
       font-size: 11px;
       font-weight: 800;
-
       letter-spacing: 0.05em;
-
       text-align: left;
       text-transform: uppercase;
     }
 
     .pedidos-table td {
-      padding:
-        13px 14px;
-
-      border-bottom:
-        1px solid #222a34;
-
+      padding: 13px 14px;
+      border-bottom: 1px solid #222a34;
       color: #dce1e7;
-
       font-size: 13px;
-
       vertical-align: middle;
-    }
-
-    .pedidos-table tbody tr {
-      transition:
-        background 0.15s ease;
     }
 
     .pedidos-table tbody tr:hover {
@@ -450,53 +351,37 @@
       width: 86px;
     }
 
-
-    /* =========================
-       CONTEÚDO DA LINHA
-    ========================== */
-
     .pedido-numero {
       color: #ffffff;
-
       font-size: 14px;
       font-weight: 800;
     }
 
     .pedido-cliente {
       display: block;
-
       overflow: hidden;
-
       color: #ffffff;
-
       font-weight: 700;
-
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .pedido-itens-resumo {
       display: block;
-
       overflow: hidden;
-
       color: #a9b2bd;
-
       white-space: nowrap;
       text-overflow: ellipsis;
     }
 
     .pedido-valor {
       color: #ffffff;
-
       font-weight: 700;
-
       white-space: nowrap;
     }
 
     .pedido-data {
       color: #a4aeba;
-
       white-space: nowrap;
     }
 
@@ -508,16 +393,13 @@
     .status-cell {
       display: flex;
       align-items: center;
-
       gap: 8px;
     }
 
     .status-dot {
       width: 9px;
       height: 9px;
-
       flex-shrink: 0;
-
       border-radius: 50%;
     }
 
@@ -548,56 +430,29 @@
 
     .status-select {
       width: 100%;
-
       min-width: 0;
-
-      padding:
-        8px 9px;
-
-      border:
-        1px solid #303844;
-
+      padding: 8px 9px;
+      border: 1px solid #303844;
       border-radius: 8px;
-
       background: #0b1016;
       color: #ffffff;
-
       font: inherit;
       font-size: 12px;
-
       outline: none;
     }
-
-    .status-select:focus {
-      border-color: #697686;
-    }
-
-
-    /* =========================
-       VER
-    ========================== */
 
     .pedido-ver {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       min-height: 34px;
-
-      padding:
-        0 11px;
-
-      border:
-        1px solid #343e4b;
-
+      padding: 0 11px;
+      border: 1px solid #343e4b;
       border-radius: 8px;
-
       background: #131922;
       color: #ffffff !important;
-
       font-size: 12px;
       font-weight: 700;
-
       text-decoration: none !important;
     }
 
@@ -607,77 +462,50 @@
 
 
     /* =========================
-       VAZIO / CARREGAMENTO
+       PAGINAÇÃO
     ========================== */
 
     .pedidos-vazio {
       padding: 42px 20px;
-
       color: #87929e;
-
       text-align: center;
     }
-
-
-    /* =========================
-       PAGINAÇÃO
-    ========================== */
 
     .pedidos-pagination {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 14px;
-
-      padding:
-        14px 16px;
-
-      border-top:
-        1px solid #29323d;
+      padding: 14px 16px;
+      border-top: 1px solid #29323d;
     }
 
     .pagination-info {
       color: #87929e;
-
       font-size: 12px;
     }
 
     .pagination-actions {
       display: flex;
-
       gap: 7px;
     }
 
     .pagination-button {
       min-width: 38px;
       height: 36px;
-
-      padding:
-        0 11px;
-
-      border:
-        1px solid #303844;
-
+      padding: 0 11px;
+      border: 1px solid #303844;
       border-radius: 8px;
-
       background: #0d1218;
       color: #ffffff;
-
       font: inherit;
       font-size: 12px;
       font-weight: 700;
-
       cursor: pointer;
-    }
-
-    .pagination-button:hover:not(:disabled) {
-      background: #171e27;
     }
 
     .pagination-button:disabled {
       opacity: 0.35;
-
       cursor: default;
     }
 
@@ -688,32 +516,20 @@
 
     #mensagem {
       min-height: 22px;
-
-      margin:
-        14px 2px 0;
-
+      margin: 14px 2px 0;
       color: #aeb7c2;
-
       font-size: 13px;
     }
 
-
-    /* =========================
-       RODAPÉ DO ADMIN
-    ========================== */
-
     .admin-footer-link {
       margin-top: 20px;
-
       text-align: center;
     }
 
     .admin-footer-link a {
       color: #93baff;
-
       font-size: 13px;
       font-weight: 600;
-
       text-decoration: none;
     }
 
@@ -726,18 +542,12 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-
       display: none;
       align-items: center;
       justify-content: center;
-
       padding: 22px;
-
-      background:
-        rgba(0, 0, 0, 0.76);
-
-      backdrop-filter:
-        blur(6px);
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(6px);
     }
 
     .admin-modal.aberto {
@@ -745,174 +555,219 @@
     }
 
     .admin-modal-dialog {
-      width: min(760px, 100%);
-      max-height:
-        calc(100vh - 44px);
-
+      width: min(900px, 100%);
+      max-height: calc(100vh - 44px);
       overflow-y: auto;
-
       padding: 26px;
-
-      border:
-        1px solid #303844;
-
+      border: 1px solid #303844;
       border-radius: 16px;
-
       background: #11161d;
-
       box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.58);
+        0 30px 100px
+        rgba(0, 0, 0, 0.58);
     }
 
     .admin-modal-topo {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-
       gap: 16px;
-
       margin-bottom: 22px;
     }
 
     .admin-modal-topo h2 {
       margin: 0;
-
       color: #ffffff;
-
       font-size: 25px;
     }
 
     .admin-modal-topo p {
-      margin:
-        5px 0 0;
-
+      margin: 5px 0 0;
       color: #929da9;
-
       font-size: 13px;
     }
 
     .admin-modal-fechar {
       display: inline-grid;
       place-items: center;
-
       width: 38px;
       height: 38px;
-
       padding: 0;
-
       flex-shrink: 0;
-
-      border:
-        1px solid #303844;
-
+      border: 1px solid #303844;
       border-radius: 9px;
-
       background: #0c1117;
       color: #ffffff;
-
       font-size: 22px;
-
       cursor: pointer;
     }
 
 
     /* =========================
-       FORM NOVO PEDIDO
+       NOVO PEDIDO
     ========================== */
 
-    .novo-pedido-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          2,
-          minmax(0, 1fr)
-        );
-
-      gap: 14px;
+    .novo-pedido-cliente {
+      margin-bottom: 20px;
     }
 
-    .novo-pedido-grid > div {
-      min-width: 0;
-    }
-
-    .novo-pedido-full {
-      grid-column:
-        1 / -1;
-    }
-
-    .novo-pedido-separador {
-      grid-column:
-        1 / -1;
-
-      margin-top: 3px;
-      padding-top: 16px;
-
-      border-top:
-        1px solid #29323d;
-
-      color: #ffffff;
-
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .novo-pedido-grid label {
+    .novo-pedido-cliente label,
+    .item-manual label,
+    .novo-pedido-observacoes label {
       display: block;
-
       margin-bottom: 6px;
-
       color: #dfe4ea;
-
       font-size: 12px;
       font-weight: 700;
     }
 
-    .novo-pedido-grid input,
-    .novo-pedido-grid select,
-    .novo-pedido-grid textarea {
+    .novo-pedido-cliente input,
+    .item-manual input,
+    .item-manual select,
+    .novo-pedido-observacoes textarea {
       width: 100%;
-
       margin: 0;
-
-      padding:
-        12px 13px;
-
-      border:
-        1px solid #303844;
-
+      padding: 11px 12px;
+      border: 1px solid #303844;
       border-radius: 9px;
-
       background: #0b1016;
       color: #ffffff;
-
       font: inherit;
-      font-size: 14px;
-
+      font-size: 13px;
       outline: none;
-    }
-
-    .novo-pedido-grid input:focus,
-    .novo-pedido-grid select:focus,
-    .novo-pedido-grid textarea:focus {
-      border-color: #697686;
     }
 
     .cliente-ajuda {
       margin-top: 5px;
-
       color: #7e8996;
-
       font-size: 11px;
+    }
+
+    .novo-pedido-itens-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 18px 0 12px;
+    }
+
+    .novo-pedido-itens-topo h3 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 17px;
+    }
+
+    .adicionar-item {
+      min-height: 38px;
+      padding: 0 13px;
+    }
+
+    #itensPedidoManual {
+      display: grid;
+      gap: 13px;
+    }
+
+
+    /* =========================
+       ITEM MANUAL
+    ========================== */
+
+    .item-manual {
+      padding: 16px;
+      border: 1px solid #2d3642;
+      border-radius: 12px;
+      background: #0d1218;
+    }
+
+    .item-manual-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+
+    .item-manual-titulo {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .item-remover {
+      min-height: 32px;
+      padding: 0 10px;
+      font-size: 11px;
+    }
+
+    .item-manual-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          4,
+          minmax(0, 1fr)
+        );
+      gap: 11px;
+    }
+
+    .item-produto {
+      grid-column:
+        span 2;
+    }
+
+    .item-separador {
+      grid-column:
+        1 / -1;
+      margin-top: 5px;
+      padding-top: 13px;
+      border-top: 1px solid #252e39;
+      color: #929da9;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .item-modelo {
+      grid-column:
+        span 2;
+    }
+
+    .item-verso {
+      grid-column:
+        1 / -1;
+    }
+
+    .novo-pedido-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 17px;
+      padding: 15px 16px;
+      border: 1px solid #303844;
+      border-radius: 11px;
+      background: #0b1016;
+    }
+
+    .novo-pedido-total span {
+      color: #929da9;
+      font-size: 12px;
+    }
+
+    .novo-pedido-total strong {
+      color: #ffffff;
+      font-size: 23px;
+    }
+
+    .novo-pedido-observacoes {
+      margin-top: 17px;
     }
 
     .novo-pedido-acoes {
       display: flex;
       justify-content: flex-end;
-
       gap: 10px;
-
-      margin-top: 6px;
+      margin-top: 20px;
     }
 
     body.modal-admin-aberto {
@@ -934,14 +789,27 @@
           );
       }
 
+      .item-manual-grid {
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
+      }
+
+      .item-produto,
+      .item-modelo {
+        grid-column:
+          span 2;
+      }
+
     }
 
 
     @media (max-width: 760px) {
 
       .pedidos-admin-page {
-        padding:
-          22px 14px 44px;
+        padding: 22px 14px 44px;
       }
 
       .pedidos-admin-header {
@@ -968,12 +836,14 @@
         grid-template-columns: 1fr;
       }
 
-      .novo-pedido-grid {
+      .item-manual-grid {
         grid-template-columns: 1fr;
       }
 
-      .novo-pedido-full,
-      .novo-pedido-separador {
+      .item-produto,
+      .item-modelo,
+      .item-separador,
+      .item-verso {
         grid-column: auto;
       }
 
@@ -987,33 +857,7 @@
 
       .pedidos-pagination {
         align-items: flex-start;
-
         flex-direction: column;
-      }
-
-    }
-
-
-    @media (max-width: 480px) {
-
-      .status-kpis {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .status-kpi {
-        padding: 12px;
-      }
-
-      .status-kpi-number {
-        font-size: 21px;
-      }
-
-      .admin-modal {
-        padding: 10px;
-      }
-
-      .admin-modal-dialog {
-        padding: 18px;
       }
 
     }
@@ -1030,13 +874,9 @@
     <div class="pedidos-admin-shell">
 
 
-      <!-- =========================
-           CABEÇALHO
-      ========================== -->
-
       <header class="pedidos-admin-header">
 
-        <div class="pedidos-admin-header-copy">
+        <div>
 
           <span class="pedidos-admin-eyebrow">
             ÍMALLOY · ADMINISTRAÇÃO
@@ -1075,28 +915,21 @@
       </header>
 
 
-      <!-- =========================
-           INDICADORES
-      ========================== -->
-
       <section class="status-kpis">
 
         <div
           class="status-kpi ativo"
           data-kpi-status="todos"
         >
-
           <span class="status-kpi-label">
             Todos
           </span>
-
           <strong
             id="kpiTodos"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
 
@@ -1104,18 +937,15 @@
           class="status-kpi"
           data-kpi-status="pagamento_pendente"
         >
-
           <span class="status-kpi-label">
             Pagamento pendente
           </span>
-
           <strong
             id="kpiPendentes"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
 
@@ -1123,18 +953,15 @@
           class="status-kpi"
           data-kpi-status="pago"
         >
-
           <span class="status-kpi-label">
             Pagos
           </span>
-
           <strong
             id="kpiPagos"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
 
@@ -1142,18 +969,15 @@
           class="status-kpi"
           data-kpi-status="em_producao"
         >
-
           <span class="status-kpi-label">
             Em produção
           </span>
-
           <strong
             id="kpiProducao"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
 
@@ -1161,18 +985,15 @@
           class="status-kpi"
           data-kpi-status="enviado"
         >
-
           <span class="status-kpi-label">
             Enviados
           </span>
-
           <strong
             id="kpiEnviados"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
 
@@ -1180,31 +1001,21 @@
           class="status-kpi"
           data-kpi-status="concluido"
         >
-
           <span class="status-kpi-label">
             Concluídos
           </span>
-
           <strong
             id="kpiConcluidos"
             class="status-kpi-number"
           >
             0
           </strong>
-
         </div>
 
       </section>
 
 
-      <!-- =========================
-           PAINEL
-      ========================== -->
-
       <section class="pedidos-panel">
-
-
-        <!-- PESQUISA -->
 
         <div class="pedidos-toolbar">
 
@@ -1238,8 +1049,6 @@
 
         </div>
 
-
-        <!-- FILTROS -->
 
         <div class="status-tabs">
 
@@ -1302,21 +1111,15 @@
         </div>
 
 
-        <!-- LISTA -->
-
         <div
           id="listaPedidos"
           class="pedidos-table-wrap"
         >
-
           <div class="pedidos-vazio">
             Carregando pedidos...
           </div>
-
         </div>
 
-
-        <!-- PAGINAÇÃO -->
 
         <div class="pedidos-pagination">
 
@@ -1364,7 +1167,6 @@
 
       </div>
 
-
     </div>
 
   </main>
@@ -1406,7 +1208,6 @@
           id="fecharNovoPedido"
           class="admin-modal-fechar"
           type="button"
-          aria-label="Fechar"
         >
           ×
         </button>
@@ -1416,206 +1217,96 @@
 
       <form id="pedidoForm">
 
-        <div class="novo-pedido-grid">
 
+        <div class="novo-pedido-cliente">
 
-          <div class="novo-pedido-full">
+          <label for="clientePesquisa">
+            Cliente
+          </label>
 
-            <label for="clientePesquisa">
-              Cliente
-            </label>
+          <input
+            type="text"
+            id="clientePesquisa"
+            list="clientesLista"
+            placeholder="Pesquisar por nome, telefone ou e-mail"
+            autocomplete="off"
+            required
+          >
 
-            <input
-              type="text"
-              id="clientePesquisa"
-              list="clientesLista"
-              placeholder="Pesquisar por nome, telefone ou e-mail"
-              autocomplete="off"
-              required
-            >
+          <datalist id="clientesLista"></datalist>
 
-            <datalist id="clientesLista"></datalist>
-
-            <div class="cliente-ajuda">
-              Digite parte do nome, telefone ou e-mail e selecione o cliente.
-            </div>
-
+          <div class="cliente-ajuda">
+            Digite parte do nome, telefone ou e-mail e selecione o cliente.
           </div>
 
-
-          <div>
-
-            <label for="produto">
-              Produto
-            </label>
-
-            <select
-              id="produto"
-              required
-            >
-
-              <option value="Plaqueta de motor">
-                Plaqueta de motor
-              </option>
-
-              <option value="Enfeite para retrovisor interno">
-                Enfeite para retrovisor interno
-              </option>
-
-              <option value="Chaveiro personalizado">
-                Chaveiro personalizado
-              </option>
-
-            </select>
-
-          </div>
+        </div>
 
 
-          <div>
+        <div class="novo-pedido-itens-topo">
 
-            <label for="quantidade">
-              Quantidade
-            </label>
+          <h3>
+            Itens do pedido
+          </h3>
 
-            <input
-              type="number"
-              id="quantidade"
-              min="1"
-              value="1"
-              required
-            >
+          <button
+            id="adicionarItemPedido"
+            class="admin-btn adicionar-item"
+            type="button"
+          >
+            + Adicionar produto
+          </button>
 
-          </div>
-
-
-          <div>
-
-            <label for="valorUnitario">
-              Valor unitário
-            </label>
-
-            <input
-              type="number"
-              id="valorUnitario"
-              min="0"
-              step="0.01"
-              required
-            >
-
-          </div>
+        </div>
 
 
-          <div class="novo-pedido-separador">
-            Dados do veículo
-          </div>
+        <div id="itensPedidoManual"></div>
 
 
-          <div>
+        <div class="novo-pedido-total">
 
-            <label for="marcaVeiculo">
-              Marca
-            </label>
+          <span>
+            Total do pedido
+          </span>
 
-            <input
-              type="text"
-              id="marcaVeiculo"
-              placeholder="Ex.: Ford"
-              required
-            >
+          <strong id="totalPedidoManual">
+            R$ 0,00
+          </strong>
 
-          </div>
+        </div>
 
 
-          <div>
+        <div class="novo-pedido-observacoes">
 
-            <label for="modeloVeiculo">
-              Modelo
-            </label>
+          <label for="observacoes">
+            Observações gerais
+          </label>
 
-            <input
-              type="text"
-              id="modeloVeiculo"
-              placeholder="Ex.: Verona GLX"
-              required
-            >
+          <textarea
+            id="observacoes"
+            rows="3"
+            placeholder="Informações adicionais sobre o pedido"
+          ></textarea>
 
-          </div>
-
-
-          <div>
-
-            <label for="anoVeiculo">
-              Assinatura
-            </label>
-
-            <input
-              type="text"
-              id="anoVeiculo"
-              placeholder="Ex.: 1991, GLX, apelido, placa ou frase"
-              required
-            >
-
-          </div>
+        </div>
 
 
-          <div>
+        <div class="novo-pedido-acoes">
 
-            <label for="furos">
-              Furos
-            </label>
+          <button
+            id="cancelarNovoPedido"
+            class="admin-btn"
+            type="button"
+          >
+            Cancelar
+          </button>
 
-            <select
-              id="furos"
-              required
-            >
-
-              <option value="Sim">
-                Sim
-              </option>
-
-              <option value="Não">
-                Não
-              </option>
-
-            </select>
-
-          </div>
-
-
-          <div class="novo-pedido-full">
-
-            <label for="observacoes">
-              Observações
-            </label>
-
-            <textarea
-              id="observacoes"
-              rows="3"
-              placeholder="Informações adicionais sobre o pedido"
-            ></textarea>
-
-          </div>
-
-
-          <div class="novo-pedido-full novo-pedido-acoes">
-
-            <button
-              id="cancelarNovoPedido"
-              class="admin-btn"
-              type="button"
-            >
-              Cancelar
-            </button>
-
-            <button
-              class="admin-btn admin-btn-primary"
-              type="submit"
-            >
-              Criar pedido
-            </button>
-
-          </div>
-
+          <button
+            id="criarPedidoManual"
+            class="admin-btn admin-btn-primary"
+            type="submit"
+          >
+            Criar pedido
+          </button>
 
         </div>
 
@@ -1629,6 +1320,30 @@
   <script>
 
     /* =========================
+       PRODUTOS DO ADMIN
+    ========================== */
+
+    const produtosManual = {
+
+      'Plaqueta de motor': {
+        preco: 89.90,
+        verso: false
+      },
+
+      'Enfeite para retrovisor interno': {
+        preco: 69.90,
+        verso: true
+      },
+
+      'Chaveiro personalizado': {
+        preco: 69.90,
+        verso: true
+      }
+
+    };
+
+
+    /* =========================
        ELEMENTOS
     ========================== */
 
@@ -1637,82 +1352,89 @@
         'pedidoForm'
       );
 
-
     const clientePesquisa =
       document.getElementById(
         'clientePesquisa'
       );
-
 
     const clientesLista =
       document.getElementById(
         'clientesLista'
       );
 
-
     const mensagem =
       document.getElementById(
         'mensagem'
       );
-
 
     const listaPedidos =
       document.getElementById(
         'listaPedidos'
       );
 
-
     const pesquisaPedido =
       document.getElementById(
         'pesquisaPedido'
       );
-
 
     const ordenacaoPedidos =
       document.getElementById(
         'ordenacaoPedidos'
       );
 
-
     const paginationInfo =
       document.getElementById(
         'paginationInfo'
       );
-
 
     const paginaAnterior =
       document.getElementById(
         'paginaAnterior'
       );
 
-
     const proximaPagina =
       document.getElementById(
         'proximaPagina'
       );
-
 
     const abrirNovoPedido =
       document.getElementById(
         'abrirNovoPedido'
       );
 
-
     const fecharNovoPedido =
       document.getElementById(
         'fecharNovoPedido'
       );
-
 
     const cancelarNovoPedido =
       document.getElementById(
         'cancelarNovoPedido'
       );
 
-
     const novoPedidoModal =
       document.getElementById(
         'novoPedidoModal'
+      );
+
+    const adicionarItemPedido =
+      document.getElementById(
+        'adicionarItemPedido'
+      );
+
+    const itensPedidoManual =
+      document.getElementById(
+        'itensPedidoManual'
+      );
+
+    const totalPedidoManual =
+      document.getElementById(
+        'totalPedidoManual'
+      );
+
+    const criarPedidoManual =
+      document.getElementById(
+        'criarPedidoManual'
       );
 
 
@@ -1721,30 +1443,25 @@
         'kpiTodos'
       );
 
-
     const kpiPendentes =
       document.getElementById(
         'kpiPendentes'
       );
-
 
     const kpiPagos =
       document.getElementById(
         'kpiPagos'
       );
 
-
     const kpiProducao =
       document.getElementById(
         'kpiProducao'
       );
 
-
     const kpiEnviados =
       document.getElementById(
         'kpiEnviados'
       );
-
 
     const kpiConcluidos =
       document.getElementById(
@@ -1756,25 +1473,20 @@
        ESTADO
     ========================== */
 
-    let clientes =
-      [];
+    let clientes = [];
 
+    let clientesMap = {};
 
-    let clientesMap =
-      {};
-
-
-    let pedidosCarregados =
-      [];
-
+    let pedidosCarregados = [];
 
     let filtroAtual =
       'todos';
 
-
     let paginaAtual =
       1;
 
+    let contadorItens =
+      0;
 
     const pedidosPorPagina =
       15;
@@ -1882,14 +1594,13 @@
 
       }
 
-
       return status;
 
     }
 
 
     /* =========================
-       CLIENTE
+       CLIENTES
     ========================== */
 
     function montarLabelCliente(
@@ -1977,155 +1688,6 @@
 
 
     /* =========================
-       PERSONALIZAÇÃO
-    ========================== */
-
-    function montarDetalhesVeiculo(
-      marca,
-      modelo,
-      assinatura,
-      furos
-    ) {
-
-      return [
-        `Marca: ${marca}`,
-        `Modelo: ${modelo}`,
-        `Assinatura: ${assinatura}`,
-        `Furos: ${furos}`
-      ]
-        .join(
-          ' | '
-        );
-
-    }
-
-
-    function lerDetalhesVeiculo(
-      texto
-    ) {
-
-      if (
-        !texto
-      ) {
-
-        return null;
-
-      }
-
-
-      const dados =
-        {};
-
-
-      texto
-        .split(
-          '|'
-        )
-        .map(
-          parte =>
-            parte.trim()
-        )
-        .forEach(
-          parte => {
-
-            const indice =
-              parte.indexOf(
-                ':'
-              );
-
-
-            if (
-              indice ===
-              -1
-            ) {
-
-              return;
-
-            }
-
-
-            const chave =
-              parte
-                .slice(
-                  0,
-                  indice
-                )
-                .trim()
-                .toLowerCase();
-
-
-            const valor =
-              parte
-                .slice(
-                  indice + 1
-                )
-                .trim();
-
-
-            dados[
-              chave
-            ] =
-              valor;
-
-          }
-        );
-
-
-      const marca =
-        dados[
-          'marca'
-        ];
-
-
-      const modelo =
-        dados[
-          'modelo'
-        ];
-
-
-      const assinatura =
-        dados[
-          'assinatura'
-        ] ||
-        dados[
-          'ano/período'
-        ] ||
-        dados[
-          'ano / período'
-        ];
-
-
-      const furos =
-        dados[
-          'furos'
-        ];
-
-
-      if (
-        !marca &&
-        !modelo &&
-        !assinatura &&
-        !furos
-      ) {
-
-        return null;
-
-      }
-
-
-      return {
-
-        marca,
-        modelo,
-        assinatura,
-        furos
-
-      };
-
-    }
-
-
-    /* =========================
        ADMIN
     ========================== */
 
@@ -2188,7 +1750,7 @@
 
 
     /* =========================
-       CARREGAR CLIENTES
+       CLIENTES
     ========================== */
 
     async function consultarClientes() {
@@ -2224,11 +1786,6 @@
       }
 
 
-      console.info(
-        'E-mail não disponível em profiles. Usando nome e telefone.'
-      );
-
-
       return await supabaseClient
         .from(
           'profiles'
@@ -2260,10 +1817,8 @@
           error
         );
 
-
         mensagem.textContent =
           'Erro ao carregar clientes.';
-
 
         return;
 
@@ -2327,7 +1882,7 @@
 
 
     /* =========================
-       CARREGAR PEDIDOS
+       PEDIDOS
     ========================== */
 
     async function carregarPedidos() {
@@ -2393,10 +1948,6 @@
     }
 
 
-    /* =========================
-       INDICADORES
-    ========================== */
-
     function contarStatus(
       status
     ) {
@@ -2419,30 +1970,25 @@
       kpiTodos.textContent =
         pedidosCarregados.length;
 
-
       kpiPendentes.textContent =
         contarStatus(
           'pagamento_pendente'
         );
-
 
       kpiPagos.textContent =
         contarStatus(
           'pago'
         );
 
-
       kpiProducao.textContent =
         contarStatus(
           'em_producao'
         );
 
-
       kpiEnviados.textContent =
         contarStatus(
           'enviado'
         );
-
 
       kpiConcluidos.textContent =
         contarStatus(
@@ -2451,10 +1997,6 @@
 
     }
 
-
-    /* =========================
-       ITENS
-    ========================== */
 
     function resumoItens(
       itens
@@ -2476,22 +2018,9 @@
         1
       ) {
 
-        const item =
-          itens[
-            0
-          ];
-
-
-        return (
-          `${item.produto}` +
-          (
-            Number(
-              item.quantidade
-            ) > 1
-              ? ` · ${item.quantidade} un.`
-              : ''
-          )
-        );
+        return itens[
+          0
+        ].produto;
 
       }
 
@@ -2510,10 +2039,6 @@
 
     }
 
-
-    /* =========================
-       FILTROS
-    ========================== */
 
     function pedidosFiltrados() {
 
@@ -2683,10 +2208,6 @@
     }
 
 
-    /* =========================
-       STATUS SELECT
-    ========================== */
-
     function optionStatus(
       valor,
       nome,
@@ -2713,10 +2234,6 @@
 
     }
 
-
-    /* =========================
-       RENDERIZAR
-    ========================== */
 
     function renderizarPedidos() {
 
@@ -2745,17 +2262,6 @@
 
         paginaAtual =
           totalPaginas;
-
-      }
-
-
-      if (
-        paginaAtual <
-        1
-      ) {
-
-        paginaAtual =
-          1;
 
       }
 
@@ -2840,25 +2346,18 @@
                 <tr>
 
                   <td>
-
                     <span class="pedido-numero">
                       #${pedido.id}
                     </span>
-
                   </td>
 
-
                   <td>
-
                     <span class="pedido-cliente">
                       ${escaparHtml(cliente)}
                     </span>
-
                   </td>
 
-
                   <td>
-
                     <span class="pedido-itens-resumo">
                       ${escaparHtml(
                         resumoItens(
@@ -2866,31 +2365,23 @@
                         )
                       )}
                     </span>
-
                   </td>
 
-
                   <td>
-
                     <span class="pedido-valor">
                       ${formatarValor(
                         pedido.valor_total
                       )}
                     </span>
-
                   </td>
 
-
                   <td>
-
                     <span class="pedido-data">
                       ${formatarData(
                         pedido.created_at
                       )}
                     </span>
-
                   </td>
-
 
                   <td>
 
@@ -2902,7 +2393,6 @@
                           status-dot-${status}
                         "
                       ></span>
-
 
                       <select
                         class="status-select"
@@ -2956,7 +2446,6 @@
                     </div>
 
                   </td>
-
 
                   <td>
 
@@ -3021,7 +2510,6 @@
 
             </thead>
 
-
             <tbody>
               ${linhas}
             </tbody>
@@ -3031,22 +2519,12 @@
         `;
 
 
-      const primeiroNumero =
-        inicio +
-        1;
-
-
-      const ultimoNumero =
-        Math.min(
-          fim,
-          totalPedidos
-        );
-
-
       paginationInfo.textContent =
         (
-          `${primeiroNumero}–${ultimoNumero} ` +
-          `de ${totalPedidos} pedidos`
+          `${inicio + 1}–${Math.min(
+            fim,
+            totalPedidos
+          )} de ${totalPedidos} pedidos`
         );
 
 
@@ -3061,10 +2539,6 @@
 
     }
 
-
-    /* =========================
-       FILTRO ATUAL
-    ========================== */
 
     function filtrarPedidos(
       status
@@ -3116,10 +2590,6 @@
 
     }
 
-
-    /* =========================
-       EVENTOS FILTRO
-    ========================== */
 
     document
       .querySelectorAll(
@@ -3173,7 +2643,6 @@
           paginaAtual =
             1;
 
-
           renderizarPedidos();
 
         }
@@ -3187,7 +2656,6 @@
 
           paginaAtual =
             1;
-
 
           renderizarPedidos();
 
@@ -3207,7 +2675,6 @@
 
             paginaAtual--;
 
-
             renderizarPedidos();
 
           }
@@ -3222,7 +2689,6 @@
         () => {
 
           paginaAtual++;
-
 
           renderizarPedidos();
 
@@ -3240,24 +2706,8 @@
       selectElement
     ) {
 
-      const valorAnterior =
-        pedidosCarregados
-          .find(
-            pedido =>
-              pedido.id ===
-              pedidoId
-          )
-          ?.status;
-
-
-      if (
-        selectElement
-      ) {
-
-        selectElement.disabled =
-          true;
-
-      }
+      selectElement.disabled =
+        true;
 
 
       const {
@@ -3293,20 +2743,7 @@
         );
 
 
-        if (
-          selectElement
-        ) {
-
-          selectElement.value =
-            normalizarStatus(
-              valorAnterior
-            );
-
-
-          selectElement.disabled =
-            false;
-
-        }
+        await carregarPedidos();
 
 
         return;
@@ -3324,10 +2761,664 @@
 
 
     /* =========================
+       ITENS DO NOVO PEDIDO
+    ========================== */
+
+    function atualizarNumeracaoItens() {
+
+      document
+        .querySelectorAll(
+          '.item-manual'
+        )
+        .forEach(
+          (
+            item,
+            index
+          ) => {
+
+            const titulo =
+              item.querySelector(
+                '.item-manual-titulo'
+              );
+
+
+            titulo.textContent =
+              `Item ${index + 1}`;
+
+          }
+        );
+
+    }
+
+
+    function atualizarTotalManual() {
+
+      let total =
+        0;
+
+
+      document
+        .querySelectorAll(
+          '.item-manual'
+        )
+        .forEach(
+          item => {
+
+            const quantidade =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="quantidade"]'
+                  )
+                  .value
+              ) ||
+              0;
+
+
+            const valor =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="valor"]'
+                  )
+                  .value
+              ) ||
+              0;
+
+
+            total +=
+              quantidade *
+              valor;
+
+          }
+        );
+
+
+      totalPedidoManual.textContent =
+        formatarValor(
+          total
+        );
+
+
+      return total;
+
+    }
+
+
+    function configurarProdutoItem(
+      item
+    ) {
+
+      const produto =
+        item
+          .querySelector(
+            '[data-field="produto"]'
+          )
+          .value;
+
+
+      const configuracao =
+        produtosManual[
+          produto
+        ];
+
+
+      const versoWrap =
+        item.querySelector(
+          '.item-verso'
+        );
+
+
+      if (
+        configuracao?.verso
+      ) {
+
+        versoWrap.style.display =
+          'block';
+
+      }
+
+      else {
+
+        versoWrap.style.display =
+          'none';
+
+
+        versoWrap
+          .querySelector(
+            'input'
+          )
+          .value =
+            '';
+
+      }
+
+    }
+
+
+    function adicionarItemManual(
+      produtoInicial =
+        'Plaqueta de motor'
+    ) {
+
+      contadorItens++;
+
+
+      const config =
+        produtosManual[
+          produtoInicial
+        ];
+
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+
+      div.className =
+        'item-manual';
+
+
+      div.dataset.itemId =
+        contadorItens;
+
+
+      div.innerHTML =
+        `
+
+          <div class="item-manual-topo">
+
+            <span class="item-manual-titulo">
+              Item
+            </span>
+
+            <button
+              class="
+                admin-btn
+                admin-btn-danger
+                item-remover
+              "
+              type="button"
+            >
+              Remover
+            </button>
+
+          </div>
+
+
+          <div class="item-manual-grid">
+
+
+            <div class="item-produto">
+
+              <label>
+                Produto
+              </label>
+
+              <select
+                data-field="produto"
+                required
+              >
+
+                <option value="Plaqueta de motor">
+                  Plaqueta de motor
+                </option>
+
+                <option value="Enfeite para retrovisor interno">
+                  Enfeite para retrovisor interno
+                </option>
+
+                <option value="Chaveiro personalizado">
+                  Chaveiro personalizado
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Quantidade
+              </label>
+
+              <input
+                data-field="quantidade"
+                type="number"
+                min="1"
+                value="1"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Valor unitário
+              </label>
+
+              <input
+                data-field="valor"
+                type="number"
+                min="0"
+                step="0.01"
+                value="${config.preco.toFixed(2)}"
+                required
+              >
+
+            </div>
+
+
+            <div class="item-separador">
+              Personalização
+            </div>
+
+
+            <div>
+
+              <label>
+                Marca
+              </label>
+
+              <input
+                data-field="marca"
+                type="text"
+                placeholder="Ex.: Ford"
+                required
+              >
+
+            </div>
+
+
+            <div class="item-modelo">
+
+              <label>
+                Modelo
+              </label>
+
+              <input
+                data-field="modelo"
+                type="text"
+                placeholder="Ex.: Verona GLX"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Assinatura
+              </label>
+
+              <input
+                data-field="assinatura"
+                type="text"
+                placeholder="Ex.: 1991, GLX ou apelido"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Furos
+              </label>
+
+              <select
+                data-field="furos"
+              >
+
+                <option value="Sim">
+                  Sim
+                </option>
+
+                <option value="Não">
+                  Não
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="item-verso">
+
+              <label>
+                Gravação no verso
+                <span>
+                  (opcional)
+                </span>
+              </label>
+
+              <input
+                data-field="verso"
+                type="text"
+                placeholder="Ex.: nome, frase, placa ou data"
+              >
+
+            </div>
+
+
+          </div>
+
+        `;
+
+
+      const produtoSelect =
+        div.querySelector(
+          '[data-field="produto"]'
+        );
+
+
+      produtoSelect.value =
+        produtoInicial;
+
+
+      produtoSelect
+        .addEventListener(
+          'change',
+          () => {
+
+            const novoProduto =
+              produtoSelect.value;
+
+
+            const novaConfig =
+              produtosManual[
+                novoProduto
+              ];
+
+
+            div
+              .querySelector(
+                '[data-field="valor"]'
+              )
+              .value =
+                novaConfig.preco
+                  .toFixed(
+                    2
+                  );
+
+
+            configurarProdutoItem(
+              div
+            );
+
+
+            atualizarTotalManual();
+
+          }
+        );
+
+
+      div
+        .querySelector(
+          '[data-field="quantidade"]'
+        )
+        .addEventListener(
+          'input',
+          atualizarTotalManual
+        );
+
+
+      div
+        .querySelector(
+          '[data-field="valor"]'
+        )
+        .addEventListener(
+          'input',
+          atualizarTotalManual
+        );
+
+
+      div
+        .querySelector(
+          '.item-remover'
+        )
+        .addEventListener(
+          'click',
+          () => {
+
+            const totalItens =
+              document
+                .querySelectorAll(
+                  '.item-manual'
+                )
+                .length;
+
+
+            if (
+              totalItens <=
+              1
+            ) {
+
+              alert(
+                'O pedido precisa ter pelo menos um produto.'
+              );
+
+
+              return;
+
+            }
+
+
+            div.remove();
+
+
+            atualizarNumeracaoItens();
+
+            atualizarTotalManual();
+
+          }
+        );
+
+
+      itensPedidoManual.appendChild(
+        div
+      );
+
+
+      configurarProdutoItem(
+        div
+      );
+
+
+      atualizarNumeracaoItens();
+
+      atualizarTotalManual();
+
+    }
+
+
+    adicionarItemPedido
+      .addEventListener(
+        'click',
+        () => {
+
+          adicionarItemManual();
+
+        }
+      );
+
+
+    /* =========================
+       COLETAR ITENS
+    ========================== */
+
+    function coletarItensManuais() {
+
+      return Array
+        .from(
+          document
+            .querySelectorAll(
+              '.item-manual'
+            )
+        )
+        .map(
+          item => {
+
+            const produto =
+              item
+                .querySelector(
+                  '[data-field="produto"]'
+                )
+                .value;
+
+
+            const quantidade =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="quantidade"]'
+                  )
+                  .value
+              );
+
+
+            const valor =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="valor"]'
+                  )
+                  .value
+              );
+
+
+            const marca =
+              item
+                .querySelector(
+                  '[data-field="marca"]'
+                )
+                .value
+                .trim();
+
+
+            const modelo =
+              item
+                .querySelector(
+                  '[data-field="modelo"]'
+                )
+                .value
+                .trim();
+
+
+            const assinatura =
+              item
+                .querySelector(
+                  '[data-field="assinatura"]'
+                )
+                .value
+                .trim();
+
+
+            const furos =
+              item
+                .querySelector(
+                  '[data-field="furos"]'
+                )
+                .value;
+
+
+            const versoCampo =
+              item
+                .querySelector(
+                  '[data-field="verso"]'
+                );
+
+
+            const verso =
+              versoCampo
+                ? versoCampo.value.trim()
+                : '';
+
+
+            const detalhes =
+              [
+                `Marca: ${marca}`,
+                `Modelo: ${modelo}`,
+                `Assinatura: ${assinatura}`,
+                `Furos: ${furos}`
+              ];
+
+
+            if (
+              verso
+            ) {
+
+              detalhes.push(
+                `Gravação no verso: ${verso}`
+              );
+
+            }
+
+
+            return {
+
+              produto,
+              quantidade,
+              valor,
+              detalhes:
+                detalhes.join(
+                  ' | '
+                )
+
+            };
+
+          }
+        );
+
+    }
+
+
+    /* =========================
        MODAL
     ========================== */
 
+    function resetarNovoPedido() {
+
+      pedidoForm.reset();
+
+
+      clientePesquisa.value =
+        '';
+
+
+      itensPedidoManual.innerHTML =
+        '';
+
+
+      contadorItens =
+        0;
+
+
+      adicionarItemManual(
+        'Plaqueta de motor'
+      );
+
+
+      document
+        .getElementById(
+          'observacoes'
+        )
+        .value =
+          '';
+
+    }
+
+
     function abrirModalNovoPedido() {
+
+      resetarNovoPedido();
+
 
       novoPedidoModal.classList.add(
         'aberto'
@@ -3438,7 +3529,7 @@
 
 
     /* =========================
-       CRIAR PEDIDO MANUAL
+       CRIAR PEDIDO
     ========================== */
 
     pedidoForm
@@ -3449,8 +3540,15 @@
           event.preventDefault();
 
 
-          mensagem.textContent =
-            'Criando pedido...';
+          if (
+            !pedidoForm.checkValidity()
+          ) {
+
+            pedidoForm.reportValidity();
+
+            return;
+
+          }
 
 
           const cliente =
@@ -3461,8 +3559,9 @@
             !cliente
           ) {
 
-            mensagem.textContent =
-              'Selecione um cliente válido na pesquisa.';
+            alert(
+              'Selecione um cliente válido.'
+            );
 
 
             clientePesquisa.focus();
@@ -3473,67 +3572,50 @@
           }
 
 
-          const produto =
-            document
-              .getElementById(
-                'produto'
-              )
-              .value;
+          const itens =
+            coletarItensManuais();
 
 
-          const quantidade =
-            Number(
-              document
-                .getElementById(
-                  'quantidade'
-                )
-                .value
+          if (
+            itens.length ===
+            0
+          ) {
+
+            alert(
+              'Adicione pelo menos um produto.'
             );
 
 
-          const valorUnitario =
-            Number(
-              document
-                .getElementById(
-                  'valorUnitario'
-                )
-                .value
+            return;
+
+          }
+
+
+          criarPedidoManual.disabled =
+            true;
+
+
+          criarPedidoManual.textContent =
+            'Criando pedido...';
+
+
+          mensagem.textContent =
+            'Criando pedido...';
+
+
+          const valorTotal =
+            itens.reduce(
+              (
+                total,
+                item
+              ) =>
+                total +
+                (
+                  item.quantidade *
+                  item.valor
+                ),
+              0
             );
-
-
-          const marca =
-            document
-              .getElementById(
-                'marcaVeiculo'
-              )
-              .value
-              .trim();
-
-
-          const modelo =
-            document
-              .getElementById(
-                'modeloVeiculo'
-              )
-              .value
-              .trim();
-
-
-          const assinatura =
-            document
-              .getElementById(
-                'anoVeiculo'
-              )
-              .value
-              .trim();
-
-
-          const furos =
-            document
-              .getElementById(
-                'furos'
-              )
-              .value;
 
 
           const observacoes =
@@ -3543,20 +3625,6 @@
               )
               .value
               .trim();
-
-
-          const detalhesVeiculo =
-            montarDetalhesVeiculo(
-              marca,
-              modelo,
-              assinatura,
-              furos
-            );
-
-
-          const valorTotal =
-            quantidade *
-            valorUnitario;
 
 
           const {
@@ -3579,7 +3647,8 @@
                   valorTotal,
 
                 observacoes:
-                  observacoes
+                  observacoes ||
+                  null
 
               })
               .select()
@@ -3599,49 +3668,76 @@
               'Erro ao criar o pedido.';
 
 
+            criarPedidoManual.disabled =
+              false;
+
+
+            criarPedidoManual.textContent =
+              'Criar pedido';
+
+
             return;
 
           }
 
 
-          const {
-            error: itemError
-          } =
-            await supabaseClient
-              .from(
-                'order_items'
-              )
-              .insert({
+          const itensBanco =
+            itens.map(
+              item => ({
 
                 order_id:
                   pedido.id,
 
                 produto:
-                  produto,
+                  item.produto,
 
                 quantidade:
-                  quantidade,
+                  item.quantidade,
 
                 valor_unitario:
-                  valorUnitario,
+                  item.valor,
 
                 detalhes_personalizacao:
-                  detalhesVeiculo
+                  item.detalhes
 
-              });
+              })
+            );
+
+
+          const {
+            error: itensError
+          } =
+            await supabaseClient
+              .from(
+                'order_items'
+              )
+              .insert(
+                itensBanco
+              );
 
 
           if (
-            itemError
+            itensError
           ) {
 
             console.error(
-              itemError
+              itensError
             );
 
 
             mensagem.textContent =
-              'Pedido criado, mas houve erro ao criar o item.';
+              (
+                `Pedido #${pedido.id} foi criado, ` +
+                'mas ocorreu um erro ao cadastrar os itens.'
+              );
+
+
+            criarPedidoManual.disabled =
+              false;
+
+
+            criarPedidoManual.textContent =
+              'Criar pedido';
 
 
             return;
@@ -3653,35 +3749,12 @@
             `Pedido #${pedido.id} criado com sucesso.`;
 
 
-          pedidoForm.reset();
+          criarPedidoManual.disabled =
+            false;
 
 
-          clientePesquisa.value =
-            '';
-
-
-          document
-            .getElementById(
-              'produto'
-            )
-            .value =
-              'Plaqueta de motor';
-
-
-          document
-            .getElementById(
-              'quantidade'
-            )
-            .value =
-              '1';
-
-
-          document
-            .getElementById(
-              'furos'
-            )
-            .value =
-              'Sim';
+          criarPedidoManual.textContent =
+            'Criar pedido';
 
 
           fecharModalNovoPedido();
