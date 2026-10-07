@@ -1,81 +1,64 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
-
   <title>
     ÍMALLOY | Automotive Personalisation
   </title>
-
   <link
     rel="icon"
     type="image/png"
     href="assets/favicon.png"
   />
-
   <meta
     name="description"
     content="ÍMALLOY — peças automotivas personalizadas com gravação a laser, design exclusivo e acabamento pensado para cada projeto."
   />
-
   <link
     rel="canonical"
     href="https://imalloy.com.br/"
   />
-
   <meta
     property="og:type"
     content="website"
   />
-
   <meta
     property="og:site_name"
     content="ÍMALLOY"
   />
-
   <meta
     property="og:title"
     content="ÍMALLOY | Automotive Personalisation"
   />
-
   <meta
     property="og:description"
     content="Peças automotivas personalizadas com gravação a laser, design exclusivo e acabamento pensado para cada projeto."
   />
-
   <meta
     property="og:url"
     content="https://imalloy.com.br/"
   />
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
   >
-
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin
   >
-
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
-
   <link
     rel="stylesheet"
     href="style.css"
   />
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
@@ -89,7 +72,6 @@
       transition:
         opacity 0.16s ease,
         transform 0.16s ease;
-
       will-change:
         opacity,
         transform;
@@ -121,27 +103,19 @@
       position: absolute;
       top: 50%;
       z-index: 5;
-
       width: 42px;
       height: 42px;
-
       border:
         1px solid rgba(255, 255, 255, 0.14);
-
       border-radius: 50%;
-
       background: #14181e;
       color: #fff;
-
       font: inherit;
       font-size: 28px;
       line-height: 1;
-
       cursor: pointer;
-
       transform:
         translateY(-50%);
-
       transition:
         transform 0.2s ease,
         background 0.2s ease,
@@ -150,7 +124,6 @@
 
     .product-carousel-nav:hover {
       background: #20262e;
-
       border-color:
         rgba(255, 255, 255, 0.28);
     }
@@ -173,25 +146,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
       gap: 9px;
-
       margin-top: 18px;
     }
 
     .product-carousel-dot {
       width: 9px;
       height: 9px;
-
       padding: 0;
       border: 0;
-
       border-radius: 50%;
-
       background: #4b535e;
-
       cursor: pointer;
-
       transition:
         transform 0.2s ease,
         background 0.2s ease;
@@ -199,17 +165,14 @@
 
     .product-carousel-dot.active {
       background: #fff;
-
       transform:
         scale(1.25);
     }
 
     .shipping-free {
       margin-top: 12px;
-
       font-size: 13px;
       font-weight: 700;
-
       color: #ffffff;
     }
 
@@ -220,51 +183,38 @@
 
     .product-selector {
       display: grid;
-
       grid-template-columns:
         repeat(
           3,
           minmax(0, 1fr)
         );
-
       gap: 14px;
     }
 
     .product-option {
       position: relative;
-
       display: block;
-
       cursor: pointer;
     }
 
     .product-option input {
       position: absolute;
-
       opacity: 0;
-
       pointer-events: none;
     }
 
     .product-option-content {
       display: flex;
       flex-direction: column;
-
       gap: 5px;
-
       min-height: 118px;
-
       padding: 18px;
-
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-
       border-radius: 14px;
-
       background:
         rgba(18, 22, 27, 0.88);
-
       transition:
         border-color 0.18s ease,
         background 0.18s ease,
@@ -273,7 +223,6 @@
 
     .product-option-content strong {
       font-size: 16px;
-
       color: #ffffff;
     }
 
@@ -283,9 +232,7 @@
 
     .product-option-content b {
       margin-top: auto;
-
       font-size: 20px;
-
       color: #ffffff;
     }
 
@@ -293,68 +240,51 @@
     + .product-option-content {
       border-color:
         rgba(255, 255, 255, 0.48);
-
       background:
         #1b2027;
-
       transform:
         translateY(-2px);
     }
 
     .order-summary {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
-
       gap: 20px;
-
       padding: 18px 20px;
-
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-
       border-radius: 14px;
-
       background: #12161b;
     }
 
     .order-summary > div {
       display: grid;
-
       gap: 2px;
     }
 
     .order-summary span {
       font-size: 13px;
-
       color: var(--muted);
     }
 
     .order-summary strong {
       font-size: 27px;
-
       line-height: 1.1;
-
       color: #ffffff;
     }
 
     .order-summary .free-shipping {
       font-weight: 700;
-
       color: #ffffff;
     }
 
     .same-data-option {
       display: flex;
-
       align-items: center;
-
       gap: 10px;
-
       cursor: pointer;
-
       color: #dfe4ea;
     }
 
@@ -365,77 +295,60 @@
 
     .multi-personalization-grid {
       display: grid;
-
       grid-template-columns:
         minmax(0, 1.05fr)
         minmax(320px, 0.95fr);
-
       gap: 28px;
-
       align-items: start;
     }
 
     .personalization-fields {
       display: grid;
-
       gap: 18px;
-
       margin-bottom: 18px;
     }
 
     .personalization-block {
       padding: 20px;
-
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-
       border-radius: 16px;
-
       background:
         rgba(18, 22, 27, 0.84);
     }
 
     .personalization-block-header {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
-
       gap: 16px;
-
       margin-bottom: 18px;
     }
 
     .personalization-block-header h3 {
       margin: 0;
-
       font-size: 18px;
     }
 
     .personalization-block-header span {
       font-size: 12px;
-
       color: var(--muted);
     }
 
     .personalization-block-fields {
       display: grid;
-
       gap: 16px;
     }
 
     .preview-list {
       display: grid;
-
       gap: 22px;
-
       margin-top: 16px;
     }
 
     .order-preview-item {
       padding-bottom: 20px;
-
       border-bottom:
         1px solid
         rgba(255, 255, 255, 0.08);
@@ -443,21 +356,15 @@
 
     .order-preview-item:last-child {
       padding-bottom: 0;
-
       border-bottom: 0;
     }
 
     .order-preview-label {
       display: flex;
-
       justify-content: space-between;
-
       gap: 10px;
-
       margin-bottom: 12px;
-
       font-size: 13px;
-
       color: var(--muted);
     }
 
@@ -485,7 +392,6 @@
 
       .order-summary {
         align-items: flex-start;
-
         flex-direction: column;
       }
 
@@ -495,7 +401,6 @@
       width: 100%;
       max-width: 520px;
       height: 180px;
-
       margin-left: auto;
       margin-right: auto;
     }
@@ -504,7 +409,6 @@
       width: 220px;
       max-width: 100%;
       height: 360px;
-
       margin-left: auto;
       margin-right: auto;
     }
@@ -513,13 +417,10 @@
     .mini-plaque.retrovisor
     .mh1 {
       display: block;
-
       top: 14px;
       left: 14px;
-
       right: auto;
       bottom: auto;
-
       transform: none;
     }
 
@@ -527,13 +428,10 @@
     .mini-plaque.retrovisor
     .mh2 {
       display: block;
-
       top: 14px;
       right: 14px;
-
       left: auto;
       bottom: auto;
-
       transform: none;
     }
 
@@ -551,13 +449,10 @@
     .mini-plaque.keychain
     .mh1 {
       display: block;
-
       top: 14px;
       left: 50%;
-
       right: auto;
       bottom: auto;
-
       transform:
         translateX(-50%);
     }
@@ -599,16 +494,12 @@
       position: fixed;
       inset: 0;
       z-index: 999;
-
       display: none;
       align-items: center;
       justify-content: center;
-
       padding: 24px;
-
       background:
         rgba(0, 0, 0, 0.72);
-
       backdrop-filter:
         blur(5px);
     }
@@ -621,17 +512,12 @@
       width: min(620px, 100%);
       max-height: calc(100vh - 48px);
       overflow-y: auto;
-
       padding: 28px;
-
       border:
         1px solid
         rgba(255, 255, 255, 0.14);
-
       border-radius: 18px;
-
       background: #12161b;
-
       box-shadow:
         0 30px 90px
         rgba(0, 0, 0, 0.55);
@@ -639,55 +525,44 @@
 
     .confirmation-dialog h2 {
       margin-bottom: 8px;
-
       font-size: 28px;
     }
 
     .confirmation-intro {
       margin:
         0 0 22px;
-
       color: var(--muted);
     }
 
     .confirmation-items {
       display: grid;
-
       gap: 12px;
     }
 
     .confirmation-item {
       padding: 16px;
-
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-
       border-radius: 12px;
-
       background: #0d1116;
     }
 
     .confirmation-item strong {
       display: block;
-
       margin-bottom: 8px;
-
       color: #ffffff;
     }
 
     .confirmation-item p {
       margin: 4px 0;
-
       color: #cbd2d9;
-
       font-size: 14px;
     }
 
     .confirmation-observacoes {
       margin-top: 16px;
       padding-top: 16px;
-
       border-top:
         1px solid
         rgba(255, 255, 255, 0.08);
@@ -695,7 +570,6 @@
 
     .confirmation-observacoes p {
       margin: 6px 0 0;
-
       color: #cbd2d9;
     }
 
@@ -703,12 +577,9 @@
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-
       gap: 20px;
-
       margin-top: 18px;
       padding-top: 18px;
-
       border-top:
         1px solid
         rgba(255, 255, 255, 0.12);
@@ -716,34 +587,27 @@
 
     .confirmation-total span {
       color: var(--muted);
-
       font-size: 13px;
     }
 
     .confirmation-total strong {
       color: #ffffff;
-
       font-size: 26px;
     }
 
     .confirmation-shipping {
       margin:
         4px 0 0;
-
       color: #ffffff;
-
       font-size: 13px;
       font-weight: 700;
     }
 
     .confirmation-actions {
       display: grid;
-
       grid-template-columns:
         1fr 1fr;
-
       gap: 12px;
-
       margin-top: 24px;
     }
 
@@ -754,9 +618,7 @@
     .confirmation-actions
     .confirmation-edit {
       background: transparent;
-
       color: var(--text);
-
       border:
         1px solid var(--line);
     }
@@ -764,9 +626,7 @@
     .confirmation-actions
     .confirmation-confirm {
       background: var(--green);
-
       color: #08120b;
-
       border:
         1px solid transparent;
     }
@@ -774,8 +634,15 @@
     .confirmation-actions
     .confirmation-confirm:disabled {
       opacity: 0.55;
-
       cursor: wait;
+    }
+
+    .confirmation-message {
+      min-height: 22px;
+      margin: 14px 0 0;
+      color: #ff6b72;
+      font-size: 13px;
+      font-weight: 600;
     }
 
     body.modal-open {
@@ -798,14 +665,12 @@
 
       .confirmation-total {
         align-items: flex-start;
-
         flex-direction: column;
       }
 
     }
 
   </style>
-
 </head>
 
 <body>
@@ -871,7 +736,9 @@
 
   </header>
 
+
   <main>
+
 
     <section
       id="home"
@@ -931,6 +798,7 @@
 
         </div>
 
+
         <div
           class="plaque-mockup"
           aria-label="Exemplo de plaqueta automotiva"
@@ -988,7 +856,9 @@
 
         </div>
 
+
         <div class="product-grid">
+
 
           <div class="product-carousel">
 
@@ -1000,6 +870,7 @@
             >
               ‹
             </button>
+
 
             <article
               id="productCard"
@@ -1084,6 +955,7 @@
 
             </article>
 
+
             <button
               id="proximoProduto"
               class="product-carousel-nav product-carousel-next"
@@ -1092,6 +964,7 @@
             >
               ›
             </button>
+
 
             <div
               class="product-carousel-dots"
@@ -1132,6 +1005,7 @@
 
             <div class="steps">
 
+
               <div class="step">
 
                 <span>
@@ -1151,6 +1025,7 @@
                 </div>
 
               </div>
+
 
               <div class="step">
 
@@ -1173,6 +1048,7 @@
 
               </div>
 
+
               <div class="step">
 
                 <span>
@@ -1192,6 +1068,7 @@
                 </div>
 
               </div>
+
 
               <div class="step">
 
@@ -1247,12 +1124,15 @@
 
         </div>
 
+
         <form
           id="orderForm"
           class="multi-order-form"
         >
 
+
           <div class="product-selector">
+
 
             <label class="product-option">
 
@@ -1514,6 +1394,14 @@
         </div>
 
       </div>
+
+
+      <p
+        id="confirmationMessage"
+        class="confirmation-message"
+        aria-live="polite"
+      ></p>
+
 
       <div class="confirmation-actions">
 
@@ -2131,6 +2019,12 @@
       );
 
 
+    const confirmationMessage =
+      document.getElementById(
+        'confirmationMessage'
+      );
+
+
     let pedidoEmConfirmacao =
       null;
 
@@ -2322,6 +2216,7 @@
 
 
             <div class="field-row">
+
 
               <div class="field">
 
@@ -2989,6 +2884,73 @@
     }
 
 
+    function gerarCheckoutToken() {
+
+      if (
+        window.crypto &&
+        typeof window.crypto.randomUUID ===
+          'function'
+      ) {
+
+        return window.crypto.randomUUID();
+
+      }
+
+
+      const bytes =
+        new Uint8Array(16);
+
+
+      window.crypto.getRandomValues(
+        bytes
+      );
+
+
+      bytes[6] =
+        (
+          bytes[6] &
+          0x0f
+        ) |
+        0x40;
+
+
+      bytes[8] =
+        (
+          bytes[8] &
+          0x3f
+        ) |
+        0x80;
+
+
+      const hex =
+        Array
+          .from(
+            bytes,
+            valor =>
+              valor
+                .toString(16)
+                .padStart(
+                  2,
+                  '0'
+                )
+          );
+
+
+      return (
+        hex.slice(0, 4).join('') +
+        '-' +
+        hex.slice(4, 6).join('') +
+        '-' +
+        hex.slice(6, 8).join('') +
+        '-' +
+        hex.slice(8, 10).join('') +
+        '-' +
+        hex.slice(10, 16).join('')
+      );
+
+    }
+
+
     function coletarRascunhoPedido() {
 
       const selecionados =
@@ -3065,10 +3027,21 @@
           );
 
 
+      const rascunhoAnterior =
+        carregarRascunhoPedido();
+
+
+      const checkoutToken =
+        rascunhoAnterior?.checkoutToken ||
+        gerarCheckoutToken();
+
+
       return {
 
         versao:
-          1,
+          2,
+
+        checkoutToken,
 
         criadoEm:
           new Date().toISOString(),
@@ -3117,7 +3090,9 @@
 
 
       if (!texto) {
+
         return null;
+
       }
 
 
@@ -3127,16 +3102,20 @@
           texto
         );
 
-      } catch (erro) {
+      }
+
+      catch (erro) {
 
         console.error(
           'Erro ao ler rascunho do pedido.',
           erro
         );
 
+
         localStorage.removeItem(
           pedidoRascunhoKey
         );
+
 
         return null;
 
@@ -3173,6 +3152,25 @@
       );
 
 
+      if (
+        !rascunho.checkoutToken
+      ) {
+
+        rascunho.checkoutToken =
+          gerarCheckoutToken();
+
+
+        rascunho.versao =
+          2;
+
+
+        salvarRascunhoPedido(
+          rascunho
+        );
+
+      }
+
+
       usarMesmosDados.checked =
         Boolean(
           rascunho.usarMesmosDados
@@ -3195,7 +3193,9 @@
 
 
           if (!bloco) {
+
             return;
+
           }
 
 
@@ -3224,26 +3224,34 @@
 
 
           if (veiculo) {
+
             veiculo.value =
               item.veiculo || '';
+
           }
 
 
           if (assinatura) {
+
             assinatura.value =
               item.assinatura || '';
+
           }
 
 
           if (furos) {
+
             furos.value =
               item.furos || 'Sim';
+
           }
 
 
           if (verso) {
+
             verso.value =
               item.verso || '';
+
           }
 
         }
@@ -3281,10 +3289,19 @@
               const versoHtml =
                 item.verso
                   ? `
+
                     <p>
-                      <strong>Gravação no verso:</strong>
-                      ${escaparHtml(item.verso)}
+
+                      <strong>
+                        Gravação no verso:
+                      </strong>
+
+                      ${escaparHtml(
+                        item.verso
+                      )}
+
                     </p>
+
                   `
                   : '';
 
@@ -3294,27 +3311,57 @@
                 <div class="confirmation-item">
 
                   <strong>
-                    ${escaparHtml(produto.nome)}
+                    ${escaparHtml(
+                      produto.nome
+                    )}
                   </strong>
 
                   <p>
-                    <strong>Medida:</strong>
-                    ${escaparHtml(produto.medida)}
+
+                    <strong>
+                      Medida:
+                    </strong>
+
+                    ${escaparHtml(
+                      produto.medida
+                    )}
+
                   </p>
 
                   <p>
-                    <strong>Veículo:</strong>
-                    ${escaparHtml(item.veiculo)}
+
+                    <strong>
+                      Veículo:
+                    </strong>
+
+                    ${escaparHtml(
+                      item.veiculo
+                    )}
+
                   </p>
 
                   <p>
-                    <strong>Assinatura:</strong>
-                    ${escaparHtml(item.assinatura)}
+
+                    <strong>
+                      Assinatura:
+                    </strong>
+
+                    ${escaparHtml(
+                      item.assinatura
+                    )}
+
                   </p>
 
                   <p>
-                    <strong>Furos:</strong>
-                    ${escaparHtml(item.furos)}
+
+                    <strong>
+                      Furos:
+                    </strong>
+
+                    ${escaparHtml(
+                      item.furos
+                    )}
+
                   </p>
 
                   ${versoHtml}
@@ -3336,12 +3383,14 @@
           </strong>
 
           <p>
+
             ${
               escaparHtml(
                 rascunho.observacoes ||
                 'Nenhuma'
               )
             }
+
           </p>
 
         `;
@@ -3374,6 +3423,10 @@
 
       confirmationConfirmButton.textContent =
         'Confirmar e continuar no WhatsApp';
+
+
+      confirmationMessage.textContent =
+        '';
 
 
       confirmationModal.classList.add(
@@ -3415,16 +3468,18 @@
 
 
     function montarMensagemWhatsapp(
-      rascunho
+      rascunho,
+      pedidoId,
+      valorTotal
     ) {
 
       const message = [
 
-        'Olá! Gostaria de fazer um pedido ÍMALLOY.',
+        `Olá! Gostaria de continuar com o Pedido #${pedidoId} da ÍMALLOY.`,
 
         '',
 
-        `Valor total: ${moeda(rascunho.total)}`,
+        `Valor total: ${moeda(valorTotal)}`,
 
         'Frete grátis em todo o país.',
 
@@ -3497,6 +3552,167 @@
     }
 
 
+    function montarDetalhesPersonalizacao(
+      item
+    ) {
+
+      const partes = [
+
+        `Modelo: ${item.veiculo}`,
+
+        `Assinatura: ${item.assinatura}`,
+
+        `Furos: ${item.furos}`
+
+      ];
+
+
+      if (
+        item.verso
+      ) {
+
+        partes.push(
+          `Gravação no verso: ${item.verso}`
+        );
+
+      }
+
+
+      return partes.join(
+        ' | '
+      );
+
+    }
+
+
+    async function criarPedidoNoSupabase(
+      rascunho
+    ) {
+
+      const {
+        data: {
+          session
+        },
+        error: sessionError
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
+
+      if (
+        sessionError ||
+        !session
+      ) {
+
+        throw new Error(
+          'Sua sessão expirou. Entre novamente para continuar.'
+        );
+
+      }
+
+
+      const itens =
+        rascunho.itens
+          .map(
+            item => ({
+
+              produto_id:
+                item.produtoId,
+
+              detalhes_personalizacao:
+                montarDetalhesPersonalizacao(
+                  item
+                )
+
+            })
+          );
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .rpc(
+            'criar_meu_pedido',
+            {
+
+              p_checkout_token:
+                rascunho.checkoutToken,
+
+              p_observacoes:
+                rascunho.observacoes ||
+                null,
+
+              p_itens:
+                itens
+
+            }
+          );
+
+
+      if (
+        error
+      ) {
+
+        console.error(
+          'Erro ao criar pedido:',
+          error
+        );
+
+
+        throw error;
+
+      }
+
+
+      const pedidoId =
+        Number(
+          data?.order_id
+        );
+
+
+      if (
+        !pedidoId
+      ) {
+
+        console.error(
+          'Resposta inesperada ao criar pedido:',
+          data
+        );
+
+
+        throw new Error(
+          'O pedido não retornou um número válido.'
+        );
+
+      }
+
+
+      const valorTotal =
+        Number(
+          data?.valor_total ??
+          rascunho.total
+        );
+
+
+      return {
+
+        pedidoId,
+
+        valorTotal,
+
+        duplicado:
+          Boolean(
+            data?.duplicado
+          )
+
+      };
+
+    }
+
+
     form.addEventListener(
       'submit',
       async event => {
@@ -3547,6 +3763,7 @@
 
           window.location.href =
             'login.html';
+
 
           return;
 
@@ -3618,7 +3835,7 @@
     confirmationConfirmButton
       .addEventListener(
         'click',
-        () => {
+        async () => {
 
           if (
             !pedidoEmConfirmacao
@@ -3634,33 +3851,116 @@
 
 
           confirmationConfirmButton.textContent =
-            'Abrindo WhatsApp...';
+            'Criando pedido...';
 
 
-          const mensagemWhatsapp =
-            montarMensagemWhatsapp(
-              pedidoEmConfirmacao
+          confirmationMessage.textContent =
+            '';
+
+
+          try {
+
+
+            const {
+              data: {
+                session
+              }
+            } =
+              await supabaseClient
+                .auth
+                .getSession();
+
+
+            if (
+              !session
+            ) {
+
+              salvarRascunhoPedido(
+                pedidoEmConfirmacao
+              );
+
+
+              localStorage.setItem(
+                finalizarPedidoKey,
+                '1'
+              );
+
+
+              window.location.href =
+                'login.html';
+
+
+              return;
+
+            }
+
+
+            const resultado =
+              await criarPedidoNoSupabase(
+                pedidoEmConfirmacao
+              );
+
+
+            const mensagemWhatsapp =
+              montarMensagemWhatsapp(
+                pedidoEmConfirmacao,
+                resultado.pedidoId,
+                resultado.valorTotal
+              );
+
+
+            const url =
+              `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                mensagemWhatsapp
+              )}`;
+
+
+            localStorage.removeItem(
+              pedidoRascunhoKey
             );
 
 
-          const url =
-            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-              mensagemWhatsapp
-            )}`;
+            localStorage.removeItem(
+              finalizarPedidoKey
+            );
 
 
-          localStorage.removeItem(
-            pedidoRascunhoKey
-          );
+            pedidoEmConfirmacao =
+              null;
 
 
-          localStorage.removeItem(
-            finalizarPedidoKey
-          );
+            confirmationConfirmButton.textContent =
+              `Pedido #${resultado.pedidoId} criado`;
 
 
-          window.location.href =
-            url;
+            window.location.href =
+              url;
+
+          }
+
+          catch (erro) {
+
+            console.error(
+              erro
+            );
+
+
+            confirmationMessage.textContent =
+              (
+                erro?.message
+                  ? `Não foi possível criar o pedido: ${erro.message}`
+                  : 'Não foi possível criar o pedido. Tente novamente.'
+              );
+
+
+            confirmationConfirmButton.disabled =
+              false;
+
+
+            confirmationConfirmButton.textContent =
+              'Tentar novamente';
+
+          }
 
         }
       );
@@ -3695,7 +3995,9 @@
 
 
       if (!session) {
+
         return;
+
       }
 
 
@@ -3708,6 +4010,7 @@
         localStorage.removeItem(
           finalizarPedidoKey
         );
+
 
         return;
 
@@ -3725,6 +4028,7 @@
         localStorage.removeItem(
           finalizarPedidoKey
         );
+
 
         return;
 
@@ -3784,13 +4088,17 @@
         accountLink.textContent =
           'Minha conta';
 
+
         accountLink.href =
           'conta.html';
 
-      } else {
+      }
+
+      else {
 
         accountLink.textContent =
           'Entrar';
+
 
         accountLink.href =
           'login.html';
@@ -3801,6 +4109,7 @@
 
 
     atualizarMenuConta();
+
 
     verificarRetornoFinalizacao();
 
@@ -3835,13 +4144,17 @@
             accountLink.textContent =
               'Minha conta';
 
+
             accountLink.href =
               'conta.html';
 
-          } else {
+          }
+
+          else {
 
             accountLink.textContent =
               'Entrar';
+
 
             accountLink.href =
               'login.html';
@@ -3854,5 +4167,4 @@
   </script>
 
 </body>
-
 </html>
