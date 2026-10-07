@@ -60,6 +60,9 @@
         'pedidosMessage'
       );
 
+    const whatsappNumber =
+      '5511911801381';
+
 
     function formatarValor(valor) {
 
@@ -266,56 +269,52 @@
         <div class="detalhe-personalizacao">
 
           <p>
-
-            <strong>
-              Marca:
-            </strong>
-
+            <strong>Marca:</strong>
             ${escaparHtml(
               veiculo.marca || '-'
             )}
-
           </p>
 
           <p>
-
-            <strong>
-              Modelo:
-            </strong>
-
+            <strong>Modelo:</strong>
             ${escaparHtml(
               veiculo.modelo || '-'
             )}
-
           </p>
 
           <p>
-
-            <strong>
-              Assinatura:
-            </strong>
-
+            <strong>Assinatura:</strong>
             ${escaparHtml(
               veiculo.assinatura || '-'
             )}
-
           </p>
 
           <p>
-
-            <strong>
-              Furos:
-            </strong>
-
+            <strong>Furos:</strong>
             ${escaparHtml(
               veiculo.furos || '-'
             )}
-
           </p>
 
         </div>
 
       `;
+
+    }
+
+
+    function montarWhatsappCancelamento(
+      pedidoId
+    ) {
+
+      const mensagem =
+        `Olá! Gostaria de solicitar o cancelamento do pedido #${pedidoId}.`;
+
+
+      return (
+        `https://wa.me/${whatsappNumber}` +
+        `?text=${encodeURIComponent(mensagem)}`
+      );
 
     }
 
@@ -436,21 +435,17 @@
                         </strong>
 
                         <p>
-
                           Quantidade:
                           ${escaparHtml(
                             item.quantidade
                           )}
-
                         </p>
 
                         <p>
-
                           Valor unitário:
                           ${formatarValor(
                             item.valor_unitario
                           )}
-
                         </p>
 
                         ${montarDetalhesItem(
@@ -469,13 +464,15 @@
                   `;
 
 
-            const podeCancelar =
+            const podeCancelarAutomaticamente =
               pedido.status ===
                 'pagamento_pendente' ||
 
               pedido.status ===
-                'aguardando_pagamento' ||
+                'aguardando_pagamento';
 
+
+            const podeSolicitarCancelamento =
               pedido.status ===
                 'pago';
 
@@ -524,6 +521,7 @@
 
                 </p>
 
+
                 ${
                   pedido.observacoes
 
@@ -555,7 +553,7 @@
 
 
                 ${
-                  podeCancelar
+                  podeCancelarAutomaticamente
 
                     ? `
 
@@ -565,6 +563,38 @@
                       >
                         Cancelar pedido
                       </button>
+
+                    `
+
+                    : ''
+                }
+
+
+                ${
+                  podeSolicitarCancelamento
+
+                    ? `
+
+                      <div class="pedido-cancelamento-contato">
+
+                        <p>
+                          Após a confirmação do pagamento,
+                          o cancelamento deve ser solicitado
+                          diretamente conosco.
+                        </p>
+
+                        <a
+                          class="btn btn-whatsapp"
+                          href="${montarWhatsappCancelamento(
+                            pedido.id
+                          )}"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          Solicitar cancelamento pelo WhatsApp
+                        </a>
+
+                      </div>
 
                     `
 
@@ -631,7 +661,7 @@
       if (!data) {
 
         pedidosMessage.textContent =
-          'Este pedido não pode mais ser cancelado.';
+          'Este pedido não pode mais ser cancelado automaticamente.';
 
         await carregarPedidos();
 
