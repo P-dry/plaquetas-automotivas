@@ -195,13 +195,13 @@
           <div>
 
             <label for="anoVeiculo">
-              Ano / período
+              Assinatura
             </label>
 
             <input
               type="text"
               id="anoVeiculo"
-              placeholder="Ex.: 1991/2026"
+              placeholder="Ex.: 1991, GLX, apelido, placa ou frase"
               required
             >
 
@@ -309,9 +309,9 @@
 
           <button
             type="button"
-            data-status="aguardando_pagamento"
+            data-status="pagamento_pendente"
           >
-            Aguardando
+            Pagamento pendente
           </button>
 
           <button
@@ -511,7 +511,7 @@
       return [
         `Marca: ${marca}`,
         `Modelo: ${modelo}`,
-        `Ano/período: ${ano}`,
+        `Assinatura: ${ano}`,
         `Furos: ${furos}`
       ].join(' | ');
 
@@ -565,7 +565,8 @@
       const modelo =
         dados['modelo'];
 
-      const ano =
+      const assinatura =
+        dados['assinatura'] ||
         dados['ano/período'];
 
       const furos =
@@ -575,7 +576,7 @@
       if (
         !marca &&
         !modelo &&
-        !ano &&
+        !assinatura &&
         !furos
       ) {
         return null;
@@ -585,7 +586,7 @@
       return {
         marca,
         modelo,
-        ano,
+        assinatura,
         furos
       };
 
@@ -620,8 +621,8 @@
       }
 
 
-      if (dados.ano) {
-        partes.push(dados.ano);
+      if (dados.assinatura) {
+        partes.push(dados.assinatura);
       }
 
 
@@ -851,9 +852,28 @@
 
         pedidos =
           pedidos.filter(
-            pedido =>
-              pedido.status ===
-              filtroAtual
+            pedido => {
+
+              if (
+                filtroAtual ===
+                'pagamento_pendente'
+              ) {
+
+                return (
+                  pedido.status ===
+                    'pagamento_pendente' ||
+                  pedido.status ===
+                    'aguardando_pagamento'
+                );
+
+              }
+
+              return (
+                pedido.status ===
+                filtroAtual
+              );
+
+            }
           );
 
       }
@@ -1066,15 +1086,19 @@
                   >
 
                     <option
-                      value="aguardando_pagamento"
+                      value="pagamento_pendente"
                       ${
-                        pedido.status ===
-                        'aguardando_pagamento'
+                        (
+                          pedido.status ===
+                            'pagamento_pendente' ||
+                          pedido.status ===
+                            'aguardando_pagamento'
+                        )
                           ? 'selected'
                           : ''
                       }
                     >
-                      Aguardando pagamento
+                      Pagamento pendente
                     </option>
 
                     <option
