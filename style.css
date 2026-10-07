@@ -1212,6 +1212,7 @@ body:has(#produto option[value="chaveiro-personalizado"]:checked) #previewPlaque
   }
 }
 
+
 /* =========================
    INFORMAÇÕES DO PRODUTO
 ========================= */
@@ -2376,30 +2377,74 @@ svg {
     padding:
       22px;
   }
+
 }
-.pedido-cancelamento-contato .btn-whatsapp {
+
+
+/* =========================
+   CANCELAMENTO PELO WHATSAPP
+========================= */
+
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp,
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp:link,
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp:visited {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  width: auto;
+
+  margin-top: 10px;
+
   padding: 13px 18px;
 
-  background: #39d66f;
-  color: #0b0f12;
+  background: #0b0d10 !important;
+  color: #ce2b37 !important;
 
-  border: none;
+  border: 1px solid #ce2b37;
   border-radius: 12px;
 
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: none !important;
 
   transition:
     background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
     transform 0.2s ease;
 }
 
-.pedido-cancelamento-contato .btn-whatsapp:hover {
-  background: #4be27d;
-  color: #0b0f12;
+
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp:hover,
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp:focus {
+  background: #12161b !important;
+  color: #e54853 !important;
+
+  border-color: #e54853;
+
+  text-decoration: none !important;
+
   transform: translateY(-1px);
+}
+
+
+.auth-card
+.pedido-cancelamento-contato
+a.btn.btn-whatsapp:active {
+  background: #080a0c !important;
+  color: #ce2b37 !important;
+
+  border-color: #ce2b37;
+
+  transform: translateY(0);
 }
