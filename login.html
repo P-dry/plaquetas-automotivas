@@ -275,6 +275,34 @@
             'Login realizado com sucesso.';
 
 
+          /*
+           * 4. VERIFICA SE O CLIENTE
+           * ESTAVA FINALIZANDO UM PEDIDO
+           */
+
+          const finalizarPedidoPendente =
+            localStorage.getItem(
+              'imalloyFinalizarPedido'
+            );
+
+
+          if (
+            finalizarPedidoPendente ===
+            '1'
+          ) {
+
+            window.location.href =
+              'index.html#personalizar';
+
+            return;
+
+          }
+
+
+          /*
+           * LOGIN NORMAL
+           */
+
           window.location.href =
             'conta.html';
 
