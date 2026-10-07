@@ -81,10 +81,6 @@
 
   <style>
 
-    /* =========================
-       CARROSSEL
-    ========================== */
-
     .product-carousel {
       position: relative;
     }
@@ -208,10 +204,6 @@
         scale(1.25);
     }
 
-    /* =========================
-       FRETE
-    ========================== */
-
     .shipping-free {
       margin-top: 12px;
 
@@ -220,10 +212,6 @@
 
       color: #ffffff;
     }
-
-    /* =========================
-       SELEÇÃO DE PRODUTOS
-    ========================== */
 
     .multi-order-form {
       display: grid;
@@ -313,10 +301,6 @@
         translateY(-2px);
     }
 
-    /* =========================
-       RESUMO
-    ========================== */
-
     .order-summary {
       display: flex;
 
@@ -362,10 +346,6 @@
       color: #ffffff;
     }
 
-    /* =========================
-       MESMOS DADOS
-    ========================== */
-
     .same-data-option {
       display: flex;
 
@@ -382,10 +362,6 @@
       width: 18px;
       height: 18px;
     }
-
-    /* =========================
-       PERSONALIZAÇÃO MÚLTIPLA
-    ========================== */
 
     .multi-personalization-grid {
       display: grid;
@@ -449,10 +425,6 @@
       gap: 16px;
     }
 
-    /* =========================
-       PRÉVIAS
-    ========================== */
-
     .preview-list {
       display: grid;
 
@@ -493,10 +465,6 @@
       color: #ffffff;
     }
 
-    /* =========================
-       MOBILE
-    ========================== */
-
     @media (max-width: 900px) {
 
       .product-carousel-prev {
@@ -523,12 +491,6 @@
 
     }
 
-    /* =========================
-       FORMATOS DAS PRÉVIAS
-    ========================== */
-
-    /* Plaqueta de motor: horizontal */
-
     .preview-list .mini-plaque.motor {
       width: 100%;
       max-width: 520px;
@@ -538,9 +500,6 @@
       margin-right: auto;
     }
 
-    /* Retrovisor e chaveiro:
-       formato vertical */
-
     .preview-list .mini-plaque.vertical {
       width: 220px;
       max-width: 100%;
@@ -549,11 +508,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
-    /* =========================
-       RETROVISOR
-       2 furos superiores
-    ========================== */
 
     .preview-list
     .mini-plaque.retrovisor
@@ -593,11 +547,6 @@
       display: none;
     }
 
-    /* =========================
-       CHAVEIRO
-       1 furo superior central
-    ========================== */
-
     .preview-list
     .mini-plaque.keychain
     .mh1 {
@@ -627,10 +576,6 @@
       display: none;
     }
 
-    /* =========================
-       ASSINATURA + FUROS
-    ========================== */
-
     .personalization-block .field-row {
       grid-template-columns:
         minmax(0, 2.4fr)
@@ -645,15 +590,225 @@
 
     }
 
+
+    /* =========================
+       MODAL DE CONFIRMAÇÃO
+    ========================== */
+
+    .confirmation-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      background:
+        rgba(0, 0, 0, 0.72);
+
+      backdrop-filter:
+        blur(5px);
+    }
+
+    .confirmation-modal.is-open {
+      display: flex;
+    }
+
+    .confirmation-dialog {
+      width: min(620px, 100%);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+
+      padding: 28px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.14);
+
+      border-radius: 18px;
+
+      background: #12161b;
+
+      box-shadow:
+        0 30px 90px
+        rgba(0, 0, 0, 0.55);
+    }
+
+    .confirmation-dialog h2 {
+      margin-bottom: 8px;
+
+      font-size: 28px;
+    }
+
+    .confirmation-intro {
+      margin:
+        0 0 22px;
+
+      color: var(--muted);
+    }
+
+    .confirmation-items {
+      display: grid;
+
+      gap: 12px;
+    }
+
+    .confirmation-item {
+      padding: 16px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+      border-radius: 12px;
+
+      background: #0d1116;
+    }
+
+    .confirmation-item strong {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #ffffff;
+    }
+
+    .confirmation-item p {
+      margin: 4px 0;
+
+      color: #cbd2d9;
+
+      font-size: 14px;
+    }
+
+    .confirmation-observacoes {
+      margin-top: 16px;
+      padding-top: 16px;
+
+      border-top:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+    }
+
+    .confirmation-observacoes p {
+      margin: 6px 0 0;
+
+      color: #cbd2d9;
+    }
+
+    .confirmation-total {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      margin-top: 18px;
+      padding-top: 18px;
+
+      border-top:
+        1px solid
+        rgba(255, 255, 255, 0.12);
+    }
+
+    .confirmation-total span {
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    .confirmation-total strong {
+      color: #ffffff;
+
+      font-size: 26px;
+    }
+
+    .confirmation-shipping {
+      margin:
+        4px 0 0;
+
+      color: #ffffff;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .confirmation-actions {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 12px;
+
+      margin-top: 24px;
+    }
+
+    .confirmation-actions button {
+      width: 100%;
+    }
+
+    .confirmation-actions
+    .confirmation-edit {
+      background: transparent;
+
+      color: var(--text);
+
+      border:
+        1px solid var(--line);
+    }
+
+    .confirmation-actions
+    .confirmation-confirm {
+      background: var(--green);
+
+      color: #08120b;
+
+      border:
+        1px solid transparent;
+    }
+
+    .confirmation-actions
+    .confirmation-confirm:disabled {
+      opacity: 0.55;
+
+      cursor: wait;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    @media (max-width: 560px) {
+
+      .confirmation-modal {
+        padding: 14px;
+      }
+
+      .confirmation-dialog {
+        padding: 20px;
+      }
+
+      .confirmation-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .confirmation-total {
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+    }
+
   </style>
 
 </head>
 
 <body>
-
-  <!-- =========================
-       MENU
-  ========================== -->
 
   <header class="topbar">
 
@@ -717,10 +872,6 @@
   </header>
 
   <main>
-
-    <!-- =========================
-         HOME
-    ========================== -->
 
     <section
       id="home"
@@ -812,9 +963,6 @@
 
     </section>
 
-    <!-- =========================
-         PRODUTOS
-    ========================== -->
 
     <section
       id="produtos"
@@ -841,10 +989,6 @@
         </div>
 
         <div class="product-grid">
-
-          <!-- =========================
-               CARROSSEL
-          ========================== -->
 
           <div class="product-carousel">
 
@@ -979,9 +1123,6 @@
 
           </div>
 
-          <!-- =========================
-               COMO FUNCIONA
-          ========================== -->
 
           <div class="info-panel">
 
@@ -1082,9 +1223,6 @@
 
     </section>
 
-    <!-- =========================
-         PERSONALIZAÇÃO
-    ========================== -->
 
     <section
       id="personalizar"
@@ -1113,10 +1251,6 @@
           id="orderForm"
           class="multi-order-form"
         >
-
-          <!-- =========================
-               ESCOLHA DOS PRODUTOS
-          ========================== -->
 
           <div class="product-selector">
 
@@ -1147,6 +1281,7 @@
 
             </label>
 
+
             <label class="product-option">
 
               <input
@@ -1172,6 +1307,7 @@
               </span>
 
             </label>
+
 
             <label class="product-option">
 
@@ -1201,9 +1337,6 @@
 
           </div>
 
-          <!-- =========================
-               RESUMO
-          ========================== -->
 
           <div class="order-summary">
 
@@ -1225,9 +1358,6 @@
 
           </div>
 
-          <!-- =========================
-               MESMOS DADOS
-          ========================== -->
 
           <label class="same-data-option">
 
@@ -1243,11 +1373,8 @@
 
           </label>
 
-          <div class="multi-personalization-grid">
 
-            <!-- =========================
-                 CAMPOS
-            ========================== -->
+          <div class="multi-personalization-grid">
 
             <div>
 
@@ -1255,6 +1382,7 @@
                 id="personalizationFields"
                 class="personalization-fields"
               ></div>
+
 
               <div class="field">
 
@@ -1271,17 +1399,21 @@
 
               </div>
 
+
               <div class="notice">
-                A foto do carro será enviada pelo WhatsApp
-                depois que você clicar em “Fazer pedido”.
+                Ao finalizar, você poderá revisar todo o pedido
+                antes de continuar para o WhatsApp.
               </div>
 
+
               <button
-                class="btn btn-whatsapp btn-full"
+                id="finalizarPedidoButton"
+                class="btn btn-primary btn-full"
                 type="submit"
               >
-                Fazer pedido pelo WhatsApp
+                Finalizar pedido
               </button>
+
 
               <a
                 id="paymentLink"
@@ -1294,9 +1426,6 @@
 
             </div>
 
-            <!-- =========================
-                 PRÉVIAS
-            ========================== -->
 
             <aside class="preview-card">
 
@@ -1330,9 +1459,86 @@
 
   </main>
 
-  <!-- =========================
-       RODAPÉ
-  ========================== -->
+
+  <div
+    id="confirmationModal"
+    class="confirmation-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="confirmation-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmationTitle"
+    >
+
+      <span class="eyebrow">
+        REVISE ANTES DE CONTINUAR
+      </span>
+
+      <h2 id="confirmationTitle">
+        Confirmar pedido
+      </h2>
+
+      <p class="confirmation-intro">
+        Confira as informações abaixo antes de continuar para o WhatsApp.
+      </p>
+
+      <div
+        id="confirmationItems"
+        class="confirmation-items"
+      ></div>
+
+      <div
+        id="confirmationObservacoes"
+        class="confirmation-observacoes"
+      ></div>
+
+      <div class="confirmation-total">
+
+        <div>
+
+          <span>
+            Total do pedido
+          </span>
+
+          <strong id="confirmationTotal">
+            R$ 0,00
+          </strong>
+
+          <p class="confirmation-shipping">
+            Frete grátis em todo o país
+          </p>
+
+        </div>
+
+      </div>
+
+      <div class="confirmation-actions">
+
+        <button
+          id="confirmationEditButton"
+          class="btn confirmation-edit"
+          type="button"
+        >
+          Voltar e editar
+        </button>
+
+        <button
+          id="confirmationConfirmButton"
+          class="btn confirmation-confirm"
+          type="button"
+        >
+          Confirmar e continuar no WhatsApp
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 
   <footer class="footer">
 
@@ -1350,15 +1556,8 @@
 
   </footer>
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
 
   <script>
-
-    /* =========================
-       PRODUTOS
-    ========================== */
 
     const produtos = {
 
@@ -1384,6 +1583,7 @@
 
       },
 
+
       'retrovisor-interno': {
 
         nome:
@@ -1405,6 +1605,7 @@
           true
 
       },
+
 
       'chaveiro-personalizado': {
 
@@ -1430,13 +1631,11 @@
 
     };
 
-    /* =========================
-       CARROSSEL
-    ========================== */
 
     const produtosCard = [
 
       {
+
         valor:
           'plaqueta-motor',
 
@@ -1462,9 +1661,12 @@
 
         preco:
           'R$ 89,90'
+
       },
 
+
       {
+
         valor:
           'retrovisor-interno',
 
@@ -1490,9 +1692,12 @@
 
         preco:
           'R$ 69,90'
+
       },
 
+
       {
+
         valor:
           'chaveiro-personalizado',
 
@@ -1518,70 +1723,85 @@
 
         preco:
           'R$ 69,90'
+
       }
 
     ];
 
+
     let produtoCardAtual =
       0;
 
+
     let produtoCardAnimando =
       false;
+
 
     const productCard =
       document.getElementById(
         'productCard'
       );
 
+
     const cardProdutoMedida =
       document.getElementById(
         'cardProdutoMedida'
       );
+
 
     const cardProdutoNome =
       document.getElementById(
         'cardProdutoNome'
       );
 
+
     const cardProdutoDescricao =
       document.getElementById(
         'cardProdutoDescricao'
       );
+
 
     const cardProdutoCaracteristicas =
       document.getElementById(
         'cardProdutoCaracteristicas'
       );
 
+
     const cardProdutoPrecoLabel =
       document.getElementById(
         'cardProdutoPrecoLabel'
       );
+
 
     const cardProdutoPreco =
       document.getElementById(
         'cardProdutoPreco'
       );
 
+
     const produtoAnterior =
       document.getElementById(
         'produtoAnterior'
       );
+
 
     const proximoProduto =
       document.getElementById(
         'proximoProduto'
       );
 
+
     const cardProdutoPersonalizar =
       document.getElementById(
         'cardProdutoPersonalizar'
       );
 
+
     const produtoDots =
       document.querySelectorAll(
         '.product-carousel-dot'
       );
+
 
     function renderizarProdutoCard() {
 
@@ -1590,20 +1810,26 @@
           produtoCardAtual
         ];
 
+
       cardProdutoMedida.textContent =
         item.medida;
+
 
       cardProdutoNome.textContent =
         item.nome;
 
+
       cardProdutoDescricao.textContent =
         item.descricao;
+
 
       cardProdutoPrecoLabel.textContent =
         item.precoLabel;
 
+
       cardProdutoPreco.textContent =
         item.preco;
+
 
       cardProdutoCaracteristicas.innerHTML =
         item.caracteristicas
@@ -1612,6 +1838,7 @@
               `<li>${caracteristica}</li>`
           )
           .join('');
+
 
       produtoDots.forEach(
         (
@@ -1629,6 +1856,7 @@
 
     }
 
+
     function trocarProdutoCard(
       novoIndice,
       direcao
@@ -1643,22 +1871,27 @@
 
       }
 
+
       produtoCardAnimando =
         true;
+
 
       const classeSaida =
         direcao > 0
           ? 'is-leaving-next'
           : 'is-leaving-prev';
 
+
       const classeEntrada =
         direcao > 0
           ? 'is-entering-next'
           : 'is-entering-prev';
 
+
       productCard.classList.add(
         classeSaida
       );
+
 
       window.setTimeout(
         () => {
@@ -1666,17 +1899,22 @@
           produtoCardAtual =
             novoIndice;
 
+
           renderizarProdutoCard();
+
 
           productCard.classList.remove(
             classeSaida
           );
 
+
           productCard.classList.add(
             classeEntrada
           );
 
+
           productCard.offsetHeight;
+
 
           window.requestAnimationFrame(
             () => {
@@ -1684,6 +1922,7 @@
               productCard.classList.remove(
                 classeEntrada
               );
+
 
               window.setTimeout(
                 () => {
@@ -1704,6 +1943,7 @@
 
     }
 
+
     function alterarProdutoCard(
       direcao
     ) {
@@ -1711,6 +1951,7 @@
       let novoIndice =
         produtoCardAtual +
         direcao;
+
 
       if (
         novoIndice < 0
@@ -1720,6 +1961,7 @@
           produtosCard.length - 1;
 
       }
+
 
       if (
         novoIndice >=
@@ -1731,12 +1973,14 @@
 
       }
 
+
       trocarProdutoCard(
         novoIndice,
         direcao
       );
 
     }
+
 
     produtoAnterior.addEventListener(
       'click',
@@ -1749,6 +1993,7 @@
       }
     );
 
+
     proximoProduto.addEventListener(
       'click',
       () => {
@@ -1759,6 +2004,7 @@
 
       }
     );
+
 
     produtoDots.forEach(
       dot => {
@@ -1772,11 +2018,13 @@
                 dot.dataset.produtoIndex
               );
 
+
             const direcao =
               novoIndice >
               produtoCardAtual
                 ? 1
                 : -1;
+
 
             trocarProdutoCard(
               novoIndice,
@@ -1789,49 +2037,103 @@
       }
     );
 
+
     renderizarProdutoCard();
 
-    /* =========================
-       PEDIDO
-    ========================== */
 
     const form =
       document.getElementById(
         'orderForm'
       );
 
+
     const obs =
       document.getElementById(
         'obs'
       );
+
 
     const personalizationFields =
       document.getElementById(
         'personalizationFields'
       );
 
+
     const previewList =
       document.getElementById(
         'previewList'
       );
+
 
     const orderTotal =
       document.getElementById(
         'orderTotal'
       );
 
+
     const usarMesmosDados =
       document.getElementById(
         'usarMesmosDados'
       );
+
 
     const productCheckboxes =
       document.querySelectorAll(
         'input[name="produtos"]'
       );
 
+
     const whatsappNumber =
       '5511911801381';
+
+
+    const pedidoRascunhoKey =
+      'imalloyPedidoRascunho';
+
+
+    const finalizarPedidoKey =
+      'imalloyFinalizarPedido';
+
+
+    const confirmationModal =
+      document.getElementById(
+        'confirmationModal'
+      );
+
+
+    const confirmationItems =
+      document.getElementById(
+        'confirmationItems'
+      );
+
+
+    const confirmationObservacoes =
+      document.getElementById(
+        'confirmationObservacoes'
+      );
+
+
+    const confirmationTotal =
+      document.getElementById(
+        'confirmationTotal'
+      );
+
+
+    const confirmationEditButton =
+      document.getElementById(
+        'confirmationEditButton'
+      );
+
+
+    const confirmationConfirmButton =
+      document.getElementById(
+        'confirmationConfirmButton'
+      );
+
+
+    let pedidoEmConfirmacao =
+      null;
+
 
     function moeda(
       valor
@@ -1847,6 +2149,7 @@
         );
 
     }
+
 
     function produtosSelecionados() {
 
@@ -1865,6 +2168,7 @@
 
     }
 
+
     function calcularTotal(
       selecionados
     ) {
@@ -1874,15 +2178,18 @@
           'plaqueta-motor'
         );
 
+
       const temRetrovisor =
         selecionados.includes(
           'retrovisor-interno'
         );
 
+
       const temChaveiro =
         selecionados.includes(
           'chaveiro-personalizado'
         );
+
 
       if (
         temPlaqueta &&
@@ -1893,6 +2200,7 @@
         return 139.70;
 
       }
+
 
       if (
         temPlaqueta &&
@@ -1905,6 +2213,7 @@
         return 114.80;
 
       }
+
 
       return selecionados
         .reduce(
@@ -1924,6 +2233,7 @@
 
     }
 
+
     function criarCamposProduto(
       produtoId,
       index
@@ -1933,6 +2243,7 @@
         produtos[
           produtoId
         ];
+
 
       const gravacao =
         produto.gravacaoVerso
@@ -1963,6 +2274,7 @@
           `
           : '';
 
+
       return `
 
         <div
@@ -1984,6 +2296,7 @@
             </span>
 
           </div>
+
 
           <div
             class="personalization-block-fields"
@@ -2007,6 +2320,7 @@
 
             </div>
 
+
             <div class="field-row">
 
               <div class="field">
@@ -2026,6 +2340,7 @@
                 >
 
               </div>
+
 
               <div class="field">
 
@@ -2054,6 +2369,7 @@
 
             </div>
 
+
             ${gravacao}
 
           </div>
@@ -2063,6 +2379,7 @@
       `;
 
     }
+
 
     function holesHtml(
       produtoId,
@@ -2076,6 +2393,7 @@
         return '';
 
       }
+
 
       if (
         produtoId ===
@@ -2093,6 +2411,7 @@
 
       }
 
+
       if (
         produtoId ===
         'retrovisor-interno'
@@ -2107,6 +2426,7 @@
 
       }
 
+
       return `
 
         <div class="mini-hole mh1"></div>
@@ -2114,6 +2434,7 @@
       `;
 
     }
+
 
     function criarPreview(
       produtoId
@@ -2124,10 +2445,12 @@
           produtoId
         ];
 
+
       const bloco =
         document.querySelector(
           `.personalization-block[data-product="${produtoId}"]`
         );
+
 
       const veiculo =
         bloco
@@ -2139,6 +2462,7 @@
           ||
           'Seu veículo';
 
+
       const ano =
         bloco
           ?.querySelector(
@@ -2149,6 +2473,7 @@
           ||
           'Assinatura';
 
+
       const furos =
         bloco
           ?.querySelector(
@@ -2158,8 +2483,10 @@
           ||
           'Sim';
 
+
       let classes =
         'mini-plaque';
+
 
       if (
         produto.tipo ===
@@ -2176,6 +2503,7 @@
 
       }
 
+
       if (
         produto.tipo ===
         'retrovisor'
@@ -2186,6 +2514,7 @@
 
       }
 
+
       if (
         produto.tipo ===
         'keychain'
@@ -2195,6 +2524,7 @@
           ' keychain';
 
       }
+
 
       return `
 
@@ -2217,6 +2547,7 @@
 
           </div>
 
+
           <div class="${classes}">
 
             ${holesHtml(
@@ -2224,13 +2555,16 @@
               furos
             )}
 
+
             <div class="mini-title">
               ${veiculo}
             </div>
 
+
             <div class="mini-car">
               ${produto.visual}
             </div>
+
 
             <div class="mini-sub">
               ${ano}
@@ -2244,10 +2578,12 @@
 
     }
 
+
     function atualizarPreviews() {
 
       const selecionados =
         produtosSelecionados();
+
 
       previewList.innerHTML =
         selecionados
@@ -2261,6 +2597,7 @@
 
     }
 
+
     function sincronizarDados(
       origem
     ) {
@@ -2273,8 +2610,10 @@
 
       }
 
+
       const field =
         origem.dataset.field;
+
 
       if (
         field !== 'veiculo' &&
@@ -2284,6 +2623,7 @@
         return;
 
       }
+
 
       document
         .querySelectorAll(
@@ -2305,6 +2645,7 @@
         );
 
     }
+
 
     function ativarEventosCampos() {
 
@@ -2328,6 +2669,7 @@
               }
             );
 
+
             campo.addEventListener(
               'change',
               () => {
@@ -2346,10 +2688,12 @@
 
     }
 
+
     function atualizarFormulario() {
 
       const selecionados =
         produtosSelecionados();
+
 
       if (
         selecionados.length === 0
@@ -2360,8 +2704,10 @@
             0
           ];
 
+
         primeiro.checked =
           true;
+
 
         selecionados.push(
           primeiro.value
@@ -2369,8 +2715,10 @@
 
       }
 
+
       const valoresAtuais =
         {};
+
 
       document
         .querySelectorAll(
@@ -2382,9 +2730,11 @@
             const produtoId =
               bloco.dataset.product;
 
+
             valoresAtuais[
               produtoId
             ] = {};
+
 
             bloco
               .querySelectorAll(
@@ -2406,6 +2756,7 @@
           }
         );
 
+
       personalizationFields.innerHTML =
         selecionados
           .map(
@@ -2420,6 +2771,7 @@
           )
           .join('');
 
+
       selecionados.forEach(
         produtoId => {
 
@@ -2428,6 +2780,7 @@
               produtoId
             ];
 
+
           if (
             !valores
           ) {
@@ -2435,6 +2788,7 @@
             return;
 
           }
+
 
           Object
             .entries(
@@ -2454,6 +2808,7 @@
                       `.personalization-block[data-product="${produtoId}"] [data-field="${field}"]`
                     );
 
+
                 if (
                   input
                 ) {
@@ -2469,21 +2824,25 @@
         }
       );
 
+
       const total =
         calcularTotal(
           selecionados
         );
+
 
       orderTotal.textContent =
         moeda(
           total
         );
 
+
       ativarEventosCampos();
 
       atualizarPreviews();
 
     }
+
 
     productCheckboxes
       .forEach(
@@ -2496,6 +2855,7 @@
 
         }
       );
+
 
     usarMesmosDados
       .addEventListener(
@@ -2512,17 +2872,20 @@
                   '.personalization-block'
                 );
 
+
             const veiculo =
               primeiro
                 ?.querySelector(
                   '[data-field="veiculo"]'
                 );
 
+
             const ano =
               primeiro
                 ?.querySelector(
                   '[data-field="ano"]'
                 );
+
 
             if (
               veiculo
@@ -2533,6 +2896,7 @@
               );
 
             }
+
 
             if (
               ano
@@ -2546,10 +2910,12 @@
 
           }
 
+
           atualizarPreviews();
 
         }
       );
+
 
     cardProdutoPersonalizar.addEventListener(
       'click',
@@ -2559,6 +2925,7 @@
           produtosCard[
             produtoCardAtual
           ];
+
 
         productCheckboxes
           .forEach(
@@ -2571,7 +2938,9 @@
             }
           );
 
+
         atualizarFormulario();
+
 
         document
           .getElementById(
@@ -2585,164 +2954,735 @@
       }
     );
 
+
     atualizarFormulario();
 
-    /* =========================
-       WHATSAPP
-    ========================== */
+
+    function escaparHtml(
+      valor
+    ) {
+
+      return String(
+        valor ?? ''
+      )
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
+
+    }
+
+
+    function coletarRascunhoPedido() {
+
+      const selecionados =
+        produtosSelecionados();
+
+
+      const itens =
+        selecionados
+          .map(
+            produtoId => {
+
+              const bloco =
+                document.querySelector(
+                  `.personalization-block[data-product="${produtoId}"]`
+                );
+
+
+              const veiculo =
+                bloco
+                  ?.querySelector(
+                    '[data-field="veiculo"]'
+                  )
+                  ?.value
+                  .trim()
+                  ||
+                  '';
+
+
+              const assinatura =
+                bloco
+                  ?.querySelector(
+                    '[data-field="ano"]'
+                  )
+                  ?.value
+                  .trim()
+                  ||
+                  '';
+
+
+              const furos =
+                bloco
+                  ?.querySelector(
+                    '[data-field="furos"]'
+                  )
+                  ?.value
+                  ||
+                  'Sim';
+
+
+              const versoCampo =
+                bloco
+                  ?.querySelector(
+                    '[data-field="verso"]'
+                  );
+
+
+              const verso =
+                versoCampo
+                  ? versoCampo.value.trim()
+                  : '';
+
+
+              return {
+
+                produtoId,
+                veiculo,
+                assinatura,
+                furos,
+                verso
+
+              };
+
+            }
+          );
+
+
+      return {
+
+        versao:
+          1,
+
+        criadoEm:
+          new Date().toISOString(),
+
+        produtos:
+          selecionados,
+
+        usarMesmosDados:
+          usarMesmosDados.checked,
+
+        observacoes:
+          obs.value.trim(),
+
+        total:
+          calcularTotal(
+            selecionados
+          ),
+
+        itens
+
+      };
+
+    }
+
+
+    function salvarRascunhoPedido(
+      rascunho
+    ) {
+
+      localStorage.setItem(
+        pedidoRascunhoKey,
+        JSON.stringify(
+          rascunho
+        )
+      );
+
+    }
+
+
+    function carregarRascunhoPedido() {
+
+      const texto =
+        localStorage.getItem(
+          pedidoRascunhoKey
+        );
+
+
+      if (!texto) {
+        return null;
+      }
+
+
+      try {
+
+        return JSON.parse(
+          texto
+        );
+
+      } catch (erro) {
+
+        console.error(
+          'Erro ao ler rascunho do pedido.',
+          erro
+        );
+
+        localStorage.removeItem(
+          pedidoRascunhoKey
+        );
+
+        return null;
+
+      }
+
+    }
+
+
+    function restaurarRascunhoPedido(
+      rascunho
+    ) {
+
+      if (
+        !rascunho ||
+        !Array.isArray(
+          rascunho.produtos
+        )
+      ) {
+
+        return false;
+
+      }
+
+
+      productCheckboxes.forEach(
+        checkbox => {
+
+          checkbox.checked =
+            rascunho.produtos.includes(
+              checkbox.value
+            );
+
+        }
+      );
+
+
+      usarMesmosDados.checked =
+        Boolean(
+          rascunho.usarMesmosDados
+        );
+
+
+      atualizarFormulario();
+
+
+      (
+        rascunho.itens ||
+        []
+      ).forEach(
+        item => {
+
+          const bloco =
+            document.querySelector(
+              `.personalization-block[data-product="${item.produtoId}"]`
+            );
+
+
+          if (!bloco) {
+            return;
+          }
+
+
+          const veiculo =
+            bloco.querySelector(
+              '[data-field="veiculo"]'
+            );
+
+
+          const assinatura =
+            bloco.querySelector(
+              '[data-field="ano"]'
+            );
+
+
+          const furos =
+            bloco.querySelector(
+              '[data-field="furos"]'
+            );
+
+
+          const verso =
+            bloco.querySelector(
+              '[data-field="verso"]'
+            );
+
+
+          if (veiculo) {
+            veiculo.value =
+              item.veiculo || '';
+          }
+
+
+          if (assinatura) {
+            assinatura.value =
+              item.assinatura || '';
+          }
+
+
+          if (furos) {
+            furos.value =
+              item.furos || 'Sim';
+          }
+
+
+          if (verso) {
+            verso.value =
+              item.verso || '';
+          }
+
+        }
+      );
+
+
+      obs.value =
+        rascunho.observacoes ||
+        '';
+
+
+      atualizarPreviews();
+
+
+      return true;
+
+    }
+
+
+    function montarResumoConfirmacao(
+      rascunho
+    ) {
+
+      confirmationItems.innerHTML =
+        rascunho.itens
+          .map(
+            item => {
+
+              const produto =
+                produtos[
+                  item.produtoId
+                ];
+
+
+              const versoHtml =
+                item.verso
+                  ? `
+                    <p>
+                      <strong>Gravação no verso:</strong>
+                      ${escaparHtml(item.verso)}
+                    </p>
+                  `
+                  : '';
+
+
+              return `
+
+                <div class="confirmation-item">
+
+                  <strong>
+                    ${escaparHtml(produto.nome)}
+                  </strong>
+
+                  <p>
+                    <strong>Medida:</strong>
+                    ${escaparHtml(produto.medida)}
+                  </p>
+
+                  <p>
+                    <strong>Veículo:</strong>
+                    ${escaparHtml(item.veiculo)}
+                  </p>
+
+                  <p>
+                    <strong>Assinatura:</strong>
+                    ${escaparHtml(item.assinatura)}
+                  </p>
+
+                  <p>
+                    <strong>Furos:</strong>
+                    ${escaparHtml(item.furos)}
+                  </p>
+
+                  ${versoHtml}
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join('');
+
+
+      confirmationObservacoes.innerHTML =
+        `
+
+          <strong>
+            Observações gerais
+          </strong>
+
+          <p>
+            ${
+              escaparHtml(
+                rascunho.observacoes ||
+                'Nenhuma'
+              )
+            }
+          </p>
+
+        `;
+
+
+      confirmationTotal.textContent =
+        moeda(
+          rascunho.total
+        );
+
+    }
+
+
+    function abrirConfirmacao(
+      rascunho
+    ) {
+
+      pedidoEmConfirmacao =
+        rascunho;
+
+
+      montarResumoConfirmacao(
+        rascunho
+      );
+
+
+      confirmationConfirmButton.disabled =
+        false;
+
+
+      confirmationConfirmButton.textContent =
+        'Confirmar e continuar no WhatsApp';
+
+
+      confirmationModal.classList.add(
+        'is-open'
+      );
+
+
+      confirmationModal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
+
+
+      document.body.classList.add(
+        'modal-open'
+      );
+
+    }
+
+
+    function fecharConfirmacao() {
+
+      confirmationModal.classList.remove(
+        'is-open'
+      );
+
+
+      confirmationModal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+
+      document.body.classList.remove(
+        'modal-open'
+      );
+
+    }
+
+
+    function montarMensagemWhatsapp(
+      rascunho
+    ) {
+
+      const message = [
+
+        'Olá! Gostaria de fazer um pedido ÍMALLOY.',
+
+        '',
+
+        `Valor total: ${moeda(rascunho.total)}`,
+
+        'Frete grátis em todo o país.',
+
+        ''
+
+      ];
+
+
+      rascunho.itens.forEach(
+        (
+          item,
+          index
+        ) => {
+
+          const produto =
+            produtos[
+              item.produtoId
+            ];
+
+
+          message.push(
+
+            `${index + 1}. ${produto.nome}`,
+
+            `Medida: ${produto.medida}`,
+
+            `Veículo: ${item.veiculo}`,
+
+            `Assinatura: ${item.assinatura}`,
+
+            `Furos: ${item.furos}`
+
+          );
+
+
+          if (
+            item.verso
+          ) {
+
+            message.push(
+              `Gravação no verso: ${item.verso}`
+            );
+
+          }
+
+
+          message.push(
+            ''
+          );
+
+        }
+      );
+
+
+      message.push(
+
+        `Observações gerais: ${rascunho.observacoes || 'Nenhuma'}`,
+
+        '',
+
+        'A foto ou as fotos dos veículos serão enviadas por aqui.'
+
+      );
+
+
+      return message.join(
+        '\n'
+      );
+
+    }
+
 
     form.addEventListener(
       'submit',
-      event => {
+      async event => {
 
         event.preventDefault();
 
-        const selecionados =
-          produtosSelecionados();
+
+        const rascunho =
+          coletarRascunhoPedido();
+
 
         if (
-          selecionados.length === 0
+          rascunho.produtos.length ===
+          0
         ) {
 
           return;
 
         }
 
-        const total =
-          calcularTotal(
-            selecionados
+
+        salvarRascunhoPedido(
+          rascunho
+        );
+
+
+        const {
+          data: {
+            session
+          },
+          error
+        } =
+          await supabaseClient
+            .auth
+            .getSession();
+
+
+        if (
+          error ||
+          !session
+        ) {
+
+          localStorage.setItem(
+            finalizarPedidoKey,
+            '1'
           );
 
-        const message = [
 
-          'Olá! Gostaria de fazer um pedido ÍMALLOY.',
+          window.location.href =
+            'login.html';
 
-          '',
+          return;
 
-          `Valor total: ${moeda(total)}`,
+        }
 
-          'Frete grátis em todo o país.',
 
-          ''
-
-        ];
-
-        selecionados.forEach(
-          (
-            produtoId,
-            index
-          ) => {
-
-            const produto =
-              produtos[
-                produtoId
-              ];
-
-            const bloco =
-              document.querySelector(
-                `.personalization-block[data-product="${produtoId}"]`
-              );
-
-            const veiculo =
-              bloco
-                .querySelector(
-                  '[data-field="veiculo"]'
-                )
-                .value
-                .trim();
-
-            const ano =
-              bloco
-                .querySelector(
-                  '[data-field="ano"]'
-                )
-                .value
-                .trim();
-
-            const furos =
-              bloco
-                .querySelector(
-                  '[data-field="furos"]'
-                )
-                .value;
-
-            const verso =
-              bloco
-                .querySelector(
-                  '[data-field="verso"]'
-                );
-
-            message.push(
-
-              `${index + 1}. ${produto.nome}`,
-
-              `Medida: ${produto.medida}`,
-
-              `Veículo: ${veiculo}`,
-
-              `Assinatura: ${ano}`,
-
-              `Furos: ${furos}`
-
-            );
-
-            if (
-              verso &&
-              verso.value.trim()
-            ) {
-
-              message.push(
-                `Gravação no verso: ${verso.value.trim()}`
-              );
-
-            }
-
-            message.push(
-              ''
-            );
-
-          }
+        localStorage.removeItem(
+          finalizarPedidoKey
         );
 
-        message.push(
 
-          `Observações gerais: ${obs.value.trim() || 'Nenhuma'}`,
-
-          '',
-
-          'A foto ou as fotos dos veículos serão enviadas por aqui.'
-
+        abrirConfirmacao(
+          rascunho
         );
-
-        const url =
-          `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-            message.join('\n')
-          )}`;
-
-        window.location.href =
-          url;
 
       }
     );
 
-    /* =========================
-       CONTA
-    ========================== */
 
-    async function atualizarMenuConta() {
+    confirmationEditButton
+      .addEventListener(
+        'click',
+        () => {
 
-      const accountLink =
-        document.getElementById(
-          'accountLink'
+          fecharConfirmacao();
+
+        }
+      );
+
+
+    confirmationModal
+      .addEventListener(
+        'click',
+        event => {
+
+          if (
+            event.target ===
+            confirmationModal
+          ) {
+
+            fecharConfirmacao();
+
+          }
+
+        }
+      );
+
+
+    document.addEventListener(
+      'keydown',
+      event => {
+
+        if (
+          event.key ===
+            'Escape' &&
+          confirmationModal.classList.contains(
+            'is-open'
+          )
+        ) {
+
+          fecharConfirmacao();
+
+        }
+
+      }
+    );
+
+
+    confirmationConfirmButton
+      .addEventListener(
+        'click',
+        () => {
+
+          if (
+            !pedidoEmConfirmacao
+          ) {
+
+            return;
+
+          }
+
+
+          confirmationConfirmButton.disabled =
+            true;
+
+
+          confirmationConfirmButton.textContent =
+            'Abrindo WhatsApp...';
+
+
+          const mensagemWhatsapp =
+            montarMensagemWhatsapp(
+              pedidoEmConfirmacao
+            );
+
+
+          const url =
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+              mensagemWhatsapp
+            )}`;
+
+
+          localStorage.removeItem(
+            pedidoRascunhoKey
+          );
+
+
+          localStorage.removeItem(
+            finalizarPedidoKey
+          );
+
+
+          window.location.href =
+            url;
+
+        }
+      );
+
+
+    async function verificarRetornoFinalizacao() {
+
+      const retorno =
+        localStorage.getItem(
+          finalizarPedidoKey
         );
 
+
       if (
-        !accountLink
+        retorno !==
+        '1'
       ) {
 
         return;
 
       }
+
 
       const {
         data: {
@@ -2752,6 +3692,90 @@
         await supabaseClient
           .auth
           .getSession();
+
+
+      if (!session) {
+        return;
+      }
+
+
+      const rascunho =
+        carregarRascunhoPedido();
+
+
+      if (!rascunho) {
+
+        localStorage.removeItem(
+          finalizarPedidoKey
+        );
+
+        return;
+
+      }
+
+
+      const restaurado =
+        restaurarRascunhoPedido(
+          rascunho
+        );
+
+
+      if (!restaurado) {
+
+        localStorage.removeItem(
+          finalizarPedidoKey
+        );
+
+        return;
+
+      }
+
+
+      localStorage.removeItem(
+        finalizarPedidoKey
+      );
+
+
+      document
+        .getElementById(
+          'personalizar'
+        )
+        .scrollIntoView();
+
+
+      abrirConfirmacao(
+        rascunho
+      );
+
+    }
+
+
+    async function atualizarMenuConta() {
+
+      const accountLink =
+        document.getElementById(
+          'accountLink'
+        );
+
+
+      if (
+        !accountLink
+      ) {
+
+        return;
+
+      }
+
+
+      const {
+        data: {
+          session
+        }
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
 
       if (
         session
@@ -2775,7 +3799,11 @@
 
     }
 
+
     atualizarMenuConta();
+
+    verificarRetornoFinalizacao();
+
 
     supabaseClient
       .auth
@@ -2790,6 +3818,7 @@
               'accountLink'
             );
 
+
           if (
             !accountLink
           ) {
@@ -2797,6 +3826,7 @@
             return;
 
           }
+
 
           if (
             session
