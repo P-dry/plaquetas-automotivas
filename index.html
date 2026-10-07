@@ -6,61 +6,76 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
+
   <title>
     ÍMALLOY | Automotive Personalisation
   </title>
+
   <link
     rel="icon"
     type="image/png"
     href="assets/favicon.png"
   />
+
   <meta
     name="description"
     content="ÍMALLOY — peças automotivas personalizadas com gravação a laser, design exclusivo e acabamento pensado para cada projeto."
   />
+
   <link
     rel="canonical"
     href="https://imalloy.com.br/"
   />
+
   <meta
     property="og:type"
     content="website"
   />
+
   <meta
     property="og:site_name"
     content="ÍMALLOY"
   />
+
   <meta
     property="og:title"
     content="ÍMALLOY | Automotive Personalisation"
   />
+
   <meta
     property="og:description"
     content="Peças automotivas personalizadas com gravação a laser, design exclusivo e acabamento pensado para cada projeto."
   />
+
   <meta
     property="og:url"
     content="https://imalloy.com.br/"
   />
+
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
   >
+
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin
   >
+
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
+
   <link
     rel="stylesheet"
     href="style.css"
   />
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
 
   <style>
 
@@ -68,65 +83,106 @@
       position: relative;
     }
 
+
     .product-card {
       transition:
         opacity 0.16s ease,
         transform 0.16s ease;
+
       will-change:
         opacity,
         transform;
     }
 
+
     .product-card.is-leaving-next {
       opacity: 0;
-      transform: translateX(-6px);
+
+      transform:
+        translateX(-6px);
     }
+
 
     .product-card.is-leaving-prev {
       opacity: 0;
-      transform: translateX(6px);
+
+      transform:
+        translateX(6px);
     }
+
 
     .product-card.is-entering-next {
       opacity: 0;
-      transform: translateX(6px);
+
+      transform:
+        translateX(6px);
+
       transition: none;
     }
+
 
     .product-card.is-entering-prev {
       opacity: 0;
-      transform: translateX(-6px);
+
+      transform:
+        translateX(-6px);
+
       transition: none;
     }
 
+
     .product-carousel-nav {
       position: absolute;
+
       top: 50%;
+
       z-index: 5;
+
       width: 42px;
       height: 42px;
+
       border:
-        1px solid rgba(255, 255, 255, 0.14);
+        1px solid
+        rgba(255, 255, 255, 0.14);
+
       border-radius: 50%;
-      background: #14181e;
-      color: #fff;
-      font: inherit;
-      font-size: 28px;
-      line-height: 1;
-      cursor: pointer;
+
+      background:
+        #14181e;
+
+      color:
+        #fff;
+
+      font:
+        inherit;
+
+      font-size:
+        28px;
+
+      line-height:
+        1;
+
+      cursor:
+        pointer;
+
       transform:
         translateY(-50%);
+
       transition:
         transform 0.2s ease,
         background 0.2s ease,
         border-color 0.2s ease;
     }
 
+
     .product-carousel-nav:hover {
-      background: #20262e;
+      background:
+        #20262e;
+
       border-color:
         rgba(255, 255, 255, 0.28);
     }
+
 
     .product-carousel-nav:active {
       transform:
@@ -134,306 +190,906 @@
         scale(0.94);
     }
 
+
     .product-carousel-prev {
-      left: -21px;
+      left:
+        -21px;
     }
+
 
     .product-carousel-next {
-      right: -21px;
+      right:
+        -21px;
     }
+
 
     .product-carousel-dots {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      margin-top: 18px;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      gap:
+        9px;
+
+      margin-top:
+        18px;
     }
 
+
     .product-carousel-dot {
-      width: 9px;
-      height: 9px;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: #4b535e;
-      cursor: pointer;
+      width:
+        9px;
+
+      height:
+        9px;
+
+      padding:
+        0;
+
+      border:
+        0;
+
+      border-radius:
+        50%;
+
+      background:
+        #4b535e;
+
+      cursor:
+        pointer;
+
       transition:
         transform 0.2s ease,
         background 0.2s ease;
     }
 
+
     .product-carousel-dot.active {
-      background: #fff;
+      background:
+        #fff;
+
       transform:
         scale(1.25);
     }
 
+
     .shipping-free {
-      margin-top: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff;
+      margin-top:
+        12px;
+
+      font-size:
+        13px;
+
+      font-weight:
+        700;
+
+      color:
+        #ffffff;
     }
+
 
     .multi-order-form {
-      display: grid;
-      gap: 26px;
+      display:
+        grid;
+
+      gap:
+        26px;
     }
 
+
     .product-selector {
-      display: grid;
+      display:
+        grid;
+
       grid-template-columns:
         repeat(
           3,
           minmax(0, 1fr)
         );
-      gap: 14px;
+
+      gap:
+        14px;
     }
+
 
     .product-option {
-      position: relative;
-      display: block;
-      cursor: pointer;
+      position:
+        relative;
+
+      display:
+        block;
+
+      cursor:
+        pointer;
     }
+
 
     .product-option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
+      position:
+        absolute;
+
+      opacity:
+        0;
+
+      pointer-events:
+        none;
     }
 
+
     .product-option-content {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      min-height: 118px;
-      padding: 18px;
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        5px;
+
+      min-height:
+        118px;
+
+      padding:
+        18px;
+
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-      border-radius: 14px;
+
+      border-radius:
+        14px;
+
       background:
         rgba(18, 22, 27, 0.88);
+
       transition:
         border-color 0.18s ease,
         background 0.18s ease,
         transform 0.18s ease;
     }
 
+
     .product-option-content strong {
-      font-size: 16px;
-      color: #ffffff;
+      font-size:
+        16px;
+
+      color:
+        #ffffff;
     }
+
 
     .product-option-content small {
-      color: var(--muted);
+      color:
+        var(--muted);
     }
 
+
     .product-option-content b {
-      margin-top: auto;
-      font-size: 20px;
-      color: #ffffff;
+      margin-top:
+        auto;
+
+      font-size:
+        20px;
+
+      color:
+        #ffffff;
     }
+
 
     .product-option input:checked
     + .product-option-content {
       border-color:
         rgba(255, 255, 255, 0.48);
+
       background:
         #1b2027;
+
       transform:
         translateY(-2px);
     }
 
+
     .order-summary {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 18px 20px;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        20px;
+
+      padding:
+        18px 20px;
+
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-      border-radius: 14px;
-      background: #12161b;
+
+      border-radius:
+        14px;
+
+      background:
+        #12161b;
     }
+
 
     .order-summary > div {
-      display: grid;
-      gap: 2px;
+      display:
+        grid;
+
+      gap:
+        2px;
     }
+
 
     .order-summary span {
-      font-size: 13px;
-      color: var(--muted);
+      font-size:
+        13px;
+
+      color:
+        var(--muted);
     }
+
 
     .order-summary strong {
-      font-size: 27px;
-      line-height: 1.1;
-      color: #ffffff;
+      font-size:
+        27px;
+
+      line-height:
+        1.1;
+
+      color:
+        #ffffff;
     }
+
 
     .order-summary .free-shipping {
-      font-weight: 700;
-      color: #ffffff;
+      font-weight:
+        700;
+
+      color:
+        #ffffff;
     }
+
 
     .same-data-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      color: #dfe4ea;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        10px;
+
+      cursor:
+        pointer;
+
+      color:
+        #dfe4ea;
     }
+
 
     .same-data-option input {
-      width: 18px;
-      height: 18px;
+      width:
+        18px;
+
+      height:
+        18px;
     }
 
+
     .multi-personalization-grid {
-      display: grid;
+      display:
+        grid;
+
       grid-template-columns:
         minmax(0, 1.05fr)
         minmax(320px, 0.95fr);
-      gap: 28px;
-      align-items: start;
+
+      gap:
+        28px;
+
+      align-items:
+        start;
     }
+
 
     .personalization-fields {
-      display: grid;
-      gap: 18px;
-      margin-bottom: 18px;
+      display:
+        grid;
+
+      gap:
+        18px;
+
+      margin-bottom:
+        18px;
     }
 
+
     .personalization-block {
-      padding: 20px;
+      padding:
+        20px;
+
       border:
         1px solid
         rgba(255, 255, 255, 0.10);
-      border-radius: 16px;
+
+      border-radius:
+        16px;
+
       background:
         rgba(18, 22, 27, 0.84);
     }
 
+
     .personalization-block-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      gap:
+        16px;
+
+      margin-bottom:
+        18px;
     }
+
 
     .personalization-block-header h3 {
-      margin: 0;
-      font-size: 18px;
+      margin:
+        0;
+
+      font-size:
+        18px;
     }
+
 
     .personalization-block-header span {
-      font-size: 12px;
-      color: var(--muted);
+      font-size:
+        12px;
+
+      color:
+        var(--muted);
     }
+
 
     .personalization-block-fields {
-      display: grid;
-      gap: 16px;
+      display:
+        grid;
+
+      gap:
+        16px;
     }
+
 
     .preview-list {
-      display: grid;
-      gap: 22px;
-      margin-top: 16px;
+      display:
+        grid;
+
+      gap:
+        22px;
+
+      margin-top:
+        16px;
     }
 
+
     .order-preview-item {
-      padding-bottom: 20px;
+      padding-bottom:
+        20px;
+
       border-bottom:
         1px solid
         rgba(255, 255, 255, 0.08);
     }
 
+
     .order-preview-item:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
+      padding-bottom:
+        0;
+
+      border-bottom:
+        0;
     }
+
 
     .order-preview-label {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-      font-size: 13px;
-      color: var(--muted);
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        10px;
+
+      margin-bottom:
+        12px;
+
+      font-size:
+        13px;
+
+      color:
+        var(--muted);
     }
 
+
     .order-preview-label strong {
-      color: #ffffff;
+      color:
+        #ffffff;
     }
+
 
     @media (max-width: 900px) {
 
       .product-carousel-prev {
-        left: 10px;
+        left:
+          10px;
       }
+
 
       .product-carousel-next {
-        right: 10px;
+        right:
+          10px;
       }
+
 
       .product-selector {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
       }
+
 
       .multi-personalization-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
       }
+
 
       .order-summary {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items:
+          flex-start;
+
+        flex-direction:
+          column;
       }
 
     }
 
-    .preview-list .mini-plaque.motor {
-      width: 100%;
-      max-width: 520px;
-      height: 180px;
-      margin-left: auto;
-      margin-right: auto;
+
+    /* =========================
+       PRÉVIAS - POSIÇÃO REAL DA ARTE
+    ========================== */
+
+    .preview-list .mini-plaque {
+      position:
+        relative;
+
+      overflow:
+        hidden;
     }
 
-    .preview-list .mini-plaque.vertical {
-      width: 220px;
-      max-width: 100%;
-      height: 360px;
-      margin-left: auto;
-      margin-right: auto;
+
+    /* =========================
+       PLAQUETA DE MOTOR
+    ========================== */
+
+    .preview-list
+    .mini-plaque.motor {
+      display:
+        block !important;
+
+      width:
+        100%;
+
+      max-width:
+        520px;
+
+      height:
+        180px;
+
+      margin-left:
+        auto;
+
+      margin-right:
+        auto;
+
+      padding:
+        0 !important;
     }
+
+
+    .preview-list
+    .mini-plaque.motor
+    .mini-title {
+      position:
+        absolute;
+
+      top:
+        20%;
+
+      left:
+        50%;
+
+      z-index:
+        2;
+
+      width:
+        76%;
+
+      margin:
+        0;
+
+      transform:
+        translateX(-50%);
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          24px
+        );
+
+      font-weight:
+        800;
+
+      line-height:
+        1.05;
+
+      text-align:
+        center;
+
+      white-space:
+        nowrap;
+
+      overflow:
+        hidden;
+
+      text-overflow:
+        ellipsis;
+    }
+
+
+    .preview-list
+    .mini-plaque.motor
+    .mini-car {
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      left:
+        50%;
+
+      z-index:
+        2;
+
+      width:
+        72%;
+
+      margin:
+        0;
+
+      transform:
+        translate(
+          -50%,
+          -50%
+        );
+
+      font-size:
+        clamp(
+          12px,
+          1.5vw,
+          18px
+        );
+
+      line-height:
+        1;
+
+      text-align:
+        center;
+
+      white-space:
+        nowrap;
+
+      overflow:
+        hidden;
+    }
+
+
+    .preview-list
+    .mini-plaque.motor
+    .mini-sub {
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      bottom:
+        12%;
+
+      z-index:
+        2;
+
+      width:
+        76%;
+
+      margin:
+        0;
+
+      transform:
+        translateX(-50%);
+
+      font-size:
+        clamp(
+          13px,
+          1.4vw,
+          16px
+        );
+
+      font-weight:
+        700;
+
+      line-height:
+        1.05;
+
+      text-align:
+        center;
+
+      white-space:
+        nowrap;
+
+      overflow:
+        hidden;
+
+      text-overflow:
+        ellipsis;
+    }
+
+
+    /* =========================
+       RETROVISOR / CHAVEIRO
+    ========================== */
+
+    .preview-list
+    .mini-plaque.vertical {
+      display:
+        block !important;
+
+      position:
+        relative;
+
+      width:
+        220px;
+
+      max-width:
+        100%;
+
+      height:
+        360px;
+
+      margin-left:
+        auto;
+
+      margin-right:
+        auto;
+
+      padding:
+        0 !important;
+
+      overflow:
+        hidden;
+    }
+
+
+    .preview-list
+    .mini-plaque.vertical
+    .mini-title {
+      position:
+        absolute;
+
+      top:
+        22%;
+
+      left:
+        50%;
+
+      z-index:
+        2;
+
+      width:
+        76%;
+
+      margin:
+        0;
+
+      transform:
+        translateX(-50%);
+
+      font-size:
+        18px;
+
+      font-weight:
+        800;
+
+      line-height:
+        1.1;
+
+      text-align:
+        center;
+
+      white-space:
+        normal;
+
+      overflow:
+        visible;
+
+      text-overflow:
+        clip;
+    }
+
+
+    .preview-list
+    .mini-plaque.vertical
+    .mini-car {
+      position:
+        absolute;
+
+      top:
+        50%;
+
+      left:
+        50%;
+
+      z-index:
+        2;
+
+      width:
+        78%;
+
+      margin:
+        0;
+
+      transform:
+        translate(
+          -50%,
+          -50%
+        );
+
+      font-size:
+        12px;
+
+      font-weight:
+        600;
+
+      line-height:
+        1.2;
+
+      letter-spacing:
+        0.08em;
+
+      text-align:
+        center;
+
+      white-space:
+        normal;
+
+      overflow:
+        visible;
+    }
+
+
+    .preview-list
+    .mini-plaque.vertical
+    .mini-sub {
+      position:
+        absolute;
+
+      left:
+        50%;
+
+      bottom:
+        16%;
+
+      z-index:
+        2;
+
+      width:
+        76%;
+
+      margin:
+        0;
+
+      transform:
+        translateX(-50%);
+
+      font-size:
+        14px;
+
+      font-weight:
+        700;
+
+      line-height:
+        1.1;
+
+      text-align:
+        center;
+
+      white-space:
+        normal;
+
+      overflow:
+        visible;
+
+      text-overflow:
+        clip;
+    }
+
+
+    /* Retrovisor */
 
     .preview-list
     .mini-plaque.retrovisor
     .mh1 {
-      display: block;
-      top: 14px;
-      left: 14px;
-      right: auto;
-      bottom: auto;
-      transform: none;
+      display:
+        block;
+
+      top:
+        14px;
+
+      left:
+        14px;
+
+      right:
+        auto;
+
+      bottom:
+        auto;
+
+      transform:
+        none;
     }
+
 
     .preview-list
     .mini-plaque.retrovisor
     .mh2 {
-      display: block;
-      top: 14px;
-      right: 14px;
-      left: auto;
-      bottom: auto;
-      transform: none;
+      display:
+        block;
+
+      top:
+        14px;
+
+      right:
+        14px;
+
+      left:
+        auto;
+
+      bottom:
+        auto;
+
+      transform:
+        none;
     }
+
 
     .preview-list
     .mini-plaque.retrovisor
@@ -442,20 +1098,43 @@
     .preview-list
     .mini-plaque.retrovisor
     .mh4 {
-      display: none;
+      display:
+        none;
     }
+
+
+    .preview-list
+    .mini-plaque.retrovisor
+    .mini-title {
+      top:
+        23%;
+    }
+
+
+    /* Chaveiro */
 
     .preview-list
     .mini-plaque.keychain
     .mh1 {
-      display: block;
-      top: 14px;
-      left: 50%;
-      right: auto;
-      bottom: auto;
+      display:
+        block;
+
+      top:
+        14px;
+
+      left:
+        50%;
+
+      right:
+        auto;
+
+      bottom:
+        auto;
+
       transform:
         translateX(-50%);
     }
+
 
     .preview-list
     .mini-plaque.keychain
@@ -468,19 +1147,61 @@
     .preview-list
     .mini-plaque.keychain
     .mh4 {
-      display: none;
+      display:
+        none;
     }
 
-    .personalization-block .field-row {
+
+    .preview-list
+    .mini-plaque.keychain
+    .mini-title {
+      top:
+        21%;
+    }
+
+
+    @media (max-width: 560px) {
+
+      .preview-list
+      .mini-plaque.vertical
+      .mini-title {
+        font-size:
+          16px;
+      }
+
+
+      .preview-list
+      .mini-plaque.vertical
+      .mini-car {
+        font-size:
+          11px;
+      }
+
+
+      .preview-list
+      .mini-plaque.vertical
+      .mini-sub {
+        font-size:
+          13px;
+      }
+
+    }
+
+
+    .personalization-block
+    .field-row {
       grid-template-columns:
         minmax(0, 2.4fr)
         minmax(105px, 0.6fr);
     }
 
+
     @media (max-width: 560px) {
 
-      .personalization-block .field-row {
-        grid-template-columns: 1fr;
+      .personalization-block
+      .field-row {
+        grid-template-columns:
+          1fr;
       }
 
     }
@@ -491,189 +1212,372 @@
     ========================== */
 
     .confirmation-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      position:
+        fixed;
+
+      inset:
+        0;
+
+      z-index:
+        999;
+
+      display:
+        none;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      padding:
+        24px;
+
       background:
-        rgba(0, 0, 0, 0.72);
+        rgba(
+          0,
+          0,
+          0,
+          0.72
+        );
+
       backdrop-filter:
         blur(5px);
     }
 
+
     .confirmation-modal.is-open {
-      display: flex;
+      display:
+        flex;
     }
+
 
     .confirmation-dialog {
-      width: min(620px, 100%);
-      max-height: calc(100vh - 48px);
-      overflow-y: auto;
-      padding: 28px;
+      width:
+        min(
+          620px,
+          100%
+        );
+
+      max-height:
+        calc(
+          100vh - 48px
+        );
+
+      overflow-y:
+        auto;
+
+      padding:
+        28px;
+
       border:
         1px solid
-        rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      background: #12161b;
+        rgba(
+          255,
+          255,
+          255,
+          0.14
+        );
+
+      border-radius:
+        18px;
+
+      background:
+        #12161b;
+
       box-shadow:
         0 30px 90px
-        rgba(0, 0, 0, 0.55);
+        rgba(
+          0,
+          0,
+          0,
+          0.55
+        );
     }
 
+
     .confirmation-dialog h2 {
-      margin-bottom: 8px;
-      font-size: 28px;
+      margin-bottom:
+        8px;
+
+      font-size:
+        28px;
     }
+
 
     .confirmation-intro {
       margin:
         0 0 22px;
-      color: var(--muted);
+
+      color:
+        var(--muted);
     }
+
 
     .confirmation-items {
-      display: grid;
-      gap: 12px;
+      display:
+        grid;
+
+      gap:
+        12px;
     }
+
 
     .confirmation-item {
-      padding: 16px;
+      padding:
+        16px;
+
       border:
         1px solid
-        rgba(255, 255, 255, 0.10);
-      border-radius: 12px;
-      background: #0d1116;
+        rgba(
+          255,
+          255,
+          255,
+          0.10
+        );
+
+      border-radius:
+        12px;
+
+      background:
+        #0d1116;
     }
+
 
     .confirmation-item strong {
-      display: block;
-      margin-bottom: 8px;
-      color: #ffffff;
+      display:
+        block;
+
+      margin-bottom:
+        8px;
+
+      color:
+        #ffffff;
     }
+
 
     .confirmation-item p {
-      margin: 4px 0;
-      color: #cbd2d9;
-      font-size: 14px;
+      margin:
+        4px 0;
+
+      color:
+        #cbd2d9;
+
+      font-size:
+        14px;
     }
+
 
     .confirmation-observacoes {
-      margin-top: 16px;
-      padding-top: 16px;
+      margin-top:
+        16px;
+
+      padding-top:
+        16px;
+
       border-top:
         1px solid
-        rgba(255, 255, 255, 0.08);
+        rgba(
+          255,
+          255,
+          255,
+          0.08
+        );
     }
+
 
     .confirmation-observacoes p {
-      margin: 6px 0 0;
-      color: #cbd2d9;
+      margin:
+        6px 0 0;
+
+      color:
+        #cbd2d9;
     }
+
 
     .confirmation-total {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-top: 18px;
-      padding-top: 18px;
+      display:
+        flex;
+
+      align-items:
+        flex-end;
+
+      justify-content:
+        space-between;
+
+      gap:
+        20px;
+
+      margin-top:
+        18px;
+
+      padding-top:
+        18px;
+
       border-top:
         1px solid
-        rgba(255, 255, 255, 0.12);
+        rgba(
+          255,
+          255,
+          255,
+          0.12
+        );
     }
+
 
     .confirmation-total span {
-      color: var(--muted);
-      font-size: 13px;
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
     }
 
+
     .confirmation-total strong {
-      color: #ffffff;
-      font-size: 26px;
+      color:
+        #ffffff;
+
+      font-size:
+        26px;
     }
+
 
     .confirmation-shipping {
       margin:
         4px 0 0;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 700;
+
+      color:
+        #ffffff;
+
+      font-size:
+        13px;
+
+      font-weight:
+        700;
     }
+
 
     .confirmation-actions {
-      display: grid;
+      display:
+        grid;
+
       grid-template-columns:
         1fr 1fr;
-      gap: 12px;
-      margin-top: 24px;
+
+      gap:
+        12px;
+
+      margin-top:
+        24px;
     }
 
+
     .confirmation-actions button {
-      width: 100%;
+      width:
+        100%;
     }
+
 
     .confirmation-actions
     .confirmation-edit {
-      background: transparent;
-      color: var(--text);
+      background:
+        transparent;
+
+      color:
+        var(--text);
+
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
     }
+
 
     .confirmation-actions
     .confirmation-confirm {
-      background: var(--green);
-      color: #08120b;
+      background:
+        var(--green);
+
+      color:
+        #08120b;
+
       border:
-        1px solid transparent;
+        1px solid
+        transparent;
     }
+
 
     .confirmation-actions
     .confirmation-confirm:disabled {
-      opacity: 0.55;
-      cursor: wait;
+      opacity:
+        0.55;
+
+      cursor:
+        wait;
     }
+
 
     .confirmation-message {
-      min-height: 22px;
-      margin: 14px 0 0;
-      color: #ff6b72;
-      font-size: 13px;
-      font-weight: 600;
+      min-height:
+        22px;
+
+      margin:
+        14px 0 0;
+
+      color:
+        #ff6b72;
+
+      font-size:
+        13px;
+
+      font-weight:
+        600;
     }
 
+
     body.modal-open {
-      overflow: hidden;
+      overflow:
+        hidden;
     }
+
 
     @media (max-width: 560px) {
 
       .confirmation-modal {
-        padding: 14px;
+        padding:
+          14px;
       }
+
 
       .confirmation-dialog {
-        padding: 20px;
+        padding:
+          20px;
       }
+
 
       .confirmation-actions {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
       }
 
+
       .confirmation-total {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items:
+          flex-start;
+
+        flex-direction:
+          column;
       }
 
     }
 
   </style>
+
 </head>
 
+
 <body>
+
 
   <header class="topbar">
 
@@ -700,6 +1604,7 @@
         </span>
 
       </a>
+
 
       <nav class="nav">
 
@@ -762,6 +1667,7 @@
             design exclusivo e acabamento pensado para cada projeto.
           </p>
 
+
           <div class="hero-actions">
 
             <a
@@ -779,6 +1685,7 @@
             </a>
 
           </div>
+
 
           <div class="hero-points">
 
@@ -808,6 +1715,7 @@
           <div class="hole h2"></div>
           <div class="hole h3"></div>
           <div class="hole h4"></div>
+
 
           <div class="plaque-content">
 
@@ -884,9 +1792,11 @@
                 100 × 40 mm
               </div>
 
+
               <h3 id="cardProdutoNome">
                 Plaqueta de motor
               </h3>
+
 
               <p
                 id="cardProdutoDescricao"
@@ -895,6 +1805,7 @@
                 Personalizada para aplicação no cofre do motor
                 ou em projetos automotivos.
               </p>
+
 
               <ul
                 id="cardProdutoCaracteristicas"
@@ -923,6 +1834,7 @@
 
               </ul>
 
+
               <div class="price-row">
 
                 <span
@@ -941,9 +1853,11 @@
 
               </div>
 
+
               <div class="shipping-free">
                 Frete grátis em todo o país
               </div>
+
 
               <button
                 id="cardProdutoPersonalizar"
@@ -1002,6 +1916,7 @@
             <h3>
               Como funciona
             </h3>
+
 
             <div class="steps">
 
@@ -1089,6 +2004,7 @@
                 </div>
 
               </div>
+
 
             </div>
 
@@ -1214,6 +2130,7 @@
               </span>
 
             </label>
+
 
           </div>
 
@@ -1357,23 +2274,28 @@
         REVISE ANTES DE CONTINUAR
       </span>
 
+
       <h2 id="confirmationTitle">
         Confirmar pedido
       </h2>
 
+
       <p class="confirmation-intro">
         Confira as informações abaixo antes de continuar para o WhatsApp.
       </p>
+
 
       <div
         id="confirmationItems"
         class="confirmation-items"
       ></div>
 
+
       <div
         id="confirmationObservacoes"
         class="confirmation-observacoes"
       ></div>
+
 
       <div class="confirmation-total">
 
@@ -1412,6 +2334,7 @@
         >
           Voltar e editar
         </button>
+
 
         <button
           id="confirmationConfirmButton"
@@ -1484,7 +2407,7 @@
           69.90,
 
         visual:
-          'IMAGEM DO CARRO',
+          'ARTE DO CARRO',
 
         tipo:
           'retrovisor',
@@ -1507,7 +2430,7 @@
           69.90,
 
         visual:
-          'IMAGEM DO CARRO',
+          'ARTE DO CARRO',
 
         tipo:
           'keychain',
@@ -2037,8 +2960,11 @@
         .toLocaleString(
           'pt-BR',
           {
-            style: 'currency',
-            currency: 'BRL'
+            style:
+              'currency',
+
+            currency:
+              'BRL'
           }
         );
 
@@ -2116,10 +3042,12 @@
             produtoId
           ) => {
 
-            return total +
+            return (
+              total +
               produtos[
                 produtoId
-              ].preco;
+              ].preco
+            );
 
           },
           0
@@ -2217,7 +3145,6 @@
 
             <div class="field-row">
 
-
               <div class="field">
 
                 <label
@@ -2282,7 +3209,8 @@
     ) {
 
       if (
-        furos !== 'Sim'
+        furos !==
+        'Sim'
       ) {
 
         return '';
@@ -2355,7 +3283,7 @@
           ?.value
           .trim()
           ||
-          'Seu veículo';
+          'Seu carro';
 
 
       const ano =
@@ -2391,7 +3319,9 @@
         classes +=
           ' motor';
 
-      } else {
+      }
+
+      else {
 
         classes +=
           ' vertical';
@@ -2511,8 +3441,10 @@
 
 
       if (
-        field !== 'veiculo' &&
-        field !== 'ano'
+        field !==
+          'veiculo' &&
+        field !==
+          'ano'
       ) {
 
         return;
@@ -2528,7 +3460,8 @@
           input => {
 
             if (
-              input !== origem
+              input !==
+              origem
             ) {
 
               input.value =
@@ -2559,6 +3492,7 @@
                   campo
                 );
 
+
                 atualizarPreviews();
 
               }
@@ -2572,6 +3506,7 @@
                 sincronizarDados(
                   campo
                 );
+
 
                 atualizarPreviews();
 
@@ -2591,7 +3526,8 @@
 
 
       if (
-        selecionados.length === 0
+        selecionados.length ===
+        0
       ) {
 
         const primeiro =
@@ -2628,7 +3564,8 @@
 
             valoresAtuais[
               produtoId
-            ] = {};
+            ] =
+              {};
 
 
             bloco
@@ -2734,6 +3671,7 @@
 
       ativarEventosCampos();
 
+
       atualizarPreviews();
 
     }
@@ -2812,42 +3750,43 @@
       );
 
 
-    cardProdutoPersonalizar.addEventListener(
-      'click',
-      () => {
+    cardProdutoPersonalizar
+      .addEventListener(
+        'click',
+        () => {
 
-        const item =
-          produtosCard[
-            produtoCardAtual
-          ];
-
-
-        productCheckboxes
-          .forEach(
-            checkbox => {
-
-              checkbox.checked =
-                checkbox.value ===
-                item.valor;
-
-            }
-          );
+          const item =
+            produtosCard[
+              produtoCardAtual
+            ];
 
 
-        atualizarFormulario();
+          productCheckboxes
+            .forEach(
+              checkbox => {
+
+                checkbox.checked =
+                  checkbox.value ===
+                  item.valor;
+
+              }
+            );
 
 
-        document
-          .getElementById(
-            'personalizar'
-          )
-          .scrollIntoView({
-            behavior:
-              'smooth'
-          });
+          atualizarFormulario();
 
-      }
-    );
+
+          document
+            .getElementById(
+              'personalizar'
+            )
+            .scrollIntoView({
+              behavior:
+                'smooth'
+            });
+
+        }
+      );
 
 
     atualizarFormulario();
@@ -2858,7 +3797,8 @@
     ) {
 
       return String(
-        valor ?? ''
+        valor ??
+        ''
       )
         .replaceAll(
           '&',
@@ -2888,35 +3828,50 @@
 
       if (
         window.crypto &&
-        typeof window.crypto.randomUUID ===
+        typeof
+          window.crypto.randomUUID ===
           'function'
       ) {
 
-        return window.crypto.randomUUID();
+        return (
+          window.crypto
+            .randomUUID()
+        );
 
       }
 
 
       const bytes =
-        new Uint8Array(16);
+        new Uint8Array(
+          16
+        );
 
 
-      window.crypto.getRandomValues(
-        bytes
-      );
+      window.crypto
+        .getRandomValues(
+          bytes
+        );
 
 
-      bytes[6] =
+      bytes[
+        6
+      ] =
         (
-          bytes[6] &
+          bytes[
+            6
+          ] &
           0x0f
         ) |
         0x40;
 
 
-      bytes[8] =
+      bytes[
+        8
+      ] =
         (
-          bytes[8] &
+          bytes[
+            8
+          ] &
           0x3f
         ) |
         0x80;
@@ -2928,7 +3883,9 @@
             bytes,
             valor =>
               valor
-                .toString(16)
+                .toString(
+                  16
+                )
                 .padStart(
                   2,
                   '0'
@@ -2937,15 +3894,58 @@
 
 
       return (
-        hex.slice(0, 4).join('') +
-        '-' +
-        hex.slice(4, 6).join('') +
-        '-' +
-        hex.slice(6, 8).join('') +
-        '-' +
-        hex.slice(8, 10).join('') +
-        '-' +
-        hex.slice(10, 16).join('')
+        hex
+          .slice(
+            0,
+            4
+          )
+          .join(
+            ''
+          )
+        +
+        '-'
+        +
+        hex
+          .slice(
+            4,
+            6
+          )
+          .join(
+            ''
+          )
+        +
+        '-'
+        +
+        hex
+          .slice(
+            6,
+            8
+          )
+          .join(
+            ''
+          )
+        +
+        '-'
+        +
+        hex
+          .slice(
+            8,
+            10
+          )
+          .join(
+            ''
+          )
+        +
+        '-'
+        +
+        hex
+          .slice(
+            10,
+            16
+          )
+          .join(
+            ''
+          )
       );
 
     }
@@ -2963,9 +3963,10 @@
             produtoId => {
 
               const bloco =
-                document.querySelector(
-                  `.personalization-block[data-product="${produtoId}"]`
-                );
+                document
+                  .querySelector(
+                    `.personalization-block[data-product="${produtoId}"]`
+                  );
 
 
               const veiculo =
@@ -3009,7 +4010,9 @@
 
               const verso =
                 versoCampo
-                  ? versoCampo.value.trim()
+                  ? versoCampo
+                      .value
+                      .trim()
                   : '';
 
 
@@ -3032,7 +4035,9 @@
 
 
       const checkoutToken =
-        rascunhoAnterior?.checkoutToken ||
+        rascunhoAnterior
+          ?.checkoutToken
+        ||
         gerarCheckoutToken();
 
 
@@ -3044,16 +4049,20 @@
         checkoutToken,
 
         criadoEm:
-          new Date().toISOString(),
+          new Date()
+            .toISOString(),
 
         produtos:
           selecionados,
 
         usarMesmosDados:
-          usarMesmosDados.checked,
+          usarMesmosDados
+            .checked,
 
         observacoes:
-          obs.value.trim(),
+          obs
+            .value
+            .trim(),
 
         total:
           calcularTotal(
@@ -3071,12 +4080,13 @@
       rascunho
     ) {
 
-      localStorage.setItem(
-        pedidoRascunhoKey,
-        JSON.stringify(
-          rascunho
-        )
-      );
+      localStorage
+        .setItem(
+          pedidoRascunhoKey,
+          JSON.stringify(
+            rascunho
+          )
+        );
 
     }
 
@@ -3084,12 +4094,15 @@
     function carregarRascunhoPedido() {
 
       const texto =
-        localStorage.getItem(
-          pedidoRascunhoKey
-        );
+        localStorage
+          .getItem(
+            pedidoRascunhoKey
+          );
 
 
-      if (!texto) {
+      if (
+        !texto
+      ) {
 
         return null;
 
@@ -3104,7 +4117,9 @@
 
       }
 
-      catch (erro) {
+      catch (
+        erro
+      ) {
 
         console.error(
           'Erro ao ler rascunho do pedido.',
@@ -3112,9 +4127,10 @@
         );
 
 
-        localStorage.removeItem(
-          pedidoRascunhoKey
-        );
+        localStorage
+          .removeItem(
+            pedidoRascunhoKey
+          );
 
 
         return null;
@@ -3140,28 +4156,34 @@
       }
 
 
-      productCheckboxes.forEach(
-        checkbox => {
+      productCheckboxes
+        .forEach(
+          checkbox => {
 
-          checkbox.checked =
-            rascunho.produtos.includes(
-              checkbox.value
-            );
+            checkbox.checked =
+              rascunho
+                .produtos
+                .includes(
+                  checkbox.value
+                );
 
-        }
-      );
+          }
+        );
 
 
       if (
-        !rascunho.checkoutToken
+        !rascunho
+          .checkoutToken
       ) {
 
-        rascunho.checkoutToken =
-          gerarCheckoutToken();
+        rascunho
+          .checkoutToken =
+            gerarCheckoutToken();
 
 
-        rascunho.versao =
-          2;
+        rascunho
+          .versao =
+            2;
 
 
         salvarRascunhoPedido(
@@ -3171,10 +4193,12 @@
       }
 
 
-      usarMesmosDados.checked =
-        Boolean(
-          rascunho.usarMesmosDados
-        );
+      usarMesmosDados
+        .checked =
+          Boolean(
+            rascunho
+              .usarMesmosDados
+          );
 
 
       atualizarFormulario();
@@ -3183,83 +4207,104 @@
       (
         rascunho.itens ||
         []
-      ).forEach(
-        item => {
+      )
+        .forEach(
+          item => {
 
-          const bloco =
-            document.querySelector(
-              `.personalization-block[data-product="${item.produtoId}"]`
-            );
+            const bloco =
+              document
+                .querySelector(
+                  `.personalization-block[data-product="${item.produtoId}"]`
+                );
 
 
-          if (!bloco) {
+            if (
+              !bloco
+            ) {
 
-            return;
+              return;
+
+            }
+
+
+            const veiculo =
+              bloco
+                .querySelector(
+                  '[data-field="veiculo"]'
+                );
+
+
+            const assinatura =
+              bloco
+                .querySelector(
+                  '[data-field="ano"]'
+                );
+
+
+            const furos =
+              bloco
+                .querySelector(
+                  '[data-field="furos"]'
+                );
+
+
+            const verso =
+              bloco
+                .querySelector(
+                  '[data-field="verso"]'
+                );
+
+
+            if (
+              veiculo
+            ) {
+
+              veiculo.value =
+                item.veiculo ||
+                '';
+
+            }
+
+
+            if (
+              assinatura
+            ) {
+
+              assinatura.value =
+                item.assinatura ||
+                '';
+
+            }
+
+
+            if (
+              furos
+            ) {
+
+              furos.value =
+                item.furos ||
+                'Sim';
+
+            }
+
+
+            if (
+              verso
+            ) {
+
+              verso.value =
+                item.verso ||
+                '';
+
+            }
 
           }
-
-
-          const veiculo =
-            bloco.querySelector(
-              '[data-field="veiculo"]'
-            );
-
-
-          const assinatura =
-            bloco.querySelector(
-              '[data-field="ano"]'
-            );
-
-
-          const furos =
-            bloco.querySelector(
-              '[data-field="furos"]'
-            );
-
-
-          const verso =
-            bloco.querySelector(
-              '[data-field="verso"]'
-            );
-
-
-          if (veiculo) {
-
-            veiculo.value =
-              item.veiculo || '';
-
-          }
-
-
-          if (assinatura) {
-
-            assinatura.value =
-              item.assinatura || '';
-
-          }
-
-
-          if (furos) {
-
-            furos.value =
-              item.furos || 'Sim';
-
-          }
-
-
-          if (verso) {
-
-            verso.value =
-              item.verso || '';
-
-          }
-
-        }
-      );
+        );
 
 
       obs.value =
-        rascunho.observacoes ||
+        rascunho
+          .observacoes ||
         '';
 
 
@@ -3276,7 +4321,8 @@
     ) {
 
       confirmationItems.innerHTML =
-        rascunho.itens
+        rascunho
+          .itens
           .map(
             item => {
 
@@ -3316,6 +4362,7 @@
                     )}
                   </strong>
 
+
                   <p>
 
                     <strong>
@@ -3327,6 +4374,7 @@
                     )}
 
                   </p>
+
 
                   <p>
 
@@ -3340,6 +4388,7 @@
 
                   </p>
 
+
                   <p>
 
                     <strong>
@@ -3351,6 +4400,7 @@
                     )}
 
                   </p>
+
 
                   <p>
 
@@ -3364,6 +4414,7 @@
 
                   </p>
 
+
                   ${versoHtml}
 
                 </div>
@@ -3372,7 +4423,9 @@
 
             }
           )
-          .join('');
+          .join(
+            ''
+          );
 
 
       confirmationObservacoes.innerHTML =
@@ -3386,7 +4439,8 @@
 
             ${
               escaparHtml(
-                rascunho.observacoes ||
+                rascunho
+                  .observacoes ||
                 'Nenhuma'
               )
             }
@@ -3396,10 +4450,12 @@
         `;
 
 
-      confirmationTotal.textContent =
-        moeda(
-          rascunho.total
-        );
+      confirmationTotal
+        .textContent =
+          moeda(
+            rascunho
+              .total
+          );
 
     }
 
@@ -3417,52 +4473,67 @@
       );
 
 
-      confirmationConfirmButton.disabled =
-        false;
+      confirmationConfirmButton
+        .disabled =
+          false;
 
 
-      confirmationConfirmButton.textContent =
-        'Confirmar e continuar no WhatsApp';
+      confirmationConfirmButton
+        .textContent =
+          'Confirmar e continuar no WhatsApp';
 
 
-      confirmationMessage.textContent =
-        '';
+      confirmationMessage
+        .textContent =
+          '';
 
 
-      confirmationModal.classList.add(
-        'is-open'
-      );
+      confirmationModal
+        .classList
+        .add(
+          'is-open'
+        );
 
 
-      confirmationModal.setAttribute(
-        'aria-hidden',
-        'false'
-      );
+      confirmationModal
+        .setAttribute(
+          'aria-hidden',
+          'false'
+        );
 
 
-      document.body.classList.add(
-        'modal-open'
-      );
+      document
+        .body
+        .classList
+        .add(
+          'modal-open'
+        );
 
     }
 
 
     function fecharConfirmacao() {
 
-      confirmationModal.classList.remove(
-        'is-open'
-      );
+      confirmationModal
+        .classList
+        .remove(
+          'is-open'
+        );
 
 
-      confirmationModal.setAttribute(
-        'aria-hidden',
-        'true'
-      );
+      confirmationModal
+        .setAttribute(
+          'aria-hidden',
+          'true'
+        );
 
 
-      document.body.classList.remove(
-        'modal-open'
-      );
+      document
+        .body
+        .classList
+        .remove(
+          'modal-open'
+        );
 
     }
 
@@ -3473,65 +4544,70 @@
       valorTotal
     ) {
 
-      const message = [
+      const message =
+        [
 
-        `Olá! Gostaria de continuar com o Pedido #${pedidoId} da ÍMALLOY.`,
+          `Olá! Gostaria de continuar com o Pedido #${pedidoId} da ÍMALLOY.`,
 
-        '',
+          '',
 
-        `Valor total: ${moeda(valorTotal)}`,
+          `Valor total: ${moeda(
+            valorTotal
+          )}`,
 
-        'Frete grátis em todo o país.',
+          'Frete grátis em todo o país.',
 
-        ''
+          ''
 
-      ];
-
-
-      rascunho.itens.forEach(
-        (
-          item,
-          index
-        ) => {
-
-          const produto =
-            produtos[
-              item.produtoId
-            ];
+        ];
 
 
-          message.push(
+      rascunho
+        .itens
+        .forEach(
+          (
+            item,
+            index
+          ) => {
 
-            `${index + 1}. ${produto.nome}`,
+            const produto =
+              produtos[
+                item.produtoId
+              ];
 
-            `Medida: ${produto.medida}`,
-
-            `Veículo: ${item.veiculo}`,
-
-            `Assinatura: ${item.assinatura}`,
-
-            `Furos: ${item.furos}`
-
-          );
-
-
-          if (
-            item.verso
-          ) {
 
             message.push(
-              `Gravação no verso: ${item.verso}`
+
+              `${index + 1}. ${produto.nome}`,
+
+              `Medida: ${produto.medida}`,
+
+              `Veículo: ${item.veiculo}`,
+
+              `Assinatura: ${item.assinatura}`,
+
+              `Furos: ${item.furos}`
+
+            );
+
+
+            if (
+              item.verso
+            ) {
+
+              message.push(
+                `Gravação no verso: ${item.verso}`
+              );
+
+            }
+
+
+            message.push(
+              ''
             );
 
           }
-
-
-          message.push(
-            ''
-          );
-
-        }
-      );
+        );
 
 
       message.push(
@@ -3556,15 +4632,16 @@
       item
     ) {
 
-      const partes = [
+      const partes =
+        [
 
-        `Modelo: ${item.veiculo}`,
+          `Modelo: ${item.veiculo}`,
 
-        `Assinatura: ${item.assinatura}`,
+          `Assinatura: ${item.assinatura}`,
 
-        `Furos: ${item.furos}`
+          `Furos: ${item.furos}`
 
-      ];
+        ];
 
 
       if (
@@ -3578,9 +4655,10 @@
       }
 
 
-      return partes.join(
-        ' | '
-      );
+      return partes
+        .join(
+          ' | '
+        );
 
     }
 
@@ -3593,7 +4671,8 @@
         data: {
           session
         },
-        error: sessionError
+        error:
+          sessionError
       } =
         await supabaseClient
           .auth
@@ -3613,7 +4692,8 @@
 
 
       const itens =
-        rascunho.itens
+        rascunho
+          .itens
           .map(
             item => ({
 
@@ -3713,74 +4793,82 @@
     }
 
 
-    form.addEventListener(
-      'submit',
-      async event => {
+    form
+      .addEventListener(
+        'submit',
+        async event => {
 
-        event.preventDefault();
-
-
-        const rascunho =
-          coletarRascunhoPedido();
+          event
+            .preventDefault();
 
 
-        if (
-          rascunho.produtos.length ===
-          0
-        ) {
-
-          return;
-
-        }
+          const rascunho =
+            coletarRascunhoPedido();
 
 
-        salvarRascunhoPedido(
-          rascunho
-        );
+          if (
+            rascunho
+              .produtos
+              .length ===
+            0
+          ) {
+
+            return;
+
+          }
 
 
-        const {
-          data: {
-            session
-          },
-          error
-        } =
-          await supabaseClient
-            .auth
-            .getSession();
-
-
-        if (
-          error ||
-          !session
-        ) {
-
-          localStorage.setItem(
-            finalizarPedidoKey,
-            '1'
+          salvarRascunhoPedido(
+            rascunho
           );
 
 
-          window.location.href =
-            'login.html';
+          const {
+            data: {
+              session
+            },
+            error
+          } =
+            await supabaseClient
+              .auth
+              .getSession();
 
 
-          return;
+          if (
+            error ||
+            !session
+          ) {
+
+            localStorage
+              .setItem(
+                finalizarPedidoKey,
+                '1'
+              );
+
+
+            window
+              .location
+              .href =
+                'login.html';
+
+
+            return;
+
+          }
+
+
+          localStorage
+            .removeItem(
+              finalizarPedidoKey
+            );
+
+
+          abrirConfirmacao(
+            rascunho
+          );
 
         }
-
-
-        localStorage.removeItem(
-          finalizarPedidoKey
-        );
-
-
-        abrirConfirmacao(
-          rascunho
-        );
-
-      }
-    );
+      );
 
 
     confirmationEditButton
@@ -3812,24 +4900,27 @@
       );
 
 
-    document.addEventListener(
-      'keydown',
-      event => {
+    document
+      .addEventListener(
+        'keydown',
+        event => {
 
-        if (
-          event.key ===
-            'Escape' &&
-          confirmationModal.classList.contains(
-            'is-open'
-          )
-        ) {
+          if (
+            event.key ===
+              'Escape' &&
+            confirmationModal
+              .classList
+              .contains(
+                'is-open'
+              )
+          ) {
 
-          fecharConfirmacao();
+            fecharConfirmacao();
+
+          }
 
         }
-
-      }
-    );
+      );
 
 
     confirmationConfirmButton
@@ -3846,16 +4937,19 @@
           }
 
 
-          confirmationConfirmButton.disabled =
-            true;
+          confirmationConfirmButton
+            .disabled =
+              true;
 
 
-          confirmationConfirmButton.textContent =
-            'Criando pedido...';
+          confirmationConfirmButton
+            .textContent =
+              'Criando pedido...';
 
 
-          confirmationMessage.textContent =
-            '';
+          confirmationMessage
+            .textContent =
+              '';
 
 
           try {
@@ -3880,14 +4974,17 @@
               );
 
 
-              localStorage.setItem(
-                finalizarPedidoKey,
-                '1'
-              );
+              localStorage
+                .setItem(
+                  finalizarPedidoKey,
+                  '1'
+                );
 
 
-              window.location.href =
-                'login.html';
+              window
+                .location
+                .href =
+                  'login.html';
 
 
               return;
@@ -3915,50 +5012,60 @@
               )}`;
 
 
-            localStorage.removeItem(
-              pedidoRascunhoKey
-            );
+            localStorage
+              .removeItem(
+                pedidoRascunhoKey
+              );
 
 
-            localStorage.removeItem(
-              finalizarPedidoKey
-            );
+            localStorage
+              .removeItem(
+                finalizarPedidoKey
+              );
 
 
             pedidoEmConfirmacao =
               null;
 
 
-            confirmationConfirmButton.textContent =
-              `Pedido #${resultado.pedidoId} criado`;
+            confirmationConfirmButton
+              .textContent =
+                `Pedido #${resultado.pedidoId} criado`;
 
 
-            window.location.href =
-              url;
+            window
+              .location
+              .href =
+                url;
 
           }
 
-          catch (erro) {
+          catch (
+            erro
+          ) {
 
             console.error(
               erro
             );
 
 
-            confirmationMessage.textContent =
-              (
-                erro?.message
-                  ? `Não foi possível criar o pedido: ${erro.message}`
-                  : 'Não foi possível criar o pedido. Tente novamente.'
-              );
+            confirmationMessage
+              .textContent =
+                (
+                  erro?.message
+                    ? `Não foi possível criar o pedido: ${erro.message}`
+                    : 'Não foi possível criar o pedido. Tente novamente.'
+                );
 
 
-            confirmationConfirmButton.disabled =
-              false;
+            confirmationConfirmButton
+              .disabled =
+                false;
 
 
-            confirmationConfirmButton.textContent =
-              'Tentar novamente';
+            confirmationConfirmButton
+              .textContent =
+                'Tentar novamente';
 
           }
 
@@ -3969,9 +5076,10 @@
     async function verificarRetornoFinalizacao() {
 
       const retorno =
-        localStorage.getItem(
-          finalizarPedidoKey
-        );
+        localStorage
+          .getItem(
+            finalizarPedidoKey
+          );
 
 
       if (
@@ -3994,7 +5102,9 @@
           .getSession();
 
 
-      if (!session) {
+      if (
+        !session
+      ) {
 
         return;
 
@@ -4005,11 +5115,14 @@
         carregarRascunhoPedido();
 
 
-      if (!rascunho) {
+      if (
+        !rascunho
+      ) {
 
-        localStorage.removeItem(
-          finalizarPedidoKey
-        );
+        localStorage
+          .removeItem(
+            finalizarPedidoKey
+          );
 
 
         return;
@@ -4023,11 +5136,14 @@
         );
 
 
-      if (!restaurado) {
+      if (
+        !restaurado
+      ) {
 
-        localStorage.removeItem(
-          finalizarPedidoKey
-        );
+        localStorage
+          .removeItem(
+            finalizarPedidoKey
+          );
 
 
         return;
@@ -4035,9 +5151,10 @@
       }
 
 
-      localStorage.removeItem(
-        finalizarPedidoKey
-      );
+      localStorage
+        .removeItem(
+          finalizarPedidoKey
+        );
 
 
       document
@@ -4057,9 +5174,10 @@
     async function atualizarMenuConta() {
 
       const accountLink =
-        document.getElementById(
-          'accountLink'
-        );
+        document
+          .getElementById(
+            'accountLink'
+          );
 
 
       if (
@@ -4085,23 +5203,27 @@
         session
       ) {
 
-        accountLink.textContent =
-          'Minha conta';
+        accountLink
+          .textContent =
+            'Minha conta';
 
 
-        accountLink.href =
-          'conta.html';
+        accountLink
+          .href =
+            'conta.html';
 
       }
 
       else {
 
-        accountLink.textContent =
-          'Entrar';
+        accountLink
+          .textContent =
+            'Entrar';
 
 
-        accountLink.href =
-          'login.html';
+        accountLink
+          .href =
+            'login.html';
 
       }
 
@@ -4123,9 +5245,10 @@
         ) => {
 
           const accountLink =
-            document.getElementById(
-              'accountLink'
-            );
+            document
+              .getElementById(
+                'accountLink'
+              );
 
 
           if (
@@ -4141,23 +5264,27 @@
             session
           ) {
 
-            accountLink.textContent =
-              'Minha conta';
+            accountLink
+              .textContent =
+                'Minha conta';
 
 
-            accountLink.href =
-              'conta.html';
+            accountLink
+              .href =
+                'conta.html';
 
           }
 
           else {
 
-            accountLink.textContent =
-              'Entrar';
+            accountLink
+              .textContent =
+                'Entrar';
 
 
-            accountLink.href =
-              'login.html';
+            accountLink
+              .href =
+                'login.html';
 
           }
 
