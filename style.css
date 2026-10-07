@@ -2377,3 +2377,29 @@ svg {
       22px;
   }
 }
+.pedido-cancelamento-contato .btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 13px 18px;
+
+  background: #39d66f;
+  color: #0b0f12;
+
+  border: none;
+  border-radius: 12px;
+
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.pedido-cancelamento-contato .btn-whatsapp:hover {
+  background: #4be27d;
+  color: #0b0f12;
+  transform: translateY(-1px);
+}
