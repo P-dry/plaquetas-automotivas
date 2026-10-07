@@ -79,7 +79,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
-
   <style>
 
     /* =========================
@@ -209,7 +208,6 @@
         scale(1.25);
     }
 
-
     /* =========================
        FRETE
     ========================== */
@@ -222,7 +220,6 @@
 
       color: #ffffff;
     }
-
 
     /* =========================
        SELEÇÃO DE PRODUTOS
@@ -316,7 +313,6 @@
         translateY(-2px);
     }
 
-
     /* =========================
        RESUMO
     ========================== */
@@ -366,7 +362,6 @@
       color: #ffffff;
     }
 
-
     /* =========================
        MESMOS DADOS
     ========================== */
@@ -387,7 +382,6 @@
       width: 18px;
       height: 18px;
     }
-
 
     /* =========================
        PERSONALIZAÇÃO MÚLTIPLA
@@ -455,7 +449,6 @@
       gap: 16px;
     }
 
-
     /* =========================
        PRÉVIAS
     ========================== */
@@ -500,7 +493,6 @@
       color: #ffffff;
     }
 
-
     /* =========================
        MOBILE
     ========================== */
@@ -531,7 +523,6 @@
 
     }
 
-
     /* =========================
        FORMATOS DAS PRÉVIAS
     ========================== */
@@ -547,7 +538,6 @@
       margin-right: auto;
     }
 
-
     /* Retrovisor e chaveiro:
        formato vertical */
 
@@ -559,7 +549,6 @@
       margin-left: auto;
       margin-right: auto;
     }
-
 
     /* =========================
        RETROVISOR
@@ -604,7 +593,6 @@
       display: none;
     }
 
-
     /* =========================
        CHAVEIRO
        1 furo superior central
@@ -639,14 +627,29 @@
       display: none;
     }
 
+    /* =========================
+       ASSINATURA + FUROS
+    ========================== */
+
+    .personalization-block .field-row {
+      grid-template-columns:
+        minmax(0, 2.4fr)
+        minmax(105px, 0.6fr);
+    }
+
+    @media (max-width: 560px) {
+
+      .personalization-block .field-row {
+        grid-template-columns: 1fr;
+      }
+
+    }
 
   </style>
 
 </head>
 
-
 <body>
-
 
   <!-- =========================
        MENU
@@ -677,7 +680,6 @@
         </span>
 
       </a>
-
 
       <nav class="nav">
 
@@ -714,9 +716,7 @@
 
   </header>
 
-
   <main>
-
 
     <!-- =========================
          HOME
@@ -744,7 +744,6 @@
             design exclusivo e acabamento pensado para cada projeto.
           </p>
 
-
           <div class="hero-actions">
 
             <a
@@ -762,7 +761,6 @@
             </a>
 
           </div>
-
 
           <div class="hero-points">
 
@@ -782,7 +780,6 @@
 
         </div>
 
-
         <div
           class="plaque-mockup"
           aria-label="Exemplo de plaqueta automotiva"
@@ -792,7 +789,6 @@
           <div class="hole h2"></div>
           <div class="hole h3"></div>
           <div class="hole h4"></div>
-
 
           <div class="plaque-content">
 
@@ -815,7 +811,6 @@
       </div>
 
     </section>
-
 
     <!-- =========================
          PRODUTOS
@@ -845,9 +840,7 @@
 
         </div>
 
-
         <div class="product-grid">
-
 
           <!-- =========================
                CARROSSEL
@@ -864,7 +857,6 @@
               ‹
             </button>
 
-
             <article
               id="productCard"
               class="product-card"
@@ -877,11 +869,9 @@
                 100 × 40 mm
               </div>
 
-
               <h3 id="cardProdutoNome">
                 Plaqueta de motor
               </h3>
-
 
               <p
                 id="cardProdutoDescricao"
@@ -890,7 +880,6 @@
                 Personalizada para aplicação no cofre do motor
                 ou em projetos automotivos.
               </p>
-
 
               <ul
                 id="cardProdutoCaracteristicas"
@@ -919,7 +908,6 @@
 
               </ul>
 
-
               <div class="price-row">
 
                 <span
@@ -938,11 +926,9 @@
 
               </div>
 
-
               <div class="shipping-free">
                 Frete grátis em todo o país
               </div>
-
 
               <button
                 id="cardProdutoPersonalizar"
@@ -954,7 +940,6 @@
 
             </article>
 
-
             <button
               id="proximoProduto"
               class="product-carousel-nav product-carousel-next"
@@ -963,7 +948,6 @@
             >
               ›
             </button>
-
 
             <div
               class="product-carousel-dots"
@@ -995,7 +979,6 @@
 
           </div>
 
-
           <!-- =========================
                COMO FUNCIONA
           ========================== -->
@@ -1007,7 +990,6 @@
             </h3>
 
             <div class="steps">
-
 
               <div class="step">
 
@@ -1028,7 +1010,6 @@
                 </div>
 
               </div>
-
 
               <div class="step">
 
@@ -1051,7 +1032,6 @@
 
               </div>
 
-
               <div class="step">
 
                 <span>
@@ -1071,7 +1051,6 @@
                 </div>
 
               </div>
-
 
               <div class="step">
 
@@ -1093,7 +1072,6 @@
 
               </div>
 
-
             </div>
 
           </div>
@@ -1103,7 +1081,6 @@
       </div>
 
     </section>
-
 
     <!-- =========================
          PERSONALIZAÇÃO
@@ -1132,19 +1109,16 @@
 
         </div>
 
-
         <form
           id="orderForm"
           class="multi-order-form"
         >
-
 
           <!-- =========================
                ESCOLHA DOS PRODUTOS
           ========================== -->
 
           <div class="product-selector">
-
 
             <label class="product-option">
 
@@ -1173,7 +1147,6 @@
 
             </label>
 
-
             <label class="product-option">
 
               <input
@@ -1199,7 +1172,6 @@
               </span>
 
             </label>
-
 
             <label class="product-option">
 
@@ -1227,9 +1199,7 @@
 
             </label>
 
-
           </div>
-
 
           <!-- =========================
                RESUMO
@@ -1255,7 +1225,6 @@
 
           </div>
 
-
           <!-- =========================
                MESMOS DADOS
           ========================== -->
@@ -1274,9 +1243,7 @@
 
           </label>
 
-
           <div class="multi-personalization-grid">
-
 
             <!-- =========================
                  CAMPOS
@@ -1288,7 +1255,6 @@
                 id="personalizationFields"
                 class="personalization-fields"
               ></div>
-
 
               <div class="field">
 
@@ -1305,12 +1271,10 @@
 
               </div>
 
-
               <div class="notice">
                 A foto do carro será enviada pelo WhatsApp
                 depois que você clicar em “Fazer pedido”.
               </div>
-
 
               <button
                 class="btn btn-whatsapp btn-full"
@@ -1318,7 +1282,6 @@
               >
                 Fazer pedido pelo WhatsApp
               </button>
-
 
               <a
                 id="paymentLink"
@@ -1331,7 +1294,6 @@
 
             </div>
 
-
             <!-- =========================
                  PRÉVIAS
             ========================== -->
@@ -1342,12 +1304,10 @@
                 PRÉVIA DO PEDIDO
               </span>
 
-
               <div
                 id="previewList"
                 class="preview-list"
               ></div>
-
 
               <p class="preview-note">
 
@@ -1360,7 +1320,6 @@
 
             </aside>
 
-
           </div>
 
         </form>
@@ -1369,9 +1328,7 @@
 
     </section>
 
-
   </main>
-
 
   <!-- =========================
        RODAPÉ
@@ -1393,13 +1350,11 @@
 
   </footer>
 
-
   <!-- =========================
        JAVASCRIPT
   ========================== -->
 
   <script>
-
 
     /* =========================
        PRODUTOS
@@ -1429,7 +1384,6 @@
 
       },
 
-
       'retrovisor-interno': {
 
         nome:
@@ -1451,7 +1405,6 @@
           true
 
       },
-
 
       'chaveiro-personalizado': {
 
@@ -1476,7 +1429,6 @@
       }
 
     };
-
 
     /* =========================
        CARROSSEL
@@ -1512,7 +1464,6 @@
           'R$ 89,90'
       },
 
-
       {
         valor:
           'retrovisor-interno',
@@ -1540,7 +1491,6 @@
         preco:
           'R$ 69,90'
       },
-
 
       {
         valor:
@@ -1572,80 +1522,66 @@
 
     ];
 
-
     let produtoCardAtual =
       0;
 
-
     let produtoCardAnimando =
       false;
-
 
     const productCard =
       document.getElementById(
         'productCard'
       );
 
-
     const cardProdutoMedida =
       document.getElementById(
         'cardProdutoMedida'
       );
-
 
     const cardProdutoNome =
       document.getElementById(
         'cardProdutoNome'
       );
 
-
     const cardProdutoDescricao =
       document.getElementById(
         'cardProdutoDescricao'
       );
-
 
     const cardProdutoCaracteristicas =
       document.getElementById(
         'cardProdutoCaracteristicas'
       );
 
-
     const cardProdutoPrecoLabel =
       document.getElementById(
         'cardProdutoPrecoLabel'
       );
-
 
     const cardProdutoPreco =
       document.getElementById(
         'cardProdutoPreco'
       );
 
-
     const produtoAnterior =
       document.getElementById(
         'produtoAnterior'
       );
-
 
     const proximoProduto =
       document.getElementById(
         'proximoProduto'
       );
 
-
     const cardProdutoPersonalizar =
       document.getElementById(
         'cardProdutoPersonalizar'
       );
 
-
     const produtoDots =
       document.querySelectorAll(
         '.product-carousel-dot'
       );
-
 
     function renderizarProdutoCard() {
 
@@ -1654,26 +1590,20 @@
           produtoCardAtual
         ];
 
-
       cardProdutoMedida.textContent =
         item.medida;
-
 
       cardProdutoNome.textContent =
         item.nome;
 
-
       cardProdutoDescricao.textContent =
         item.descricao;
-
 
       cardProdutoPrecoLabel.textContent =
         item.precoLabel;
 
-
       cardProdutoPreco.textContent =
         item.preco;
-
 
       cardProdutoCaracteristicas.innerHTML =
         item.caracteristicas
@@ -1682,7 +1612,6 @@
               `<li>${caracteristica}</li>`
           )
           .join('');
-
 
       produtoDots.forEach(
         (
@@ -1700,7 +1629,6 @@
 
     }
 
-
     function trocarProdutoCard(
       novoIndice,
       direcao
@@ -1715,27 +1643,22 @@
 
       }
 
-
       produtoCardAnimando =
         true;
-
 
       const classeSaida =
         direcao > 0
           ? 'is-leaving-next'
           : 'is-leaving-prev';
 
-
       const classeEntrada =
         direcao > 0
           ? 'is-entering-next'
           : 'is-entering-prev';
 
-
       productCard.classList.add(
         classeSaida
       );
-
 
       window.setTimeout(
         () => {
@@ -1743,22 +1666,17 @@
           produtoCardAtual =
             novoIndice;
 
-
           renderizarProdutoCard();
-
 
           productCard.classList.remove(
             classeSaida
           );
 
-
           productCard.classList.add(
             classeEntrada
           );
 
-
           productCard.offsetHeight;
-
 
           window.requestAnimationFrame(
             () => {
@@ -1766,7 +1684,6 @@
               productCard.classList.remove(
                 classeEntrada
               );
-
 
               window.setTimeout(
                 () => {
@@ -1787,7 +1704,6 @@
 
     }
 
-
     function alterarProdutoCard(
       direcao
     ) {
@@ -1795,7 +1711,6 @@
       let novoIndice =
         produtoCardAtual +
         direcao;
-
 
       if (
         novoIndice < 0
@@ -1805,7 +1720,6 @@
           produtosCard.length - 1;
 
       }
-
 
       if (
         novoIndice >=
@@ -1817,14 +1731,12 @@
 
       }
 
-
       trocarProdutoCard(
         novoIndice,
         direcao
       );
 
     }
-
 
     produtoAnterior.addEventListener(
       'click',
@@ -1837,7 +1749,6 @@
       }
     );
 
-
     proximoProduto.addEventListener(
       'click',
       () => {
@@ -1848,7 +1759,6 @@
 
       }
     );
-
 
     produtoDots.forEach(
       dot => {
@@ -1862,13 +1772,11 @@
                 dot.dataset.produtoIndex
               );
 
-
             const direcao =
               novoIndice >
               produtoCardAtual
                 ? 1
                 : -1;
-
 
             trocarProdutoCard(
               novoIndice,
@@ -1881,9 +1789,7 @@
       }
     );
 
-
     renderizarProdutoCard();
-
 
     /* =========================
        PEDIDO
@@ -1894,46 +1800,38 @@
         'orderForm'
       );
 
-
     const obs =
       document.getElementById(
         'obs'
       );
-
 
     const personalizationFields =
       document.getElementById(
         'personalizationFields'
       );
 
-
     const previewList =
       document.getElementById(
         'previewList'
       );
-
 
     const orderTotal =
       document.getElementById(
         'orderTotal'
       );
 
-
     const usarMesmosDados =
       document.getElementById(
         'usarMesmosDados'
       );
-
 
     const productCheckboxes =
       document.querySelectorAll(
         'input[name="produtos"]'
       );
 
-
     const whatsappNumber =
       '5511911801381';
-
 
     function moeda(
       valor
@@ -1949,7 +1847,6 @@
         );
 
     }
-
 
     function produtosSelecionados() {
 
@@ -1968,7 +1865,6 @@
 
     }
 
-
     function calcularTotal(
       selecionados
     ) {
@@ -1978,18 +1874,15 @@
           'plaqueta-motor'
         );
 
-
       const temRetrovisor =
         selecionados.includes(
           'retrovisor-interno'
         );
 
-
       const temChaveiro =
         selecionados.includes(
           'chaveiro-personalizado'
         );
-
 
       if (
         temPlaqueta &&
@@ -2000,7 +1893,6 @@
         return 139.70;
 
       }
-
 
       if (
         temPlaqueta &&
@@ -2013,7 +1905,6 @@
         return 114.80;
 
       }
-
 
       return selecionados
         .reduce(
@@ -2033,7 +1924,6 @@
 
     }
 
-
     function criarCamposProduto(
       produtoId,
       index
@@ -2043,7 +1933,6 @@
         produtos[
           produtoId
         ];
-
 
       const gravacao =
         produto.gravacaoVerso
@@ -2074,7 +1963,6 @@
           `
           : '';
 
-
       return `
 
         <div
@@ -2096,7 +1984,6 @@
             </span>
 
           </div>
-
 
           <div
             class="personalization-block-fields"
@@ -2120,9 +2007,7 @@
 
             </div>
 
-
             <div class="field-row">
-
 
               <div class="field">
 
@@ -2136,12 +2021,11 @@
                   id="${produtoId}-ano"
                   data-field="ano"
                   type="text"
-                  placeholder="Ex.: 1991, GLX, apelido do carro, placa ou frase curta"
+                  placeholder="Ex.: 1991, GLX, apelido, placa ou frase"
                   required
                 >
 
               </div>
-
 
               <div class="field">
 
@@ -2168,9 +2052,7 @@
 
               </div>
 
-
             </div>
-
 
             ${gravacao}
 
@@ -2181,7 +2063,6 @@
       `;
 
     }
-
 
     function holesHtml(
       produtoId,
@@ -2195,7 +2076,6 @@
         return '';
 
       }
-
 
       if (
         produtoId ===
@@ -2213,7 +2093,6 @@
 
       }
 
-
       if (
         produtoId ===
         'retrovisor-interno'
@@ -2228,7 +2107,6 @@
 
       }
 
-
       return `
 
         <div class="mini-hole mh1"></div>
@@ -2236,7 +2114,6 @@
       `;
 
     }
-
 
     function criarPreview(
       produtoId
@@ -2247,12 +2124,10 @@
           produtoId
         ];
 
-
       const bloco =
         document.querySelector(
           `.personalization-block[data-product="${produtoId}"]`
         );
-
 
       const veiculo =
         bloco
@@ -2264,7 +2139,6 @@
           ||
           'Seu veículo';
 
-
       const ano =
         bloco
           ?.querySelector(
@@ -2275,7 +2149,6 @@
           ||
           'Assinatura';
 
-
       const furos =
         bloco
           ?.querySelector(
@@ -2285,10 +2158,8 @@
           ||
           'Sim';
 
-
       let classes =
         'mini-plaque';
-
 
       if (
         produto.tipo ===
@@ -2305,7 +2176,6 @@
 
       }
 
-
       if (
         produto.tipo ===
         'retrovisor'
@@ -2316,7 +2186,6 @@
 
       }
 
-
       if (
         produto.tipo ===
         'keychain'
@@ -2326,7 +2195,6 @@
           ' keychain';
 
       }
-
 
       return `
 
@@ -2349,7 +2217,6 @@
 
           </div>
 
-
           <div class="${classes}">
 
             ${holesHtml(
@@ -2357,16 +2224,13 @@
               furos
             )}
 
-
             <div class="mini-title">
               ${veiculo}
             </div>
 
-
             <div class="mini-car">
               ${produto.visual}
             </div>
-
 
             <div class="mini-sub">
               ${ano}
@@ -2380,12 +2244,10 @@
 
     }
 
-
     function atualizarPreviews() {
 
       const selecionados =
         produtosSelecionados();
-
 
       previewList.innerHTML =
         selecionados
@@ -2399,7 +2261,6 @@
 
     }
 
-
     function sincronizarDados(
       origem
     ) {
@@ -2412,10 +2273,8 @@
 
       }
 
-
       const field =
         origem.dataset.field;
-
 
       if (
         field !== 'veiculo' &&
@@ -2425,7 +2284,6 @@
         return;
 
       }
-
 
       document
         .querySelectorAll(
@@ -2447,7 +2305,6 @@
         );
 
     }
-
 
     function ativarEventosCampos() {
 
@@ -2471,7 +2328,6 @@
               }
             );
 
-
             campo.addEventListener(
               'change',
               () => {
@@ -2490,12 +2346,10 @@
 
     }
 
-
     function atualizarFormulario() {
 
       const selecionados =
         produtosSelecionados();
-
 
       if (
         selecionados.length === 0
@@ -2506,10 +2360,8 @@
             0
           ];
 
-
         primeiro.checked =
           true;
-
 
         selecionados.push(
           primeiro.value
@@ -2517,10 +2369,8 @@
 
       }
 
-
       const valoresAtuais =
         {};
-
 
       document
         .querySelectorAll(
@@ -2532,11 +2382,9 @@
             const produtoId =
               bloco.dataset.product;
 
-
             valoresAtuais[
               produtoId
             ] = {};
-
 
             bloco
               .querySelectorAll(
@@ -2558,7 +2406,6 @@
           }
         );
 
-
       personalizationFields.innerHTML =
         selecionados
           .map(
@@ -2573,7 +2420,6 @@
           )
           .join('');
 
-
       selecionados.forEach(
         produtoId => {
 
@@ -2582,7 +2428,6 @@
               produtoId
             ];
 
-
           if (
             !valores
           ) {
@@ -2590,7 +2435,6 @@
             return;
 
           }
-
 
           Object
             .entries(
@@ -2610,7 +2454,6 @@
                       `.personalization-block[data-product="${produtoId}"] [data-field="${field}"]`
                     );
 
-
                 if (
                   input
                 ) {
@@ -2626,25 +2469,21 @@
         }
       );
 
-
       const total =
         calcularTotal(
           selecionados
         );
-
 
       orderTotal.textContent =
         moeda(
           total
         );
 
-
       ativarEventosCampos();
 
       atualizarPreviews();
 
     }
-
 
     productCheckboxes
       .forEach(
@@ -2657,7 +2496,6 @@
 
         }
       );
-
 
     usarMesmosDados
       .addEventListener(
@@ -2674,20 +2512,17 @@
                   '.personalization-block'
                 );
 
-
             const veiculo =
               primeiro
                 ?.querySelector(
                   '[data-field="veiculo"]'
                 );
 
-
             const ano =
               primeiro
                 ?.querySelector(
                   '[data-field="ano"]'
                 );
-
 
             if (
               veiculo
@@ -2698,7 +2533,6 @@
               );
 
             }
-
 
             if (
               ano
@@ -2712,12 +2546,10 @@
 
           }
 
-
           atualizarPreviews();
 
         }
       );
-
 
     cardProdutoPersonalizar.addEventListener(
       'click',
@@ -2727,7 +2559,6 @@
           produtosCard[
             produtoCardAtual
           ];
-
 
         productCheckboxes
           .forEach(
@@ -2740,9 +2571,7 @@
             }
           );
 
-
         atualizarFormulario();
-
 
         document
           .getElementById(
@@ -2756,9 +2585,7 @@
       }
     );
 
-
     atualizarFormulario();
-
 
     /* =========================
        WHATSAPP
@@ -2770,10 +2597,8 @@
 
         event.preventDefault();
 
-
         const selecionados =
           produtosSelecionados();
-
 
         if (
           selecionados.length === 0
@@ -2783,12 +2608,10 @@
 
         }
 
-
         const total =
           calcularTotal(
             selecionados
           );
-
 
         const message = [
 
@@ -2804,7 +2627,6 @@
 
         ];
 
-
         selecionados.forEach(
           (
             produtoId,
@@ -2816,12 +2638,10 @@
                 produtoId
               ];
 
-
             const bloco =
               document.querySelector(
                 `.personalization-block[data-product="${produtoId}"]`
               );
-
 
             const veiculo =
               bloco
@@ -2831,7 +2651,6 @@
                 .value
                 .trim();
 
-
             const ano =
               bloco
                 .querySelector(
@@ -2840,7 +2659,6 @@
                 .value
                 .trim();
 
-
             const furos =
               bloco
                 .querySelector(
@@ -2848,13 +2666,11 @@
                 )
                 .value;
 
-
             const verso =
               bloco
                 .querySelector(
                   '[data-field="verso"]'
                 );
-
 
             message.push(
 
@@ -2870,7 +2686,6 @@
 
             );
 
-
             if (
               verso &&
               verso.value.trim()
@@ -2882,14 +2697,12 @@
 
             }
 
-
             message.push(
               ''
             );
 
           }
         );
-
 
         message.push(
 
@@ -2901,19 +2714,16 @@
 
         );
 
-
         const url =
           `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             message.join('\n')
           )}`;
-
 
         window.location.href =
           url;
 
       }
     );
-
 
     /* =========================
        CONTA
@@ -2926,7 +2736,6 @@
           'accountLink'
         );
 
-
       if (
         !accountLink
       ) {
@@ -2934,7 +2743,6 @@
         return;
 
       }
-
 
       const {
         data: {
@@ -2944,7 +2752,6 @@
         await supabaseClient
           .auth
           .getSession();
-
 
       if (
         session
@@ -2968,9 +2775,7 @@
 
     }
 
-
     atualizarMenuConta();
-
 
     supabaseClient
       .auth
@@ -2985,7 +2790,6 @@
               'accountLink'
             );
 
-
           if (
             !accountLink
           ) {
@@ -2993,7 +2797,6 @@
             return;
 
           }
-
 
           if (
             session
@@ -3019,7 +2822,6 @@
       );
 
   </script>
-
 
 </body>
 
