@@ -50,216 +50,602 @@
 
   <script>
 
-    const pedidosLista = document.getElementById('pedidosLista');
-    const pedidosMessage = document.getElementById('pedidosMessage');
+    const pedidosLista =
+      document.getElementById(
+        'pedidosLista'
+      );
+
+    const pedidosMessage =
+      document.getElementById(
+        'pedidosMessage'
+      );
 
 
     function formatarValor(valor) {
-      return Number(valor).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL'
-      });
+
+      return Number(valor)
+        .toLocaleString(
+          'pt-BR',
+          {
+            style: 'currency',
+            currency: 'BRL'
+          }
+        );
+
     }
 
 
     function formatarData(data) {
-      return new Date(data).toLocaleDateString('pt-BR');
+
+      return new Date(data)
+        .toLocaleDateString(
+          'pt-BR'
+        );
+
     }
 
 
     function formatarStatus(status) {
+
       const nomes = {
-        aguardando_pagamento: 'Aguardando pagamento',
-        pago: 'Pago',
-        em_producao: 'Em produção',
-        enviado: 'Enviado',
-        concluido: 'Concluído',
-        cancelado: 'Cancelado'
+
+        pagamento_pendente:
+          'Pagamento pendente',
+
+        aguardando_pagamento:
+          'Pagamento pendente',
+
+        pago:
+          'Pago',
+
+        em_producao:
+          'Em produção',
+
+        enviado:
+          'Enviado',
+
+        concluido:
+          'Concluído',
+
+        cancelado:
+          'Cancelado'
+
       };
 
-      return nomes[status] || status;
+
+      return nomes[status] ||
+        status;
+
+    }
+
+
+    function escaparHtml(valor) {
+
+      return String(valor ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+    }
+
+
+    function lerDetalhesVeiculo(texto) {
+
+      if (!texto) {
+        return null;
+      }
+
+
+      const dados = {};
+
+
+      texto
+        .split('|')
+        .map(
+          parte =>
+            parte.trim()
+        )
+        .forEach(parte => {
+
+          const indice =
+            parte.indexOf(':');
+
+
+          if (indice === -1) {
+            return;
+          }
+
+
+          const chave =
+            parte
+              .slice(
+                0,
+                indice
+              )
+              .trim()
+              .toLowerCase();
+
+
+          const valor =
+            parte
+              .slice(
+                indice + 1
+              )
+              .trim();
+
+
+          dados[chave] =
+            valor;
+
+        });
+
+
+      const marca =
+        dados['marca'];
+
+      const modelo =
+        dados['modelo'];
+
+      const assinatura =
+        dados['assinatura'] ||
+        dados['ano/período'] ||
+        dados['ano / período'];
+
+      const furos =
+        dados['furos'];
+
+
+      if (
+        !marca &&
+        !modelo &&
+        !assinatura &&
+        !furos
+      ) {
+
+        return null;
+
+      }
+
+
+      return {
+        marca,
+        modelo,
+        assinatura,
+        furos
+      };
+
+    }
+
+
+    function montarDetalhesItem(item) {
+
+      if (
+        !item.detalhes_personalizacao
+      ) {
+
+        return '';
+
+      }
+
+
+      const veiculo =
+        lerDetalhesVeiculo(
+          item.detalhes_personalizacao
+        );
+
+
+      if (!veiculo) {
+
+        return `
+
+          <div class="detalhe-personalizacao">
+
+            <p>
+
+              <strong>
+                Personalização:
+              </strong>
+
+              ${escaparHtml(
+                item.detalhes_personalizacao
+              )}
+
+            </p>
+
+          </div>
+
+        `;
+
+      }
+
+
+      return `
+
+        <div class="detalhe-personalizacao">
+
+          <p>
+
+            <strong>
+              Marca:
+            </strong>
+
+            ${escaparHtml(
+              veiculo.marca || '-'
+            )}
+
+          </p>
+
+          <p>
+
+            <strong>
+              Modelo:
+            </strong>
+
+            ${escaparHtml(
+              veiculo.modelo || '-'
+            )}
+
+          </p>
+
+          <p>
+
+            <strong>
+              Assinatura:
+            </strong>
+
+            ${escaparHtml(
+              veiculo.assinatura || '-'
+            )}
+
+          </p>
+
+          <p>
+
+            <strong>
+              Furos:
+            </strong>
+
+            ${escaparHtml(
+              veiculo.furos || '-'
+            )}
+
+          </p>
+
+        </div>
+
+      `;
+
     }
 
 
     async function carregarPedidos() {
 
-      const {
-        data: { session },
-        error: sessionError
-      } = await supabaseClient.auth.getSession();
+      pedidosMessage.textContent =
+        '';
 
-      if (sessionError || !session) {
-        window.location.href = 'login.html';
+
+      const {
+        data: {
+          session
+        },
+        error: sessionError
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
+
+      if (
+        sessionError ||
+        !session
+      ) {
+
+        window.location.href =
+          'login.html';
+
         return;
+
       }
+
 
       const {
         data: pedidos,
         error
-      } = await supabaseClient
-        .from('orders')
-        .select(`
-          id,
-          created_at,
-          status,
-          valor_total,
-          observacoes,
-          order_items (
+      } =
+        await supabaseClient
+          .from('orders')
+          .select(`
             id,
-            produto,
-            quantidade,
-            valor_unitario,
-            detalhes_personalizacao
+            created_at,
+            status,
+            valor_total,
+            observacoes,
+            order_items (
+              id,
+              produto,
+              quantidade,
+              valor_unitario,
+              detalhes_personalizacao
+            )
+          `)
+          .eq(
+            'user_id',
+            session.user.id
           )
-        `)
-        .eq('user_id', session.user.id)
-        .order('created_at', { ascending: false });
+          .order(
+            'created_at',
+            {
+              ascending: false
+            }
+          );
+
 
       if (error) {
-        console.error(error);
-        pedidosLista.innerHTML = '';
-        pedidosMessage.textContent = 'Erro ao carregar os pedidos.';
+
+        console.error(
+          error
+        );
+
+        pedidosLista.innerHTML =
+          '';
+
+        pedidosMessage.textContent =
+          'Erro ao carregar os pedidos.';
+
         return;
+
       }
 
-      if (!pedidos || pedidos.length === 0) {
-        pedidosLista.innerHTML = '<p>Você ainda não possui pedidos.</p>';
+
+      if (
+        !pedidos ||
+        pedidos.length === 0
+      ) {
+
+        pedidosLista.innerHTML =
+          '<p>Você ainda não possui pedidos.</p>';
+
         return;
+
       }
 
-      pedidosLista.innerHTML = pedidos.map(pedido => {
 
-        const itens = pedido.order_items || [];
+      pedidosLista.innerHTML =
+        pedidos
+          .map(pedido => {
 
-        const itensHtml = itens.length > 0
-          ? itens.map(item => `
-              <div class="pedido-item">
-                <strong>${item.produto}</strong>
+            const itens =
+              pedido.order_items ||
+              [];
+
+
+            const itensHtml =
+              itens.length > 0
+
+                ? itens
+                    .map(item => `
+
+                      <div class="pedido-item">
+
+                        <strong>
+                          ${escaparHtml(
+                            item.produto
+                          )}
+                        </strong>
+
+                        <p>
+
+                          Quantidade:
+                          ${escaparHtml(
+                            item.quantidade
+                          )}
+
+                        </p>
+
+                        <p>
+
+                          Valor unitário:
+                          ${formatarValor(
+                            item.valor_unitario
+                          )}
+
+                        </p>
+
+                        ${montarDetalhesItem(
+                          item
+                        )}
+
+                      </div>
+
+                    `)
+                    .join('')
+
+                : `
+                    <p>
+                      Nenhum item cadastrado neste pedido.
+                    </p>
+                  `;
+
+
+            const podeCancelar =
+              pedido.status ===
+                'pagamento_pendente' ||
+
+              pedido.status ===
+                'aguardando_pagamento' ||
+
+              pedido.status ===
+                'pago';
+
+
+            return `
+
+              <div class="pedido-card">
+
+                <h2>
+                  Pedido #${pedido.id}
+                </h2>
 
                 <p>
-                  Quantidade: ${item.quantidade}
+
+                  <strong>
+                    Data:
+                  </strong>
+
+                  ${formatarData(
+                    pedido.created_at
+                  )}
+
                 </p>
 
                 <p>
-                  Valor unitário:
-                  ${formatarValor(item.valor_unitario)}
+
+                  <strong>
+                    Status:
+                  </strong>
+
+                  ${formatarStatus(
+                    pedido.status
+                  )}
+
+                </p>
+
+                <p>
+
+                  <strong>
+                    Valor total:
+                  </strong>
+
+                  ${formatarValor(
+                    pedido.valor_total
+                  )}
+
                 </p>
 
                 ${
-                  item.detalhes_personalizacao
+                  pedido.observacoes
+
                     ? `
+
                       <p>
-                        Personalização:
-                        ${item.detalhes_personalizacao}
+
+                        <strong>
+                          Observações:
+                        </strong>
+
+                        ${escaparHtml(
+                          pedido.observacoes
+                        )}
+
                       </p>
+
                     `
+
                     : ''
                 }
+
+
+                <h3>
+                  Itens do pedido
+                </h3>
+
+                ${itensHtml}
+
+
+                ${
+                  podeCancelar
+
+                    ? `
+
+                      <button
+                        type="button"
+                        onclick="cancelarPedido(${pedido.id})"
+                      >
+                        Cancelar pedido
+                      </button>
+
+                    `
+
+                    : ''
+                }
+
               </div>
-            `).join('')
-          : '<p>Nenhum item cadastrado neste pedido.</p>';
 
-        const podeCancelar =
-          pedido.status === 'aguardando_pagamento' ||
-          pedido.status === 'pago';
+            `;
 
-        return `
-          <div class="pedido-card">
+          })
+          .join('');
 
-            <h2>
-              Pedido #${pedido.id}
-            </h2>
-
-            <p>
-              <strong>Data:</strong>
-              ${formatarData(pedido.created_at)}
-            </p>
-
-            <p>
-              <strong>Status:</strong>
-              ${formatarStatus(pedido.status)}
-            </p>
-
-            <p>
-              <strong>Valor total:</strong>
-              ${formatarValor(pedido.valor_total)}
-            </p>
-
-            ${
-              pedido.observacoes
-                ? `
-                  <p>
-                    <strong>Observações:</strong>
-                    ${pedido.observacoes}
-                  </p>
-                `
-                : ''
-            }
-
-            <h3>Itens do pedido</h3>
-
-            ${itensHtml}
-
-            ${
-              podeCancelar
-                ? `
-                  <button
-                    type="button"
-                    onclick="cancelarPedido(${pedido.id})"
-                  >
-                    Cancelar pedido
-                  </button>
-                `
-                : ''
-            }
-
-          </div>
-        `;
-      }).join('');
     }
 
 
-    async function cancelarPedido(pedidoId) {
+    async function cancelarPedido(
+      pedidoId
+    ) {
 
-      const confirmar = confirm(
-        `Deseja realmente cancelar o pedido #${pedidoId}?`
-      );
+      const confirmar =
+        confirm(
+          `Deseja realmente cancelar o pedido #${pedidoId}?`
+        );
+
 
       if (!confirmar) {
         return;
       }
 
+
       pedidosMessage.textContent =
         'Cancelando pedido...';
+
 
       const {
         data,
         error
-      } = await supabaseClient.rpc(
-        'cancelar_meu_pedido',
-        {
-          p_order_id: pedidoId
-        }
-      );
+      } =
+        await supabaseClient
+          .rpc(
+            'cancelar_meu_pedido',
+            {
+              p_order_id:
+                pedidoId
+            }
+          );
+
 
       if (error) {
-        console.error(error);
+
+        console.error(
+          error
+        );
+
         pedidosMessage.textContent =
           'Erro ao cancelar o pedido.';
+
         return;
+
       }
 
+
       if (!data) {
+
         pedidosMessage.textContent =
           'Este pedido não pode mais ser cancelado.';
+
         await carregarPedidos();
+
         return;
+
       }
+
 
       pedidosMessage.textContent =
         `Pedido #${pedidoId} cancelado com sucesso.`;
 
+
       await carregarPedidos();
+
     }
 
 
