@@ -26,9 +26,11 @@
       <p id="mensagem"></p>
 
       <p class="admin-voltar">
+
         <a href="admin-pedidos.html">
           Voltar para administração
         </a>
+
       </p>
 
     </section>
@@ -39,10 +41,14 @@
   <script>
 
     const conteudoPedido =
-      document.getElementById('conteudoPedido');
+      document.getElementById(
+        'conteudoPedido'
+      );
 
     const mensagem =
-      document.getElementById('mensagem');
+      document.getElementById(
+        'mensagem'
+      );
 
     const params =
       new URLSearchParams(
@@ -165,8 +171,10 @@
       const modelo =
         dados['modelo'];
 
-      const ano =
-        dados['ano/período'];
+      const assinatura =
+        dados['assinatura'] ||
+        dados['ano/período'] ||
+        dados['ano / período'];
 
       const furos =
         dados['furos'];
@@ -175,7 +183,7 @@
       if (
         !marca &&
         !modelo &&
-        !ano &&
+        !assinatura &&
         !furos
       ) {
 
@@ -187,7 +195,7 @@
       return {
         marca,
         modelo,
-        ano,
+        assinatura,
         furos
       };
 
@@ -239,23 +247,43 @@
           </strong>
 
           <p>
-            <strong>Marca:</strong>
+
+            <strong>
+              Marca:
+            </strong>
+
             ${veiculo.marca || '-'}
+
           </p>
 
           <p>
-            <strong>Modelo:</strong>
+
+            <strong>
+              Modelo:
+            </strong>
+
             ${veiculo.modelo || '-'}
+
           </p>
 
           <p>
-            <strong>Ano / período:</strong>
-            ${veiculo.ano || '-'}
+
+            <strong>
+              Assinatura:
+            </strong>
+
+            ${veiculo.assinatura || '-'}
+
           </p>
 
           <p>
-            <strong>Furos:</strong>
+
+            <strong>
+              Furos:
+            </strong>
+
             ${veiculo.furos || '-'}
+
           </p>
 
         </div>
@@ -268,7 +296,9 @@
     async function verificarAdmin() {
 
       const {
-        data: { session }
+        data: {
+          session
+        }
       } =
         await supabaseClient
           .auth
@@ -481,35 +511,44 @@
           ? `
 
             <p>
+
               ${endereco.rua || ''},
               ${endereco.numero || ''}
+
               ${
                 endereco.complemento
                   ? ' - ' +
                     endereco.complemento
                   : ''
               }
+
             </p>
 
             <p>
+
               ${endereco.bairro || ''}
+
               ${
                 endereco.cidade
                   ? ' - ' +
                     endereco.cidade
                   : ''
               }
+
               ${
                 endereco.estado
                   ? '/' +
                     endereco.estado
                   : ''
               }
+
             </p>
 
             <p>
+
               CEP:
               ${endereco.cep || ''}
+
             </p>
 
           `
@@ -544,7 +583,9 @@
 
           <section class="detalhe-card">
 
-            <h2>Resumo</h2>
+            <h2>
+              Resumo
+            </h2>
 
             <label for="statusPedido">
               Status
@@ -553,15 +594,19 @@
             <select id="statusPedido">
 
               <option
-                value="aguardando_pagamento"
+                value="pagamento_pendente"
                 ${
-                  pedido.status ===
-                  'aguardando_pagamento'
+                  (
+                    pedido.status ===
+                      'pagamento_pendente' ||
+                    pedido.status ===
+                      'aguardando_pagamento'
+                  )
                     ? 'selected'
                     : ''
                 }
               >
-                Aguardando pagamento
+                Pagamento pendente
               </option>
 
               <option
@@ -631,21 +676,38 @@
 
           <section class="detalhe-card">
 
-            <h2>Cliente</h2>
+            <h2>
+              Cliente
+            </h2>
 
             <p>
-              <strong>Nome:</strong>
+
+              <strong>
+                Nome:
+              </strong>
+
               ${cliente?.nome_completo || '-'}
+
             </p>
 
             <p>
-              <strong>E-mail:</strong>
+
+              <strong>
+                E-mail:
+              </strong>
+
               ${cliente?.email || '-'}
+
             </p>
 
             <p>
-              <strong>Telefone:</strong>
+
+              <strong>
+                Telefone:
+              </strong>
+
               ${cliente?.telefone || '-'}
+
             </p>
 
             ${
@@ -674,7 +736,9 @@
 
           <section class="detalhe-card">
 
-            <h2>Endereço</h2>
+            <h2>
+              Endereço
+            </h2>
 
             ${enderecoHtml}
 
@@ -683,7 +747,9 @@
 
           <section class="detalhe-card detalhe-card-largo">
 
-            <h2>Itens do pedido</h2>
+            <h2>
+              Itens do pedido
+            </h2>
 
             ${
               itensHtml ||
