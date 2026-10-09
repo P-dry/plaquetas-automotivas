@@ -1,76 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
   />
-
   <title>
     ÍMALLOY | Automotive Personalisation
   </title>
-
   <link
     rel="icon"
     type="image/png"
     href="assets/favicon.png"
   />
-
   <meta
     name="description"
     content="ÍMALLOY — acessórios automotivos personalizados em aço inox, com gravação a laser, design exclusivo e identidade para cada projeto."
   />
-
   <link
     rel="canonical"
     href="https://imalloy.com.br/"
   />
-
   <meta
     property="og:type"
     content="website"
   />
-
   <meta
     property="og:site_name"
     content="ÍMALLOY"
   />
-
   <meta
     property="og:title"
     content="ÍMALLOY | Automotive Personalisation"
   />
-
   <meta
     property="og:description"
     content="Acessórios automotivos personalizados em aço inox, com gravação a laser, design exclusivo e identidade para cada projeto."
   />
-
   <meta
     property="og:url"
     content="https://imalloy.com.br/"
   />
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
   >
-
   <link
     rel="preconnect"
     href="https://fonts.gstatic.com"
     crossorigin
   >
-
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   >
-
   <link
     rel="stylesheet"
     href="style.css"
@@ -79,13 +63,11 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
-
   <style>
 
     .product-carousel {
       position: relative;
     }
-
 
     .product-card {
       transition:
@@ -97,7 +79,6 @@
         transform;
     }
 
-
     .product-card.is-leaving-next {
       opacity: 0;
 
@@ -105,14 +86,12 @@
         translateX(-6px);
     }
 
-
     .product-card.is-leaving-prev {
       opacity: 0;
 
       transform:
         translateX(6px);
     }
-
 
     .product-card.is-entering-next {
       opacity: 0;
@@ -123,7 +102,6 @@
       transition: none;
     }
 
-
     .product-card.is-entering-prev {
       opacity: 0;
 
@@ -132,7 +110,6 @@
 
       transition: none;
     }
-
 
     .product-carousel-nav {
       position: absolute;
@@ -177,7 +154,6 @@
         border-color 0.2s ease;
     }
 
-
     .product-carousel-nav:hover {
       background:
         #20262e;
@@ -186,25 +162,21 @@
         rgba(255, 255, 255, 0.28);
     }
 
-
     .product-carousel-nav:active {
       transform:
         translateY(-50%)
         scale(0.94);
     }
 
-
     .product-carousel-prev {
       left:
         -21px;
     }
 
-
     .product-carousel-next {
       right:
         -21px;
     }
-
 
     .product-carousel-dots {
       display:
@@ -222,7 +194,6 @@
       margin-top:
         18px;
     }
-
 
     .product-carousel-dot {
       width:
@@ -251,7 +222,6 @@
         background 0.2s ease;
     }
 
-
     .product-carousel-dot.active {
       background:
         #fff;
@@ -259,7 +229,6 @@
       transform:
         scale(1.25);
     }
-
 
     .shipping-free {
       margin-top:
@@ -275,7 +244,6 @@
         #ffffff;
     }
 
-
     .multi-order-form {
       display:
         grid;
@@ -283,7 +251,6 @@
       gap:
         26px;
     }
-
 
     .product-selector {
       display:
@@ -299,7 +266,6 @@
         14px;
     }
 
-
     .product-option {
       position:
         relative;
@@ -311,7 +277,6 @@
         pointer;
     }
 
-
     .product-option input {
       position:
         absolute;
@@ -322,7 +287,6 @@
       pointer-events:
         none;
     }
-
 
     .product-option-content {
       display:
@@ -356,7 +320,6 @@
         transform 0.18s ease;
     }
 
-
     .product-option-content strong {
       font-size:
         16px;
@@ -365,12 +328,10 @@
         #ffffff;
     }
 
-
     .product-option-content small {
       color:
         var(--muted);
     }
-
 
     .product-option-content b {
       margin-top:
@@ -383,7 +344,6 @@
         #ffffff;
     }
 
-
     .product-option input:checked
     + .product-option-content {
       border-color:
@@ -395,7 +355,6 @@
       transform:
         translateY(-2px);
     }
-
 
     .order-summary {
       display:
@@ -424,7 +383,6 @@
         #12161b;
     }
 
-
     .order-summary > div {
       display:
         grid;
@@ -433,7 +391,6 @@
         2px;
     }
 
-
     .order-summary span {
       font-size:
         13px;
@@ -441,7 +398,6 @@
       color:
         var(--muted);
     }
-
 
     .order-summary strong {
       font-size:
@@ -454,7 +410,6 @@
         #ffffff;
     }
 
-
     .order-summary .free-shipping {
       font-weight:
         700;
@@ -462,7 +417,6 @@
       color:
         #ffffff;
     }
-
 
     .same-data-option {
       display:
@@ -481,7 +435,6 @@
         #dfe4ea;
     }
 
-
     .same-data-option input {
       width:
         18px;
@@ -489,7 +442,6 @@
       height:
         18px;
     }
-
 
     .multi-personalization-grid {
       display:
@@ -506,7 +458,6 @@
         start;
     }
 
-
     .personalization-fields {
       display:
         grid;
@@ -517,7 +468,6 @@
       margin-bottom:
         18px;
     }
-
 
     .personalization-block {
       padding:
@@ -533,7 +483,6 @@
       background:
         rgba(18, 22, 27, 0.84);
     }
-
 
     .personalization-block-header {
       display:
@@ -552,7 +501,6 @@
         18px;
     }
 
-
     .personalization-block-header h3 {
       margin:
         0;
@@ -560,7 +508,6 @@
       font-size:
         18px;
     }
-
 
     .personalization-block-header span {
       font-size:
@@ -570,7 +517,6 @@
         var(--muted);
     }
 
-
     .personalization-block-fields {
       display:
         grid;
@@ -578,7 +524,6 @@
       gap:
         16px;
     }
-
 
     .preview-list {
       display:
@@ -591,7 +536,6 @@
         16px;
     }
 
-
     .order-preview-item {
       padding-bottom:
         20px;
@@ -601,7 +545,6 @@
         rgba(255, 255, 255, 0.08);
     }
 
-
     .order-preview-item:last-child {
       padding-bottom:
         0;
@@ -609,7 +552,6 @@
       border-bottom:
         0;
     }
-
 
     .order-preview-label {
       display:
@@ -631,12 +573,10 @@
         var(--muted);
     }
 
-
     .order-preview-label strong {
       color:
         #ffffff;
     }
-
 
     @media (max-width: 900px) {
 
@@ -645,24 +585,20 @@
           10px;
       }
 
-
       .product-carousel-next {
         right:
           10px;
       }
-
 
       .product-selector {
         grid-template-columns:
           1fr;
       }
 
-
       .multi-personalization-grid {
         grid-template-columns:
           1fr;
       }
-
 
       .order-summary {
         align-items:
@@ -676,7 +612,7 @@
 
 
     /* =========================
-       PRÉVIAS
+       PRÉVIAS - POSIÇÃO REAL DA ARTE
     ========================== */
 
     .preview-list .mini-plaque {
@@ -687,6 +623,10 @@
         hidden;
     }
 
+
+    /* =========================
+       PLAQUETA DE MOTOR
+    ========================== */
 
     .preview-list
     .mini-plaque.motor {
@@ -711,7 +651,6 @@
       padding:
         0 !important;
     }
-
 
     .preview-list
     .mini-plaque.motor
@@ -763,7 +702,6 @@
         ellipsis;
     }
 
-
     .preview-list
     .mini-plaque.motor
     .mini-car {
@@ -810,7 +748,6 @@
       overflow:
         hidden;
     }
-
 
     .preview-list
     .mini-plaque.motor
@@ -863,6 +800,10 @@
     }
 
 
+    /* =========================
+       RETROVISOR / CHAVEIRO
+    ========================== */
+
     .preview-list
     .mini-plaque.vertical {
       display:
@@ -892,7 +833,6 @@
       overflow:
         hidden;
     }
-
 
     .preview-list
     .mini-plaque.vertical
@@ -939,7 +879,6 @@
       text-overflow:
         clip;
     }
-
 
     .preview-list
     .mini-plaque.vertical
@@ -990,7 +929,6 @@
         visible;
     }
 
-
     .preview-list
     .mini-plaque.vertical
     .mini-sub {
@@ -1038,6 +976,8 @@
     }
 
 
+    /* Retrovisor */
+
     .preview-list
     .mini-plaque.retrovisor
     .mh1 {
@@ -1059,7 +999,6 @@
       transform:
         none;
     }
-
 
     .preview-list
     .mini-plaque.retrovisor
@@ -1083,7 +1022,6 @@
         none;
     }
 
-
     .preview-list
     .mini-plaque.retrovisor
     .mh3,
@@ -1095,7 +1033,6 @@
         none;
     }
 
-
     .preview-list
     .mini-plaque.retrovisor
     .mini-title {
@@ -1103,6 +1040,8 @@
         23%;
     }
 
+
+    /* Chaveiro */
 
     .preview-list
     .mini-plaque.keychain
@@ -1126,7 +1065,6 @@
         translateX(-50%);
     }
 
-
     .preview-list
     .mini-plaque.keychain
     .mh2,
@@ -1142,14 +1080,12 @@
         none;
     }
 
-
     .preview-list
     .mini-plaque.keychain
     .mini-title {
       top:
         21%;
     }
-
 
     @media (max-width: 560px) {
 
@@ -1160,14 +1096,12 @@
           16px;
       }
 
-
       .preview-list
       .mini-plaque.vertical
       .mini-car {
         font-size:
           11px;
       }
-
 
       .preview-list
       .mini-plaque.vertical
@@ -1178,14 +1112,12 @@
 
     }
 
-
     .personalization-block
     .field-row {
       grid-template-columns:
         minmax(0, 2.4fr)
         minmax(105px, 0.6fr);
     }
-
 
     @media (max-width: 560px) {
 
@@ -1213,7 +1145,6 @@
         34px 0 18px;
     }
 
-
     .product-showcase-track {
       position:
         absolute;
@@ -1237,7 +1168,6 @@
         none;
     }
 
-
     .product-showcase-track svg {
       width:
         min(1180px, 106%);
@@ -1255,7 +1185,6 @@
       overflow:
         visible;
     }
-
 
     .product-showcase-track path {
       fill:
@@ -1279,8 +1208,10 @@
 
 
     /*
-      ALTERAÇÃO PRINCIPAL:
-      texto e card começam exatamente na mesma altura.
+      DESKTOP:
+      mesmo conceito visual da HOME.
+      Título grande à esquerda,
+      card à direita.
     */
 
     .product-section-layout {
@@ -1294,8 +1225,8 @@
         grid;
 
       grid-template-columns:
-        minmax(240px, 0.72fr)
-        minmax(0, 1.28fr);
+        minmax(390px, 0.95fr)
+        minmax(0, 1.05fr);
 
       gap:
         54px;
@@ -1307,55 +1238,51 @@
         590px;
     }
 
-
     .product-section-copy {
       max-width:
-        360px;
+        540px;
 
       align-self:
         start;
     }
 
-
     .product-section-copy h2 {
       margin:
-        0 0 14px;
+        0 0 24px;
 
       font-size:
         clamp(
-          34px,
-          4vw,
-          56px
+          58px,
+          6vw,
+          84px
         );
 
       line-height:
-        0.98;
+        0.95;
 
       letter-spacing:
-        -0.035em;
+        -0.045em;
 
       color:
         #ffffff;
     }
-
 
     .product-section-copy p {
       margin:
         0;
 
       max-width:
-        330px;
+        500px;
 
       font-size:
-        16px;
+        20px;
 
       line-height:
-        1.65;
+        1.55;
 
       color:
         var(--muted);
     }
-
 
     .product-showcase {
       position:
@@ -1374,7 +1301,6 @@
         center;
     }
 
-
     .product-showcase
     .product-carousel {
       position:
@@ -1392,7 +1318,6 @@
       touch-action:
         pan-y;
     }
-
 
     .product-showcase
     .product-card {
@@ -1423,12 +1348,6 @@
         blur(2px);
     }
 
-
-    /*
-      Mantém o texto do card mais próximo
-      da versão anterior.
-    */
-
     .product-showcase
     .product-desc {
       margin-top:
@@ -1441,7 +1360,6 @@
         1.55;
     }
 
-
     .product-showcase
     .feature-list {
       margin-top:
@@ -1450,7 +1368,6 @@
       margin-bottom:
         28px;
     }
-
 
     .product-price-block {
       display:
@@ -1476,7 +1393,6 @@
         rgba(255, 255, 255, 0.08);
     }
 
-
     .product-price-block
     .price {
       display:
@@ -1499,7 +1415,6 @@
         -0.035em;
     }
 
-
     .product-price-block
     .shipping-free {
       margin:
@@ -1515,7 +1430,6 @@
         #d7dde5;
     }
 
-
     .product-price-block
     .shipping-free strong {
       font-weight:
@@ -1525,13 +1439,11 @@
         #ffffff;
     }
 
-
     .product-showcase
     .btn-full {
       margin-top:
         18px;
     }
-
 
     .product-card-note {
       min-height:
@@ -1556,20 +1468,17 @@
         center;
     }
 
-
     .product-showcase
     .product-carousel-prev {
       left:
         -22px;
     }
 
-
     .product-showcase
     .product-carousel-next {
       right:
         -22px;
     }
-
 
     .product-showcase
     .product-carousel-dots {
@@ -1582,7 +1491,6 @@
       margin-top:
         22px;
     }
-
 
     .accessory-note {
       margin:
@@ -1601,18 +1509,16 @@
         0.78;
     }
 
-
     @media (max-width: 900px) {
 
       .product-section-layout {
         grid-template-columns:
-          minmax(190px, 0.62fr)
-          minmax(0, 1.38fr);
+          minmax(300px, 0.85fr)
+          minmax(0, 1.15fr);
 
         gap:
           30px;
       }
-
 
       .product-showcase
       .product-card {
@@ -1624,9 +1530,11 @@
 
 
     /*
-      MOBILE PRESERVADO:
-      título em cima, card abaixo,
-      sem setas e com swipe.
+      MOBILE preservado:
+      texto em cima,
+      card abaixo,
+      sem setas,
+      swipe pelo dedo.
     */
 
     @media (max-width: 768px) {
@@ -1635,7 +1543,6 @@
         padding-top:
           12px;
       }
-
 
       .product-section-layout {
         display:
@@ -1654,12 +1561,10 @@
           28px;
       }
 
-
       .product-section-copy {
         max-width:
           none;
       }
-
 
       .product-section-copy h2 {
         font-size:
@@ -1668,14 +1573,21 @@
             10vw,
             44px
           );
-      }
 
+        margin-bottom:
+          14px;
+      }
 
       .product-section-copy p {
         max-width:
           520px;
-      }
 
+        font-size:
+          16px;
+
+        line-height:
+          1.65;
+      }
 
       .product-showcase-track svg {
         width:
@@ -1689,13 +1601,11 @@
           scale(1);
       }
 
-
       .product-showcase
       .product-carousel {
         width:
           100%;
       }
-
 
       .product-showcase
       .product-carousel-prev,
@@ -1705,7 +1615,6 @@
         display:
           none;
       }
-
 
       .product-showcase
       .product-card {
@@ -1754,12 +1663,10 @@
         blur(5px);
     }
 
-
     .confirmation-modal.is-open {
       display:
         flex;
     }
-
 
     .confirmation-dialog {
       width:
@@ -1804,7 +1711,6 @@
         );
     }
 
-
     .confirmation-dialog h2 {
       margin-bottom:
         8px;
@@ -1812,7 +1718,6 @@
       font-size:
         28px;
     }
-
 
     .confirmation-intro {
       margin:
@@ -1822,7 +1727,6 @@
         var(--muted);
     }
 
-
     .confirmation-items {
       display:
         grid;
@@ -1830,7 +1734,6 @@
       gap:
         12px;
     }
-
 
     .confirmation-item {
       padding:
@@ -1852,7 +1755,6 @@
         #0d1116;
     }
 
-
     .confirmation-item strong {
       display:
         block;
@@ -1864,7 +1766,6 @@
         #ffffff;
     }
 
-
     .confirmation-item p {
       margin:
         4px 0;
@@ -1875,7 +1776,6 @@
       font-size:
         14px;
     }
-
 
     .confirmation-observacoes {
       margin-top:
@@ -1894,7 +1794,6 @@
         );
     }
 
-
     .confirmation-observacoes p {
       margin:
         6px 0 0;
@@ -1902,7 +1801,6 @@
       color:
         #cbd2d9;
     }
-
 
     .confirmation-total {
       display:
@@ -1933,7 +1831,6 @@
         );
     }
 
-
     .confirmation-total span {
       color:
         var(--muted);
@@ -1942,7 +1839,6 @@
         13px;
     }
 
-
     .confirmation-total strong {
       color:
         #ffffff;
@@ -1950,7 +1846,6 @@
       font-size:
         26px;
     }
-
 
     .confirmation-shipping {
       margin:
@@ -1966,7 +1861,6 @@
         700;
     }
 
-
     .confirmation-actions {
       display:
         grid;
@@ -1981,12 +1875,10 @@
         24px;
     }
 
-
     .confirmation-actions button {
       width:
         100%;
     }
-
 
     .confirmation-actions
     .confirmation-edit {
@@ -2001,7 +1893,6 @@
         var(--line);
     }
 
-
     .confirmation-actions
     .confirmation-confirm {
       background:
@@ -2015,7 +1906,6 @@
         transparent;
     }
 
-
     .confirmation-actions
     .confirmation-confirm:disabled {
       opacity:
@@ -2024,7 +1914,6 @@
       cursor:
         wait;
     }
-
 
     .confirmation-message {
       min-height:
@@ -2043,12 +1932,10 @@
         600;
     }
 
-
     body.modal-open {
       overflow:
         hidden;
     }
-
 
     @media (max-width: 560px) {
 
@@ -2057,18 +1944,15 @@
           14px;
       }
 
-
       .confirmation-dialog {
         padding:
           20px;
       }
 
-
       .confirmation-actions {
         grid-template-columns:
           1fr;
       }
-
 
       .confirmation-total {
         align-items:
@@ -2084,9 +1968,7 @@
 
 </head>
 
-
 <body>
-
 
   <header class="topbar">
 
@@ -2113,7 +1995,6 @@
         </span>
 
       </a>
-
 
       <nav class="nav">
 
@@ -2150,9 +2031,7 @@
 
   </header>
 
-
   <main>
-
 
     <section
       id="home"
@@ -2194,7 +2073,6 @@
 
           </div>
 
-
           <div class="hero-points">
 
             <span>
@@ -2212,7 +2090,6 @@
           </div>
 
         </div>
-
 
         <div
           class="plaque-mockup"
@@ -2245,7 +2122,6 @@
       </div>
 
     </section>
-
 
     <section
       id="produtos"
@@ -2310,7 +2186,6 @@
 
           </div>
 
-
           <div class="product-section-layout">
 
             <div class="product-section-copy">
@@ -2326,7 +2201,6 @@
 
             </div>
 
-
             <div class="product-showcase">
 
               <div class="product-carousel">
@@ -2340,7 +2214,6 @@
                   ‹
                 </button>
 
-
                 <article
                   id="productCard"
                   class="product-card"
@@ -2353,11 +2226,9 @@
                     100 × 40 mm
                   </div>
 
-
                   <h3 id="cardProdutoNome">
                     Plaqueta de motor
                   </h3>
-
 
                   <p
                     id="cardProdutoDescricao"
@@ -2367,12 +2238,10 @@
                     ou em projetos automotivos.
                   </p>
 
-
                   <ul
                     id="cardProdutoCaracteristicas"
                     class="feature-list"
                   >
-
                     <li>
                       Nome/modelo do veículo
                     </li>
@@ -2392,9 +2261,7 @@
                     <li>
                       Opção com ou sem furos
                     </li>
-
                   </ul>
-
 
                   <div class="product-price-block">
 
@@ -2411,7 +2278,6 @@
 
                   </div>
 
-
                   <button
                     id="cardProdutoPersonalizar"
                     class="btn btn-primary btn-full"
@@ -2419,7 +2285,6 @@
                   >
                     Quero personalizar
                   </button>
-
 
                   <p
                     id="cardProdutoNota"
@@ -2430,7 +2295,6 @@
 
                 </article>
 
-
                 <button
                   id="proximoProduto"
                   class="product-carousel-nav product-carousel-next"
@@ -2439,7 +2303,6 @@
                 >
                   ›
                 </button>
-
 
                 <div
                   class="product-carousel-dots"
@@ -2481,7 +2344,6 @@
 
     </section>
 
-
     <section
       id="personalizar"
       class="section"
@@ -2504,7 +2366,6 @@
           </p>
 
         </div>
-
 
         <form
           id="orderForm"
@@ -2540,7 +2401,6 @@
 
             </label>
 
-
             <label class="product-option">
 
               <input
@@ -2566,7 +2426,6 @@
               </span>
 
             </label>
-
 
             <label class="product-option">
 
@@ -2596,7 +2455,6 @@
 
           </div>
 
-
           <div class="order-summary">
 
             <div>
@@ -2617,7 +2475,6 @@
 
           </div>
 
-
           <label class="same-data-option">
 
             <input
@@ -2632,7 +2489,6 @@
 
           </label>
 
-
           <div class="multi-personalization-grid">
 
             <div>
@@ -2641,7 +2497,6 @@
                 id="personalizationFields"
                 class="personalization-fields"
               ></div>
-
 
               <div class="field">
 
@@ -2658,19 +2513,16 @@
 
               </div>
 
-
               <div class="notice">
                 Ao finalizar, você poderá revisar todo o pedido
                 antes de continuar para o WhatsApp.
               </div>
-
 
               <p class="accessory-note">
                 Observação: itens complementares não estão inclusos.
                 A plaqueta é enviada sem parafusos de fixação,
                 e os demais acessórios sem cordão.
               </p>
-
 
               <button
                 id="finalizarPedidoButton"
@@ -2679,7 +2531,6 @@
               >
                 Finalizar pedido
               </button>
-
 
               <a
                 id="paymentLink"
@@ -2691,7 +2542,6 @@
               </a>
 
             </div>
-
 
             <aside class="preview-card">
 
@@ -2721,7 +2571,6 @@
     </section>
 
   </main>
-
 
   <div
     id="confirmationModal"
@@ -2758,7 +2607,6 @@
         class="confirmation-observacoes"
       ></div>
 
-
       <div class="confirmation-total">
 
         <div>
@@ -2779,13 +2627,11 @@
 
       </div>
 
-
       <p
         id="confirmationMessage"
         class="confirmation-message"
         aria-live="polite"
       ></p>
-
 
       <div class="confirmation-actions">
 
@@ -2811,7 +2657,6 @@
 
   </div>
 
-
   <footer class="footer">
 
     <div class="container footer-wrap">
@@ -2827,7 +2672,6 @@
     </div>
 
   </footer>
-
 
   <script>
 
@@ -2855,7 +2699,6 @@
 
       },
 
-
       'retrovisor-interno': {
 
         nome:
@@ -2877,7 +2720,6 @@
           true
 
       },
-
 
       'chaveiro-personalizado': {
 
@@ -2903,11 +2745,9 @@
 
     };
 
-
     const produtosCard = [
 
       {
-
         valor:
           'plaqueta-motor',
 
@@ -2936,12 +2776,9 @@
 
         nota:
           'Não acompanha parafusos de fixação.'
-
       },
 
-
       {
-
         valor:
           'retrovisor-interno',
 
@@ -2970,12 +2807,9 @@
 
         nota:
           'Não acompanha cordão.'
-
       },
 
-
       {
-
         valor:
           'chaveiro-personalizado',
 
@@ -3004,85 +2838,70 @@
 
         nota:
           'Não acompanha cordão.'
-
       }
 
     ];
 
-
     let produtoCardAtual =
       0;
 
-
     let produtoCardAnimando =
       false;
-
 
     const productCard =
       document.getElementById(
         'productCard'
       );
 
-
     const cardProdutoMedida =
       document.getElementById(
         'cardProdutoMedida'
       );
-
 
     const cardProdutoNome =
       document.getElementById(
         'cardProdutoNome'
       );
 
-
     const cardProdutoDescricao =
       document.getElementById(
         'cardProdutoDescricao'
       );
-
 
     const cardProdutoCaracteristicas =
       document.getElementById(
         'cardProdutoCaracteristicas'
       );
 
-
     const cardProdutoPreco =
       document.getElementById(
         'cardProdutoPreco'
       );
-
 
     const cardProdutoNota =
       document.getElementById(
         'cardProdutoNota'
       );
 
-
     const produtoAnterior =
       document.getElementById(
         'produtoAnterior'
       );
-
 
     const proximoProduto =
       document.getElementById(
         'proximoProduto'
       );
 
-
     const cardProdutoPersonalizar =
       document.getElementById(
         'cardProdutoPersonalizar'
       );
 
-
     const produtoDots =
       document.querySelectorAll(
         '.product-carousel-dot'
       );
-
 
     function renderizarProdutoCard() {
 
@@ -3091,30 +2910,23 @@
           produtoCardAtual
         ];
 
-
       cardProdutoMedida.textContent =
         item.medida;
-
 
       cardProdutoNome.textContent =
         item.nome;
 
-
       cardProdutoDescricao.textContent =
         item.descricao;
-
 
       cardProdutoPreco.textContent =
         item.preco;
 
-
       cardProdutoPersonalizar.textContent =
         item.cta;
 
-
       cardProdutoNota.textContent =
         item.nota;
-
 
       cardProdutoCaracteristicas.innerHTML =
         item.caracteristicas
@@ -3123,7 +2935,6 @@
               `<li>${caracteristica}</li>`
           )
           .join('');
-
 
       produtoDots.forEach(
         (
@@ -3141,7 +2952,6 @@
 
     }
 
-
     function trocarProdutoCard(
       novoIndice,
       direcao
@@ -3156,27 +2966,22 @@
 
       }
 
-
       produtoCardAnimando =
         true;
-
 
       const classeSaida =
         direcao > 0
           ? 'is-leaving-next'
           : 'is-leaving-prev';
 
-
       const classeEntrada =
         direcao > 0
           ? 'is-entering-next'
           : 'is-entering-prev';
 
-
       productCard.classList.add(
         classeSaida
       );
-
 
       window.setTimeout(
         () => {
@@ -3184,22 +2989,17 @@
           produtoCardAtual =
             novoIndice;
 
-
           renderizarProdutoCard();
-
 
           productCard.classList.remove(
             classeSaida
           );
 
-
           productCard.classList.add(
             classeEntrada
           );
 
-
           productCard.offsetHeight;
-
 
           window.requestAnimationFrame(
             () => {
@@ -3207,7 +3007,6 @@
               productCard.classList.remove(
                 classeEntrada
               );
-
 
               window.setTimeout(
                 () => {
@@ -3228,7 +3027,6 @@
 
     }
 
-
     function alterarProdutoCard(
       direcao
     ) {
@@ -3236,7 +3034,6 @@
       let novoIndice =
         produtoCardAtual +
         direcao;
-
 
       if (
         novoIndice < 0
@@ -3246,7 +3043,6 @@
           produtosCard.length - 1;
 
       }
-
 
       if (
         novoIndice >=
@@ -3258,14 +3054,12 @@
 
       }
 
-
       trocarProdutoCard(
         novoIndice,
         direcao
       );
 
     }
-
 
     produtoAnterior.addEventListener(
       'click',
@@ -3278,7 +3072,6 @@
       }
     );
 
-
     proximoProduto.addEventListener(
       'click',
       () => {
@@ -3289,7 +3082,6 @@
 
       }
     );
-
 
     produtoDots.forEach(
       dot => {
@@ -3303,13 +3095,11 @@
                 dot.dataset.produtoIndex
               );
 
-
             const direcao =
               novoIndice >
               produtoCardAtual
                 ? 1
                 : -1;
-
 
             trocarProdutoCard(
               novoIndice,
@@ -3322,18 +3112,11 @@
       }
     );
 
-
-    /*
-      SWIPE MOBILE
-    */
-
     let touchStartX =
       null;
 
-
     let touchStartY =
       null;
-
 
     productCard.addEventListener(
       'touchstart',
@@ -3344,10 +3127,8 @@
             0
           ];
 
-
         touchStartX =
           toque.clientX;
-
 
         touchStartY =
           toque.clientY;
@@ -3359,44 +3140,39 @@
       }
     );
 
-
     productCard.addEventListener(
       'touchend',
       event => {
 
         if (
-          touchStartX === null ||
-          touchStartY === null
+          touchStartX ===
+            null ||
+          touchStartY ===
+            null
         ) {
 
           return;
 
         }
 
-
         const toque =
           event.changedTouches[
             0
           ];
 
-
         const deltaX =
           toque.clientX -
           touchStartX;
-
 
         const deltaY =
           toque.clientY -
           touchStartY;
 
-
         touchStartX =
           null;
 
-
         touchStartY =
           null;
-
 
         if (
           window.innerWidth >
@@ -3417,7 +3193,6 @@
 
         }
 
-
         alterarProdutoCard(
           deltaX < 0
             ? 1
@@ -3431,109 +3206,89 @@
       }
     );
 
-
     renderizarProdutoCard();
-
 
     const form =
       document.getElementById(
         'orderForm'
       );
 
-
     const obs =
       document.getElementById(
         'obs'
       );
-
 
     const personalizationFields =
       document.getElementById(
         'personalizationFields'
       );
 
-
     const previewList =
       document.getElementById(
         'previewList'
       );
-
 
     const orderTotal =
       document.getElementById(
         'orderTotal'
       );
 
-
     const usarMesmosDados =
       document.getElementById(
         'usarMesmosDados'
       );
-
 
     const productCheckboxes =
       document.querySelectorAll(
         'input[name="produtos"]'
       );
 
-
     const whatsappNumber =
       '5511911801381';
-
 
     const pedidoRascunhoKey =
       'imalloyPedidoRascunho';
 
-
     const finalizarPedidoKey =
       'imalloyFinalizarPedido';
-
 
     const confirmationModal =
       document.getElementById(
         'confirmationModal'
       );
 
-
     const confirmationItems =
       document.getElementById(
         'confirmationItems'
       );
-
 
     const confirmationObservacoes =
       document.getElementById(
         'confirmationObservacoes'
       );
 
-
     const confirmationTotal =
       document.getElementById(
         'confirmationTotal'
       );
-
 
     const confirmationEditButton =
       document.getElementById(
         'confirmationEditButton'
       );
 
-
     const confirmationConfirmButton =
       document.getElementById(
         'confirmationConfirmButton'
       );
-
 
     const confirmationMessage =
       document.getElementById(
         'confirmationMessage'
       );
 
-
     let pedidoEmConfirmacao =
       null;
-
 
     function moeda(
       valor
@@ -3553,7 +3308,6 @@
 
     }
 
-
     function produtosSelecionados() {
 
       return Array
@@ -3571,7 +3325,6 @@
 
     }
 
-
     function calcularTotal(
       selecionados
     ) {
@@ -3581,18 +3334,15 @@
           'plaqueta-motor'
         );
 
-
       const temRetrovisor =
         selecionados.includes(
           'retrovisor-interno'
         );
 
-
       const temChaveiro =
         selecionados.includes(
           'chaveiro-personalizado'
         );
-
 
       if (
         temPlaqueta &&
@@ -3603,7 +3353,6 @@
         return 139.70;
 
       }
-
 
       if (
         temPlaqueta &&
@@ -3616,7 +3365,6 @@
         return 114.80;
 
       }
-
 
       return selecionados
         .reduce(
@@ -3638,7 +3386,6 @@
 
     }
 
-
     function criarCamposProduto(
       produtoId,
       index
@@ -3648,7 +3395,6 @@
         produtos[
           produtoId
         ];
-
 
       const gravacao =
         produto.gravacaoVerso
@@ -3679,7 +3425,6 @@
           `
           : '';
 
-
       return `
 
         <div
@@ -3701,7 +3446,6 @@
             </span>
 
           </div>
-
 
           <div
             class="personalization-block-fields"
@@ -3725,7 +3469,6 @@
 
             </div>
 
-
             <div class="field-row">
 
               <div class="field">
@@ -3745,7 +3488,6 @@
                 >
 
               </div>
-
 
               <div class="field">
 
@@ -3774,7 +3516,6 @@
 
             </div>
 
-
             ${gravacao}
 
           </div>
@@ -3784,7 +3525,6 @@
       `;
 
     }
-
 
     function holesHtml(
       produtoId,
@@ -3799,7 +3539,6 @@
         return '';
 
       }
-
 
       if (
         produtoId ===
@@ -3817,7 +3556,6 @@
 
       }
 
-
       if (
         produtoId ===
         'retrovisor-interno'
@@ -3832,7 +3570,6 @@
 
       }
 
-
       return `
 
         <div class="mini-hole mh1"></div>
@@ -3840,7 +3577,6 @@
       `;
 
     }
-
 
     function criarPreview(
       produtoId
@@ -3851,12 +3587,10 @@
           produtoId
         ];
 
-
       const bloco =
         document.querySelector(
           `.personalization-block[data-product="${produtoId}"]`
         );
-
 
       const veiculo =
         bloco
@@ -3868,7 +3602,6 @@
           ||
           'Seu carro';
 
-
       const ano =
         bloco
           ?.querySelector(
@@ -3879,7 +3612,6 @@
           ||
           'Assinatura';
 
-
       const furos =
         bloco
           ?.querySelector(
@@ -3889,10 +3621,8 @@
           ||
           'Sim';
 
-
       let classes =
         'mini-plaque';
-
 
       if (
         produto.tipo ===
@@ -3911,7 +3641,6 @@
 
       }
 
-
       if (
         produto.tipo ===
         'retrovisor'
@@ -3922,7 +3651,6 @@
 
       }
 
-
       if (
         produto.tipo ===
         'keychain'
@@ -3932,7 +3660,6 @@
           ' keychain';
 
       }
-
 
       return `
 
@@ -3955,7 +3682,6 @@
 
           </div>
 
-
           <div class="${classes}">
 
             ${holesHtml(
@@ -3963,16 +3689,13 @@
               furos
             )}
 
-
             <div class="mini-title">
               ${veiculo}
             </div>
 
-
             <div class="mini-car">
               ${produto.visual}
             </div>
-
 
             <div class="mini-sub">
               ${ano}
@@ -3986,12 +3709,10 @@
 
     }
 
-
     function atualizarPreviews() {
 
       const selecionados =
         produtosSelecionados();
-
 
       previewList.innerHTML =
         selecionados
@@ -4005,7 +3726,6 @@
 
     }
 
-
     function sincronizarDados(
       origem
     ) {
@@ -4018,10 +3738,8 @@
 
       }
 
-
       const field =
         origem.dataset.field;
-
 
       if (
         field !==
@@ -4033,7 +3751,6 @@
         return;
 
       }
-
 
       document
         .querySelectorAll(
@@ -4057,7 +3774,6 @@
 
     }
 
-
     function ativarEventosCampos() {
 
       personalizationFields
@@ -4075,12 +3791,10 @@
                   campo
                 );
 
-
                 atualizarPreviews();
 
               }
             );
-
 
             campo.addEventListener(
               'change',
@@ -4089,7 +3803,6 @@
                 sincronizarDados(
                   campo
                 );
-
 
                 atualizarPreviews();
 
@@ -4101,12 +3814,10 @@
 
     }
 
-
     function atualizarFormulario() {
 
       const selecionados =
         produtosSelecionados();
-
 
       if (
         selecionados.length ===
@@ -4118,10 +3829,8 @@
             0
           ];
 
-
         primeiro.checked =
           true;
-
 
         selecionados.push(
           primeiro.value
@@ -4129,10 +3838,8 @@
 
       }
 
-
       const valoresAtuais =
         {};
-
 
       document
         .querySelectorAll(
@@ -4144,12 +3851,10 @@
             const produtoId =
               bloco.dataset.product;
 
-
             valoresAtuais[
               produtoId
             ] =
               {};
-
 
             bloco
               .querySelectorAll(
@@ -4171,7 +3876,6 @@
           }
         );
 
-
       personalizationFields.innerHTML =
         selecionados
           .map(
@@ -4186,7 +3890,6 @@
           )
           .join('');
 
-
       selecionados.forEach(
         produtoId => {
 
@@ -4195,7 +3898,6 @@
               produtoId
             ];
 
-
           if (
             !valores
           ) {
@@ -4203,7 +3905,6 @@
             return;
 
           }
-
 
           Object
             .entries(
@@ -4223,7 +3924,6 @@
                       `.personalization-block[data-product="${produtoId}"] [data-field="${field}"]`
                     );
 
-
                 if (
                   input
                 ) {
@@ -4239,26 +3939,21 @@
         }
       );
 
-
       const total =
         calcularTotal(
           selecionados
         );
-
 
       orderTotal.textContent =
         moeda(
           total
         );
 
-
       ativarEventosCampos();
-
 
       atualizarPreviews();
 
     }
-
 
     productCheckboxes
       .forEach(
@@ -4271,7 +3966,6 @@
 
         }
       );
-
 
     usarMesmosDados
       .addEventListener(
@@ -4288,20 +3982,17 @@
                   '.personalization-block'
                 );
 
-
             const veiculo =
               primeiro
                 ?.querySelector(
                   '[data-field="veiculo"]'
                 );
 
-
             const ano =
               primeiro
                 ?.querySelector(
                   '[data-field="ano"]'
                 );
-
 
             if (
               veiculo
@@ -4312,7 +4003,6 @@
               );
 
             }
-
 
             if (
               ano
@@ -4326,12 +4016,10 @@
 
           }
 
-
           atualizarPreviews();
 
         }
       );
-
 
     cardProdutoPersonalizar
       .addEventListener(
@@ -4342,7 +4030,6 @@
             produtosCard[
               produtoCardAtual
             ];
-
 
           productCheckboxes
             .forEach(
@@ -4355,9 +4042,7 @@
               }
             );
 
-
           atualizarFormulario();
-
 
           document
             .getElementById(
@@ -4371,9 +4056,7 @@
         }
       );
 
-
     atualizarFormulario();
-
 
     function escaparHtml(
       valor
@@ -4406,7 +4089,6 @@
 
     }
 
-
     function gerarCheckoutToken() {
 
       if (
@@ -4423,18 +4105,15 @@
 
       }
 
-
       const bytes =
         new Uint8Array(
           16
         );
 
-
       window.crypto
         .getRandomValues(
           bytes
         );
-
 
       bytes[
         6
@@ -4447,7 +4126,6 @@
         ) |
         0x40;
 
-
       bytes[
         8
       ] =
@@ -4458,7 +4136,6 @@
           0x3f
         ) |
         0x80;
-
 
       const hex =
         Array
@@ -4474,7 +4151,6 @@
                   '0'
                 )
           );
-
 
       return (
         hex
@@ -4533,12 +4209,10 @@
 
     }
 
-
     function coletarRascunhoPedido() {
 
       const selecionados =
         produtosSelecionados();
-
 
       const itens =
         selecionados
@@ -4551,7 +4225,6 @@
                     `.personalization-block[data-product="${produtoId}"]`
                   );
 
-
               const veiculo =
                 bloco
                   ?.querySelector(
@@ -4561,7 +4234,6 @@
                   .trim()
                   ||
                   '';
-
 
               const assinatura =
                 bloco
@@ -4573,7 +4245,6 @@
                   ||
                   '';
 
-
               const furos =
                 bloco
                   ?.querySelector(
@@ -4583,13 +4254,11 @@
                   ||
                   'Sim';
 
-
               const versoCampo =
                 bloco
                   ?.querySelector(
                     '[data-field="verso"]'
                   );
-
 
               const verso =
                 versoCampo
@@ -4597,7 +4266,6 @@
                       .value
                       .trim()
                   : '';
-
 
               return {
 
@@ -4612,17 +4280,14 @@
             }
           );
 
-
       const rascunhoAnterior =
         carregarRascunhoPedido();
-
 
       const checkoutToken =
         rascunhoAnterior
           ?.checkoutToken
         ||
         gerarCheckoutToken();
-
 
       return {
 
@@ -4658,7 +4323,6 @@
 
     }
 
-
     function salvarRascunhoPedido(
       rascunho
     ) {
@@ -4673,7 +4337,6 @@
 
     }
 
-
     function carregarRascunhoPedido() {
 
       const texto =
@@ -4682,7 +4345,6 @@
             pedidoRascunhoKey
           );
 
-
       if (
         !texto
       ) {
@@ -4690,7 +4352,6 @@
         return null;
 
       }
-
 
       try {
 
@@ -4709,19 +4370,16 @@
           erro
         );
 
-
         localStorage
           .removeItem(
             pedidoRascunhoKey
           );
-
 
         return null;
 
       }
 
     }
-
 
     function restaurarRascunhoPedido(
       rascunho
@@ -4738,7 +4396,6 @@
 
       }
 
-
       productCheckboxes
         .forEach(
           checkbox => {
@@ -4753,7 +4410,6 @@
           }
         );
 
-
       if (
         !rascunho
           .checkoutToken
@@ -4763,18 +4419,15 @@
           .checkoutToken =
             gerarCheckoutToken();
 
-
         rascunho
           .versao =
             2;
-
 
         salvarRascunhoPedido(
           rascunho
         );
 
       }
-
 
       usarMesmosDados
         .checked =
@@ -4783,9 +4436,7 @@
               .usarMesmosDados
           );
 
-
       atualizarFormulario();
-
 
       (
         rascunho.itens ||
@@ -4800,7 +4451,6 @@
                   `.personalization-block[data-product="${item.produtoId}"]`
                 );
 
-
             if (
               !bloco
             ) {
@@ -4809,13 +4459,11 @@
 
             }
 
-
             const veiculo =
               bloco
                 .querySelector(
                   '[data-field="veiculo"]'
                 );
-
 
             const assinatura =
               bloco
@@ -4823,20 +4471,17 @@
                   '[data-field="ano"]'
                 );
 
-
             const furos =
               bloco
                 .querySelector(
                   '[data-field="furos"]'
                 );
 
-
             const verso =
               bloco
                 .querySelector(
                   '[data-field="verso"]'
                 );
-
 
             if (
               veiculo
@@ -4848,7 +4493,6 @@
 
             }
 
-
             if (
               assinatura
             ) {
@@ -4859,7 +4503,6 @@
 
             }
 
-
             if (
               furos
             ) {
@@ -4869,7 +4512,6 @@
                 'Sim';
 
             }
-
 
             if (
               verso
@@ -4884,20 +4526,16 @@
           }
         );
 
-
       obs.value =
         rascunho
           .observacoes ||
         '';
 
-
       atualizarPreviews();
-
 
       return true;
 
     }
-
 
     function montarResumoConfirmacao(
       rascunho
@@ -4913,7 +4551,6 @@
                 produtos[
                   item.produtoId
                 ];
-
 
               const versoHtml =
                 item.verso
@@ -4934,7 +4571,6 @@
                   `
                   : '';
 
-
               return `
 
                 <div class="confirmation-item">
@@ -4944,7 +4580,6 @@
                       produto.nome
                     )}
                   </strong>
-
 
                   <p>
 
@@ -4958,7 +4593,6 @@
 
                   </p>
 
-
                   <p>
 
                     <strong>
@@ -4970,7 +4604,6 @@
                     )}
 
                   </p>
-
 
                   <p>
 
@@ -4984,7 +4617,6 @@
 
                   </p>
 
-
                   <p>
 
                     <strong>
@@ -4997,7 +4629,6 @@
 
                   </p>
 
-
                   ${versoHtml}
 
                 </div>
@@ -5009,7 +4640,6 @@
           .join(
             ''
           );
-
 
       confirmationObservacoes.innerHTML =
         `
@@ -5032,7 +4662,6 @@
 
         `;
 
-
       confirmationTotal
         .textContent =
           moeda(
@@ -5042,7 +4671,6 @@
 
     }
 
-
     function abrirConfirmacao(
       rascunho
     ) {
@@ -5050,26 +4678,21 @@
       pedidoEmConfirmacao =
         rascunho;
 
-
       montarResumoConfirmacao(
         rascunho
       );
-
 
       confirmationConfirmButton
         .disabled =
           false;
 
-
       confirmationConfirmButton
         .textContent =
           'Confirmar e continuar no WhatsApp';
 
-
       confirmationMessage
         .textContent =
           '';
-
 
       confirmationModal
         .classList
@@ -5077,13 +4700,11 @@
           'is-open'
         );
 
-
       confirmationModal
         .setAttribute(
           'aria-hidden',
           'false'
         );
-
 
       document
         .body
@@ -5093,7 +4714,6 @@
         );
 
     }
-
 
     function fecharConfirmacao() {
 
@@ -5103,13 +4723,11 @@
           'is-open'
         );
 
-
       confirmationModal
         .setAttribute(
           'aria-hidden',
           'true'
         );
-
 
       document
         .body
@@ -5119,7 +4737,6 @@
         );
 
     }
-
 
     function montarMensagemWhatsapp(
       rascunho,
@@ -5144,7 +4761,6 @@
 
         ];
 
-
       rascunho
         .itens
         .forEach(
@@ -5157,7 +4773,6 @@
               produtos[
                 item.produtoId
               ];
-
 
             message.push(
 
@@ -5173,7 +4788,6 @@
 
             );
 
-
             if (
               item.verso
             ) {
@@ -5184,14 +4798,12 @@
 
             }
 
-
             message.push(
               ''
             );
 
           }
         );
-
 
       message.push(
 
@@ -5203,13 +4815,11 @@
 
       );
 
-
       return message.join(
         '\n'
       );
 
     }
-
 
     function montarDetalhesPersonalizacao(
       item
@@ -5226,7 +4836,6 @@
 
         ];
 
-
       if (
         item.verso
       ) {
@@ -5237,14 +4846,12 @@
 
       }
 
-
       return partes
         .join(
           ' | '
         );
 
     }
-
 
     async function criarPedidoNoSupabase(
       rascunho
@@ -5261,7 +4868,6 @@
           .auth
           .getSession();
 
-
       if (
         sessionError ||
         !session
@@ -5272,7 +4878,6 @@
         );
 
       }
-
 
       const itens =
         rascunho
@@ -5290,7 +4895,6 @@
 
             })
           );
-
 
       const {
         data,
@@ -5314,7 +4918,6 @@
             }
           );
 
-
       if (
         error
       ) {
@@ -5324,17 +4927,14 @@
           error
         );
 
-
         throw error;
 
       }
-
 
       const pedidoId =
         Number(
           data?.order_id
         );
-
 
       if (
         !pedidoId
@@ -5345,20 +4945,17 @@
           data
         );
 
-
         throw new Error(
           'O pedido não retornou um número válido.'
         );
 
       }
 
-
       const valorTotal =
         Number(
           data?.valor_total ??
           rascunho.total
         );
-
 
       return {
 
@@ -5375,7 +4972,6 @@
 
     }
 
-
     form
       .addEventListener(
         'submit',
@@ -5384,10 +4980,8 @@
           event
             .preventDefault();
 
-
           const rascunho =
             coletarRascunhoPedido();
-
 
           if (
             rascunho
@@ -5400,11 +4994,9 @@
 
           }
 
-
           salvarRascunhoPedido(
             rascunho
           );
-
 
           const {
             data: {
@@ -5415,7 +5007,6 @@
             await supabaseClient
               .auth
               .getSession();
-
 
           if (
             error ||
@@ -5428,23 +5019,19 @@
                 '1'
               );
 
-
             window
               .location
               .href =
                 'login.html';
 
-
             return;
 
           }
-
 
           localStorage
             .removeItem(
               finalizarPedidoKey
             );
-
 
           abrirConfirmacao(
             rascunho
@@ -5452,7 +5039,6 @@
 
         }
       );
-
 
     confirmationEditButton
       .addEventListener(
@@ -5463,7 +5049,6 @@
 
         }
       );
-
 
     confirmationModal
       .addEventListener(
@@ -5481,7 +5066,6 @@
 
         }
       );
-
 
     document
       .addEventListener(
@@ -5505,7 +5089,6 @@
         }
       );
 
-
     confirmationConfirmButton
       .addEventListener(
         'click',
@@ -5519,24 +5102,19 @@
 
           }
 
-
           confirmationConfirmButton
             .disabled =
               true;
-
 
           confirmationConfirmButton
             .textContent =
               'Criando pedido...';
 
-
           confirmationMessage
             .textContent =
               '';
 
-
           try {
-
 
             const {
               data: {
@@ -5547,7 +5125,6 @@
                 .auth
                 .getSession();
 
-
             if (
               !session
             ) {
@@ -5556,30 +5133,25 @@
                 pedidoEmConfirmacao
               );
 
-
               localStorage
                 .setItem(
                   finalizarPedidoKey,
                   '1'
                 );
 
-
               window
                 .location
                 .href =
                   'login.html';
 
-
               return;
 
             }
-
 
             const resultado =
               await criarPedidoNoSupabase(
                 pedidoEmConfirmacao
               );
-
 
             const mensagemWhatsapp =
               montarMensagemWhatsapp(
@@ -5588,33 +5160,27 @@
                 resultado.valorTotal
               );
 
-
             const url =
               `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
                 mensagemWhatsapp
               )}`;
-
 
             localStorage
               .removeItem(
                 pedidoRascunhoKey
               );
 
-
             localStorage
               .removeItem(
                 finalizarPedidoKey
               );
 
-
             pedidoEmConfirmacao =
               null;
-
 
             confirmationConfirmButton
               .textContent =
                 `Pedido #${resultado.pedidoId} criado`;
-
 
             window
               .location
@@ -5631,7 +5197,6 @@
               erro
             );
 
-
             confirmationMessage
               .textContent =
                 (
@@ -5640,11 +5205,9 @@
                     : 'Não foi possível criar o pedido. Tente novamente.'
                 );
 
-
             confirmationConfirmButton
               .disabled =
                 false;
-
 
             confirmationConfirmButton
               .textContent =
@@ -5655,7 +5218,6 @@
         }
       );
 
-
     async function verificarRetornoFinalizacao() {
 
       const retorno =
@@ -5663,7 +5225,6 @@
           .getItem(
             finalizarPedidoKey
           );
-
 
       if (
         retorno !==
@@ -5674,7 +5235,6 @@
 
       }
 
-
       const {
         data: {
           session
@@ -5684,7 +5244,6 @@
           .auth
           .getSession();
 
-
       if (
         !session
       ) {
@@ -5693,10 +5252,8 @@
 
       }
 
-
       const rascunho =
         carregarRascunhoPedido();
-
 
       if (
         !rascunho
@@ -5707,17 +5264,14 @@
             finalizarPedidoKey
           );
 
-
         return;
 
       }
-
 
       const restaurado =
         restaurarRascunhoPedido(
           rascunho
         );
-
 
       if (
         !restaurado
@@ -5728,17 +5282,14 @@
             finalizarPedidoKey
           );
 
-
         return;
 
       }
-
 
       localStorage
         .removeItem(
           finalizarPedidoKey
         );
-
 
       document
         .getElementById(
@@ -5746,13 +5297,11 @@
         )
         .scrollIntoView();
 
-
       abrirConfirmacao(
         rascunho
       );
 
     }
-
 
     async function atualizarMenuConta() {
 
@@ -5762,7 +5311,6 @@
             'accountLink'
           );
 
-
       if (
         !accountLink
       ) {
@@ -5770,7 +5318,6 @@
         return;
 
       }
-
 
       const {
         data: {
@@ -5781,7 +5328,6 @@
           .auth
           .getSession();
 
-
       if (
         session
       ) {
@@ -5789,7 +5335,6 @@
         accountLink
           .textContent =
             'Minha conta';
-
 
         accountLink
           .href =
@@ -5803,7 +5348,6 @@
           .textContent =
             'Entrar';
 
-
         accountLink
           .href =
             'login.html';
@@ -5812,12 +5356,9 @@
 
     }
 
-
     atualizarMenuConta();
 
-
     verificarRetornoFinalizacao();
-
 
     supabaseClient
       .auth
@@ -5833,7 +5374,6 @@
                 'accountLink'
               );
 
-
           if (
             !accountLink
           ) {
@@ -5842,7 +5382,6 @@
 
           }
 
-
           if (
             session
           ) {
@@ -5850,7 +5389,6 @@
             accountLink
               .textContent =
                 'Minha conta';
-
 
             accountLink
               .href =
@@ -5863,7 +5401,6 @@
             accountLink
               .textContent =
                 'Entrar';
-
 
             accountLink
               .href =
