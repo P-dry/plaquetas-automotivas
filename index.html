@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -76,11 +79,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
+
   <style>
 
     .product-carousel {
       position: relative;
     }
+
 
     .product-card {
       transition:
@@ -92,6 +97,7 @@
         transform;
     }
 
+
     .product-card.is-leaving-next {
       opacity: 0;
 
@@ -99,12 +105,14 @@
         translateX(-6px);
     }
 
+
     .product-card.is-leaving-prev {
       opacity: 0;
 
       transform:
         translateX(6px);
     }
+
 
     .product-card.is-entering-next {
       opacity: 0;
@@ -115,6 +123,7 @@
       transition: none;
     }
 
+
     .product-card.is-entering-prev {
       opacity: 0;
 
@@ -123,6 +132,7 @@
 
       transition: none;
     }
+
 
     .product-carousel-nav {
       position: absolute;
@@ -167,6 +177,7 @@
         border-color 0.2s ease;
     }
 
+
     .product-carousel-nav:hover {
       background:
         #20262e;
@@ -175,21 +186,25 @@
         rgba(255, 255, 255, 0.28);
     }
 
+
     .product-carousel-nav:active {
       transform:
         translateY(-50%)
         scale(0.94);
     }
 
+
     .product-carousel-prev {
       left:
         -21px;
     }
 
+
     .product-carousel-next {
       right:
         -21px;
     }
+
 
     .product-carousel-dots {
       display:
@@ -207,6 +222,7 @@
       margin-top:
         18px;
     }
+
 
     .product-carousel-dot {
       width:
@@ -235,6 +251,7 @@
         background 0.2s ease;
     }
 
+
     .product-carousel-dot.active {
       background:
         #fff;
@@ -242,6 +259,7 @@
       transform:
         scale(1.25);
     }
+
 
     .shipping-free {
       margin-top:
@@ -257,6 +275,7 @@
         #ffffff;
     }
 
+
     .multi-order-form {
       display:
         grid;
@@ -264,6 +283,7 @@
       gap:
         26px;
     }
+
 
     .product-selector {
       display:
@@ -279,6 +299,7 @@
         14px;
     }
 
+
     .product-option {
       position:
         relative;
@@ -290,6 +311,7 @@
         pointer;
     }
 
+
     .product-option input {
       position:
         absolute;
@@ -300,6 +322,7 @@
       pointer-events:
         none;
     }
+
 
     .product-option-content {
       display:
@@ -333,6 +356,7 @@
         transform 0.18s ease;
     }
 
+
     .product-option-content strong {
       font-size:
         16px;
@@ -341,10 +365,12 @@
         #ffffff;
     }
 
+
     .product-option-content small {
       color:
         var(--muted);
     }
+
 
     .product-option-content b {
       margin-top:
@@ -357,6 +383,7 @@
         #ffffff;
     }
 
+
     .product-option input:checked
     + .product-option-content {
       border-color:
@@ -368,6 +395,7 @@
       transform:
         translateY(-2px);
     }
+
 
     .order-summary {
       display:
@@ -396,6 +424,7 @@
         #12161b;
     }
 
+
     .order-summary > div {
       display:
         grid;
@@ -404,6 +433,7 @@
         2px;
     }
 
+
     .order-summary span {
       font-size:
         13px;
@@ -411,6 +441,7 @@
       color:
         var(--muted);
     }
+
 
     .order-summary strong {
       font-size:
@@ -423,6 +454,7 @@
         #ffffff;
     }
 
+
     .order-summary .free-shipping {
       font-weight:
         700;
@@ -430,6 +462,7 @@
       color:
         #ffffff;
     }
+
 
     .same-data-option {
       display:
@@ -448,6 +481,7 @@
         #dfe4ea;
     }
 
+
     .same-data-option input {
       width:
         18px;
@@ -455,6 +489,7 @@
       height:
         18px;
     }
+
 
     .multi-personalization-grid {
       display:
@@ -471,6 +506,7 @@
         start;
     }
 
+
     .personalization-fields {
       display:
         grid;
@@ -481,6 +517,7 @@
       margin-bottom:
         18px;
     }
+
 
     .personalization-block {
       padding:
@@ -496,6 +533,7 @@
       background:
         rgba(18, 22, 27, 0.84);
     }
+
 
     .personalization-block-header {
       display:
@@ -514,6 +552,7 @@
         18px;
     }
 
+
     .personalization-block-header h3 {
       margin:
         0;
@@ -521,6 +560,7 @@
       font-size:
         18px;
     }
+
 
     .personalization-block-header span {
       font-size:
@@ -530,6 +570,7 @@
         var(--muted);
     }
 
+
     .personalization-block-fields {
       display:
         grid;
@@ -537,6 +578,7 @@
       gap:
         16px;
     }
+
 
     .preview-list {
       display:
@@ -549,6 +591,7 @@
         16px;
     }
 
+
     .order-preview-item {
       padding-bottom:
         20px;
@@ -558,6 +601,7 @@
         rgba(255, 255, 255, 0.08);
     }
 
+
     .order-preview-item:last-child {
       padding-bottom:
         0;
@@ -565,6 +609,7 @@
       border-bottom:
         0;
     }
+
 
     .order-preview-label {
       display:
@@ -586,10 +631,12 @@
         var(--muted);
     }
 
+
     .order-preview-label strong {
       color:
         #ffffff;
     }
+
 
     @media (max-width: 900px) {
 
@@ -598,20 +645,24 @@
           10px;
       }
 
+
       .product-carousel-next {
         right:
           10px;
       }
+
 
       .product-selector {
         grid-template-columns:
           1fr;
       }
 
+
       .multi-personalization-grid {
         grid-template-columns:
           1fr;
       }
+
 
       .order-summary {
         align-items:
@@ -625,7 +676,7 @@
 
 
     /* =========================
-       PRÉVIAS - POSIÇÃO REAL DA ARTE
+       PRÉVIAS
     ========================== */
 
     .preview-list .mini-plaque {
@@ -636,10 +687,6 @@
         hidden;
     }
 
-
-    /* =========================
-       PLAQUETA DE MOTOR
-    ========================== */
 
     .preview-list
     .mini-plaque.motor {
@@ -664,6 +711,7 @@
       padding:
         0 !important;
     }
+
 
     .preview-list
     .mini-plaque.motor
@@ -715,6 +763,7 @@
         ellipsis;
     }
 
+
     .preview-list
     .mini-plaque.motor
     .mini-car {
@@ -761,6 +810,7 @@
       overflow:
         hidden;
     }
+
 
     .preview-list
     .mini-plaque.motor
@@ -813,10 +863,6 @@
     }
 
 
-    /* =========================
-       RETROVISOR / CHAVEIRO
-    ========================== */
-
     .preview-list
     .mini-plaque.vertical {
       display:
@@ -846,6 +892,7 @@
       overflow:
         hidden;
     }
+
 
     .preview-list
     .mini-plaque.vertical
@@ -892,6 +939,7 @@
       text-overflow:
         clip;
     }
+
 
     .preview-list
     .mini-plaque.vertical
@@ -942,6 +990,7 @@
         visible;
     }
 
+
     .preview-list
     .mini-plaque.vertical
     .mini-sub {
@@ -989,8 +1038,6 @@
     }
 
 
-    /* Retrovisor */
-
     .preview-list
     .mini-plaque.retrovisor
     .mh1 {
@@ -1012,6 +1059,7 @@
       transform:
         none;
     }
+
 
     .preview-list
     .mini-plaque.retrovisor
@@ -1035,6 +1083,7 @@
         none;
     }
 
+
     .preview-list
     .mini-plaque.retrovisor
     .mh3,
@@ -1046,6 +1095,7 @@
         none;
     }
 
+
     .preview-list
     .mini-plaque.retrovisor
     .mini-title {
@@ -1053,8 +1103,6 @@
         23%;
     }
 
-
-    /* Chaveiro */
 
     .preview-list
     .mini-plaque.keychain
@@ -1078,6 +1126,7 @@
         translateX(-50%);
     }
 
+
     .preview-list
     .mini-plaque.keychain
     .mh2,
@@ -1093,12 +1142,14 @@
         none;
     }
 
+
     .preview-list
     .mini-plaque.keychain
     .mini-title {
       top:
         21%;
     }
+
 
     @media (max-width: 560px) {
 
@@ -1109,12 +1160,14 @@
           16px;
       }
 
+
       .preview-list
       .mini-plaque.vertical
       .mini-car {
         font-size:
           11px;
       }
+
 
       .preview-list
       .mini-plaque.vertical
@@ -1125,12 +1178,14 @@
 
     }
 
+
     .personalization-block
     .field-row {
       grid-template-columns:
         minmax(0, 2.4fr)
         minmax(105px, 0.6fr);
     }
+
 
     @media (max-width: 560px) {
 
@@ -1144,7 +1199,7 @@
 
 
     /* =========================
-       PRODUTOS - LAYOUT / MARKETING
+       PRODUTOS
     ========================== */
 
     .product-section-stage {
@@ -1157,6 +1212,7 @@
       padding:
         34px 0 18px;
     }
+
 
     .product-showcase-track {
       position:
@@ -1181,6 +1237,7 @@
         none;
     }
 
+
     .product-showcase-track svg {
       width:
         min(1180px, 106%);
@@ -1198,6 +1255,7 @@
       overflow:
         visible;
     }
+
 
     .product-showcase-track path {
       fill:
@@ -1219,6 +1277,12 @@
         non-scaling-stroke;
     }
 
+
+    /*
+      ALTERAÇÃO PRINCIPAL:
+      texto e card começam exatamente na mesma altura.
+    */
+
     .product-section-layout {
       position:
         relative;
@@ -1237,19 +1301,21 @@
         54px;
 
       align-items:
-        center;
+        start;
 
       min-height:
         590px;
     }
+
 
     .product-section-copy {
       max-width:
         360px;
 
       align-self:
-        center;
+        start;
     }
+
 
     .product-section-copy h2 {
       margin:
@@ -1272,6 +1338,7 @@
         #ffffff;
     }
 
+
     .product-section-copy p {
       margin:
         0;
@@ -1289,6 +1356,7 @@
         var(--muted);
     }
 
+
     .product-showcase {
       position:
         relative;
@@ -1300,11 +1368,12 @@
         flex;
 
       align-items:
-        center;
+        flex-start;
 
       justify-content:
         center;
     }
+
 
     .product-showcase
     .product-carousel {
@@ -1323,6 +1392,7 @@
       touch-action:
         pan-y;
     }
+
 
     .product-showcase
     .product-card {
@@ -1353,34 +1423,16 @@
         blur(2px);
     }
 
-    .product-hook {
-      margin:
-        18px 0 6px;
 
-      max-width:
-        560px;
-
-      font-size:
-        clamp(
-          20px,
-          2.2vw,
-          27px
-        );
-
-      line-height:
-        1.15;
-
-      font-weight:
-        800;
-
-      color:
-        #ffffff;
-    }
+    /*
+      Mantém o texto do card mais próximo
+      da versão anterior.
+    */
 
     .product-showcase
     .product-desc {
       margin-top:
-        0;
+        18px;
 
       max-width:
         570px;
@@ -1388,6 +1440,7 @@
       line-height:
         1.55;
     }
+
 
     .product-showcase
     .feature-list {
@@ -1397,6 +1450,7 @@
       margin-bottom:
         28px;
     }
+
 
     .product-price-block {
       display:
@@ -1422,6 +1476,7 @@
         rgba(255, 255, 255, 0.08);
     }
 
+
     .product-price-block
     .price {
       display:
@@ -1444,6 +1499,7 @@
         -0.035em;
     }
 
+
     .product-price-block
     .shipping-free {
       margin:
@@ -1459,6 +1515,7 @@
         #d7dde5;
     }
 
+
     .product-price-block
     .shipping-free strong {
       font-weight:
@@ -1468,11 +1525,13 @@
         #ffffff;
     }
 
+
     .product-showcase
     .btn-full {
       margin-top:
         18px;
     }
+
 
     .product-card-note {
       min-height:
@@ -1497,17 +1556,20 @@
         center;
     }
 
+
     .product-showcase
     .product-carousel-prev {
       left:
         -22px;
     }
 
+
     .product-showcase
     .product-carousel-next {
       right:
         -22px;
     }
+
 
     .product-showcase
     .product-carousel-dots {
@@ -1520,6 +1582,7 @@
       margin-top:
         22px;
     }
+
 
     .accessory-note {
       margin:
@@ -1538,6 +1601,7 @@
         0.78;
     }
 
+
     @media (max-width: 900px) {
 
       .product-section-layout {
@@ -1549,6 +1613,7 @@
           30px;
       }
 
+
       .product-showcase
       .product-card {
         padding:
@@ -1557,12 +1622,20 @@
 
     }
 
+
+    /*
+      MOBILE PRESERVADO:
+      título em cima, card abaixo,
+      sem setas e com swipe.
+    */
+
     @media (max-width: 768px) {
 
       .product-section-stage {
         padding-top:
           12px;
       }
+
 
       .product-section-layout {
         display:
@@ -1581,10 +1654,12 @@
           28px;
       }
 
+
       .product-section-copy {
         max-width:
           none;
       }
+
 
       .product-section-copy h2 {
         font-size:
@@ -1595,10 +1670,12 @@
           );
       }
 
+
       .product-section-copy p {
         max-width:
           520px;
       }
+
 
       .product-showcase-track svg {
         width:
@@ -1612,11 +1689,13 @@
           scale(1);
       }
 
+
       .product-showcase
       .product-carousel {
         width:
           100%;
       }
+
 
       .product-showcase
       .product-carousel-prev,
@@ -1627,15 +1706,11 @@
           none;
       }
 
+
       .product-showcase
       .product-card {
         padding:
           24px;
-      }
-
-      .product-hook {
-        font-size:
-          22px;
       }
 
     }
@@ -1679,10 +1754,12 @@
         blur(5px);
     }
 
+
     .confirmation-modal.is-open {
       display:
         flex;
     }
+
 
     .confirmation-dialog {
       width:
@@ -1727,6 +1804,7 @@
         );
     }
 
+
     .confirmation-dialog h2 {
       margin-bottom:
         8px;
@@ -1734,6 +1812,7 @@
       font-size:
         28px;
     }
+
 
     .confirmation-intro {
       margin:
@@ -1743,6 +1822,7 @@
         var(--muted);
     }
 
+
     .confirmation-items {
       display:
         grid;
@@ -1750,6 +1830,7 @@
       gap:
         12px;
     }
+
 
     .confirmation-item {
       padding:
@@ -1771,6 +1852,7 @@
         #0d1116;
     }
 
+
     .confirmation-item strong {
       display:
         block;
@@ -1782,6 +1864,7 @@
         #ffffff;
     }
 
+
     .confirmation-item p {
       margin:
         4px 0;
@@ -1792,6 +1875,7 @@
       font-size:
         14px;
     }
+
 
     .confirmation-observacoes {
       margin-top:
@@ -1810,6 +1894,7 @@
         );
     }
 
+
     .confirmation-observacoes p {
       margin:
         6px 0 0;
@@ -1817,6 +1902,7 @@
       color:
         #cbd2d9;
     }
+
 
     .confirmation-total {
       display:
@@ -1847,6 +1933,7 @@
         );
     }
 
+
     .confirmation-total span {
       color:
         var(--muted);
@@ -1855,6 +1942,7 @@
         13px;
     }
 
+
     .confirmation-total strong {
       color:
         #ffffff;
@@ -1862,6 +1950,7 @@
       font-size:
         26px;
     }
+
 
     .confirmation-shipping {
       margin:
@@ -1877,6 +1966,7 @@
         700;
     }
 
+
     .confirmation-actions {
       display:
         grid;
@@ -1891,10 +1981,12 @@
         24px;
     }
 
+
     .confirmation-actions button {
       width:
         100%;
     }
+
 
     .confirmation-actions
     .confirmation-edit {
@@ -1909,6 +2001,7 @@
         var(--line);
     }
 
+
     .confirmation-actions
     .confirmation-confirm {
       background:
@@ -1922,6 +2015,7 @@
         transparent;
     }
 
+
     .confirmation-actions
     .confirmation-confirm:disabled {
       opacity:
@@ -1930,6 +2024,7 @@
       cursor:
         wait;
     }
+
 
     .confirmation-message {
       min-height:
@@ -1948,10 +2043,12 @@
         600;
     }
 
+
     body.modal-open {
       overflow:
         hidden;
     }
+
 
     @media (max-width: 560px) {
 
@@ -1960,15 +2057,18 @@
           14px;
       }
 
+
       .confirmation-dialog {
         padding:
           20px;
       }
 
+
       .confirmation-actions {
         grid-template-columns:
           1fr;
       }
+
 
       .confirmation-total {
         align-items:
@@ -1981,9 +2081,12 @@
     }
 
   </style>
+
 </head>
 
+
 <body>
+
 
   <header class="topbar">
 
@@ -2010,6 +2113,7 @@
         </span>
 
       </a>
+
 
       <nav class="nav">
 
@@ -2046,7 +2150,9 @@
 
   </header>
 
+
   <main>
+
 
     <section
       id="home"
@@ -2088,6 +2194,7 @@
 
           </div>
 
+
           <div class="hero-points">
 
             <span>
@@ -2105,6 +2212,7 @@
           </div>
 
         </div>
+
 
         <div
           class="plaque-mockup"
@@ -2137,6 +2245,7 @@
       </div>
 
     </section>
+
 
     <section
       id="produtos"
@@ -2201,6 +2310,7 @@
 
           </div>
 
+
           <div class="product-section-layout">
 
             <div class="product-section-copy">
@@ -2216,6 +2326,7 @@
 
             </div>
 
+
             <div class="product-showcase">
 
               <div class="product-carousel">
@@ -2229,6 +2340,7 @@
                   ‹
                 </button>
 
+
                 <article
                   id="productCard"
                   class="product-card"
@@ -2241,24 +2353,20 @@
                     100 × 40 mm
                   </div>
 
+
                   <h3 id="cardProdutoNome">
                     Plaqueta de motor
                   </h3>
 
-                  <p
-                    id="cardProdutoHeadline"
-                    class="product-hook"
-                  >
-                    Dê identidade ao cofre do seu projeto.
-                  </p>
 
                   <p
                     id="cardProdutoDescricao"
                     class="product-desc"
                   >
-                    Plaqueta personalizada em aço inox, gravada a laser
-                    com os detalhes do seu carro.
+                    Personalizada para aplicação no cofre do motor
+                    ou em projetos automotivos.
                   </p>
+
 
                   <ul
                     id="cardProdutoCaracteristicas"
@@ -2266,26 +2374,27 @@
                   >
 
                     <li>
-                      Aço inox
+                      Nome/modelo do veículo
                     </li>
 
                     <li>
-                      Arte exclusiva do seu veículo
+                      Arte personalizada
                     </li>
 
                     <li>
-                      Nome/modelo e assinatura personalizados
+                      Assinatura personalizada
                     </li>
 
                     <li>
-                      Com ou sem furos
+                      Gravação a laser
                     </li>
 
                     <li>
-                      Prévia da arte antes da gravação
+                      Opção com ou sem furos
                     </li>
 
                   </ul>
+
 
                   <div class="product-price-block">
 
@@ -2302,13 +2411,15 @@
 
                   </div>
 
+
                   <button
                     id="cardProdutoPersonalizar"
                     class="btn btn-primary btn-full"
                     type="button"
                   >
-                    Personalizar minha plaqueta
+                    Quero personalizar
                   </button>
+
 
                   <p
                     id="cardProdutoNota"
@@ -2319,6 +2430,7 @@
 
                 </article>
 
+
                 <button
                   id="proximoProduto"
                   class="product-carousel-nav product-carousel-next"
@@ -2327,6 +2439,7 @@
                 >
                   ›
                 </button>
+
 
                 <div
                   class="product-carousel-dots"
@@ -2368,6 +2481,7 @@
 
     </section>
 
+
     <section
       id="personalizar"
       class="section"
@@ -2390,6 +2504,7 @@
           </p>
 
         </div>
+
 
         <form
           id="orderForm"
@@ -2425,6 +2540,7 @@
 
             </label>
 
+
             <label class="product-option">
 
               <input
@@ -2450,6 +2566,7 @@
               </span>
 
             </label>
+
 
             <label class="product-option">
 
@@ -2479,6 +2596,7 @@
 
           </div>
 
+
           <div class="order-summary">
 
             <div>
@@ -2499,6 +2617,7 @@
 
           </div>
 
+
           <label class="same-data-option">
 
             <input
@@ -2513,6 +2632,7 @@
 
           </label>
 
+
           <div class="multi-personalization-grid">
 
             <div>
@@ -2521,6 +2641,7 @@
                 id="personalizationFields"
                 class="personalization-fields"
               ></div>
+
 
               <div class="field">
 
@@ -2537,16 +2658,19 @@
 
               </div>
 
+
               <div class="notice">
                 Ao finalizar, você poderá revisar todo o pedido
                 antes de continuar para o WhatsApp.
               </div>
+
 
               <p class="accessory-note">
                 Observação: itens complementares não estão inclusos.
                 A plaqueta é enviada sem parafusos de fixação,
                 e os demais acessórios sem cordão.
               </p>
+
 
               <button
                 id="finalizarPedidoButton"
@@ -2555,6 +2679,7 @@
               >
                 Finalizar pedido
               </button>
+
 
               <a
                 id="paymentLink"
@@ -2566,6 +2691,7 @@
               </a>
 
             </div>
+
 
             <aside class="preview-card">
 
@@ -2595,6 +2721,7 @@
     </section>
 
   </main>
+
 
   <div
     id="confirmationModal"
@@ -2631,6 +2758,7 @@
         class="confirmation-observacoes"
       ></div>
 
+
       <div class="confirmation-total">
 
         <div>
@@ -2651,11 +2779,13 @@
 
       </div>
 
+
       <p
         id="confirmationMessage"
         class="confirmation-message"
         aria-live="polite"
       ></p>
+
 
       <div class="confirmation-actions">
 
@@ -2681,6 +2811,7 @@
 
   </div>
 
+
   <footer class="footer">
 
     <div class="container footer-wrap">
@@ -2696,6 +2827,7 @@
     </div>
 
   </footer>
+
 
   <script>
 
@@ -2723,6 +2855,7 @@
 
       },
 
+
       'retrovisor-interno': {
 
         nome:
@@ -2744,6 +2877,7 @@
           true
 
       },
+
 
       'chaveiro-personalizado': {
 
@@ -2783,30 +2917,28 @@
         nome:
           'Plaqueta de motor',
 
-        headline:
-          'Dê identidade ao cofre do seu projeto.',
-
         descricao:
-          'Plaqueta personalizada em aço inox, gravada a laser com os detalhes do seu carro.',
+          'Personalizada para aplicação no cofre do motor ou em projetos automotivos.',
 
         caracteristicas: [
-          'Aço inox',
-          'Arte exclusiva do seu veículo',
-          'Nome/modelo e assinatura personalizados',
-          'Com ou sem furos',
-          'Prévia da arte antes da gravação'
+          'Nome/modelo do veículo',
+          'Arte personalizada',
+          'Assinatura personalizada',
+          'Gravação a laser',
+          'Opção com ou sem furos'
         ],
 
         preco:
           'R$ 89,90',
 
         cta:
-          'Personalizar minha plaqueta',
+          'Quero personalizar',
 
         nota:
           'Não acompanha parafusos de fixação.'
 
       },
+
 
       {
 
@@ -2819,18 +2951,14 @@
         nome:
           'Enfeite para retrovisor interno',
 
-        headline:
-          'Leve a identidade do seu projeto para dentro do carro.',
-
         descricao:
-          'Acessório em aço inox personalizado a laser com a arte e os detalhes do seu veículo.',
+          'Peça personalizada para deixar o interior do veículo com identidade própria.',
 
         caracteristicas: [
-          'Aço inox',
-          'Arte exclusiva do seu veículo',
-          'Assinatura personalizada',
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
           '2 furos superiores',
-          'Prévia da arte antes da gravação',
+          'Gravação a laser',
           'Gravação opcional no verso'
         ],
 
@@ -2838,12 +2966,13 @@
           'R$ 69,90',
 
         cta:
-          'Personalizar meu retrovisor',
+          'Quero personalizar',
 
         nota:
           'Não acompanha cordão.'
 
       },
+
 
       {
 
@@ -2856,18 +2985,14 @@
         nome:
           'Chaveiro personalizado',
 
-        headline:
-          'Leve a identidade do seu carro com você.',
-
         descricao:
-          'Chaveiro em aço inox personalizado a laser para transformar os detalhes do seu projeto em um acessório único.',
+          'Uma peça compacta e personalizada para levar a identidade do seu carro com você.',
 
         caracteristicas: [
-          'Aço inox',
-          'Arte exclusiva do seu veículo',
-          'Assinatura personalizada',
+          'Imagem personalizada do veículo',
+          'Formato 50 × 30 mm',
           '1 furo superior',
-          'Prévia da arte antes da gravação',
+          'Gravação a laser',
           'Gravação opcional no verso'
         ],
 
@@ -2875,7 +3000,7 @@
           'R$ 69,90',
 
         cta:
-          'Personalizar meu chaveiro',
+          'Quero personalizar',
 
         nota:
           'Não acompanha cordão.'
@@ -2908,12 +3033,6 @@
     const cardProdutoNome =
       document.getElementById(
         'cardProdutoNome'
-      );
-
-
-    const cardProdutoHeadline =
-      document.getElementById(
-        'cardProdutoHeadline'
       );
 
 
@@ -2979,10 +3098,6 @@
 
       cardProdutoNome.textContent =
         item.nome;
-
-
-      cardProdutoHeadline.textContent =
-        item.headline;
 
 
       cardProdutoDescricao.textContent =
@@ -3208,6 +3323,10 @@
     );
 
 
+    /*
+      SWIPE MOBILE
+    */
+
     let touchStartX =
       null;
 
@@ -3246,10 +3365,8 @@
       event => {
 
         if (
-          touchStartX ===
-            null ||
-          touchStartY ===
-            null
+          touchStartX === null ||
+          touchStartY === null
         ) {
 
           return;
