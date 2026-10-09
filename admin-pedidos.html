@@ -10,7 +10,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Meus pedidos</title>
+  <title>
+    Administração de pedidos
+  </title>
 
   <link
     rel="stylesheet"
@@ -20,28 +22,30 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
+
   <style>
 
     body {
       background: #0b0f14;
     }
 
-    .pedidos-cliente-page {
+    .pedidos-admin-page {
       width: 100%;
       min-height: 100vh;
       padding: 34px 28px 60px;
     }
 
-    .pedidos-cliente-shell {
-      width: min(1240px, 100%);
+    .pedidos-admin-shell {
+      width: min(1380px, 100%);
       margin: 0 auto;
     }
+
 
     /* =========================
        CABEÇALHO
     ========================== */
 
-    .pedidos-cliente-header {
+    .pedidos-admin-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -49,7 +53,7 @@
       margin-bottom: 24px;
     }
 
-    .pedidos-cliente-eyebrow {
+    .pedidos-admin-eyebrow {
       display: block;
       margin-bottom: 7px;
       color: #8f99a5;
@@ -58,89 +62,81 @@
       letter-spacing: 0.16em;
     }
 
-    .pedidos-cliente-header h1 {
+    .pedidos-admin-header h1 {
       margin: 0;
       color: #ffffff;
       font-size: clamp(30px, 4vw, 44px);
       line-height: 1.05;
     }
 
-    .pedidos-cliente-header p {
+    .pedidos-admin-header p {
       margin: 9px 0 0;
       color: #9ba5b1;
     }
 
-    .pedidos-cliente-actions {
+    .pedidos-admin-actions {
       display: flex;
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
     }
 
+
     /* =========================
        BOTÕES
     ========================== */
 
-    .cliente-btn {
+    .admin-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+
       min-height: 44px;
       padding: 0 17px;
+
       border: 1px solid #303844;
       border-radius: 10px;
+
       background: #11161d;
-      color: #ffffff !important;
+      color: #ffffff;
+
       font: inherit;
       font-size: 14px;
       font-weight: 700;
-      text-decoration: none !important;
+
+      text-decoration: none;
+
       cursor: pointer;
+
       transition:
         background 0.18s ease,
         border-color 0.18s ease,
         transform 0.18s ease;
     }
 
-    .cliente-btn:hover {
+    .admin-btn:hover {
       background: #171d25;
       border-color: #45505f;
       transform: translateY(-1px);
     }
 
-    .cliente-btn-primary {
+    .admin-btn-primary {
       background: #ffffff;
-      color: #0b0f14 !important;
+      color: #0b0f14;
       border-color: #ffffff;
     }
 
-    .cliente-btn-primary:hover {
+    .admin-btn-primary:hover {
       background: #e8ebef;
       border-color: #e8ebef;
     }
 
-    .cliente-btn-danger {
-      color: #e25c66 !important;
-      border-color: rgba(226, 92, 102, 0.48);
+    .admin-btn-danger {
+      color: #e25c66;
+      border-color: rgba(226, 92, 102, 0.45);
       background: transparent;
     }
 
-    .cliente-btn-danger:hover {
-      background: rgba(226, 92, 102, 0.08);
-      border-color: rgba(226, 92, 102, 0.72);
-    }
-
-    .cliente-btn-whatsapp {
-      color: #ce2b37 !important;
-      border-color: #ce2b37;
-      background: #0b0d10;
-    }
-
-    .cliente-btn-whatsapp:hover {
-      color: #e54853 !important;
-      border-color: #e54853;
-      background: #12161b;
-    }
 
     /* =========================
        KPIs
@@ -164,6 +160,7 @@
       border-radius: 12px;
       background: #10151c;
       cursor: pointer;
+
       transition:
         border-color 0.18s ease,
         background 0.18s ease,
@@ -200,6 +197,7 @@
       line-height: 1;
     }
 
+
     /* =========================
        PAINEL
     ========================== */
@@ -211,8 +209,9 @@
       background: #10151c;
     }
 
+
     /* =========================
-       PESQUISA / ORDENAÇÃO
+       PESQUISA
     ========================== */
 
     .pedidos-toolbar {
@@ -242,6 +241,7 @@
     .pedidos-toolbar select:focus {
       border-color: #697686;
     }
+
 
     /* =========================
        FILTROS
@@ -279,8 +279,9 @@
       border-color: #ffffff;
     }
 
+
     /* =========================
-       TABELA DESKTOP
+       TABELA
     ========================== */
 
     .pedidos-table-wrap {
@@ -326,6 +327,10 @@
       width: 90px;
     }
 
+    .col-cliente {
+      width: 220px;
+    }
+
     .col-itens {
       width: auto;
     }
@@ -339,17 +344,26 @@
     }
 
     .col-status {
-      width: 175px;
+      width: 190px;
     }
 
     .col-acoes {
-      width: 145px;
+      width: 86px;
     }
 
     .pedido-numero {
       color: #ffffff;
       font-size: 14px;
       font-weight: 800;
+    }
+
+    .pedido-cliente {
+      display: block;
+      overflow: hidden;
+      color: #ffffff;
+      font-weight: 700;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .pedido-itens-resumo {
@@ -370,6 +384,7 @@
       color: #a4aeba;
       white-space: nowrap;
     }
+
 
     /* =========================
        STATUS
@@ -413,21 +428,17 @@
       background: #d95b63;
     }
 
-    .status-label {
-      color: #dce1e7;
+    .status-select {
+      width: 100%;
+      min-width: 0;
+      padding: 8px 9px;
+      border: 1px solid #303844;
+      border-radius: 8px;
+      background: #0b1016;
+      color: #ffffff;
+      font: inherit;
       font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* =========================
-       AÇÕES
-    ========================== */
-
-    .pedido-acoes {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 7px;
+      outline: none;
     }
 
     .pedido-ver {
@@ -449,120 +460,6 @@
       background: #1c2430;
     }
 
-    .pedido-cancelar {
-      min-height: 34px;
-      padding: 0 11px;
-      border: 1px solid rgba(226, 92, 102, 0.52);
-      border-radius: 8px;
-      background: transparent;
-      color: #e25c66;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .pedido-cancelar:hover {
-      background: rgba(226, 92, 102, 0.08);
-    }
-
-    .pedido-whatsapp {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 34px;
-      padding: 0 11px;
-      border: 1px solid #ce2b37;
-      border-radius: 8px;
-      background: #0b0d10;
-      color: #ce2b37 !important;
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none !important;
-    }
-
-    .pedido-whatsapp:hover {
-      color: #e54853 !important;
-      border-color: #e54853;
-      background: #12161b;
-    }
-
-    /* =========================
-       CARDS MOBILE
-    ========================== */
-
-    .pedidos-mobile {
-      display: none;
-      padding: 12px;
-      gap: 12px;
-    }
-
-    .pedido-mobile-card {
-      padding: 16px;
-      border: 1px solid #29323d;
-      border-radius: 13px;
-      background: #0d1218;
-    }
-
-    .pedido-mobile-topo {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .pedido-mobile-topo strong {
-      color: #ffffff;
-      font-size: 16px;
-    }
-
-    .pedido-mobile-data {
-      color: #8f99a5;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .pedido-mobile-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .pedido-mobile-linha {
-      display: grid;
-      gap: 3px;
-    }
-
-    .pedido-mobile-linha span {
-      color: #7f8a97;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .pedido-mobile-linha strong,
-    .pedido-mobile-linha p {
-      margin: 0;
-      color: #dce1e7;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .pedido-mobile-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .pedido-mobile-acoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 15px;
-      padding-top: 14px;
-      border-top: 1px solid #252e39;
-    }
 
     /* =========================
        PAGINAÇÃO
@@ -612,32 +509,271 @@
       cursor: default;
     }
 
+
     /* =========================
-       MENSAGEM / RODAPÉ
+       MENSAGEM
     ========================== */
 
-    #pedidosMessage {
+    #mensagem {
       min-height: 22px;
       margin: 14px 2px 0;
       color: #aeb7c2;
       font-size: 13px;
     }
 
-    .cliente-footer-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 16px;
+    .admin-footer-link {
       margin-top: 20px;
+      text-align: center;
     }
 
-    .cliente-footer-links a {
+    .admin-footer-link a {
       color: #93baff;
       font-size: 13px;
       font-weight: 600;
       text-decoration: none;
     }
+
+
+    /* =========================
+       MODAL
+    ========================== */
+
+    .admin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(0, 0, 0, 0.76);
+      backdrop-filter: blur(6px);
+    }
+
+    .admin-modal.aberto {
+      display: flex;
+    }
+
+    .admin-modal-dialog {
+      width: min(900px, 100%);
+      max-height: calc(100vh - 44px);
+      overflow-y: auto;
+      padding: 26px;
+      border: 1px solid #303844;
+      border-radius: 16px;
+      background: #11161d;
+      box-shadow:
+        0 30px 100px
+        rgba(0, 0, 0, 0.58);
+    }
+
+    .admin-modal-topo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .admin-modal-topo h2 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 25px;
+    }
+
+    .admin-modal-topo p {
+      margin: 5px 0 0;
+      color: #929da9;
+      font-size: 13px;
+    }
+
+    .admin-modal-fechar {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      flex-shrink: 0;
+      border: 1px solid #303844;
+      border-radius: 9px;
+      background: #0c1117;
+      color: #ffffff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       NOVO PEDIDO
+    ========================== */
+
+    .novo-pedido-cliente {
+      margin-bottom: 20px;
+    }
+
+    .novo-pedido-cliente label,
+    .item-manual label,
+    .novo-pedido-observacoes label {
+      display: block;
+      margin-bottom: 6px;
+      color: #dfe4ea;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .novo-pedido-cliente input,
+    .item-manual input,
+    .item-manual select,
+    .novo-pedido-observacoes textarea {
+      width: 100%;
+      margin: 0;
+      padding: 11px 12px;
+      border: 1px solid #303844;
+      border-radius: 9px;
+      background: #0b1016;
+      color: #ffffff;
+      font: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .cliente-ajuda {
+      margin-top: 5px;
+      color: #7e8996;
+      font-size: 11px;
+    }
+
+    .novo-pedido-itens-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 18px 0 12px;
+    }
+
+    .novo-pedido-itens-topo h3 {
+      margin: 0;
+      color: #ffffff;
+      font-size: 17px;
+    }
+
+    .adicionar-item {
+      min-height: 38px;
+      padding: 0 13px;
+    }
+
+    #itensPedidoManual {
+      display: grid;
+      gap: 13px;
+    }
+
+
+    /* =========================
+       ITEM MANUAL
+    ========================== */
+
+    .item-manual {
+      padding: 16px;
+      border: 1px solid #2d3642;
+      border-radius: 12px;
+      background: #0d1218;
+    }
+
+    .item-manual-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 14px;
+    }
+
+    .item-manual-titulo {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .item-remover {
+      min-height: 32px;
+      padding: 0 10px;
+      font-size: 11px;
+    }
+
+    .item-manual-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          4,
+          minmax(0, 1fr)
+        );
+      gap: 11px;
+    }
+
+    .item-produto {
+      grid-column:
+        span 2;
+    }
+
+    .item-separador {
+      grid-column:
+        1 / -1;
+      margin-top: 5px;
+      padding-top: 13px;
+      border-top: 1px solid #252e39;
+      color: #929da9;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .item-modelo {
+      grid-column:
+        span 2;
+    }
+
+    .item-verso {
+      grid-column:
+        1 / -1;
+    }
+
+    .novo-pedido-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 17px;
+      padding: 15px 16px;
+      border: 1px solid #303844;
+      border-radius: 11px;
+      background: #0b1016;
+    }
+
+    .novo-pedido-total span {
+      color: #929da9;
+      font-size: 12px;
+    }
+
+    .novo-pedido-total strong {
+      color: #ffffff;
+      font-size: 23px;
+    }
+
+    .novo-pedido-observacoes {
+      margin-top: 17px;
+    }
+
+    .novo-pedido-acoes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    body.modal-admin-aberto {
+      overflow: hidden;
+    }
+
 
     /* =========================
        RESPONSIVO
@@ -653,23 +789,38 @@
           );
       }
 
+      .item-manual-grid {
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
+      }
+
+      .item-produto,
+      .item-modelo {
+        grid-column:
+          span 2;
+      }
+
     }
+
 
     @media (max-width: 760px) {
 
-      .pedidos-cliente-page {
+      .pedidos-admin-page {
         padding: 22px 14px 44px;
       }
 
-      .pedidos-cliente-header {
+      .pedidos-admin-header {
         flex-direction: column;
       }
 
-      .pedidos-cliente-actions {
+      .pedidos-admin-actions {
         width: 100%;
       }
 
-      .pedidos-cliente-actions .cliente-btn {
+      .pedidos-admin-actions .admin-btn {
         flex: 1;
       }
 
@@ -685,25 +836,28 @@
         grid-template-columns: 1fr;
       }
 
-      .pedidos-table-wrap {
-        display: none;
+      .item-manual-grid {
+        grid-template-columns: 1fr;
       }
 
-      .pedidos-mobile {
-        display: grid;
+      .item-produto,
+      .item-modelo,
+      .item-separador,
+      .item-verso {
+        grid-column: auto;
+      }
+
+      .novo-pedido-acoes {
+        flex-direction: column-reverse;
+      }
+
+      .novo-pedido-acoes .admin-btn {
+        width: 100%;
       }
 
       .pedidos-pagination {
         align-items: flex-start;
         flex-direction: column;
-      }
-
-      .pagination-actions {
-        width: 100%;
-      }
-
-      .pagination-button {
-        flex: 1;
       }
 
     }
@@ -712,49 +866,54 @@
 
 </head>
 
+
 <body>
 
-  <main class="pedidos-cliente-page">
+  <main class="pedidos-admin-page">
 
-    <div class="pedidos-cliente-shell">
+    <div class="pedidos-admin-shell">
 
-      <header class="pedidos-cliente-header">
+
+      <header class="pedidos-admin-header">
 
         <div>
 
-          <span class="pedidos-cliente-eyebrow">
-            ÍMALLOY · MINHA CONTA
+          <span class="pedidos-admin-eyebrow">
+            ÍMALLOY · ADMINISTRAÇÃO
           </span>
 
           <h1>
-            Meus pedidos
+            Pedidos
           </h1>
 
           <p>
-            Acompanhe seus pedidos e o andamento da produção.
+            Acompanhe vendas, pagamentos e produção em uma única tela.
           </p>
 
         </div>
 
-        <div class="pedidos-cliente-actions">
+
+        <div class="pedidos-admin-actions">
 
           <a
-            class="cliente-btn"
+            class="admin-btn"
             href="conta.html"
           >
             Minha conta
           </a>
 
-          <a
-            class="cliente-btn cliente-btn-primary"
-            href="index.html#personalizar"
+          <button
+            id="abrirNovoPedido"
+            class="admin-btn admin-btn-primary"
+            type="button"
           >
             + Novo pedido
-          </a>
+          </button>
 
         </div>
 
       </header>
+
 
       <section class="status-kpis">
 
@@ -765,7 +924,6 @@
           <span class="status-kpi-label">
             Todos
           </span>
-
           <strong
             id="kpiTodos"
             class="status-kpi-number"
@@ -774,6 +932,7 @@
           </strong>
         </div>
 
+
         <div
           class="status-kpi"
           data-kpi-status="pagamento_pendente"
@@ -781,7 +940,6 @@
           <span class="status-kpi-label">
             Pagamento pendente
           </span>
-
           <strong
             id="kpiPendentes"
             class="status-kpi-number"
@@ -790,6 +948,7 @@
           </strong>
         </div>
 
+
         <div
           class="status-kpi"
           data-kpi-status="pago"
@@ -797,7 +956,6 @@
           <span class="status-kpi-label">
             Pagos
           </span>
-
           <strong
             id="kpiPagos"
             class="status-kpi-number"
@@ -806,6 +964,7 @@
           </strong>
         </div>
 
+
         <div
           class="status-kpi"
           data-kpi-status="em_producao"
@@ -813,7 +972,6 @@
           <span class="status-kpi-label">
             Em produção
           </span>
-
           <strong
             id="kpiProducao"
             class="status-kpi-number"
@@ -822,6 +980,7 @@
           </strong>
         </div>
 
+
         <div
           class="status-kpi"
           data-kpi-status="enviado"
@@ -829,7 +988,6 @@
           <span class="status-kpi-label">
             Enviados
           </span>
-
           <strong
             id="kpiEnviados"
             class="status-kpi-number"
@@ -838,6 +996,7 @@
           </strong>
         </div>
 
+
         <div
           class="status-kpi"
           data-kpi-status="concluido"
@@ -845,7 +1004,6 @@
           <span class="status-kpi-label">
             Concluídos
           </span>
-
           <strong
             id="kpiConcluidos"
             class="status-kpi-number"
@@ -856,6 +1014,7 @@
 
       </section>
 
+
       <section class="pedidos-panel">
 
         <div class="pedidos-toolbar">
@@ -863,9 +1022,10 @@
           <input
             id="pesquisaPedido"
             type="text"
-            placeholder="Buscar por nº do pedido ou produto"
+            placeholder="Buscar por nº do pedido, cliente ou produto"
             autocomplete="off"
           >
+
 
           <select id="ordenacaoPedidos">
 
@@ -888,6 +1048,7 @@
           </select>
 
         </div>
+
 
         <div class="status-tabs">
 
@@ -949,8 +1110,9 @@
 
         </div>
 
+
         <div
-          id="pedidosLista"
+          id="listaPedidos"
           class="pedidos-table-wrap"
         >
           <div class="pedidos-vazio">
@@ -958,10 +1120,6 @@
           </div>
         </div>
 
-        <div
-          id="pedidosMobile"
-          class="pedidos-mobile"
-        ></div>
 
         <div class="pedidos-pagination">
 
@@ -971,6 +1129,7 @@
           >
             Carregando...
           </span>
+
 
           <div class="pagination-actions">
 
@@ -996,13 +1155,11 @@
 
       </section>
 
-      <p id="pedidosMessage"></p>
 
-      <div class="cliente-footer-links">
+      <p id="mensagem"></p>
 
-        <a href="conta.html">
-          Voltar para minha conta
-        </a>
+
+      <div class="admin-footer-link">
 
         <a href="index.html">
           Voltar para o site
@@ -1014,21 +1171,205 @@
 
   </main>
 
+
+  <!-- =========================
+       MODAL NOVO PEDIDO
+  ========================== -->
+
+  <div
+    id="novoPedidoModal"
+    class="admin-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="admin-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="novoPedidoTitulo"
+    >
+
+      <div class="admin-modal-topo">
+
+        <div>
+
+          <h2 id="novoPedidoTitulo">
+            Novo pedido
+          </h2>
+
+          <p>
+            Cadastre manualmente um pedido já confirmado.
+          </p>
+
+        </div>
+
+
+        <button
+          id="fecharNovoPedido"
+          class="admin-modal-fechar"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="pedidoForm">
+
+
+        <div class="novo-pedido-cliente">
+
+          <label for="clientePesquisa">
+            Cliente
+          </label>
+
+          <input
+            type="text"
+            id="clientePesquisa"
+            list="clientesLista"
+            placeholder="Pesquisar por nome, telefone ou e-mail"
+            autocomplete="off"
+            required
+          >
+
+          <datalist id="clientesLista"></datalist>
+
+          <div class="cliente-ajuda">
+            Digite parte do nome, telefone ou e-mail e selecione o cliente.
+          </div>
+
+        </div>
+
+
+        <div class="novo-pedido-itens-topo">
+
+          <h3>
+            Itens do pedido
+          </h3>
+
+          <button
+            id="adicionarItemPedido"
+            class="admin-btn adicionar-item"
+            type="button"
+          >
+            + Adicionar produto
+          </button>
+
+        </div>
+
+
+        <div id="itensPedidoManual"></div>
+
+
+        <div class="novo-pedido-total">
+
+          <span>
+            Total do pedido
+          </span>
+
+          <strong id="totalPedidoManual">
+            R$ 0,00
+          </strong>
+
+        </div>
+
+
+        <div class="novo-pedido-observacoes">
+
+          <label for="observacoes">
+            Observações gerais
+          </label>
+
+          <textarea
+            id="observacoes"
+            rows="3"
+            placeholder="Informações adicionais sobre o pedido"
+          ></textarea>
+
+        </div>
+
+
+        <div class="novo-pedido-acoes">
+
+          <button
+            id="cancelarNovoPedido"
+            class="admin-btn"
+            type="button"
+          >
+            Cancelar
+          </button>
+
+          <button
+            id="criarPedidoManual"
+            class="admin-btn admin-btn-primary"
+            type="submit"
+          >
+            Criar pedido
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
   <script>
 
-    const pedidosLista =
+    /* =========================
+       PRODUTOS DO ADMIN
+    ========================== */
+
+    const produtosManual = {
+
+      'Plaqueta de motor': {
+        preco: 89.90,
+        verso: false
+      },
+
+      'Enfeite para retrovisor interno': {
+        preco: 69.90,
+        verso: true
+      },
+
+      'Chaveiro personalizado': {
+        preco: 69.90,
+        verso: true
+      }
+
+    };
+
+
+    /* =========================
+       ELEMENTOS
+    ========================== */
+
+    const pedidoForm =
       document.getElementById(
-        'pedidosLista'
+        'pedidoForm'
       );
 
-    const pedidosMobile =
+    const clientePesquisa =
       document.getElementById(
-        'pedidosMobile'
+        'clientePesquisa'
       );
 
-    const pedidosMessage =
+    const clientesLista =
       document.getElementById(
-        'pedidosMessage'
+        'clientesLista'
+      );
+
+    const mensagem =
+      document.getElementById(
+        'mensagem'
+      );
+
+    const listaPedidos =
+      document.getElementById(
+        'listaPedidos'
       );
 
     const pesquisaPedido =
@@ -1055,6 +1396,47 @@
       document.getElementById(
         'proximaPagina'
       );
+
+    const abrirNovoPedido =
+      document.getElementById(
+        'abrirNovoPedido'
+      );
+
+    const fecharNovoPedido =
+      document.getElementById(
+        'fecharNovoPedido'
+      );
+
+    const cancelarNovoPedido =
+      document.getElementById(
+        'cancelarNovoPedido'
+      );
+
+    const novoPedidoModal =
+      document.getElementById(
+        'novoPedidoModal'
+      );
+
+    const adicionarItemPedido =
+      document.getElementById(
+        'adicionarItemPedido'
+      );
+
+    const itensPedidoManual =
+      document.getElementById(
+        'itensPedidoManual'
+      );
+
+    const totalPedidoManual =
+      document.getElementById(
+        'totalPedidoManual'
+      );
+
+    const criarPedidoManual =
+      document.getElementById(
+        'criarPedidoManual'
+      );
+
 
     const kpiTodos =
       document.getElementById(
@@ -1086,11 +1468,16 @@
         'kpiConcluidos'
       );
 
-    const whatsappNumber =
-      '5511911801381';
 
-    let pedidosCarregados =
-      [];
+    /* =========================
+       ESTADO
+    ========================== */
+
+    let clientes = [];
+
+    let clientesMap = {};
+
+    let pedidosCarregados = [];
 
     let filtroAtual =
       'todos';
@@ -1098,9 +1485,16 @@
     let paginaAtual =
       1;
 
+    let contadorItens =
+      0;
+
     const pedidosPorPagina =
       15;
 
+
+    /* =========================
+       UTILITÁRIOS
+    ========================== */
 
     function formatarValor(
       valor
@@ -1128,66 +1522,10 @@
 
       return new Date(
         data
-      ).toLocaleDateString(
-        'pt-BR'
-      );
-
-    }
-
-
-    function formatarStatus(
-      status
-    ) {
-
-      const nomes = {
-
-        pagamento_pendente:
-          'Pagamento pendente',
-
-        aguardando_pagamento:
-          'Pagamento pendente',
-
-        pago:
-          'Pago',
-
-        em_producao:
-          'Em produção',
-
-        enviado:
-          'Enviado',
-
-        concluido:
-          'Concluído',
-
-        cancelado:
-          'Cancelado'
-
-      };
-
-      return (
-        nomes[
-          status
-        ] ||
-        status
-      );
-
-    }
-
-
-    function normalizarStatus(
-      status
-    ) {
-
-      if (
-        status ===
-        'aguardando_pagamento'
-      ) {
-
-        return 'pagamento_pendente';
-
-      }
-
-      return status;
+      )
+        .toLocaleDateString(
+          'pt-BR'
+        );
 
     }
 
@@ -1243,61 +1581,369 @@
     }
 
 
-    function resumoItens(
-      itens
+    function normalizarStatus(
+      status
     ) {
 
       if (
-        !itens ||
-        itens.length ===
-          0
+        status ===
+        'aguardando_pagamento'
       ) {
 
-        return 'Sem itens';
+        return 'pagamento_pendente';
 
       }
 
-      if (
-        itens.length ===
-          1
-      ) {
+      return status;
 
-        return (
-          itens[
-            0
-          ].produto
+    }
+
+
+    /* =========================
+       CLIENTES
+    ========================== */
+
+    function montarLabelCliente(
+      cliente
+    ) {
+
+      return [
+        cliente.nome_completo,
+        cliente.telefone,
+        cliente.email
+      ]
+        .filter(
+          Boolean
+        )
+        .join(
+          ' · '
         );
 
+    }
+
+
+    function localizarCliente() {
+
+      const pesquisa =
+        normalizarTexto(
+          clientePesquisa.value
+        );
+
+
+      if (
+        !pesquisa
+      ) {
+
+        return null;
+
       }
 
-      return (
-        `${itens.length} itens · ` +
-        itens
+
+      const exato =
+        clientes.find(
+          cliente =>
+            normalizarTexto(
+              cliente.label
+            ) ===
+            pesquisa
+        );
+
+
+      if (
+        exato
+      ) {
+
+        return exato;
+
+      }
+
+
+      const encontrados =
+        clientes.filter(
+          cliente =>
+            normalizarTexto(
+              cliente.label
+            )
+              .includes(
+                pesquisa
+              )
+        );
+
+
+      if (
+        encontrados.length ===
+        1
+      ) {
+
+        return encontrados[
+          0
+        ];
+
+      }
+
+
+      return null;
+
+    }
+
+
+    /* =========================
+       ADMIN
+    ========================== */
+
+    async function verificarAdmin() {
+
+      const {
+        data: {
+          session
+        }
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
+
+
+      if (
+        !session
+      ) {
+
+        window.location.href =
+          'login.html';
+
+        return false;
+
+      }
+
+
+      const {
+        data: admin
+      } =
+        await supabaseClient
+          .from(
+            'admins'
+          )
+          .select(
+            'user_id'
+          )
+          .eq(
+            'user_id',
+            session.user.id
+          )
+          .maybeSingle();
+
+
+      if (
+        !admin
+      ) {
+
+        window.location.href =
+          'conta.html';
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* =========================
+       CLIENTES
+    ========================== */
+
+    async function consultarClientes() {
+
+      const primeiraTentativa =
+        await supabaseClient
+          .from(
+            'profiles'
+          )
+          .select(
+            'id, nome_completo, telefone, email'
+          )
+          .order(
+            'nome_completo'
+          );
+
+
+      if (
+        !primeiraTentativa.error
+      ) {
+
+        return {
+
+          data:
+            primeiraTentativa.data ||
+            [],
+
+          error:
+            null
+
+        };
+
+      }
+
+
+      return await supabaseClient
+        .from(
+          'profiles'
+        )
+        .select(
+          'id, nome_completo, telefone'
+        )
+        .order(
+          'nome_completo'
+        );
+
+    }
+
+
+    async function carregarClientes() {
+
+      const {
+        data,
+        error
+      } =
+        await consultarClientes();
+
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+        mensagem.textContent =
+          'Erro ao carregar clientes.';
+
+        return;
+
+      }
+
+
+      clientes =
+        (
+          data ||
+          []
+        )
           .map(
-            item =>
-              item.produto
-          )
-          .join(
-            ', '
-          )
+            cliente => ({
+
+              ...cliente,
+
+              label:
+                montarLabelCliente(
+                  cliente
+                )
+
+            })
+          );
+
+
+      clientesMap =
+        {};
+
+
+      clientesLista.innerHTML =
+        '';
+
+
+      clientes.forEach(
+        cliente => {
+
+          clientesMap[
+            cliente.id
+          ] =
+            cliente.nome_completo;
+
+
+          const option =
+            document.createElement(
+              'option'
+            );
+
+
+          option.value =
+            cliente.label;
+
+
+          clientesLista.appendChild(
+            option
+          );
+
+        }
       );
 
     }
 
 
-    function montarWhatsappCancelamento(
-      pedidoId
-    ) {
+    /* =========================
+       PEDIDOS
+    ========================== */
 
-      const mensagem =
-        `Olá! Gostaria de solicitar o cancelamento do pedido #${pedidoId}.`;
+    async function carregarPedidos() {
 
-      return (
-        `https://wa.me/${whatsappNumber}` +
-        `?text=${encodeURIComponent(
-          mensagem
-        )}`
-      );
+      const {
+        data: pedidos,
+        error
+      } =
+        await supabaseClient
+          .from(
+            'orders'
+          )
+          .select(`
+            id,
+            user_id,
+            created_at,
+            status,
+            valor_total,
+            observacoes,
+            order_items (
+              id,
+              produto,
+              quantidade,
+              valor_unitario,
+              detalhes_personalizacao
+            )
+          `);
+
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+
+        listaPedidos.innerHTML =
+          `
+
+            <div class="pedidos-vazio">
+              Erro ao carregar pedidos.
+            </div>
+
+          `;
+
+
+        return;
+
+      }
+
+
+      pedidosCarregados =
+        pedidos ||
+        [];
+
+
+      atualizarIndicadores();
+
+      renderizarPedidos();
 
     }
 
@@ -1352,12 +1998,55 @@
     }
 
 
+    function resumoItens(
+      itens
+    ) {
+
+      if (
+        !itens ||
+        itens.length ===
+        0
+      ) {
+
+        return 'Sem itens';
+
+      }
+
+
+      if (
+        itens.length ===
+        1
+      ) {
+
+        return itens[
+          0
+        ].produto;
+
+      }
+
+
+      return (
+        `${itens.length} itens · ` +
+        itens
+          .map(
+            item =>
+              item.produto
+          )
+          .join(
+            ', '
+          )
+      );
+
+    }
+
+
     function pedidosFiltrados() {
 
       let pedidos =
         [
           ...pedidosCarregados
         ];
+
 
       if (
         filtroAtual !==
@@ -1375,10 +2064,12 @@
 
       }
 
+
       const pesquisa =
         normalizarTexto(
           pesquisaPedido.value
         );
+
 
       if (
         pesquisa
@@ -1387,6 +2078,13 @@
         pedidos =
           pedidos.filter(
             pedido => {
+
+              const cliente =
+                clientesMap[
+                  pedido.user_id
+                ] ||
+                '';
+
 
               const produtos =
                 (
@@ -1401,16 +2099,19 @@
                     ' '
                   );
 
+
               const alvo =
                 normalizarTexto(
                   [
                     pedido.id,
+                    cliente,
                     produtos
                   ]
                     .join(
                       ' '
                     )
                 );
+
 
               return alvo.includes(
                 pesquisa
@@ -1421,8 +2122,10 @@
 
       }
 
+
       const ordenacao =
         ordenacaoPedidos.value;
+
 
       if (
         ordenacao ===
@@ -1444,6 +2147,7 @@
 
       }
 
+
       if (
         ordenacao ===
         'antigos'
@@ -1464,6 +2168,7 @@
 
       }
 
+
       if (
         ordenacao ===
         'numero_crescente'
@@ -1479,6 +2184,7 @@
         );
 
       }
+
 
       if (
         ordenacao ===
@@ -1496,76 +2202,35 @@
 
       }
 
+
       return pedidos;
 
     }
 
 
-    function montarAcoesPedido(
-      pedido
+    function optionStatus(
+      valor,
+      nome,
+      statusAtual
     ) {
 
-      const status =
-        normalizarStatus(
-          pedido.status
-        );
+      return `
 
-      const acoes =
-        [
-          `
-            <a
-              class="pedido-ver"
-              href="pedido-detalhe.html?id=${pedido.id}"
-            >
-              Ver pedido
-            </a>
-          `
-        ];
+        <option
+          value="${valor}"
+          ${
+            normalizarStatus(
+              statusAtual
+            ) ===
+            valor
+              ? 'selected'
+              : ''
+          }
+        >
+          ${nome}
+        </option>
 
-      if (
-        status ===
-        'pagamento_pendente'
-      ) {
-
-        acoes.push(
-          `
-            <button
-              class="pedido-cancelar"
-              type="button"
-              onclick="cancelarPedido(${pedido.id})"
-            >
-              Cancelar
-            </button>
-          `
-        );
-
-      }
-
-      if (
-        status ===
-        'pago'
-      ) {
-
-        acoes.push(
-          `
-            <a
-              class="pedido-whatsapp"
-              href="${montarWhatsappCancelamento(
-                pedido.id
-              )}"
-              target="_blank"
-              rel="noopener"
-            >
-              Solicitar cancelamento
-            </a>
-          `
-        );
-
-      }
-
-      return acoes.join(
-        ''
-      );
+      `;
 
     }
 
@@ -1575,8 +2240,10 @@
       const pedidos =
         pedidosFiltrados();
 
+
       const totalPedidos =
         pedidos.length;
+
 
       const totalPaginas =
         Math.max(
@@ -1586,6 +2253,7 @@
             pedidosPorPagina
           )
         );
+
 
       if (
         paginaAtual >
@@ -1597,6 +2265,7 @@
 
       }
 
+
       const inicio =
         (
           paginaAtual -
@@ -1604,9 +2273,11 @@
         ) *
         pedidosPorPagina;
 
+
       const fim =
         inicio +
         pedidosPorPagina;
+
 
       const pagina =
         pedidos.slice(
@@ -1614,12 +2285,13 @@
           fim
         );
 
+
       if (
         totalPedidos ===
         0
       ) {
 
-        pedidosLista.innerHTML =
+        listaPedidos.innerHTML =
           `
 
             <div class="pedidos-vazio">
@@ -1628,90 +2300,87 @@
 
           `;
 
-        pedidosMobile.innerHTML =
-          `
-
-            <div class="pedidos-vazio">
-              Nenhum pedido encontrado.
-            </div>
-
-          `;
 
         paginationInfo.textContent =
           '0 pedidos';
 
+
         paginaAnterior.disabled =
           true;
+
 
         proximaPagina.disabled =
           true;
 
+
         return;
 
       }
+
 
       const linhas =
         pagina
           .map(
             pedido => {
 
+              const cliente =
+                clientesMap[
+                  pedido.user_id
+                ] ||
+                'Cliente não identificado';
+
+
               const itens =
                 pedido.order_items ||
                 [];
+
 
               const status =
                 normalizarStatus(
                   pedido.status
                 );
 
+
               return `
 
                 <tr>
 
                   <td>
-
                     <span class="pedido-numero">
                       #${pedido.id}
                     </span>
-
                   </td>
 
                   <td>
+                    <span class="pedido-cliente">
+                      ${escaparHtml(cliente)}
+                    </span>
+                  </td>
 
+                  <td>
                     <span class="pedido-itens-resumo">
-
                       ${escaparHtml(
                         resumoItens(
                           itens
                         )
                       )}
-
                     </span>
-
                   </td>
 
                   <td>
-
                     <span class="pedido-valor">
-
                       ${formatarValor(
                         pedido.valor_total
                       )}
-
                     </span>
-
                   </td>
 
                   <td>
-
                     <span class="pedido-data">
-
                       ${formatarData(
                         pedido.created_at
                       )}
-
                     </span>
-
                   </td>
 
                   <td>
@@ -1725,15 +2394,54 @@
                         "
                       ></span>
 
-                      <span class="status-label">
-
-                        ${escaparHtml(
-                          formatarStatus(
-                            pedido.status
+                      <select
+                        class="status-select"
+                        onchange="
+                          alterarStatus(
+                            ${pedido.id},
+                            this.value,
+                            this
                           )
+                        "
+                      >
+
+                        ${optionStatus(
+                          'pagamento_pendente',
+                          'Pagamento pendente',
+                          pedido.status
                         )}
 
-                      </span>
+                        ${optionStatus(
+                          'pago',
+                          'Pago',
+                          pedido.status
+                        )}
+
+                        ${optionStatus(
+                          'em_producao',
+                          'Em produção',
+                          pedido.status
+                        )}
+
+                        ${optionStatus(
+                          'enviado',
+                          'Enviado',
+                          pedido.status
+                        )}
+
+                        ${optionStatus(
+                          'concluido',
+                          'Concluído',
+                          pedido.status
+                        )}
+
+                        ${optionStatus(
+                          'cancelado',
+                          'Cancelado',
+                          pedido.status
+                        )}
+
+                      </select>
 
                     </div>
 
@@ -1741,13 +2449,12 @@
 
                   <td>
 
-                    <div class="pedido-acoes">
-
-                      ${montarAcoesPedido(
-                        pedido
-                      )}
-
-                    </div>
+                    <a
+                      class="pedido-ver"
+                      href="pedido-detalhe.html?id=${pedido.id}"
+                    >
+                      Ver
+                    </a>
 
                   </td>
 
@@ -1761,7 +2468,8 @@
             ''
           );
 
-      pedidosLista.innerHTML =
+
+      listaPedidos.innerHTML =
         `
 
           <table class="pedidos-table">
@@ -1772,6 +2480,10 @@
 
                 <th class="col-pedido">
                   Pedido
+                </th>
+
+                <th class="col-cliente">
+                  Cliente
                 </th>
 
                 <th class="col-itens">
@@ -1806,122 +2518,6 @@
 
         `;
 
-      pedidosMobile.innerHTML =
-        pagina
-          .map(
-            pedido => {
-
-              const itens =
-                pedido.order_items ||
-                [];
-
-              const status =
-                normalizarStatus(
-                  pedido.status
-                );
-
-              return `
-
-                <article class="pedido-mobile-card">
-
-                  <div class="pedido-mobile-topo">
-
-                    <strong>
-                      Pedido #${pedido.id}
-                    </strong>
-
-                    <span class="pedido-mobile-data">
-
-                      ${formatarData(
-                        pedido.created_at
-                      )}
-
-                    </span>
-
-                  </div>
-
-                  <div class="pedido-mobile-grid">
-
-                    <div class="pedido-mobile-linha">
-
-                      <span>
-                        Itens
-                      </span>
-
-                      <p>
-                        ${escaparHtml(
-                          resumoItens(
-                            itens
-                          )
-                        )}
-                      </p>
-
-                    </div>
-
-                    <div class="pedido-mobile-linha">
-
-                      <span>
-                        Valor
-                      </span>
-
-                      <strong>
-
-                        ${formatarValor(
-                          pedido.valor_total
-                        )}
-
-                      </strong>
-
-                    </div>
-
-                    <div class="pedido-mobile-linha">
-
-                      <span>
-                        Status
-                      </span>
-
-                      <div class="pedido-mobile-status">
-
-                        <span
-                          class="
-                            status-dot
-                            status-dot-${status}
-                          "
-                        ></span>
-
-                        <strong>
-
-                          ${escaparHtml(
-                            formatarStatus(
-                              pedido.status
-                            )
-                          )}
-
-                        </strong>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <div class="pedido-mobile-acoes">
-
-                    ${montarAcoesPedido(
-                      pedido
-                    )}
-
-                  </div>
-
-                </article>
-
-              `;
-
-            }
-          )
-          .join(
-            ''
-          );
 
       paginationInfo.textContent =
         (
@@ -1931,9 +2527,11 @@
           )} de ${totalPedidos} pedidos`
         );
 
+
       paginaAnterior.disabled =
         paginaAtual <=
         1;
+
 
       proximaPagina.disabled =
         paginaAtual >=
@@ -1949,8 +2547,10 @@
       filtroAtual =
         status;
 
+
       paginaAtual =
         1;
+
 
       document
         .querySelectorAll(
@@ -1968,6 +2568,7 @@
           }
         );
 
+
       document
         .querySelectorAll(
           '.status-kpi'
@@ -1984,179 +2585,8 @@
           }
         );
 
-      renderizarPedidos();
-
-    }
-
-
-    async function carregarPedidos() {
-
-      pedidosMessage.textContent =
-        '';
-
-      const {
-        data: {
-          session
-        },
-        error:
-          sessionError
-      } =
-        await supabaseClient
-          .auth
-          .getSession();
-
-      if (
-        sessionError ||
-        !session
-      ) {
-
-        window.location.href =
-          'login.html';
-
-        return;
-
-      }
-
-      const {
-        data: pedidos,
-        error
-      } =
-        await supabaseClient
-          .from(
-            'orders'
-          )
-          .select(`
-            id,
-            created_at,
-            status,
-            valor_total,
-            observacoes,
-            order_items (
-              id,
-              produto,
-              quantidade,
-              valor_unitario,
-              detalhes_personalizacao
-            )
-          `)
-          .eq(
-            'user_id',
-            session.user.id
-          )
-          .order(
-            'created_at',
-            {
-              ascending:
-                false
-            }
-          );
-
-      if (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
-        pedidosLista.innerHTML =
-          `
-
-            <div class="pedidos-vazio">
-              Erro ao carregar os pedidos.
-            </div>
-
-          `;
-
-        pedidosMobile.innerHTML =
-          '';
-
-        paginationInfo.textContent =
-          'Erro ao carregar';
-
-        pedidosMessage.textContent =
-          'Erro ao carregar os pedidos.';
-
-        return;
-
-      }
-
-      pedidosCarregados =
-        pedidos ||
-        [];
-
-      atualizarIndicadores();
 
       renderizarPedidos();
-
-    }
-
-
-    async function cancelarPedido(
-      pedidoId
-    ) {
-
-      const confirmar =
-        confirm(
-          `Deseja realmente cancelar o pedido #${pedidoId}?`
-        );
-
-      if (
-        !confirmar
-      ) {
-
-        return;
-
-      }
-
-      pedidosMessage.textContent =
-        'Cancelando pedido...';
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient
-          .rpc(
-            'cancelar_meu_pedido',
-            {
-              p_order_id:
-                pedidoId
-            }
-          );
-
-      if (
-        error
-      ) {
-
-        console.error(
-          error
-        );
-
-        pedidosMessage.textContent =
-          'Erro ao cancelar o pedido.';
-
-        return;
-
-      }
-
-      if (
-        !data
-      ) {
-
-        pedidosMessage.textContent =
-          'Este pedido não pode mais ser cancelado automaticamente.';
-
-        await carregarPedidos();
-
-        return;
-
-      }
-
-      pedidosMessage.textContent =
-        `Pedido #${pedidoId} cancelado com sucesso.`;
-
-      await carregarPedidos();
 
     }
 
@@ -2258,27 +2688,818 @@
         'click',
         () => {
 
-          const total =
-            pedidosFiltrados()
-              .length;
+          paginaAtual++;
 
-          const totalPaginas =
-            Math.max(
-              1,
-              Math.ceil(
-                total /
-                pedidosPorPagina
+          renderizarPedidos();
+
+        }
+      );
+
+
+    /* =========================
+       ALTERAR STATUS
+    ========================== */
+
+    async function alterarStatus(
+      pedidoId,
+      novoStatus,
+      selectElement
+    ) {
+
+      selectElement.disabled =
+        true;
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from(
+            'orders'
+          )
+          .update({
+
+            status:
+              novoStatus
+
+          })
+          .eq(
+            'id',
+            pedidoId
+          );
+
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+
+        alert(
+          'Erro ao alterar o status.'
+        );
+
+
+        await carregarPedidos();
+
+
+        return;
+
+      }
+
+
+      mensagem.textContent =
+        `Pedido #${pedidoId} atualizado com sucesso.`;
+
+
+      await carregarPedidos();
+
+    }
+
+
+    /* =========================
+       ITENS DO NOVO PEDIDO
+    ========================== */
+
+    function atualizarNumeracaoItens() {
+
+      document
+        .querySelectorAll(
+          '.item-manual'
+        )
+        .forEach(
+          (
+            item,
+            index
+          ) => {
+
+            const titulo =
+              item.querySelector(
+                '.item-manual-titulo'
+              );
+
+
+            titulo.textContent =
+              `Item ${index + 1}`;
+
+          }
+        );
+
+    }
+
+
+    function atualizarTotalManual() {
+
+      let total =
+        0;
+
+
+      document
+        .querySelectorAll(
+          '.item-manual'
+        )
+        .forEach(
+          item => {
+
+            const quantidade =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="quantidade"]'
+                  )
+                  .value
+              ) ||
+              0;
+
+
+            const valor =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="valor"]'
+                  )
+                  .value
+              ) ||
+              0;
+
+
+            total +=
+              quantidade *
+              valor;
+
+          }
+        );
+
+
+      totalPedidoManual.textContent =
+        formatarValor(
+          total
+        );
+
+
+      return total;
+
+    }
+
+
+    function configurarProdutoItem(
+      item
+    ) {
+
+      const produto =
+        item
+          .querySelector(
+            '[data-field="produto"]'
+          )
+          .value;
+
+
+      const configuracao =
+        produtosManual[
+          produto
+        ];
+
+
+      const versoWrap =
+        item.querySelector(
+          '.item-verso'
+        );
+
+
+      if (
+        configuracao?.verso
+      ) {
+
+        versoWrap.style.display =
+          'block';
+
+      }
+
+      else {
+
+        versoWrap.style.display =
+          'none';
+
+
+        versoWrap
+          .querySelector(
+            'input'
+          )
+          .value =
+            '';
+
+      }
+
+    }
+
+
+    function adicionarItemManual(
+      produtoInicial =
+        'Plaqueta de motor'
+    ) {
+
+      contadorItens++;
+
+
+      const config =
+        produtosManual[
+          produtoInicial
+        ];
+
+
+      const div =
+        document.createElement(
+          'div'
+        );
+
+
+      div.className =
+        'item-manual';
+
+
+      div.dataset.itemId =
+        contadorItens;
+
+
+      div.innerHTML =
+        `
+
+          <div class="item-manual-topo">
+
+            <span class="item-manual-titulo">
+              Item
+            </span>
+
+            <button
+              class="
+                admin-btn
+                admin-btn-danger
+                item-remover
+              "
+              type="button"
+            >
+              Remover
+            </button>
+
+          </div>
+
+
+          <div class="item-manual-grid">
+
+
+            <div class="item-produto">
+
+              <label>
+                Produto
+              </label>
+
+              <select
+                data-field="produto"
+                required
+              >
+
+                <option value="Plaqueta de motor">
+                  Plaqueta de motor
+                </option>
+
+                <option value="Enfeite para retrovisor interno">
+                  Enfeite para retrovisor interno
+                </option>
+
+                <option value="Chaveiro personalizado">
+                  Chaveiro personalizado
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Quantidade
+              </label>
+
+              <input
+                data-field="quantidade"
+                type="number"
+                min="1"
+                value="1"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Valor unitário
+              </label>
+
+              <input
+                data-field="valor"
+                type="number"
+                min="0"
+                step="0.01"
+                value="${config.preco.toFixed(2)}"
+                required
+              >
+
+            </div>
+
+
+            <div class="item-separador">
+              Personalização
+            </div>
+
+
+            <div>
+
+              <label>
+                Marca
+              </label>
+
+              <input
+                data-field="marca"
+                type="text"
+                placeholder="Ex.: Ford"
+                required
+              >
+
+            </div>
+
+
+            <div class="item-modelo">
+
+              <label>
+                Modelo
+              </label>
+
+              <input
+                data-field="modelo"
+                type="text"
+                placeholder="Ex.: Verona GLX"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Assinatura
+              </label>
+
+              <input
+                data-field="assinatura"
+                type="text"
+                placeholder="Ex.: 1991, GLX ou apelido"
+                required
+              >
+
+            </div>
+
+
+            <div>
+
+              <label>
+                Furos
+              </label>
+
+              <select
+                data-field="furos"
+              >
+
+                <option value="Sim">
+                  Sim
+                </option>
+
+                <option value="Não">
+                  Não
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="item-verso">
+
+              <label>
+                Gravação no verso
+                <span>
+                  (opcional)
+                </span>
+              </label>
+
+              <input
+                data-field="verso"
+                type="text"
+                placeholder="Ex.: nome, frase, placa ou data"
+              >
+
+            </div>
+
+
+          </div>
+
+        `;
+
+
+      const produtoSelect =
+        div.querySelector(
+          '[data-field="produto"]'
+        );
+
+
+      produtoSelect.value =
+        produtoInicial;
+
+
+      produtoSelect
+        .addEventListener(
+          'change',
+          () => {
+
+            const novoProduto =
+              produtoSelect.value;
+
+
+            const novaConfig =
+              produtosManual[
+                novoProduto
+              ];
+
+
+            div
+              .querySelector(
+                '[data-field="valor"]'
               )
+              .value =
+                novaConfig.preco
+                  .toFixed(
+                    2
+                  );
+
+
+            configurarProdutoItem(
+              div
             );
 
+
+            atualizarTotalManual();
+
+          }
+        );
+
+
+      div
+        .querySelector(
+          '[data-field="quantidade"]'
+        )
+        .addEventListener(
+          'input',
+          atualizarTotalManual
+        );
+
+
+      div
+        .querySelector(
+          '[data-field="valor"]'
+        )
+        .addEventListener(
+          'input',
+          atualizarTotalManual
+        );
+
+
+      div
+        .querySelector(
+          '.item-remover'
+        )
+        .addEventListener(
+          'click',
+          () => {
+
+            const totalItens =
+              document
+                .querySelectorAll(
+                  '.item-manual'
+                )
+                .length;
+
+
+            if (
+              totalItens <=
+              1
+            ) {
+
+              alert(
+                'O pedido precisa ter pelo menos um produto.'
+              );
+
+
+              return;
+
+            }
+
+
+            div.remove();
+
+
+            atualizarNumeracaoItens();
+
+            atualizarTotalManual();
+
+          }
+        );
+
+
+      itensPedidoManual.appendChild(
+        div
+      );
+
+
+      configurarProdutoItem(
+        div
+      );
+
+
+      atualizarNumeracaoItens();
+
+      atualizarTotalManual();
+
+    }
+
+
+    adicionarItemPedido
+      .addEventListener(
+        'click',
+        () => {
+
+          adicionarItemManual();
+
+        }
+      );
+
+
+    /* =========================
+       COLETAR ITENS
+    ========================== */
+
+    function coletarItensManuais() {
+
+      return Array
+        .from(
+          document
+            .querySelectorAll(
+              '.item-manual'
+            )
+        )
+        .map(
+          item => {
+
+            const produto =
+              item
+                .querySelector(
+                  '[data-field="produto"]'
+                )
+                .value;
+
+
+            const quantidade =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="quantidade"]'
+                  )
+                  .value
+              );
+
+
+            const valor =
+              Number(
+                item
+                  .querySelector(
+                    '[data-field="valor"]'
+                  )
+                  .value
+              );
+
+
+            const marca =
+              item
+                .querySelector(
+                  '[data-field="marca"]'
+                )
+                .value
+                .trim();
+
+
+            const modelo =
+              item
+                .querySelector(
+                  '[data-field="modelo"]'
+                )
+                .value
+                .trim();
+
+
+            const assinatura =
+              item
+                .querySelector(
+                  '[data-field="assinatura"]'
+                )
+                .value
+                .trim();
+
+
+            const furos =
+              item
+                .querySelector(
+                  '[data-field="furos"]'
+                )
+                .value;
+
+
+            const versoCampo =
+              item
+                .querySelector(
+                  '[data-field="verso"]'
+                );
+
+
+            const verso =
+              versoCampo
+                ? versoCampo.value.trim()
+                : '';
+
+
+            const detalhes =
+              [
+                `Marca: ${marca}`,
+                `Modelo: ${modelo}`,
+                `Assinatura: ${assinatura}`,
+                `Furos: ${furos}`
+              ];
+
+
+            if (
+              verso
+            ) {
+
+              detalhes.push(
+                `Gravação no verso: ${verso}`
+              );
+
+            }
+
+
+            return {
+
+              produto,
+              quantidade,
+              valor,
+              detalhes:
+                detalhes.join(
+                  ' | '
+                )
+
+            };
+
+          }
+        );
+
+    }
+
+
+    /* =========================
+       MODAL
+    ========================== */
+
+    function resetarNovoPedido() {
+
+      pedidoForm.reset();
+
+
+      clientePesquisa.value =
+        '';
+
+
+      itensPedidoManual.innerHTML =
+        '';
+
+
+      contadorItens =
+        0;
+
+
+      adicionarItemManual(
+        'Plaqueta de motor'
+      );
+
+
+      document
+        .getElementById(
+          'observacoes'
+        )
+        .value =
+          '';
+
+    }
+
+
+    function abrirModalNovoPedido() {
+
+      resetarNovoPedido();
+
+
+      novoPedidoModal.classList.add(
+        'aberto'
+      );
+
+
+      novoPedidoModal.setAttribute(
+        'aria-hidden',
+        'false'
+      );
+
+
+      document.body.classList.add(
+        'modal-admin-aberto'
+      );
+
+
+      window.setTimeout(
+        () => {
+
+          clientePesquisa.focus();
+
+        },
+        50
+      );
+
+    }
+
+
+    function fecharModalNovoPedido() {
+
+      novoPedidoModal.classList.remove(
+        'aberto'
+      );
+
+
+      novoPedidoModal.setAttribute(
+        'aria-hidden',
+        'true'
+      );
+
+
+      document.body.classList.remove(
+        'modal-admin-aberto'
+      );
+
+    }
+
+
+    abrirNovoPedido
+      .addEventListener(
+        'click',
+        abrirModalNovoPedido
+      );
+
+
+    fecharNovoPedido
+      .addEventListener(
+        'click',
+        fecharModalNovoPedido
+      );
+
+
+    cancelarNovoPedido
+      .addEventListener(
+        'click',
+        fecharModalNovoPedido
+      );
+
+
+    novoPedidoModal
+      .addEventListener(
+        'click',
+        event => {
+
           if (
-            paginaAtual <
-            totalPaginas
+            event.target ===
+            novoPedidoModal
           ) {
 
-            paginaAtual++;
-
-            renderizarPedidos();
+            fecharModalNovoPedido();
 
           }
 
@@ -2286,7 +3507,310 @@
       );
 
 
-    carregarPedidos();
+    document
+      .addEventListener(
+        'keydown',
+        event => {
+
+          if (
+            event.key ===
+            'Escape' &&
+            novoPedidoModal.classList.contains(
+              'aberto'
+            )
+          ) {
+
+            fecharModalNovoPedido();
+
+          }
+
+        }
+      );
+
+
+    /* =========================
+       CRIAR PEDIDO
+    ========================== */
+
+    pedidoForm
+      .addEventListener(
+        'submit',
+        async event => {
+
+          event.preventDefault();
+
+
+          if (
+            !pedidoForm.checkValidity()
+          ) {
+
+            pedidoForm.reportValidity();
+
+            return;
+
+          }
+
+
+          const cliente =
+            localizarCliente();
+
+
+          if (
+            !cliente
+          ) {
+
+            alert(
+              'Selecione um cliente válido.'
+            );
+
+
+            clientePesquisa.focus();
+
+
+            return;
+
+          }
+
+
+          const itens =
+            coletarItensManuais();
+
+
+          if (
+            itens.length ===
+            0
+          ) {
+
+            alert(
+              'Adicione pelo menos um produto.'
+            );
+
+
+            return;
+
+          }
+
+
+          criarPedidoManual.disabled =
+            true;
+
+
+          criarPedidoManual.textContent =
+            'Criando pedido...';
+
+
+          mensagem.textContent =
+            'Criando pedido...';
+
+
+          const valorTotal =
+            itens.reduce(
+              (
+                total,
+                item
+              ) =>
+                total +
+                (
+                  item.quantidade *
+                  item.valor
+                ),
+              0
+            );
+
+
+          const observacoes =
+            document
+              .getElementById(
+                'observacoes'
+              )
+              .value
+              .trim();
+
+
+          const {
+            data: pedido,
+            error: pedidoError
+          } =
+            await supabaseClient
+              .from(
+                'orders'
+              )
+              .insert({
+
+                user_id:
+                  cliente.id,
+
+                status:
+                  'pago',
+
+                valor_total:
+                  valorTotal,
+
+                observacoes:
+                  observacoes ||
+                  null
+
+              })
+              .select()
+              .single();
+
+
+          if (
+            pedidoError
+          ) {
+
+            console.error(
+              pedidoError
+            );
+
+
+            mensagem.textContent =
+              'Erro ao criar o pedido.';
+
+
+            criarPedidoManual.disabled =
+              false;
+
+
+            criarPedidoManual.textContent =
+              'Criar pedido';
+
+
+            return;
+
+          }
+
+
+          const itensBanco =
+            itens.map(
+              item => ({
+
+                order_id:
+                  pedido.id,
+
+                produto:
+                  item.produto,
+
+                quantidade:
+                  item.quantidade,
+
+                valor_unitario:
+                  item.valor,
+
+                detalhes_personalizacao:
+                  item.detalhes
+
+              })
+            );
+
+
+          const {
+            error: itensError
+          } =
+            await supabaseClient
+              .from(
+                'order_items'
+              )
+              .insert(
+                itensBanco
+              );
+
+
+          if (
+            itensError
+          ) {
+
+            console.error(
+              itensError
+            );
+
+
+            mensagem.textContent =
+              (
+                `Pedido #${pedido.id} foi criado, ` +
+                'mas ocorreu um erro ao cadastrar os itens.'
+              );
+
+
+            criarPedidoManual.disabled =
+              false;
+
+
+            criarPedidoManual.textContent =
+              'Criar pedido';
+
+
+            return;
+
+          }
+
+
+          mensagem.textContent =
+            `Pedido #${pedido.id} criado com sucesso.`;
+
+
+          criarPedidoManual.disabled =
+            false;
+
+
+          criarPedidoManual.textContent =
+            'Criar pedido';
+
+
+          fecharModalNovoPedido();
+
+
+          paginaAtual =
+            1;
+
+
+          filtroAtual =
+            'todos';
+
+
+          await carregarPedidos();
+
+
+          filtrarPedidos(
+            'todos'
+          );
+
+        }
+      );
+
+
+    /* =========================
+       INICIAR
+    ========================== */
+
+    async function iniciar() {
+
+      const admin =
+        await verificarAdmin();
+
+
+      if (
+        !admin
+      ) {
+
+        return;
+
+      }
+
+
+      await carregarClientes();
+
+      await carregarPedidos();
+
+
+      filtrarPedidos(
+        'todos'
+      );
+
+    }
+
+
+    iniciar();
 
   </script>
 
