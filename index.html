@@ -61,7 +61,9 @@
   />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
   <style>
+
     .product-carousel {
       position: relative;
     }
@@ -479,6 +481,7 @@
     }
 
     @media (max-width: 900px) {
+
       .product-carousel-prev {
         left:
           10px;
@@ -505,6 +508,7 @@
         flex-direction:
           column;
       }
+
     }
 
     /* =========================
@@ -874,6 +878,7 @@
     }
 
     @media (max-width: 560px) {
+
       .preview-list
       .mini-plaque.vertical
       .mini-title {
@@ -894,6 +899,7 @@
         font-size:
           13px;
       }
+
     }
 
     .personalization-block
@@ -904,89 +910,189 @@
     }
 
     @media (max-width: 560px) {
+
       .personalization-block
       .field-row {
         grid-template-columns:
           1fr;
       }
+
     }
 
     /* =========================
-       PAINEL DO CIRCUITO
+       PRODUTOS COM PISTA AO FUNDO
     ========================== */
 
-    .imola-panel {
+    .product-showcase {
       position: relative;
+      min-height: 640px;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100%;
-      padding: 36px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 16px;
-      background:
-        radial-gradient(
-          circle at 50% 45%,
-          rgba(255, 255, 255, 0.035),
-          transparent 62%
-        ),
-        rgba(18, 22, 27, 0.84);
+      padding: 18px 0 10px;
       overflow: hidden;
     }
 
-    .imola-panel::before {
+    .product-showcase-track {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .product-showcase-track::before {
       content: "";
       position: absolute;
       inset: 0;
-      pointer-events: none;
       background:
-        linear-gradient(
-          135deg,
-          transparent 0 48%,
-          rgba(255, 255, 255, 0.018) 49% 51%,
-          transparent 52% 100%
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(255, 255, 255, 0.025),
+          transparent 68%
         );
     }
 
-    .imola-track {
-      position: relative;
-      z-index: 1;
-      display: block;
-      width: min(86%, 470px);
+    .product-showcase-track svg {
+      width: min(1120px, 96%);
       height: auto;
+      opacity: 0.11;
+      transform:
+        rotate(-8deg)
+        scale(1.08);
       overflow: visible;
-      opacity: 0.42;
-      transform: rotate(-2deg);
-      user-select: none;
-      pointer-events: none;
     }
 
-    .imola-track path {
+    .product-showcase-track path {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.78);
-      stroke-width: 9;
+      stroke:
+        rgba(255, 255, 255, 0.30);
+      stroke-width: 14;
       stroke-linecap: round;
       stroke-linejoin: round;
-      vector-effect: non-scaling-stroke;
+      vector-effect:
+        non-scaling-stroke;
+    }
+
+    .product-showcase
+    .product-carousel {
+      position: relative;
+      z-index: 2;
+      width:
+        min(100%, 640px);
+      margin:
+        0 auto;
+    }
+
+    .product-showcase
+    .product-card {
+      position: relative;
+      z-index: 2;
+      background:
+        rgba(11, 15, 21, 0.92);
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+      border-radius:
+        18px;
+      box-shadow:
+        0 24px 60px
+        rgba(0, 0, 0, 0.28);
+      backdrop-filter:
+        blur(2px);
+    }
+
+    .product-showcase
+    .product-carousel-prev {
+      left:
+        -22px;
+    }
+
+    .product-showcase
+    .product-carousel-next {
+      right:
+        -22px;
+    }
+
+    .product-showcase
+    .product-carousel-dots {
+      position:
+        relative;
+      z-index:
+        2;
     }
 
     .accessory-note {
-      margin: -4px 0 2px;
-      font-size: 11px;
-      line-height: 1.45;
-      color: var(--muted);
-      opacity: 0.78;
+      margin:
+        -4px 0 2px;
+      font-size:
+        11px;
+      line-height:
+        1.45;
+      color:
+        var(--muted);
+      opacity:
+        0.78;
     }
 
     @media (max-width: 900px) {
-      .imola-panel {
-        min-height: 300px;
-        padding: 28px;
+
+      .product-showcase {
+        min-height:
+          540px;
+        padding:
+          12px 0 6px;
       }
 
-      .imola-track {
-        width: min(80%, 400px);
+      .product-showcase-track svg {
+        width:
+          min(860px, 120%);
+        opacity:
+          0.10;
+        transform:
+          rotate(-8deg)
+          scale(1.04);
       }
+
+      .product-showcase
+      .product-carousel {
+        width:
+          100%;
+      }
+
+      .product-showcase
+      .product-carousel-prev {
+        left:
+          8px;
+      }
+
+      .product-showcase
+      .product-carousel-next {
+        right:
+          8px;
+      }
+
+    }
+
+    @media (max-width: 560px) {
+
+      .product-showcase {
+        min-height:
+          500px;
+      }
+
+      .product-showcase-track svg {
+        width:
+          145%;
+        opacity:
+          0.08;
+        transform:
+          rotate(-10deg)
+          scale(1);
+      }
+
     }
 
     /* =========================
@@ -1251,6 +1357,7 @@
     }
 
     @media (max-width: 560px) {
+
       .confirmation-modal {
         padding:
           14px;
@@ -1272,7 +1379,9 @@
         flex-direction:
           column;
       }
+
     }
+
   </style>
 </head>
 
@@ -1455,7 +1564,61 @@
 
         </div>
 
-        <div class="product-grid">
+        <div class="product-showcase">
+
+          <div
+            class="product-showcase-track"
+            aria-hidden="true"
+          >
+
+            <svg
+              viewBox="0 0 960 559"
+              focusable="false"
+              aria-hidden="true"
+            >
+
+              <path
+                d="
+                  M 574 103
+                  C 530 103, 490 93, 454 84
+                  C 414 76, 366 78, 329 82
+                  C 291 86, 263 91, 258 108
+                  C 253 125, 254 136, 241 147
+                  C 227 159, 208 162, 198 179
+                  C 187 199, 181 226, 173 252
+                  C 164 282, 154 316, 143 347
+                  C 135 368, 126 379, 132 392
+                  C 137 403, 145 409, 137 419
+                  C 125 433, 99 450, 78 469
+                  C 58 487, 44 498, 43 510
+                  C 42 523, 51 530, 64 530
+                  C 96 530, 138 519, 174 513
+                  C 213 506, 244 503, 284 510
+                  C 310 515, 329 522, 343 514
+                  C 356 507, 361 489, 365 471
+                  C 372 439, 365 406, 358 374
+                  C 350 340, 343 322, 350 307
+                  C 356 294, 367 282, 381 280
+                  C 395 279, 401 290, 417 291
+                  C 470 292, 528 288, 592 286
+                  C 605 286, 610 281, 613 290
+                  C 617 302, 628 303, 642 297
+                  C 679 282, 715 263, 748 244
+                  C 781 225, 809 202, 832 176
+                  C 855 150, 876 132, 900 119
+                  C 917 110, 923 102, 917 87
+                  C 909 66, 901 47, 888 42
+                  C 877 38, 862 48, 846 56
+                  C 813 73, 782 86, 751 96
+                  C 721 106, 681 106, 646 106
+                  C 620 106, 599 104, 574 103
+                  Z
+                "
+              />
+
+            </svg>
+
+          </div>
 
           <div class="product-carousel">
 
@@ -1587,61 +1750,6 @@
               ></button>
 
             </div>
-
-          </div>
-
-          <div
-            class="imola-panel"
-            aria-label="Traçado estilizado do circuito de Imola"
-          >
-
-            <svg
-              class="imola-track"
-              viewBox="0 0 960 559"
-              role="img"
-              aria-label="Traçado estilizado do circuito de Imola"
-            >
-
-              <path
-                d="
-                  M 574 103
-                  C 530 103, 490 93, 454 84
-                  C 414 76, 366 78, 329 82
-                  C 291 86, 263 91, 258 108
-                  C 253 125, 254 136, 241 147
-                  C 227 159, 208 162, 198 179
-                  C 187 199, 181 226, 173 252
-                  C 164 282, 154 316, 143 347
-                  C 135 368, 126 379, 132 392
-                  C 137 403, 145 409, 137 419
-                  C 125 433, 99 450, 78 469
-                  C 58 487, 44 498, 43 510
-                  C 42 523, 51 530, 64 530
-                  C 96 530, 138 519, 174 513
-                  C 213 506, 244 503, 284 510
-                  C 310 515, 329 522, 343 514
-                  C 356 507, 361 489, 365 471
-                  C 372 439, 365 406, 358 374
-                  C 350 340, 343 322, 350 307
-                  C 356 294, 367 282, 381 280
-                  C 395 279, 401 290, 417 291
-                  C 470 292, 528 288, 592 286
-                  C 605 286, 610 281, 613 290
-                  C 617 302, 628 303, 642 297
-                  C 679 282, 715 263, 748 244
-                  C 781 225, 809 202, 832 176
-                  C 855 150, 876 132, 900 119
-                  C 917 110, 923 102, 917 87
-                  C 909 66, 901 47, 888 42
-                  C 877 38, 862 48, 846 56
-                  C 813 73, 782 86, 751 96
-                  C 721 106, 681 106, 646 106
-                  C 620 106, 599 104, 574 103
-                  Z
-                "
-              />
-
-            </svg>
 
           </div>
 
