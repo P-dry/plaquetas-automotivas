@@ -10,12 +10,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Nova senha | ÍMALLOY</title>
+  <title>Redefinir senha</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
@@ -33,11 +30,11 @@
       </h1>
 
       <p>
-        Escolha uma nova senha para acessar sua conta.
+        Digite a nova senha que deseja usar na sua conta.
       </p>
 
 
-      <form id="newPasswordForm">
+      <form id="passwordForm">
 
         <label for="password">
           Nova senha
@@ -46,20 +43,20 @@
         <input
           type="password"
           id="password"
-          placeholder="Digite a nova senha"
+          placeholder="Nova senha"
           minlength="6"
           autocomplete="new-password"
           required
         >
 
 
-        <label for="confirmPassword">
+        <label for="passwordConfirm">
           Confirmar nova senha
         </label>
 
         <input
           type="password"
-          id="confirmPassword"
+          id="passwordConfirm"
           placeholder="Digite novamente"
           minlength="6"
           autocomplete="new-password"
@@ -68,7 +65,7 @@
 
 
         <button
-          id="savePasswordButton"
+          id="passwordButton"
           type="submit"
           disabled
         >
@@ -83,8 +80,8 @@
 
       <p>
 
-        <a href="login.html">
-          Voltar para entrar
+        <a href="recuperar-senha.html">
+          Solicitar outro link
         </a>
 
       </p>
@@ -92,8 +89,8 @@
 
       <p>
 
-        <a href="index.html">
-          Voltar para o site
+        <a href="login.html">
+          Voltar para o login
         </a>
 
       </p>
@@ -105,14 +102,14 @@
 
   <script>
 
-    const newPasswordForm =
+    const passwordForm =
       document.getElementById(
-        'newPasswordForm'
+        'passwordForm'
       );
 
-    const savePasswordButton =
+    const passwordButton =
       document.getElementById(
-        'savePasswordButton'
+        'passwordButton'
       );
 
     const passwordMessage =
@@ -121,66 +118,20 @@
       );
 
 
-    let recuperacaoValida =
+    let linkRecuperacaoValido =
       false;
-
-
-    /*
-     * O link do Supabase pode utilizar
-     * diferentes formatos dependendo
-     * do fluxo de autenticação.
-     */
-
-    const urlParams =
-      new URLSearchParams(
-        window.location.search
-      );
-
-
-    const hashParams =
-      new URLSearchParams(
-        window.location.hash
-          .replace(
-            /^#/,
-            ''
-          )
-      );
-
-
-    const possuiIndicadorRecuperacao =
-      (
-        urlParams.has(
-          'code'
-        ) ||
-
-        urlParams.get(
-          'type'
-        ) ===
-          'recovery' ||
-
-        hashParams.get(
-          'type'
-        ) ===
-          'recovery' ||
-
-        hashParams.has(
-          'access_token'
-        )
-      );
 
 
     function liberarFormulario() {
 
-      recuperacaoValida =
+      linkRecuperacaoValido =
         true;
 
-
-      savePasswordButton.disabled =
+      passwordButton.disabled =
         false;
 
-      savePasswordButton.textContent =
+      passwordButton.textContent =
         'Salvar nova senha';
-
 
       passwordMessage.textContent =
         '';
@@ -190,16 +141,14 @@
 
     function bloquearFormulario() {
 
-      recuperacaoValida =
+      linkRecuperacaoValido =
         false;
 
-
-      savePasswordButton.disabled =
+      passwordButton.disabled =
         true;
 
-      savePasswordButton.textContent =
+      passwordButton.textContent =
         'Link inválido';
-
 
       passwordMessage.textContent =
         (
@@ -211,50 +160,48 @@
 
 
     /*
-     * O Supabase dispara PASSWORD_RECOVERY
-     * quando o cliente chega por um link
-     * válido de redefinição.
+     * O Supabase dispara este evento
+     * quando a página é aberta pelo
+     * link de recuperação.
      */
 
-    supabaseClient
-      .auth
-      .onAuthStateChange(
-        (
-          event,
-          session
-        ) => {
+    supabaseClient.auth.onAuthStateChange(
+      (
+        event,
+        session
+      ) => {
 
-          if (
-            event ===
+        if (
+          event ===
             'PASSWORD_RECOVERY' &&
-            session
-          ) {
+          session
+        ) {
 
-            liberarFormulario();
-
-          }
+          liberarFormulario();
 
         }
-      );
+
+      }
+    );
 
 
-    /*
-     * Verificação complementar.
-     *
-     * Dependendo da velocidade em que
-     * o cliente do Supabase processa a URL,
-     * a sessão pode já estar disponível
-     * quando nosso código executar.
-     */
+    async function verificarSessaoRecuperacao() {
 
-    async function verificarRecuperacao() {
+      /*
+       * Dá tempo para o cliente do
+       * Supabase processar os dados
+       * recebidos pelo link.
+       */
 
       await new Promise(
-        resolve =>
+        resolve => {
+
           setTimeout(
             resolve,
-            350
-          )
+            500
+          );
+
+        }
       );
 
 
@@ -269,9 +216,7 @@
           .getSession();
 
 
-      if (
-        error
-      ) {
+      if (error) {
 
         console.error(
           error
@@ -280,9 +225,27 @@
       }
 
 
+      const url =
+        window.location.href;
+
+
+      const possuiDadosRecuperacao =
+        (
+          url.includes(
+            'type=recovery'
+          ) ||
+          url.includes(
+            'access_token='
+          ) ||
+          url.includes(
+            'code='
+          )
+        );
+
+
       if (
         session &&
-        possuiIndicadorRecuperacao
+        possuiDadosRecuperacao
       ) {
 
         liberarFormulario();
@@ -293,17 +256,16 @@
 
 
       /*
-       * Damos um pequeno tempo adicional
-       * para o evento PASSWORD_RECOVERY
-       * chegar antes de considerar
-       * o link inválido.
+       * Espera mais um pouco porque
+       * PASSWORD_RECOVERY pode chegar
+       * logo depois do getSession().
        */
 
-      window.setTimeout(
+      setTimeout(
         () => {
 
           if (
-            !recuperacaoValida
+            !linkRecuperacaoValido
           ) {
 
             bloquearFormulario();
@@ -311,19 +273,13 @@
           }
 
         },
-        900
+        1000
       );
 
     }
 
 
-    /*
-     * ============================
-     * NOVA SENHA
-     * ============================
-     */
-
-    newPasswordForm.addEventListener(
+    passwordForm.addEventListener(
       'submit',
       async event => {
 
@@ -331,14 +287,11 @@
 
 
         if (
-          !recuperacaoValida
+          !linkRecuperacaoValido
         ) {
 
           passwordMessage.textContent =
-            (
-              'O link de recuperação não é válido. ' +
-              'Solicite um novo link.'
-            );
+            'Solicite um novo link de recuperação.';
 
           return;
 
@@ -353,10 +306,10 @@
             .value;
 
 
-        const confirmPassword =
+        const passwordConfirm =
           document
             .getElementById(
-              'confirmPassword'
+              'passwordConfirm'
             )
             .value;
 
@@ -367,7 +320,7 @@
         ) {
 
           passwordMessage.textContent =
-            'A senha precisa ter pelo menos 6 caracteres.';
+            'A senha deve ter pelo menos 6 caracteres.';
 
           return;
 
@@ -376,21 +329,21 @@
 
         if (
           password !==
-          confirmPassword
+          passwordConfirm
         ) {
 
           passwordMessage.textContent =
-            'As duas senhas não são iguais.';
+            'As senhas informadas não são iguais.';
 
           return;
 
         }
 
 
-        savePasswordButton.disabled =
+        passwordButton.disabled =
           true;
 
-        savePasswordButton.textContent =
+        passwordButton.textContent =
           'Salvando...';
 
         passwordMessage.textContent =
@@ -405,73 +358,27 @@
             await supabaseClient
               .auth
               .updateUser({
-
                 password:
                   password
-
               });
 
 
-          if (
-            error
-          ) {
+          if (error) {
 
             console.error(
               error
             );
 
 
-            const mensagem =
-              String(
-                error.message ||
-                ''
-              )
-                .toLowerCase();
+            passwordMessage.textContent =
+              'Não foi possível alterar a senha. Tente novamente.';
 
 
-            if (
-              mensagem.includes(
-                'same password'
-              )
-            ) {
-
-              passwordMessage.textContent =
-                (
-                  'Escolha uma senha diferente da senha atual.'
-                );
-
-            }
-
-            else if (
-              mensagem.includes(
-                'password'
-              )
-            ) {
-
-              passwordMessage.textContent =
-                (
-                  'A nova senha não atende aos requisitos de segurança.'
-                );
-
-            }
-
-            else {
-
-              passwordMessage.textContent =
-                (
-                  'Não foi possível alterar a senha. ' +
-                  'Solicite um novo link e tente novamente.'
-                );
-
-            }
-
-
-            savePasswordButton.disabled =
+            passwordButton.disabled =
               false;
 
-            savePasswordButton.textContent =
+            passwordButton.textContent =
               'Salvar nova senha';
-
 
             return;
 
@@ -482,12 +389,19 @@
             'Senha alterada com sucesso.';
 
 
+          passwordForm.reset();
+
+
+          passwordButton.disabled =
+            true;
+
+          passwordButton.textContent =
+            'Senha alterada';
+
+
           /*
-           * Encerra a sessão temporária criada
-           * pelo link de recuperação.
-           *
-           * Depois o cliente entra normalmente
-           * usando a nova senha.
+           * Encerra a sessão temporária
+           * da recuperação.
            */
 
           await supabaseClient
@@ -495,33 +409,19 @@
             .signOut();
 
 
-          newPasswordForm.reset();
-
-
-          savePasswordButton.disabled =
-            true;
-
-          savePasswordButton.textContent =
-            'Senha alterada';
-
-
-          window.setTimeout(
+          setTimeout(
             () => {
 
-              window
-                .location
-                .href =
-                  'login.html';
+              window.location.href =
+                'login.html';
 
             },
-            1200
+            1500
           );
 
         }
 
-        catch (
-          erro
-        ) {
+        catch (erro) {
 
           console.error(
             erro
@@ -529,16 +429,13 @@
 
 
           passwordMessage.textContent =
-            (
-              'Não foi possível conectar ao sistema. ' +
-              'Tente novamente.'
-            );
+            'Erro ao conectar com o sistema.';
 
 
-          savePasswordButton.disabled =
+          passwordButton.disabled =
             false;
 
-          savePasswordButton.textContent =
+          passwordButton.textContent =
             'Salvar nova senha';
 
         }
@@ -547,7 +444,7 @@
     );
 
 
-    verificarRecuperacao();
+    verificarSessaoRecuperacao();
 
   </script>
 
