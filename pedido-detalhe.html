@@ -2,41 +2,780 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Detalhe do pedido</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+  <style>
+
+    body {
+      background: #0b0f14;
+    }
+
+    .pedido-page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 34px 28px 60px;
+    }
+
+    .pedido-shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       CABEÇALHO
+    ========================== */
+
+    .pedido-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .pedido-eyebrow {
+      display: block;
+      margin-bottom: 7px;
+      color: #8f99a5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .pedido-header h1 {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.05;
+    }
+
+    .pedido-header p {
+      margin: 9px 0 0;
+      color: #9ba5b1;
+    }
+
+    .pedido-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+
+    /* =========================
+       BOTÕES
+    ========================== */
+
+    .pedido-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 17px;
+
+      border: 1px solid #303844;
+      border-radius: 10px;
+
+      background: #11161d;
+      color: #ffffff !important;
+
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+
+      text-decoration: none !important;
+
+      cursor: pointer;
+
+      transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .pedido-btn:hover {
+      background: #171d25;
+      border-color: #45505f;
+      transform: translateY(-1px);
+    }
+
+    .pedido-btn-primary {
+      background: #ffffff;
+      color: #0b0f14 !important;
+      border-color: #ffffff;
+    }
+
+    .pedido-btn-primary:hover {
+      background: #e8ebef;
+      border-color: #e8ebef;
+    }
+
+    .pedido-btn-danger {
+      color: #e25c66 !important;
+      border-color: rgba(226, 92, 102, 0.48);
+      background: transparent;
+    }
+
+    .pedido-btn-danger:hover {
+      background: rgba(226, 92, 102, 0.08);
+      border-color: rgba(226, 92, 102, 0.72);
+    }
+
+    .pedido-btn-whatsapp {
+      color: #ce2b37 !important;
+      border-color: #ce2b37;
+      background: #0b0d10;
+    }
+
+    .pedido-btn-whatsapp:hover {
+      color: #e54853 !important;
+      border-color: #e54853;
+      background: #12161b;
+    }
+
+
+    /* =========================
+       RESUMO SUPERIOR
+    ========================== */
+
+    .pedido-resumo {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          4,
+          minmax(0, 1fr)
+        );
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pedido-resumo-card {
+      min-width: 0;
+      padding: 16px 17px;
+
+      border: 1px solid #252e39;
+      border-radius: 12px;
+
+      background: #10151c;
+    }
+
+    .pedido-resumo-label {
+      display: block;
+      margin-bottom: 6px;
+
+      color: #87929e;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .pedido-resumo-valor {
+      display: block;
+      overflow: hidden;
+
+      color: #ffffff;
+
+      font-size: 18px;
+      font-weight: 800;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .pedido-resumo-card.valor-total
+    .pedido-resumo-valor {
+      font-size: 22px;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================== */
+
+    .status-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      min-height: 34px;
+
+      padding: 0 12px;
+
+      border: 1px solid #303844;
+      border-radius: 9px;
+
+      background: #0b1016;
+
+      color: #ffffff;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+    }
+
+    .status-dot-pagamento_pendente,
+    .status-dot-aguardando_pagamento {
+      background: #e4b94d;
+    }
+
+    .status-dot-pago {
+      background: #45c779;
+    }
+
+    .status-dot-em_producao {
+      background: #579be8;
+    }
+
+    .status-dot-enviado {
+      background: #a17ee8;
+    }
+
+    .status-dot-concluido {
+      background: #8fd6ad;
+    }
+
+    .status-dot-cancelado {
+      background: #d95b63;
+    }
+
+
+    /* =========================
+       PAINEL PRINCIPAL
+    ========================== */
+
+    .pedido-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(290px, 0.42fr);
+
+      gap: 18px;
+
+      align-items: start;
+    }
+
+    .pedido-coluna-principal,
+    .pedido-coluna-lateral {
+      display: grid;
+      gap: 18px;
+    }
+
+    .pedido-card {
+      overflow: hidden;
+
+      border: 1px solid #29323d;
+      border-radius: 15px;
+
+      background: #10151c;
+    }
+
+    .pedido-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      padding: 16px 18px;
+
+      border-bottom: 1px solid #29323d;
+
+      background: #0d1218;
+    }
+
+    .pedido-card-header h2 {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .pedido-card-header span {
+      color: #7f8a97;
+      font-size: 12px;
+    }
+
+    .pedido-card-body {
+      padding: 18px;
+    }
+
+
+    /* =========================
+       ITENS
+    ========================== */
+
+    .pedido-itens {
+      display: grid;
+      gap: 12px;
+    }
+
+    .pedido-item {
+      padding: 16px;
+
+      border: 1px solid #29323d;
+      border-radius: 12px;
+
+      background: #0d1218;
+    }
+
+    .pedido-item-topo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .pedido-item-nome {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .pedido-item-preco {
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pedido-item-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 7px 16px;
+
+      margin-top: 5px;
+
+      color: #8f99a5;
+
+      font-size: 12px;
+    }
+
+    .detalhe-personalizacao {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          2,
+          minmax(0, 1fr)
+        );
+
+      gap: 10px 18px;
+
+      margin-top: 15px;
+      padding-top: 15px;
+
+      border-top: 1px solid #252e39;
+    }
+
+    .personalizacao-campo {
+      min-width: 0;
+    }
+
+    .personalizacao-campo-largo {
+      grid-column: 1 / -1;
+    }
+
+    .personalizacao-campo span {
+      display: block;
+
+      margin-bottom: 3px;
+
+      color: #747f8c;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .personalizacao-campo strong {
+      display: block;
+
+      overflow-wrap: anywhere;
+
+      color: #dce1e7;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+
+    /* =========================
+       INFORMAÇÕES
+    ========================== */
+
+    .info-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .info-row {
+      display: grid;
+      gap: 3px;
+    }
+
+    .info-label {
+      color: #798491;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      color: #dce1e7;
+
+      font-size: 13px;
+      line-height: 1.5;
+
+      overflow-wrap: anywhere;
+    }
+
+    .info-value strong {
+      color: #ffffff;
+    }
+
+    .whatsapp-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      min-height: 40px;
+
+      margin-top: 15px;
+
+      border: 1px solid #ce2b37;
+      border-radius: 9px;
+
+      background: #0b0d10;
+      color: #ce2b37 !important;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-decoration: none !important;
+    }
+
+    .whatsapp-link:hover {
+      color: #e54853 !important;
+      border-color: #e54853;
+      background: #12161b;
+    }
+
+
+    /* =========================
+       STATUS ADMIN
+    ========================== */
+
+    .status-admin-wrap {
+      display: grid;
+      gap: 7px;
+    }
+
+    .status-admin-wrap label {
+      color: #8a95a2;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .status-admin-wrap select {
+      width: 100%;
+
+      margin: 0;
+      padding: 11px 12px;
+
+      border: 1px solid #303844;
+      border-radius: 9px;
+
+      background: #0b1016;
+      color: #ffffff;
+
+      font: inherit;
+      font-size: 13px;
+
+      outline: none;
+    }
+
+    .status-admin-wrap select:focus {
+      border-color: #697686;
+    }
+
+
+    /* =========================
+       OBSERVAÇÕES
+    ========================== */
+
+    .pedido-observacoes {
+      margin: 0;
+
+      color: #c8d0d9;
+
+      font-size: 13px;
+      line-height: 1.65;
+
+      white-space: pre-wrap;
+    }
+
+
+    /* =========================
+       AÇÕES CLIENTE
+    ========================== */
+
+    .pedido-acoes-cliente {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pedido-acoes-cliente
+    .pedido-btn {
+      width: 100%;
+    }
+
+    .pedido-acao-ajuda {
+      margin: 0;
+
+      color: #7e8996;
+
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+
+    /* =========================
+       MENSAGENS
+    ========================== */
+
+    #mensagem {
+      min-height: 22px;
+
+      margin: 14px 2px 0;
+
+      color: #aeb7c2;
+
+      font-size: 13px;
+    }
+
+    .pedido-vazio {
+      padding: 50px 20px;
+
+      border: 1px solid #29323d;
+      border-radius: 15px;
+
+      background: #10151c;
+
+      color: #87929e;
+
+      text-align: center;
+    }
+
+    .pedido-vazio h2 {
+      margin: 0 0 8px;
+      color: #ffffff;
+    }
+
+    .pedido-vazio p {
+      margin: 0;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .pedido-footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      gap: 16px;
+
+      margin-top: 22px;
+    }
+
+    .pedido-footer-links a {
+      color: #93baff;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       RESPONSIVO
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .pedido-resumo {
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
+      }
+
+      .pedido-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 640px) {
+
+      .pedido-page {
+        padding: 22px 14px 44px;
+      }
+
+      .pedido-header {
+        flex-direction: column;
+      }
+
+      .pedido-header-actions {
+        width: 100%;
+      }
+
+      .pedido-header-actions
+      .pedido-btn {
+        flex: 1;
+      }
+
+      .pedido-resumo {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pedido-item-topo {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .detalhe-personalizacao {
+        grid-template-columns: 1fr;
+      }
+
+      .personalizacao-campo-largo {
+        grid-column: auto;
+      }
+
+    }
+
+    @media (max-width: 430px) {
+
+      .pedido-resumo {
+        grid-template-columns: 1fr;
+      }
+
+      .pedido-header-actions {
+        flex-direction: column;
+      }
+
+      .pedido-header-actions
+      .pedido-btn {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-  <main class="auth-container admin-container">
+  <main class="pedido-page">
 
-    <section class="auth-card admin-card">
+    <div class="pedido-shell">
+
+      <header
+        id="pedidoHeader"
+        class="pedido-header"
+      >
+
+        <div>
+
+          <span
+            id="pedidoEyebrow"
+            class="pedido-eyebrow"
+          >
+            ÍMALLOY
+          </span>
+
+          <h1 id="pedidoTitulo">
+            Detalhe do pedido
+          </h1>
+
+          <p id="pedidoSubtitulo">
+            Carregando informações...
+          </p>
+
+        </div>
+
+        <div
+          id="pedidoHeaderActions"
+          class="pedido-header-actions"
+        ></div>
+
+      </header>
 
       <div id="conteudoPedido">
-        Carregando pedido...
+
+        <div class="pedido-vazio">
+          Carregando pedido...
+        </div>
+
       </div>
 
       <p id="mensagem"></p>
 
-      <p class="admin-voltar">
+      <div
+        id="pedidoFooterLinks"
+        class="pedido-footer-links"
+      ></div>
 
-        <a href="admin-pedidos.html">
-          Voltar para administração
-        </a>
-
-      </p>
-
-    </section>
+    </div>
 
   </main>
-
 
   <script>
 
@@ -50,6 +789,31 @@
         'mensagem'
       );
 
+    const pedidoEyebrow =
+      document.getElementById(
+        'pedidoEyebrow'
+      );
+
+    const pedidoTitulo =
+      document.getElementById(
+        'pedidoTitulo'
+      );
+
+    const pedidoSubtitulo =
+      document.getElementById(
+        'pedidoSubtitulo'
+      );
+
+    const pedidoHeaderActions =
+      document.getElementById(
+        'pedidoHeaderActions'
+      );
+
+    const pedidoFooterLinks =
+      document.getElementById(
+        'pedidoFooterLinks'
+      );
+
     const params =
       new URLSearchParams(
         window.location.search
@@ -57,152 +821,351 @@
 
     const pedidoId =
       Number(
-        params.get('id')
+        params.get(
+          'id'
+        )
       );
 
+    const whatsappNumber =
+      '5511911801381';
 
-    function formatarValor(valor) {
+    let usuarioAtual =
+      null;
 
-      return Number(valor)
-        .toLocaleString(
-          'pt-BR',
-          {
-            style: 'currency',
-            currency: 'BRL'
-          }
-        );
+    let usuarioEhAdmin =
+      false;
+
+
+    /* =========================
+       UTILITÁRIOS
+    ========================== */
+
+    function formatarValor(
+      valor
+    ) {
+
+      return Number(
+        valor || 0
+      ).toLocaleString(
+        'pt-BR',
+        {
+          style:
+            'currency',
+
+          currency:
+            'BRL'
+        }
+      );
 
     }
 
 
-    function formatarData(data) {
-
-      return new Date(data)
-        .toLocaleDateString(
-          'pt-BR'
-        );
-
-    }
-
-
-    function montarWhatsapp(telefone) {
-
-      if (!telefone) {
-        return null;
-      }
-
-
-      let numero =
-        telefone.replace(
-          /\D/g,
-          ''
-        );
-
+    function formatarData(
+      data
+    ) {
 
       if (
-        !numero.startsWith('55')
+        !data
+      ) {
+
+        return '-';
+
+      }
+
+      return new Date(
+        data
+      ).toLocaleDateString(
+        'pt-BR'
+      );
+
+    }
+
+
+    function escaparHtml(
+      valor
+    ) {
+
+      return String(
+        valor ?? ''
+      )
+        .replaceAll(
+          '&',
+          '&amp;'
+        )
+        .replaceAll(
+          '<',
+          '&lt;'
+        )
+        .replaceAll(
+          '>',
+          '&gt;'
+        )
+        .replaceAll(
+          '"',
+          '&quot;'
+        )
+        .replaceAll(
+          "'",
+          '&#039;'
+        );
+
+    }
+
+
+    function normalizarStatus(
+      status
+    ) {
+
+      if (
+        status ===
+        'aguardando_pagamento'
+      ) {
+
+        return 'pagamento_pendente';
+
+      }
+
+      return status;
+
+    }
+
+
+    function formatarStatus(
+      status
+    ) {
+
+      const nomes = {
+
+        pagamento_pendente:
+          'Pagamento pendente',
+
+        aguardando_pagamento:
+          'Pagamento pendente',
+
+        pago:
+          'Pago',
+
+        em_producao:
+          'Em produção',
+
+        enviado:
+          'Enviado',
+
+        concluido:
+          'Concluído',
+
+        cancelado:
+          'Cancelado'
+
+      };
+
+      return (
+        nomes[
+          status
+        ] ||
+        status ||
+        '-'
+      );
+
+    }
+
+
+    function montarWhatsapp(
+      telefone
+    ) {
+
+      if (
+        !telefone
+      ) {
+
+        return null;
+
+      }
+
+      let numero =
+        String(
+          telefone
+        )
+          .replace(
+            /\D/g,
+            ''
+          );
+
+      if (
+        !numero
+      ) {
+
+        return null;
+
+      }
+
+      if (
+        !numero.startsWith(
+          '55'
+        )
       ) {
 
         numero =
-          '55' + numero;
+          '55' +
+          numero;
 
       }
 
-
-      return `https://wa.me/${numero}`;
+      return (
+        `https://wa.me/${numero}`
+      );
 
     }
 
 
-    function lerDetalhesVeiculo(texto) {
+    function montarWhatsappCancelamento(
+      pedidoId
+    ) {
 
-      if (!texto) {
+      const texto =
+        `Olá! Gostaria de solicitar o cancelamento do pedido #${pedidoId}.`;
+
+      return (
+        `https://wa.me/${whatsappNumber}` +
+        `?text=${encodeURIComponent(
+          texto
+        )}`
+      );
+
+    }
+
+
+    /* =========================
+       PERSONALIZAÇÃO
+    ========================== */
+
+    function lerDetalhesVeiculo(
+      texto
+    ) {
+
+      if (
+        !texto
+      ) {
+
         return null;
+
       }
 
-
-      const dados = {};
-
+      const dados =
+        {};
 
       texto
-        .split('|')
+        .split(
+          '|'
+        )
         .map(
           parte =>
             parte.trim()
         )
-        .forEach(parte => {
+        .forEach(
+          parte => {
 
-          const indice =
-            parte.indexOf(':');
+            const indice =
+              parte.indexOf(
+                ':'
+              );
 
+            if (
+              indice ===
+              -1
+            ) {
 
-          if (indice === -1) {
-            return;
+              return;
+
+            }
+
+            const chave =
+              parte
+                .slice(
+                  0,
+                  indice
+                )
+                .trim()
+                .toLowerCase();
+
+            const valor =
+              parte
+                .slice(
+                  indice +
+                  1
+                )
+                .trim();
+
+            dados[
+              chave
+            ] =
+              valor;
+
           }
-
-
-          const chave =
-            parte
-              .slice(
-                0,
-                indice
-              )
-              .trim()
-              .toLowerCase();
-
-
-          const valor =
-            parte
-              .slice(
-                indice + 1
-              )
-              .trim();
-
-
-          dados[chave] =
-            valor;
-
-        });
-
+        );
 
       const marca =
-        dados['marca'];
+        dados[
+          'marca'
+        ];
 
       const modelo =
-        dados['modelo'];
+        dados[
+          'modelo'
+        ];
 
       const assinatura =
-        dados['assinatura'] ||
-        dados['ano/período'] ||
-        dados['ano / período'];
+        dados[
+          'assinatura'
+        ] ||
+        dados[
+          'ano/período'
+        ] ||
+        dados[
+          'ano / período'
+        ];
 
       const furos =
-        dados['furos'];
+        dados[
+          'furos'
+        ];
 
+      const verso =
+        dados[
+          'gravação no verso'
+        ] ||
+        dados[
+          'gravacao no verso'
+        ];
 
       if (
         !marca &&
         !modelo &&
         !assinatura &&
-        !furos
+        !furos &&
+        !verso
       ) {
 
         return null;
 
       }
 
-
       return {
+
         marca,
         modelo,
         assinatura,
-        furos
+        furos,
+        verso
+
       };
 
     }
 
 
-    function montarDetalhesItem(item) {
+    function montarDetalhesItem(
+      item
+    ) {
 
       if (
         !item.detalhes_personalizacao
@@ -212,24 +1175,36 @@
 
       }
 
-
       const veiculo =
         lerDetalhesVeiculo(
-          item.detalhes_personalizacao
+          item
+            .detalhes_personalizacao
         );
 
-
-      if (!veiculo) {
+      if (
+        !veiculo
+      ) {
 
         return `
 
           <div class="detalhe-personalizacao">
 
-            <strong>
-              Personalização:
-            </strong>
+            <div class="
+              personalizacao-campo
+              personalizacao-campo-largo
+            ">
 
-            ${item.detalhes_personalizacao}
+              <span>
+                Personalização
+              </span>
+
+              <strong>
+                ${escaparHtml(
+                  item.detalhes_personalizacao
+                )}
+              </strong>
+
+            </div>
 
           </div>
 
@@ -237,54 +1212,137 @@
 
       }
 
+      let html =
+        '';
+
+      if (
+        veiculo.marca
+      ) {
+
+        html += `
+
+          <div class="personalizacao-campo">
+
+            <span>
+              Marca
+            </span>
+
+            <strong>
+              ${escaparHtml(
+                veiculo.marca
+              )}
+            </strong>
+
+          </div>
+
+        `;
+
+      }
+
+      if (
+        veiculo.modelo
+      ) {
+
+        html += `
+
+          <div class="personalizacao-campo">
+
+            <span>
+              Modelo
+            </span>
+
+            <strong>
+              ${escaparHtml(
+                veiculo.modelo
+              )}
+            </strong>
+
+          </div>
+
+        `;
+
+      }
+
+      if (
+        veiculo.assinatura
+      ) {
+
+        html += `
+
+          <div class="personalizacao-campo">
+
+            <span>
+              Assinatura
+            </span>
+
+            <strong>
+              ${escaparHtml(
+                veiculo.assinatura
+              )}
+            </strong>
+
+          </div>
+
+        `;
+
+      }
+
+      if (
+        veiculo.furos
+      ) {
+
+        html += `
+
+          <div class="personalizacao-campo">
+
+            <span>
+              Furos
+            </span>
+
+            <strong>
+              ${escaparHtml(
+                veiculo.furos
+              )}
+            </strong>
+
+          </div>
+
+        `;
+
+      }
+
+      if (
+        veiculo.verso
+      ) {
+
+        html += `
+
+          <div class="
+            personalizacao-campo
+            personalizacao-campo-largo
+          ">
+
+            <span>
+              Gravação no verso
+            </span>
+
+            <strong>
+              ${escaparHtml(
+                veiculo.verso
+              )}
+            </strong>
+
+          </div>
+
+        `;
+
+      }
 
       return `
 
         <div class="detalhe-personalizacao">
 
-          <strong>
-            Dados do veículo
-          </strong>
-
-          <p>
-
-            <strong>
-              Marca:
-            </strong>
-
-            ${veiculo.marca || '-'}
-
-          </p>
-
-          <p>
-
-            <strong>
-              Modelo:
-            </strong>
-
-            ${veiculo.modelo || '-'}
-
-          </p>
-
-          <p>
-
-            <strong>
-              Assinatura:
-            </strong>
-
-            ${veiculo.assinatura || '-'}
-
-          </p>
-
-          <p>
-
-            <strong>
-              Furos:
-            </strong>
-
-            ${veiculo.furos || '-'}
-
-          </p>
+          ${html}
 
         </div>
 
@@ -293,74 +1351,88 @@
     }
 
 
-    async function verificarAdmin() {
+    /* =========================
+       SESSÃO / PERMISSÃO
+    ========================== */
+
+    async function verificarSessao() {
 
       const {
         data: {
           session
-        }
+        },
+        error
       } =
         await supabaseClient
           .auth
           .getSession();
 
+      if (
+        error ||
+        !session
+      ) {
 
-      if (!session) {
-
-        window.location.href =
-          'login.html';
+        window
+          .location
+          .href =
+            'login.html';
 
         return false;
 
       }
 
+      usuarioAtual =
+        session.user;
 
       const {
-        data: admin
+        data: admin,
+        error:
+          adminError
       } =
         await supabaseClient
-          .from('admins')
-          .select('user_id')
+          .from(
+            'admins'
+          )
+          .select(
+            'user_id'
+          )
           .eq(
             'user_id',
             session.user.id
           )
           .maybeSingle();
 
+      if (
+        adminError
+      ) {
 
-      if (!admin) {
-
-        window.location.href =
-          'conta.html';
-
-        return false;
+        console.error(
+          adminError
+        );
 
       }
 
+      usuarioEhAdmin =
+        Boolean(
+          admin
+        );
 
       return true;
 
     }
 
 
-    async function carregarPedido() {
+    /* =========================
+       CONSULTA DO PEDIDO
+    ========================== */
 
-      if (!pedidoId) {
+    async function consultarPedido() {
 
-        conteudoPedido.innerHTML =
-          '<p>Pedido inválido.</p>';
-
-        return;
-
-      }
-
-
-      const {
-        data: pedido,
-        error: pedidoError
-      } =
-        await supabaseClient
-          .from('orders')
+      let consulta =
+        supabaseClient
+          .from(
+            'orders'
+          )
           .select(`
             id,
             user_id,
@@ -379,60 +1451,47 @@
           .eq(
             'id',
             pedidoId
-          )
-          .single();
-
-
-      if (pedidoError) {
-
-        console.error(
-          pedidoError
-        );
-
-        conteudoPedido.innerHTML =
-          '<p>Erro ao carregar o pedido.</p>';
-
-        return;
-
-      }
-
-
-      const {
-        data: clientes,
-        error: clienteError
-      } =
-        await supabaseClient
-          .rpc(
-            'obter_cliente_admin',
-            {
-              p_user_id:
-                pedido.user_id
-            }
           );
 
+      /*
+        ADMIN:
+        pode consultar qualquer pedido.
 
-      if (clienteError) {
+        CLIENTE:
+        obrigatoriamente filtra
+        pelo próprio user_id.
+      */
 
-        console.error(
-          clienteError
-        );
+      if (
+        !usuarioEhAdmin
+      ) {
+
+        consulta =
+          consulta.eq(
+            'user_id',
+            usuarioAtual.id
+          );
 
       }
 
+      return await consulta
+        .maybeSingle();
 
-      const cliente =
-        clientes &&
-        clientes.length > 0
-          ? clientes[0]
-          : null;
+    }
 
+
+    async function consultarEndereco(
+      userId
+    ) {
 
       const {
-        data: endereco,
-        error: enderecoError
+        data,
+        error
       } =
         await supabaseClient
-          .from('addresses')
+          .from(
+            'addresses'
+          )
           .select(`
             cep,
             rua,
@@ -444,402 +1503,1323 @@
           `)
           .eq(
             'user_id',
-            pedido.user_id
+            userId
           )
           .order(
             'updated_at',
             {
-              ascending: false
+              ascending:
+                false
             }
           )
-          .limit(1)
+          .limit(
+            1
+          )
           .maybeSingle();
 
-
-      if (enderecoError) {
+      if (
+        error
+      ) {
 
         console.error(
-          enderecoError
+          error
+        );
+
+        return null;
+
+      }
+
+      return data;
+
+    }
+
+
+    async function consultarClienteAdmin(
+      userId
+    ) {
+
+      if (
+        !usuarioEhAdmin
+      ) {
+
+        return null;
+
+      }
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .rpc(
+            'obter_cliente_admin',
+            {
+              p_user_id:
+                userId
+            }
+          );
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+        return null;
+
+      }
+
+      if (
+        Array.isArray(
+          data
+        )
+      ) {
+
+        return (
+          data[
+            0
+          ] ||
+          null
         );
 
       }
 
+      return (
+        data ||
+        null
+      );
 
-      const whatsappUrl =
-        montarWhatsapp(
-          cliente?.telefone
-        );
-
-
-      const itens =
-        pedido.order_items ||
-        [];
+    }
 
 
-      const itensHtml =
-        itens
-          .map(item => `
+    /* =========================
+       ENDEREÇO
+    ========================== */
 
-            <div class="detalhe-item">
+    function montarEnderecoHtml(
+      endereco
+    ) {
 
-              <strong>
-                ${item.produto}
-              </strong>
+      if (
+        !endereco
+      ) {
 
-              <div class="detalhe-item-info">
+        return `
 
-                <span>
-                  Qtd: ${item.quantidade}
-                </span>
+          <div class="info-row">
 
-                <span>
-                  ${formatarValor(item.valor_unitario)}
-                </span>
+            <span class="info-label">
+              Endereço
+            </span>
 
-              </div>
-
-              ${montarDetalhesItem(item)}
-
-            </div>
-
-          `)
-          .join('');
-
-
-      const enderecoHtml =
-        endereco
-          ? `
-
-            <p>
-
-              ${endereco.rua || ''},
-              ${endereco.numero || ''}
-
-              ${
-                endereco.complemento
-                  ? ' - ' +
-                    endereco.complemento
-                  : ''
-              }
-
-            </p>
-
-            <p>
-
-              ${endereco.bairro || ''}
-
-              ${
-                endereco.cidade
-                  ? ' - ' +
-                    endereco.cidade
-                  : ''
-              }
-
-              ${
-                endereco.estado
-                  ? '/' +
-                    endereco.estado
-                  : ''
-              }
-
-            </p>
-
-            <p>
-
-              CEP:
-              ${endereco.cep || ''}
-
-            </p>
-
-          `
-          : '<p>Endereço não cadastrado.</p>';
-
-
-      conteudoPedido.innerHTML = `
-
-        <div class="detalhe-topo">
-
-          <div>
-
-            <h1>
-              Pedido #${pedido.id}
-            </h1>
-
-            <p>
-              ${formatarData(pedido.created_at)}
-            </p>
+            <span class="info-value">
+              Não cadastrado.
+            </span>
 
           </div>
 
-          <div class="detalhe-valor">
-            ${formatarValor(pedido.valor_total)}
-          </div>
+        `;
+
+      }
+
+      const linha1 =
+        [
+          endereco.rua,
+          endereco.numero
+        ]
+          .filter(
+            Boolean
+          )
+          .join(
+            ', '
+          );
+
+      const linha2 =
+        [
+          endereco.bairro,
+          endereco.cidade
+        ]
+          .filter(
+            Boolean
+          )
+          .join(
+            ' - '
+          );
+
+      const estado =
+        endereco.estado
+          ? `/${endereco.estado}`
+          : '';
+
+      const complemento =
+        endereco.complemento
+          ? ` · ${endereco.complemento}`
+          : '';
+
+      return `
+
+        <div class="info-row">
+
+          <span class="info-label">
+            Endereço
+          </span>
+
+          <span class="info-value">
+
+            ${escaparHtml(
+              linha1 ||
+              '-'
+            )}
+
+            ${escaparHtml(
+              complemento
+            )}
+
+          </span>
 
         </div>
 
+        <div class="info-row">
 
-        <div class="detalhe-grid">
+          <span class="info-label">
+            Cidade
+          </span>
 
+          <span class="info-value">
 
-          <section class="detalhe-card">
+            ${escaparHtml(
+              linha2 ||
+              '-'
+            )}
 
-            <h2>
-              Resumo
-            </h2>
+            ${escaparHtml(
+              estado
+            )}
 
-            <label for="statusPedido">
-              Status
-            </label>
+          </span>
 
-            <select id="statusPedido">
+        </div>
 
-              <option
-                value="pagamento_pendente"
-                ${
-                  (
-                    pedido.status ===
-                      'pagamento_pendente' ||
-                    pedido.status ===
-                      'aguardando_pagamento'
-                  )
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Pagamento pendente
-              </option>
+        <div class="info-row">
 
-              <option
-                value="pago"
-                ${
-                  pedido.status ===
-                  'pago'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Pago
-              </option>
+          <span class="info-label">
+            CEP
+          </span>
 
-              <option
-                value="em_producao"
-                ${
-                  pedido.status ===
-                  'em_producao'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Em produção
-              </option>
+          <span class="info-value">
 
-              <option
-                value="enviado"
-                ${
-                  pedido.status ===
-                  'enviado'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Enviado
-              </option>
+            ${escaparHtml(
+              endereco.cep ||
+              '-'
+            )}
 
-              <option
-                value="concluido"
-                ${
-                  pedido.status ===
-                  'concluido'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Concluído
-              </option>
-
-              <option
-                value="cancelado"
-                ${
-                  pedido.status ===
-                  'cancelado'
-                    ? 'selected'
-                    : ''
-                }
-              >
-                Cancelado
-              </option>
-
-            </select>
-
-          </section>
-
-
-          <section class="detalhe-card">
-
-            <h2>
-              Cliente
-            </h2>
-
-            <p>
-
-              <strong>
-                Nome:
-              </strong>
-
-              ${cliente?.nome_completo || '-'}
-
-            </p>
-
-            <p>
-
-              <strong>
-                E-mail:
-              </strong>
-
-              ${cliente?.email || '-'}
-
-            </p>
-
-            <p>
-
-              <strong>
-                Telefone:
-              </strong>
-
-              ${cliente?.telefone || '-'}
-
-            </p>
-
-            ${
-              whatsappUrl
-                ? `
-
-                  <p>
-
-                    <a
-                      href="${whatsappUrl}"
-                      target="_blank"
-                      rel="noopener"
-                      class="whatsapp-link"
-                    >
-                      Abrir WhatsApp
-                    </a>
-
-                  </p>
-
-                `
-                : ''
-            }
-
-          </section>
-
-
-          <section class="detalhe-card">
-
-            <h2>
-              Endereço
-            </h2>
-
-            ${enderecoHtml}
-
-          </section>
-
-
-          <section class="detalhe-card detalhe-card-largo">
-
-            <h2>
-              Itens do pedido
-            </h2>
-
-            ${
-              itensHtml ||
-              '<p>Nenhum item cadastrado.</p>'
-            }
-
-          </section>
-
-
-          ${
-            pedido.observacoes
-              ? `
-
-                <section class="detalhe-card detalhe-card-largo">
-
-                  <h2>
-                    Observações
-                  </h2>
-
-                  <p>
-                    ${pedido.observacoes}
-                  </p>
-
-                </section>
-
-              `
-              : ''
-          }
+          </span>
 
         </div>
 
       `;
 
-
-      document
-        .getElementById(
-          'statusPedido'
-        )
-        .addEventListener(
-          'change',
-          async event => {
-
-            const {
-              error
-            } =
-              await supabaseClient
-                .from('orders')
-                .update({
-                  status:
-                    event.target.value
-                })
-                .eq(
-                  'id',
-                  pedido.id
-                );
+    }
 
 
-            if (error) {
+    /* =========================
+       STATUS ADMIN
+    ========================== */
 
-              console.error(
-                error
+    function montarOptionStatus(
+      valor,
+      nome,
+      statusAtual
+    ) {
+
+      return `
+
+        <option
+          value="${valor}"
+          ${
+            normalizarStatus(
+              statusAtual
+            ) ===
+            valor
+              ? 'selected'
+              : ''
+          }
+        >
+          ${nome}
+        </option>
+
+      `;
+
+    }
+
+
+    function montarStatusHtml(
+      pedido
+    ) {
+
+      const status =
+        normalizarStatus(
+          pedido.status
+        );
+
+      if (
+        usuarioEhAdmin
+      ) {
+
+        return `
+
+          <div class="status-admin-wrap">
+
+            <label for="statusPedido">
+              Alterar status
+            </label>
+
+            <select id="statusPedido">
+
+              ${montarOptionStatus(
+                'pagamento_pendente',
+                'Pagamento pendente',
+                pedido.status
+              )}
+
+              ${montarOptionStatus(
+                'pago',
+                'Pago',
+                pedido.status
+              )}
+
+              ${montarOptionStatus(
+                'em_producao',
+                'Em produção',
+                pedido.status
+              )}
+
+              ${montarOptionStatus(
+                'enviado',
+                'Enviado',
+                pedido.status
+              )}
+
+              ${montarOptionStatus(
+                'concluido',
+                'Concluído',
+                pedido.status
+              )}
+
+              ${montarOptionStatus(
+                'cancelado',
+                'Cancelado',
+                pedido.status
+              )}
+
+            </select>
+
+          </div>
+
+        `;
+
+      }
+
+      return `
+
+        <div class="status-view">
+
+          <span
+            class="
+              status-dot
+              status-dot-${status}
+            "
+          ></span>
+
+          ${escaparHtml(
+            formatarStatus(
+              pedido.status
+            )
+          )}
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =========================
+       ITENS
+    ========================== */
+
+    function montarItensHtml(
+      itens
+    ) {
+
+      if (
+        !itens ||
+        itens.length ===
+          0
+      ) {
+
+        return `
+
+          <div class="pedido-vazio">
+            Nenhum item cadastrado neste pedido.
+          </div>
+
+        `;
+
+      }
+
+      return itens
+        .map(
+          item => {
+
+            const quantidade =
+              Number(
+                item.quantidade ||
+                0
               );
 
-              mensagem.textContent =
-                'Erro ao alterar o status.';
+            const valorUnitario =
+              Number(
+                item.valor_unitario ||
+                0
+              );
 
-              return;
+            const totalItem =
+              quantidade *
+              valorUnitario;
 
-            }
+            return `
 
+              <article class="pedido-item">
 
-            mensagem.textContent =
-              'Status atualizado com sucesso.';
+                <div class="pedido-item-topo">
+
+                  <div>
+
+                    <div class="pedido-item-nome">
+
+                      ${escaparHtml(
+                        item.produto
+                      )}
+
+                    </div>
+
+                    <div class="pedido-item-meta">
+
+                      <span>
+                        Quantidade:
+                        ${escaparHtml(
+                          quantidade
+                        )}
+                      </span>
+
+                      <span>
+
+                        Unitário:
+                        ${formatarValor(
+                          valorUnitario
+                        )}
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <div class="pedido-item-preco">
+
+                    ${formatarValor(
+                      totalItem
+                    )}
+
+                  </div>
+
+                </div>
+
+                ${montarDetalhesItem(
+                  item
+                )}
+
+              </article>
+
+            `;
 
           }
+        )
+        .join(
+          ''
         );
 
     }
 
 
-    async function iniciar() {
+    /* =========================
+       AÇÕES CLIENTE
+    ========================== */
 
-      const admin =
-        await verificarAdmin();
+    function montarAcoesCliente(
+      pedido
+    ) {
 
+      const status =
+        normalizarStatus(
+          pedido.status
+        );
 
-      if (!admin) {
-        return;
+      if (
+        status ===
+        'pagamento_pendente'
+      ) {
+
+        return `
+
+          <div class="pedido-acoes-cliente">
+
+            <button
+              class="
+                pedido-btn
+                pedido-btn-danger
+              "
+              type="button"
+              onclick="
+                cancelarPedido(
+                  ${pedido.id}
+                )
+              "
+            >
+              Cancelar pedido
+            </button>
+
+            <p class="pedido-acao-ajuda">
+              Enquanto o pagamento não foi confirmado,
+              o pedido pode ser cancelado automaticamente.
+            </p>
+
+          </div>
+
+        `;
+
       }
 
+      if (
+        status ===
+        'pago'
+      ) {
+
+        return `
+
+          <div class="pedido-acoes-cliente">
+
+            <a
+              class="
+                pedido-btn
+                pedido-btn-whatsapp
+              "
+              href="${montarWhatsappCancelamento(
+                pedido.id
+              )}"
+              target="_blank"
+              rel="noopener"
+            >
+              Solicitar cancelamento
+            </a>
+
+            <p class="pedido-acao-ajuda">
+              Como o pagamento já foi confirmado,
+              entre em contato conosco para solicitar
+              o cancelamento.
+            </p>
+
+          </div>
+
+        `;
+
+      }
+
+      return `
+
+        <p class="pedido-acao-ajuda">
+          Não há ações disponíveis para este pedido no momento.
+        </p>
+
+      `;
+
+    }
+
+
+    /* =========================
+       RENDERIZAÇÃO
+    ========================== */
+
+    async function carregarPedido() {
+
+      mensagem.textContent =
+        '';
+
+      if (
+        !pedidoId
+      ) {
+
+        conteudoPedido.innerHTML =
+          `
+
+            <div class="pedido-vazio">
+
+              <h2>
+                Pedido inválido
+              </h2>
+
+              <p>
+                O número do pedido não foi informado corretamente.
+              </p>
+
+            </div>
+
+          `;
+
+        return;
+
+      }
+
+      const {
+        data: pedido,
+        error:
+          pedidoError
+      } =
+        await consultarPedido();
+
+      if (
+        pedidoError
+      ) {
+
+        console.error(
+          pedidoError
+        );
+
+        conteudoPedido.innerHTML =
+          `
+
+            <div class="pedido-vazio">
+
+              <h2>
+                Não foi possível carregar o pedido
+              </h2>
+
+              <p>
+                Tente novamente.
+              </p>
+
+            </div>
+
+          `;
+
+        return;
+
+      }
+
+      /*
+        Se for cliente e tentar abrir
+        um pedido de outro usuário,
+        a consulta retorna null.
+      */
+
+      if (
+        !pedido
+      ) {
+
+        conteudoPedido.innerHTML =
+          `
+
+            <div class="pedido-vazio">
+
+              <h2>
+                Pedido não encontrado
+              </h2>
+
+              <p>
+                Este pedido não existe ou não pertence à sua conta.
+              </p>
+
+            </div>
+
+          `;
+
+        return;
+
+      }
+
+      const [
+        endereco,
+        cliente
+      ] =
+        await Promise.all(
+          [
+            consultarEndereco(
+              pedido.user_id
+            ),
+
+            consultarClienteAdmin(
+              pedido.user_id
+            )
+          ]
+        );
+
+      const itens =
+        pedido.order_items ||
+        [];
+
+      const quantidadeTotal =
+        itens.reduce(
+          (
+            total,
+            item
+          ) =>
+            total +
+            Number(
+              item.quantidade ||
+              0
+            ),
+          0
+        );
+
+      const statusNormalizado =
+        normalizarStatus(
+          pedido.status
+        );
+
+      pedidoEyebrow.textContent =
+        usuarioEhAdmin
+          ? 'ÍMALLOY · ADMINISTRAÇÃO'
+          : 'ÍMALLOY · MEUS PEDIDOS';
+
+      pedidoTitulo.textContent =
+        `Pedido #${pedido.id}`;
+
+      pedidoSubtitulo.textContent =
+        usuarioEhAdmin
+          ? 'Informações completas do pedido e do cliente.'
+          : 'Acompanhe os detalhes e o andamento do seu pedido.';
+
+      if (
+        usuarioEhAdmin
+      ) {
+
+        pedidoHeaderActions.innerHTML =
+          `
+
+            <a
+              class="pedido-btn"
+              href="admin-pedidos.html"
+            >
+              Voltar para pedidos
+            </a>
+
+            <a
+              class="
+                pedido-btn
+                pedido-btn-primary
+              "
+              href="conta.html"
+            >
+              Minha conta
+            </a>
+
+          `;
+
+        pedidoFooterLinks.innerHTML =
+          `
+
+            <a href="admin-pedidos.html">
+              Voltar para administração
+            </a>
+
+            <a href="index.html">
+              Voltar para o site
+            </a>
+
+          `;
+
+      }
+
+      else {
+
+        pedidoHeaderActions.innerHTML =
+          `
+
+            <a
+              class="pedido-btn"
+              href="pedidos.html"
+            >
+              Meus pedidos
+            </a>
+
+            <a
+              class="
+                pedido-btn
+                pedido-btn-primary
+              "
+              href="index.html#personalizar"
+            >
+              + Novo pedido
+            </a>
+
+          `;
+
+        pedidoFooterLinks.innerHTML =
+          `
+
+            <a href="pedidos.html">
+              Voltar para meus pedidos
+            </a>
+
+            <a href="conta.html">
+              Minha conta
+            </a>
+
+            <a href="index.html">
+              Voltar para o site
+            </a>
+
+          `;
+
+      }
+
+      let clienteHtml =
+        '';
+
+      if (
+        usuarioEhAdmin
+      ) {
+
+        const whatsappUrl =
+          montarWhatsapp(
+            cliente?.telefone
+          );
+
+        clienteHtml =
+          `
+
+            <section class="pedido-card">
+
+              <div class="pedido-card-header">
+
+                <h2>
+                  Cliente
+                </h2>
+
+              </div>
+
+              <div class="pedido-card-body">
+
+                <div class="info-list">
+
+                  <div class="info-row">
+
+                    <span class="info-label">
+                      Nome
+                    </span>
+
+                    <span class="info-value">
+
+                      ${escaparHtml(
+                        cliente
+                          ?.nome_completo ||
+                        '-'
+                      )}
+
+                    </span>
+
+                  </div>
+
+                  <div class="info-row">
+
+                    <span class="info-label">
+                      E-mail
+                    </span>
+
+                    <span class="info-value">
+
+                      ${escaparHtml(
+                        cliente
+                          ?.email ||
+                        '-'
+                      )}
+
+                    </span>
+
+                  </div>
+
+                  <div class="info-row">
+
+                    <span class="info-label">
+                      Telefone
+                    </span>
+
+                    <span class="info-value">
+
+                      ${escaparHtml(
+                        cliente
+                          ?.telefone ||
+                        '-'
+                      )}
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+                ${
+                  whatsappUrl
+                    ? `
+
+                      <a
+                        class="whatsapp-link"
+                        href="${whatsappUrl}"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        Abrir WhatsApp
+                      </a>
+
+                    `
+                    : ''
+                }
+
+              </div>
+
+            </section>
+
+          `;
+
+      }
+
+      let observacoesHtml =
+        '';
+
+      if (
+        pedido.observacoes
+      ) {
+
+        observacoesHtml =
+          `
+
+            <section class="pedido-card">
+
+              <div class="pedido-card-header">
+
+                <h2>
+                  Observações
+                </h2>
+
+              </div>
+
+              <div class="pedido-card-body">
+
+                <p class="pedido-observacoes">
+
+                  ${escaparHtml(
+                    pedido.observacoes
+                  )}
+
+                </p>
+
+              </div>
+
+            </section>
+
+          `;
+
+      }
+
+      const acoesClienteHtml =
+        !usuarioEhAdmin
+          ? `
+
+              <section class="pedido-card">
+
+                <div class="pedido-card-header">
+
+                  <h2>
+                    Ações
+                  </h2>
+
+                </div>
+
+                <div class="pedido-card-body">
+
+                  ${montarAcoesCliente(
+                    pedido
+                  )}
+
+                </div>
+
+              </section>
+
+            `
+          : '';
+
+      conteudoPedido.innerHTML =
+        `
+
+          <section class="pedido-resumo">
+
+            <div class="pedido-resumo-card">
+
+              <span class="pedido-resumo-label">
+                Pedido
+              </span>
+
+              <strong class="pedido-resumo-valor">
+                #${pedido.id}
+              </strong>
+
+            </div>
+
+            <div class="pedido-resumo-card">
+
+              <span class="pedido-resumo-label">
+                Data
+              </span>
+
+              <strong class="pedido-resumo-valor">
+
+                ${formatarData(
+                  pedido.created_at
+                )}
+
+              </strong>
+
+            </div>
+
+            <div class="pedido-resumo-card">
+
+              <span class="pedido-resumo-label">
+                Itens
+              </span>
+
+              <strong class="pedido-resumo-valor">
+
+                ${quantidadeTotal}
+
+              </strong>
+
+            </div>
+
+            <div class="
+              pedido-resumo-card
+              valor-total
+            ">
+
+              <span class="pedido-resumo-label">
+                Valor total
+              </span>
+
+              <strong class="pedido-resumo-valor">
+
+                ${formatarValor(
+                  pedido.valor_total
+                )}
+
+              </strong>
+
+            </div>
+
+          </section>
+
+
+          <div class="pedido-grid">
+
+
+            <div class="pedido-coluna-principal">
+
+
+              <section class="pedido-card">
+
+                <div class="pedido-card-header">
+
+                  <h2>
+                    Itens do pedido
+                  </h2>
+
+                  <span>
+
+                    ${
+                      itens.length ===
+                      1
+                        ? '1 produto'
+                        : `${itens.length} produtos`
+                    }
+
+                  </span>
+
+                </div>
+
+                <div class="pedido-card-body">
+
+                  <div class="pedido-itens">
+
+                    ${montarItensHtml(
+                      itens
+                    )}
+
+                  </div>
+
+                </div>
+
+              </section>
+
+
+              ${observacoesHtml}
+
+
+            </div>
+
+
+            <aside class="pedido-coluna-lateral">
+
+
+              <section class="pedido-card">
+
+                <div class="pedido-card-header">
+
+                  <h2>
+                    Status
+                  </h2>
+
+                </div>
+
+                <div class="pedido-card-body">
+
+                  ${montarStatusHtml(
+                    pedido
+                  )}
+
+                </div>
+
+              </section>
+
+
+              ${clienteHtml}
+
+
+              <section class="pedido-card">
+
+                <div class="pedido-card-header">
+
+                  <h2>
+                    Endereço de entrega
+                  </h2>
+
+                </div>
+
+                <div class="pedido-card-body">
+
+                  <div class="info-list">
+
+                    ${montarEnderecoHtml(
+                      endereco
+                    )}
+
+                  </div>
+
+                </div>
+
+              </section>
+
+
+              ${acoesClienteHtml}
+
+
+            </aside>
+
+
+          </div>
+
+        `;
+
+      /*
+        Apenas o administrador recebe
+        o campo de alteração de status.
+      */
+
+      if (
+        usuarioEhAdmin
+      ) {
+
+        const statusPedido =
+          document.getElementById(
+            'statusPedido'
+          );
+
+        if (
+          statusPedido
+        ) {
+
+          statusPedido.addEventListener(
+            'change',
+            async event => {
+
+              const select =
+                event.target;
+
+              select.disabled =
+                true;
+
+              mensagem.textContent =
+                'Atualizando status...';
+
+              const {
+                error
+              } =
+                await supabaseClient
+                  .from(
+                    'orders'
+                  )
+                  .update(
+                    {
+                      status:
+                        select.value
+                    }
+                  )
+                  .eq(
+                    'id',
+                    pedido.id
+                  );
+
+              if (
+                error
+              ) {
+
+                console.error(
+                  error
+                );
+
+                mensagem.textContent =
+                  'Erro ao alterar o status.';
+
+                select.disabled =
+                  false;
+
+                return;
+
+              }
+
+              mensagem.textContent =
+                'Status atualizado com sucesso.';
+
+              select.disabled =
+                false;
+
+            }
+          );
+
+        }
+
+      }
+
+    }
+
+
+    /* =========================
+       CANCELAMENTO CLIENTE
+    ========================== */
+
+    async function cancelarPedido(
+      id
+    ) {
+
+      if (
+        usuarioEhAdmin
+      ) {
+
+        return;
+
+      }
+
+      const confirmar =
+        confirm(
+          `Deseja realmente cancelar o pedido #${id}?`
+        );
+
+      if (
+        !confirmar
+      ) {
+
+        return;
+
+      }
+
+      mensagem.textContent =
+        'Cancelando pedido...';
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .rpc(
+            'cancelar_meu_pedido',
+            {
+              p_order_id:
+                id
+            }
+          );
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+        mensagem.textContent =
+          'Erro ao cancelar o pedido.';
+
+        return;
+
+      }
+
+      if (
+        !data
+      ) {
+
+        mensagem.textContent =
+          'Este pedido não pode mais ser cancelado automaticamente.';
+
+        await carregarPedido();
+
+        return;
+
+      }
+
+      mensagem.textContent =
+        `Pedido #${id} cancelado com sucesso.`;
+
+      await carregarPedido();
+
+    }
+
+
+    /* =========================
+       INICIAR
+    ========================== */
+
+    async function iniciar() {
+
+      const sessaoOk =
+        await verificarSessao();
+
+      if (
+        !sessaoOk
+      ) {
+
+        return;
+
+      }
 
       await carregarPedido();
 
