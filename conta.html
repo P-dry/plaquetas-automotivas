@@ -2,405 +2,1854 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Minha conta</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+
+  <style>
+
+    body {
+      background: #0b0f14;
+    }
+
+
+    /* =========================
+       PÁGINA
+    ========================== */
+
+    .conta-page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 34px 28px 60px;
+    }
+
+    .conta-shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+
+    /* =========================
+       CABEÇALHO
+    ========================== */
+
+    .conta-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+
+      margin-bottom: 24px;
+    }
+
+    .conta-eyebrow {
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #8f99a5;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      letter-spacing: 0.16em;
+    }
+
+    .conta-header h1 {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: clamp(
+        30px,
+        4vw,
+        44px
+      );
+
+      line-height: 1.05;
+    }
+
+    .conta-header p {
+      margin: 9px 0 0;
+
+      color: #9ba5b1;
+    }
+
+    .conta-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      flex-shrink: 0;
+    }
+
+
+    /* =========================
+       BOTÕES
+    ========================== */
+
+    .conta-btn {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      min-height: 44px;
+
+      padding: 0 17px;
+
+      border: 1px solid #303844;
+      border-radius: 10px;
+
+      background: #11161d;
+      color: #ffffff !important;
+
+      font: inherit;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      text-decoration: none !important;
+
+      cursor: pointer;
+
+      transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .conta-btn:hover {
+      background: #171d25;
+
+      border-color: #45505f;
+
+      transform: translateY(-1px);
+    }
+
+    .conta-btn-primary {
+      background: #ffffff;
+
+      color: #0b0f14 !important;
+
+      border-color: #ffffff;
+    }
+
+    .conta-btn-primary:hover {
+      background: #e8ebef;
+
+      border-color: #e8ebef;
+    }
+
+    .conta-btn-danger {
+      color: #e25c66 !important;
+
+      border-color:
+        rgba(
+          226,
+          92,
+          102,
+          0.48
+        );
+
+      background: transparent;
+    }
+
+    .conta-btn-danger:hover {
+      background:
+        rgba(
+          226,
+          92,
+          102,
+          0.08
+        );
+
+      border-color:
+        rgba(
+          226,
+          92,
+          102,
+          0.72
+        );
+    }
+
+
+    /* =========================
+       RESUMO
+    ========================== */
+
+    .conta-resumo {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(0, 1fr)
+        );
+
+      gap: 10px;
+
+      margin-bottom: 20px;
+    }
+
+    .conta-resumo-card {
+      min-width: 0;
+
+      padding: 16px 17px;
+
+      border: 1px solid #252e39;
+      border-radius: 12px;
+
+      background: #10151c;
+    }
+
+    .conta-resumo-label {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: #87929e;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+
+      text-transform: uppercase;
+    }
+
+    .conta-resumo-valor {
+      display: block;
+
+      overflow: hidden;
+
+      color: #ffffff;
+
+      font-size: 16px;
+      font-weight: 800;
+
+      white-space: nowrap;
+
+      text-overflow: ellipsis;
+    }
+
+
+    /* =========================
+       GRID
+    ========================== */
+
+    .conta-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(280px, 0.36fr);
+
+      gap: 18px;
+
+      align-items: start;
+    }
+
+    .conta-main,
+    .conta-sidebar {
+      display: grid;
+
+      gap: 18px;
+    }
+
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .conta-card {
+      overflow: hidden;
+
+      border: 1px solid #29323d;
+      border-radius: 15px;
+
+      background: #10151c;
+    }
+
+    .conta-card-header {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      padding: 16px 18px;
+
+      border-bottom: 1px solid #29323d;
+
+      background: #0d1218;
+    }
+
+    .conta-card-header h2 {
+      margin: 0;
+
+      color: #ffffff;
+
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .conta-card-header span {
+      color: #7f8a97;
+
+      font-size: 12px;
+    }
+
+    .conta-card-body {
+      padding: 18px;
+    }
+
+
+    /* =========================
+       FORMULÁRIO
+    ========================== */
+
+    .conta-form-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          2,
+          minmax(0, 1fr)
+        );
+
+      gap: 16px;
+    }
+
+    .conta-field {
+      min-width: 0;
+    }
+
+    .conta-field-full {
+      grid-column: 1 / -1;
+    }
+
+    .conta-field label {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: #dfe4ea;
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .conta-field input,
+    .conta-field select {
+      width: 100%;
+
+      margin: 0;
+
+      padding: 11px 12px;
+
+      border: 1px solid #303844;
+      border-radius: 9px;
+
+      background: #0b1016;
+      color: #ffffff;
+
+      font: inherit;
+      font-size: 13px;
+
+      outline: none;
+
+      transition:
+        border-color 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .conta-field input:focus,
+    .conta-field select:focus {
+      border-color: #697686;
+    }
+
+    .conta-field input:disabled,
+    .conta-field select:disabled {
+      border-color: #252d37;
+
+      background: #0c1117;
+
+      color: #aeb7c2;
+
+      opacity: 1;
+
+      cursor: default;
+    }
+
+    #cpf,
+    #dataNascimento {
+      color: #8e98a4;
+    }
+
+    #cepMessage {
+      display: block;
+
+      min-height: 18px;
+
+      margin-top: 5px;
+
+      color: #87929e;
+
+      font-size: 11px;
+    }
+
+
+    /* =========================
+       AÇÕES DO FORMULÁRIO
+    ========================== */
+
+    .conta-form-actions {
+      display: flex;
+
+      align-items: center;
+      justify-content: flex-end;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+
+      padding-top: 18px;
+
+      border-top: 1px solid #252e39;
+    }
+
+    .conta-form-actions button {
+      min-width: 140px;
+    }
+
+    #editBtn {
+      display: inline-flex;
+    }
+
+    #saveBtn,
+    #cancelBtn {
+      display: none;
+    }
+
+
+    /* =========================
+       MENU LATERAL
+    ========================== */
+
+    .conta-menu {
+      display: grid;
+
+      gap: 10px;
+    }
+
+    .conta-menu-link {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      min-height: 52px;
+
+      padding: 0 14px;
+
+      border: 1px solid #2d3642;
+      border-radius: 10px;
+
+      background: #0d1218;
+
+      color: #ffffff !important;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      text-decoration: none !important;
+
+      transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+    }
+
+    .conta-menu-link:hover {
+      background: #151b23;
+
+      border-color: #46515f;
+
+      transform: translateY(-1px);
+    }
+
+    .conta-menu-link::after {
+      content: '›';
+
+      color: #73808e;
+
+      font-size: 22px;
+
+      line-height: 1;
+    }
+
+    .conta-menu-link.admin {
+      border-color:
+        rgba(
+          255,
+          255,
+          255,
+          0.18
+        );
+    }
+
+
+    /* =========================
+       EMAIL / SESSÃO
+    ========================== */
+
+    .conta-email {
+      display: grid;
+
+      gap: 5px;
+    }
+
+    .conta-email-label {
+      color: #7e8996;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+
+      text-transform: uppercase;
+    }
+
+    .conta-email-value {
+      overflow-wrap: anywhere;
+
+      color: #ffffff;
+
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+
+    /* =========================
+       MENSAGEM
+    ========================== */
+
+    #accountMessage {
+      min-height: 22px;
+
+      margin: 14px 2px 0;
+
+      color: #aeb7c2;
+
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       SAIR
+    ========================== */
+
+    .conta-logout {
+      width: 100%;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .conta-footer-links {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 16px;
+
+      margin-top: 22px;
+    }
+
+    .conta-footer-links a {
+      color: #93baff;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       RESPONSIVO
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .conta-resumo {
+        grid-template-columns: 1fr;
+      }
+
+      .conta-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+
+    @media (max-width: 640px) {
+
+      .conta-page {
+        padding: 22px 14px 44px;
+      }
+
+      .conta-header {
+        flex-direction: column;
+      }
+
+      .conta-header-actions {
+        width: 100%;
+      }
+
+      .conta-header-actions
+      .conta-btn {
+        flex: 1;
+      }
+
+      .conta-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .conta-field-full {
+        grid-column: auto;
+      }
+
+      .conta-form-actions {
+        align-items: stretch;
+
+        flex-direction: column;
+      }
+
+      .conta-form-actions button {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-  <main class="auth-container">
+  <main class="conta-page">
 
-    <section class="auth-card conta-card">
-
-      <h1>Minha conta</h1>
-
-      <p>
-        Gerencie seus dados pessoais e endereço.
-      </p>
-
-      <p>
-        E-mail:
-        <strong id="userEmail">
-          Carregando...
-        </strong>
-      </p>
-
-      <form id="accountForm">
-
-        <h2>Dados pessoais</h2>
-
-        <label for="nomeCompleto">Nome completo</label>
-        <input type="text" id="nomeCompleto" disabled>
-
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" disabled>
-
-        <label for="dataNascimento">Data de nascimento</label>
-        <input type="date" id="dataNascimento" disabled>
-
-        <label for="telefone">Telefone / WhatsApp</label>
-        <input type="tel" id="telefone" disabled>
+    <div class="conta-shell">
 
 
-        <h2>Endereço</h2>
+      <!-- =========================
+           CABEÇALHO
+      ========================== -->
 
-        <label for="cep">CEP</label>
-        <input type="text" id="cep" maxlength="9" disabled>
+      <header class="conta-header">
 
-        <small id="cepMessage"></small>
+        <div>
 
-        <label for="rua">Rua / Avenida</label>
-        <input type="text" id="rua" disabled>
+          <span class="conta-eyebrow">
+            ÍMALLOY · MINHA CONTA
+          </span>
 
-        <label for="numero">Número</label>
-        <input type="text" id="numero" disabled>
+          <h1>
+            Minha conta
+          </h1>
 
-        <label for="complemento">Complemento</label>
-        <input type="text" id="complemento" disabled>
+          <p>
+            Gerencie seus dados pessoais, endereço e pedidos.
+          </p>
 
-        <label for="bairro">Bairro</label>
-        <input type="text" id="bairro" disabled>
-
-        <label for="cidade">Cidade</label>
-        <input type="text" id="cidade" disabled>
-
-        <label for="estado">Estado</label>
-
-        <select id="estado" disabled>
-          <option value="">Selecione</option>
-          <option value="AC">AC</option>
-          <option value="AL">AL</option>
-          <option value="AP">AP</option>
-          <option value="AM">AM</option>
-          <option value="BA">BA</option>
-          <option value="CE">CE</option>
-          <option value="DF">DF</option>
-          <option value="ES">ES</option>
-          <option value="GO">GO</option>
-          <option value="MA">MA</option>
-          <option value="MT">MT</option>
-          <option value="MS">MS</option>
-          <option value="MG">MG</option>
-          <option value="PA">PA</option>
-          <option value="PB">PB</option>
-          <option value="PR">PR</option>
-          <option value="PE">PE</option>
-          <option value="PI">PI</option>
-          <option value="RJ">RJ</option>
-          <option value="RN">RN</option>
-          <option value="RS">RS</option>
-          <option value="RO">RO</option>
-          <option value="RR">RR</option>
-          <option value="SC">SC</option>
-          <option value="SP">SP</option>
-          <option value="SE">SE</option>
-          <option value="TO">TO</option>
-        </select>
-
-        <p id="accountMessage"></p>
-
-        <button type="button" id="editBtn">
-          Editar dados
-        </button>
-
-        <button
-          type="submit"
-          id="saveBtn"
-          style="display: none;"
-        >
-          Salvar alterações
-        </button>
-
-        <button
-          type="button"
-          id="cancelBtn"
-          style="display: none;"
-        >
-          Cancelar
-        </button>
-
-      </form>
+        </div>
 
 
-      <p>
-        <a href="pedidos.html">
-          Meus pedidos
-        </a>
-      </p>
+        <div class="conta-header-actions">
+
+          <a
+            class="conta-btn"
+            href="pedidos.html"
+          >
+            Meus pedidos
+          </a>
+
+          <a
+            class="conta-btn conta-btn-primary"
+            href="index.html#personalizar"
+          >
+            + Novo pedido
+          </a>
+
+        </div>
+
+      </header>
 
 
-      <p
-        id="adminLinkContainer"
-        style="display: none;"
-      >
-        <a href="admin-pedidos.html">
-          Administração de pedidos
-        </a>
-      </p>
+      <!-- =========================
+           RESUMO
+      ========================== -->
+
+      <section class="conta-resumo">
+
+        <div class="conta-resumo-card">
+
+          <span class="conta-resumo-label">
+            Conta
+          </span>
+
+          <strong class="conta-resumo-valor">
+            Cliente ÍMALLOY
+          </strong>
+
+        </div>
 
 
-      <button
-        type="button"
-        id="logoutBtn"
-      >
-        Sair
-      </button>
+        <div class="conta-resumo-card">
+
+          <span class="conta-resumo-label">
+            E-mail
+          </span>
+
+          <strong
+            id="userEmail"
+            class="conta-resumo-valor"
+          >
+            Carregando...
+          </strong>
+
+        </div>
 
 
-      <p>
+        <div class="conta-resumo-card">
+
+          <span class="conta-resumo-label">
+            Endereço
+          </span>
+
+          <strong
+            id="enderecoResumo"
+            class="conta-resumo-valor"
+          >
+            Carregando...
+          </strong>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           CONTEÚDO
+      ========================== -->
+
+      <div class="conta-grid">
+
+
+        <div class="conta-main">
+
+
+          <!-- =========================
+               DADOS PESSOAIS
+          ========================== -->
+
+          <section class="conta-card">
+
+            <div class="conta-card-header">
+
+              <h2>
+                Dados pessoais
+              </h2>
+
+              <span>
+                CPF e nascimento não são editáveis
+              </span>
+
+            </div>
+
+
+            <div class="conta-card-body">
+
+              <form id="accountForm">
+
+                <div class="conta-form-grid">
+
+
+                  <div class="conta-field conta-field-full">
+
+                    <label for="nomeCompleto">
+                      Nome completo
+                    </label>
+
+                    <input
+                      type="text"
+                      id="nomeCompleto"
+                      disabled
+                    >
+
+                  </div>
+
+
+                  <div class="conta-field">
+
+                    <label for="cpf">
+                      CPF
+                    </label>
+
+                    <input
+                      type="text"
+                      id="cpf"
+                      disabled
+                    >
+
+                  </div>
+
+
+                  <div class="conta-field">
+
+                    <label for="dataNascimento">
+                      Data de nascimento
+                    </label>
+
+                    <input
+                      type="date"
+                      id="dataNascimento"
+                      disabled
+                    >
+
+                  </div>
+
+
+                  <div class="conta-field conta-field-full">
+
+                    <label for="telefone">
+                      Telefone / WhatsApp
+                    </label>
+
+                    <input
+                      type="tel"
+                      id="telefone"
+                      maxlength="15"
+                      disabled
+                    >
+
+                  </div>
+
+
+                </div>
+
+
+                <!-- =========================
+                     ENDEREÇO
+                ========================== -->
+
+                <div
+                  style="
+                    margin-top: 26px;
+                    padding-top: 22px;
+                    border-top: 1px solid #252e39;
+                  "
+                >
+
+                  <div
+                    style="
+                      margin-bottom: 16px;
+                    "
+                  >
+
+                    <h2
+                      style="
+                        margin: 0;
+                        color: #ffffff;
+                        font-size: 16px;
+                      "
+                    >
+                      Endereço
+                    </h2>
+
+                  </div>
+
+
+                  <div class="conta-form-grid">
+
+
+                    <div class="conta-field">
+
+                      <label for="cep">
+                        CEP
+                      </label>
+
+                      <input
+                        type="text"
+                        id="cep"
+                        maxlength="9"
+                        disabled
+                      >
+
+                      <small id="cepMessage"></small>
+
+                    </div>
+
+
+                    <div class="conta-field">
+
+                      <label for="estado">
+                        Estado
+                      </label>
+
+                      <select
+                        id="estado"
+                        disabled
+                      >
+
+                        <option value="">
+                          Selecione
+                        </option>
+
+                        <option value="AC">AC</option>
+                        <option value="AL">AL</option>
+                        <option value="AP">AP</option>
+                        <option value="AM">AM</option>
+                        <option value="BA">BA</option>
+                        <option value="CE">CE</option>
+                        <option value="DF">DF</option>
+                        <option value="ES">ES</option>
+                        <option value="GO">GO</option>
+                        <option value="MA">MA</option>
+                        <option value="MT">MT</option>
+                        <option value="MS">MS</option>
+                        <option value="MG">MG</option>
+                        <option value="PA">PA</option>
+                        <option value="PB">PB</option>
+                        <option value="PR">PR</option>
+                        <option value="PE">PE</option>
+                        <option value="PI">PI</option>
+                        <option value="RJ">RJ</option>
+                        <option value="RN">RN</option>
+                        <option value="RS">RS</option>
+                        <option value="RO">RO</option>
+                        <option value="RR">RR</option>
+                        <option value="SC">SC</option>
+                        <option value="SP">SP</option>
+                        <option value="SE">SE</option>
+                        <option value="TO">TO</option>
+
+                      </select>
+
+                    </div>
+
+
+                    <div class="conta-field conta-field-full">
+
+                      <label for="rua">
+                        Rua / Avenida
+                      </label>
+
+                      <input
+                        type="text"
+                        id="rua"
+                        disabled
+                      >
+
+                    </div>
+
+
+                    <div class="conta-field">
+
+                      <label for="numero">
+                        Número
+                      </label>
+
+                      <input
+                        type="text"
+                        id="numero"
+                        disabled
+                      >
+
+                    </div>
+
+
+                    <div class="conta-field">
+
+                      <label for="complemento">
+                        Complemento
+                      </label>
+
+                      <input
+                        type="text"
+                        id="complemento"
+                        disabled
+                      >
+
+                    </div>
+
+
+                    <div class="conta-field">
+
+                      <label for="bairro">
+                        Bairro
+                      </label>
+
+                      <input
+                        type="text"
+                        id="bairro"
+                        disabled
+                      >
+
+                    </div>
+
+
+                    <div class="conta-field">
+
+                      <label for="cidade">
+                        Cidade
+                      </label>
+
+                      <input
+                        type="text"
+                        id="cidade"
+                        disabled
+                      >
+
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+
+                <div class="conta-form-actions">
+
+                  <button
+                    type="button"
+                    id="editBtn"
+                    class="conta-btn"
+                  >
+                    Editar dados
+                  </button>
+
+
+                  <button
+                    type="button"
+                    id="cancelBtn"
+                    class="conta-btn"
+                  >
+                    Cancelar
+                  </button>
+
+
+                  <button
+                    type="submit"
+                    id="saveBtn"
+                    class="
+                      conta-btn
+                      conta-btn-primary
+                    "
+                  >
+                    Salvar alterações
+                  </button>
+
+                </div>
+
+              </form>
+
+
+              <p id="accountMessage"></p>
+
+            </div>
+
+          </section>
+
+
+        </div>
+
+
+        <!-- =========================
+             LATERAL
+        ========================== -->
+
+        <aside class="conta-sidebar">
+
+
+          <section class="conta-card">
+
+            <div class="conta-card-header">
+
+              <h2>
+                Atalhos
+              </h2>
+
+            </div>
+
+
+            <div class="conta-card-body">
+
+              <div class="conta-menu">
+
+                <a
+                  class="conta-menu-link"
+                  href="pedidos.html"
+                >
+                  Meus pedidos
+                </a>
+
+
+                <a
+                  class="conta-menu-link"
+                  href="index.html#personalizar"
+                >
+                  Fazer novo pedido
+                </a>
+
+
+                <a
+                  class="conta-menu-link"
+                  href="index.html"
+                >
+                  Voltar para o site
+                </a>
+
+
+                <a
+                  id="adminLink"
+                  class="
+                    conta-menu-link
+                    admin
+                  "
+                  href="admin-pedidos.html"
+                  style="display: none;"
+                >
+                  Administração de pedidos
+                </a>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section class="conta-card">
+
+            <div class="conta-card-header">
+
+              <h2>
+                Acesso
+              </h2>
+
+            </div>
+
+
+            <div class="conta-card-body">
+
+              <div class="conta-email">
+
+                <span class="conta-email-label">
+                  E-mail da conta
+                </span>
+
+                <span
+                  id="userEmailLateral"
+                  class="conta-email-value"
+                >
+                  Carregando...
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section class="conta-card">
+
+            <div class="conta-card-header">
+
+              <h2>
+                Sessão
+              </h2>
+
+            </div>
+
+
+            <div class="conta-card-body">
+
+              <button
+                type="button"
+                id="logoutBtn"
+                class="
+                  conta-btn
+                  conta-btn-danger
+                  conta-logout
+                "
+              >
+                Sair da conta
+              </button>
+
+            </div>
+
+          </section>
+
+
+        </aside>
+
+      </div>
+
+
+      <div class="conta-footer-links">
+
         <a href="index.html">
           Voltar para o site
         </a>
-      </p>
 
-    </section>
+      </div>
+
+    </div>
 
   </main>
 
 
   <script>
 
-    const accountForm = document.getElementById('accountForm');
-    const accountMessage = document.getElementById('accountMessage');
+    const accountForm =
+      document.getElementById(
+        'accountForm'
+      );
 
-    const editBtn = document.getElementById('editBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
+    const accountMessage =
+      document.getElementById(
+        'accountMessage'
+      );
 
-    const cepInput = document.getElementById('cep');
-    const cepMessage = document.getElementById('cepMessage');
+    const editBtn =
+      document.getElementById(
+        'editBtn'
+      );
 
-    const ruaInput = document.getElementById('rua');
-    const bairroInput = document.getElementById('bairro');
-    const cidadeInput = document.getElementById('cidade');
-    const estadoInput = document.getElementById('estado');
+    const saveBtn =
+      document.getElementById(
+        'saveBtn'
+      );
 
-    const adminLinkContainer =
-      document.getElementById('adminLinkContainer');
+    const cancelBtn =
+      document.getElementById(
+        'cancelBtn'
+      );
 
-    let usuarioAtual = null;
-    let enderecoAtualId = null;
+    const logoutBtn =
+      document.getElementById(
+        'logoutBtn'
+      );
 
+    const cepInput =
+      document.getElementById(
+        'cep'
+      );
+
+    const cepMessage =
+      document.getElementById(
+        'cepMessage'
+      );
+
+    const ruaInput =
+      document.getElementById(
+        'rua'
+      );
+
+    const bairroInput =
+      document.getElementById(
+        'bairro'
+      );
+
+    const cidadeInput =
+      document.getElementById(
+        'cidade'
+      );
+
+    const estadoInput =
+      document.getElementById(
+        'estado'
+      );
+
+    const adminLink =
+      document.getElementById(
+        'adminLink'
+      );
+
+    const enderecoResumo =
+      document.getElementById(
+        'enderecoResumo'
+      );
+
+    const userEmail =
+      document.getElementById(
+        'userEmail'
+      );
+
+    const userEmailLateral =
+      document.getElementById(
+        'userEmailLateral'
+      );
+
+
+    let usuarioAtual =
+      null;
+
+    let enderecoAtualId =
+      null;
+
+
+    /*
+     * ============================
+     * CARREGAR CONTA
+     * ============================
+     */
 
     async function carregarConta() {
 
       accountMessage.textContent =
         'Carregando dados...';
 
+
       const {
-        data: { session },
-        error: sessionError
-      } = await supabaseClient.auth.getSession();
+        data: {
+          session
+        },
+        error:
+          sessionError
+      } =
+        await supabaseClient
+          .auth
+          .getSession();
 
 
-      if (sessionError) {
+      if (
+        sessionError
+      ) {
 
-        console.error(sessionError);
+        console.error(
+          sessionError
+        );
 
         accountMessage.textContent =
           'Erro ao verificar sua sessão.';
 
         return;
+
       }
 
 
-      if (!session) {
+      if (
+        !session
+      ) {
 
         window.location.href =
           'login.html';
 
         return;
+
       }
 
 
-      usuarioAtual = session.user;
+      usuarioAtual =
+        session.user;
 
-      document.getElementById('userEmail').textContent =
-        usuarioAtual.email;
 
+      userEmail.textContent =
+        usuarioAtual.email ||
+        '-';
+
+
+      userEmailLateral.textContent =
+        usuarioAtual.email ||
+        '-';
+
+
+      /*
+       * ============================
+       * ADMIN
+       * ============================
+       */
 
       const {
-        data: admin,
-        error: adminError
-      } = await supabaseClient
-        .from('admins')
-        .select('user_id')
-        .eq('user_id', usuarioAtual.id)
-        .maybeSingle();
+        data:
+          admin,
+        error:
+          adminError
+      } =
+        await supabaseClient
+          .from(
+            'admins'
+          )
+          .select(
+            'user_id'
+          )
+          .eq(
+            'user_id',
+            usuarioAtual.id
+          )
+          .maybeSingle();
 
 
-      if (adminError) {
-        console.error(adminError);
+      if (
+        adminError
+      ) {
+
+        console.error(
+          adminError
+        );
+
       }
 
 
-      if (admin) {
-        adminLinkContainer.style.display = 'block';
-      } else {
-        adminLinkContainer.style.display = 'none';
+      if (
+        admin
+      ) {
+
+        adminLink.style.display =
+          'flex';
+
       }
 
+      else {
+
+        adminLink.style.display =
+          'none';
+
+      }
+
+
+      /*
+       * ============================
+       * PERFIL
+       * ============================
+       */
 
       const {
-        data: perfil,
-        error: perfilError
-      } = await supabaseClient
-        .from('profiles')
-        .select('id, nome_completo, cpf, data_nascimento, telefone')
-        .eq('id', usuarioAtual.id)
-        .single();
+        data:
+          perfil,
+        error:
+          perfilError
+      } =
+        await supabaseClient
+          .from(
+            'profiles'
+          )
+          .select(
+            'id, nome_completo, cpf, data_nascimento, telefone'
+          )
+          .eq(
+            'id',
+            usuarioAtual.id
+          )
+          .single();
 
 
-      if (perfilError) {
+      if (
+        perfilError
+      ) {
 
-        console.error(perfilError);
+        console.error(
+          perfilError
+        );
 
         accountMessage.textContent =
-          'Erro ao carregar os dados pessoais: ' +
-          perfilError.message;
+          (
+            'Erro ao carregar os dados pessoais: ' +
+            perfilError.message
+          );
 
         return;
+
       }
 
 
-      document.getElementById('nomeCompleto').value =
-        perfil.nome_completo || '';
+      document
+        .getElementById(
+          'nomeCompleto'
+        )
+        .value =
+          perfil.nome_completo ||
+          '';
 
-      document.getElementById('cpf').value =
-        perfil.cpf || '';
 
-      document.getElementById('dataNascimento').value =
-        perfil.data_nascimento || '';
+      document
+        .getElementById(
+          'cpf'
+        )
+        .value =
+          perfil.cpf ||
+          '';
 
-      document.getElementById('telefone').value =
-        perfil.telefone || '';
 
+      document
+        .getElementById(
+          'dataNascimento'
+        )
+        .value =
+          perfil.data_nascimento ||
+          '';
+
+
+      document
+        .getElementById(
+          'telefone'
+        )
+        .value =
+          perfil.telefone ||
+          '';
+
+
+      /*
+       * ============================
+       * ENDEREÇO
+       * ============================
+       */
 
       const {
-        data: enderecos,
-        error: enderecoError
-      } = await supabaseClient
-        .from('addresses')
-        .select(`
-          id,
-          user_id,
-          cep,
-          rua,
-          numero,
-          complemento,
-          bairro,
-          cidade,
-          estado,
-          updated_at
-        `)
-        .eq('user_id', usuarioAtual.id)
-        .order('updated_at', { ascending: false })
-        .limit(1);
+        data:
+          enderecos,
+        error:
+          enderecoError
+      } =
+        await supabaseClient
+          .from(
+            'addresses'
+          )
+          .select(`
+            id,
+            user_id,
+            cep,
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+            updated_at
+          `)
+          .eq(
+            'user_id',
+            usuarioAtual.id
+          )
+          .order(
+            'updated_at',
+            {
+              ascending:
+                false
+            }
+          )
+          .limit(
+            1
+          );
 
 
-      if (enderecoError) {
+      if (
+        enderecoError
+      ) {
 
-        console.error(enderecoError);
+        console.error(
+          enderecoError
+        );
 
         accountMessage.textContent =
-          'Erro ao carregar o endereço: ' +
-          enderecoError.message;
+          (
+            'Erro ao carregar o endereço: ' +
+            enderecoError.message
+          );
 
         return;
+
       }
 
 
-      enderecoAtualId = null;
-
-      cepInput.value = '';
-      ruaInput.value = '';
-      document.getElementById('numero').value = '';
-      document.getElementById('complemento').value = '';
-      bairroInput.value = '';
-      cidadeInput.value = '';
-      estadoInput.value = '';
-      cepMessage.textContent = '';
+      enderecoAtualId =
+        null;
 
 
-      if (enderecos && enderecos.length > 0) {
+      cepInput.value =
+        '';
 
-        const endereco = enderecos[0];
+      ruaInput.value =
+        '';
 
-        enderecoAtualId = endereco.id;
+      document
+        .getElementById(
+          'numero'
+        )
+        .value =
+          '';
 
-        cepInput.value = endereco.cep || '';
-        ruaInput.value = endereco.rua || '';
+      document
+        .getElementById(
+          'complemento'
+        )
+        .value =
+          '';
 
-        document.getElementById('numero').value =
-          endereco.numero || '';
+      bairroInput.value =
+        '';
 
-        document.getElementById('complemento').value =
-          endereco.complemento || '';
+      cidadeInput.value =
+        '';
+
+      estadoInput.value =
+        '';
+
+      cepMessage.textContent =
+        '';
+
+      enderecoResumo.textContent =
+        'Não cadastrado';
+
+
+      if (
+        enderecos &&
+        enderecos.length >
+          0
+      ) {
+
+        const endereco =
+          enderecos[
+            0
+          ];
+
+
+        enderecoAtualId =
+          endereco.id;
+
+
+        cepInput.value =
+          endereco.cep ||
+          '';
+
+        ruaInput.value =
+          endereco.rua ||
+          '';
+
+
+        document
+          .getElementById(
+            'numero'
+          )
+          .value =
+            endereco.numero ||
+            '';
+
+
+        document
+          .getElementById(
+            'complemento'
+          )
+          .value =
+            endereco.complemento ||
+            '';
+
 
         bairroInput.value =
-          endereco.bairro || '';
+          endereco.bairro ||
+          '';
 
         cidadeInput.value =
-          endereco.cidade || '';
+          endereco.cidade ||
+          '';
 
         estadoInput.value =
-          endereco.estado || '';
+          endereco.estado ||
+          '';
+
+
+        enderecoResumo.textContent =
+          [
+            endereco.cidade,
+            endereco.estado
+          ]
+            .filter(
+              Boolean
+            )
+            .join(
+              ' / '
+            ) ||
+            'Cadastrado';
+
       }
 
 
-      accountMessage.textContent = '';
+      accountMessage.textContent =
+        '';
+
     }
 
+
+    /*
+     * ============================
+     * ATIVAR EDIÇÃO
+     * ============================
+     */
 
     function ativarEdicao() {
 
-      document.getElementById('nomeCompleto').disabled = false;
-      document.getElementById('telefone').disabled = false;
+      document
+        .getElementById(
+          'nomeCompleto'
+        )
+        .disabled =
+          false;
 
-      cepInput.disabled = false;
-      ruaInput.disabled = false;
 
-      document.getElementById('numero').disabled = false;
-      document.getElementById('complemento').disabled = false;
+      document
+        .getElementById(
+          'telefone'
+        )
+        .disabled =
+          false;
 
-      bairroInput.disabled = false;
-      cidadeInput.disabled = false;
-      estadoInput.disabled = false;
 
-      editBtn.style.display = 'none';
-      saveBtn.style.display = 'block';
-      cancelBtn.style.display = 'block';
+      cepInput.disabled =
+        false;
 
-      accountMessage.textContent = '';
+      ruaInput.disabled =
+        false;
+
+
+      document
+        .getElementById(
+          'numero'
+        )
+        .disabled =
+          false;
+
+
+      document
+        .getElementById(
+          'complemento'
+        )
+        .disabled =
+          false;
+
+
+      bairroInput.disabled =
+        false;
+
+      cidadeInput.disabled =
+        false;
+
+      estadoInput.disabled =
+        false;
+
+
+      editBtn.style.display =
+        'none';
+
+      saveBtn.style.display =
+        'inline-flex';
+
+      cancelBtn.style.display =
+        'inline-flex';
+
+
+      accountMessage.textContent =
+        '';
+
     }
 
 
+    /*
+     * ============================
+     * DESATIVAR EDIÇÃO
+     * ============================
+     */
+
     function desativarEdicao() {
 
-      document.getElementById('nomeCompleto').disabled = true;
-      document.getElementById('telefone').disabled = true;
+      document
+        .getElementById(
+          'nomeCompleto'
+        )
+        .disabled =
+          true;
 
-      cepInput.disabled = true;
-      ruaInput.disabled = true;
 
-      document.getElementById('numero').disabled = true;
-      document.getElementById('complemento').disabled = true;
+      document
+        .getElementById(
+          'telefone'
+        )
+        .disabled =
+          true;
 
-      bairroInput.disabled = true;
-      cidadeInput.disabled = true;
-      estadoInput.disabled = true;
 
-      editBtn.style.display = 'block';
-      saveBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
+      cepInput.disabled =
+        true;
+
+      ruaInput.disabled =
+        true;
+
+
+      document
+        .getElementById(
+          'numero'
+        )
+        .disabled =
+          true;
+
+
+      document
+        .getElementById(
+          'complemento'
+        )
+        .disabled =
+          true;
+
+
+      bairroInput.disabled =
+        true;
+
+      cidadeInput.disabled =
+        true;
+
+      estadoInput.disabled =
+        true;
+
+
+      editBtn.style.display =
+        'inline-flex';
+
+      saveBtn.style.display =
+        'none';
+
+      cancelBtn.style.display =
+        'none';
+
     }
 
 
@@ -417,23 +1866,33 @@
         desativarEdicao();
 
         await carregarConta();
+
       }
     );
 
 
+    /*
+     * ============================
+     * SALVAR
+     * ============================
+     */
+
     accountForm.addEventListener(
       'submit',
-      async (event) => {
+      async event => {
 
         event.preventDefault();
 
 
-        if (!usuarioAtual) {
+        if (
+          !usuarioAtual
+        ) {
 
           accountMessage.textContent =
             'Usuário não identificado.';
 
           return;
+
         }
 
 
@@ -443,198 +1902,317 @@
 
         const nomeCompleto =
           document
-            .getElementById('nomeCompleto')
+            .getElementById(
+              'nomeCompleto'
+            )
             .value
             .trim();
+
 
         const telefone =
           document
-            .getElementById('telefone')
+            .getElementById(
+              'telefone'
+            )
             .value
             .trim();
 
 
+        /*
+         * PERFIL
+         */
+
         const {
-          data: perfilAtualizado,
-          error: profileError
-        } = await supabaseClient
-          .from('profiles')
-          .update({
-            nome_completo: nomeCompleto,
-            telefone: telefone,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', usuarioAtual.id)
-          .select();
+          data:
+            perfilAtualizado,
+          error:
+            profileError
+        } =
+          await supabaseClient
+            .from(
+              'profiles'
+            )
+            .update({
+
+              nome_completo:
+                nomeCompleto,
+
+              telefone:
+                telefone,
+
+              updated_at:
+                new Date()
+                  .toISOString()
+
+            })
+            .eq(
+              'id',
+              usuarioAtual.id
+            )
+            .select();
 
 
-        if (profileError) {
+        if (
+          profileError
+        ) {
 
-          console.error(profileError);
+          console.error(
+            profileError
+          );
 
           accountMessage.textContent =
-            'Erro ao atualizar os dados pessoais: ' +
-            profileError.message;
+            (
+              'Erro ao atualizar os dados pessoais: ' +
+              profileError.message
+            );
 
           return;
+
         }
 
 
         if (
           !perfilAtualizado ||
-          perfilAtualizado.length === 0
+          perfilAtualizado.length ===
+            0
         ) {
 
           accountMessage.textContent =
             'Os dados pessoais não foram atualizados.';
 
           return;
+
         }
 
+
+        /*
+         * ENDEREÇO
+         */
 
         const endereco = {
 
           cep:
-            cepInput.value.trim(),
+            cepInput
+              .value
+              .trim(),
 
           rua:
-            ruaInput.value.trim(),
+            ruaInput
+              .value
+              .trim(),
 
           numero:
             document
-              .getElementById('numero')
+              .getElementById(
+                'numero'
+              )
               .value
               .trim(),
 
           complemento:
             document
-              .getElementById('complemento')
+              .getElementById(
+                'complemento'
+              )
               .value
               .trim(),
 
           bairro:
-            bairroInput.value.trim(),
+            bairroInput
+              .value
+              .trim(),
 
           cidade:
-            cidadeInput.value.trim(),
+            cidadeInput
+              .value
+              .trim(),
 
           estado:
-            estadoInput.value,
+            estadoInput
+              .value,
 
           updated_at:
-            new Date().toISOString()
+            new Date()
+              .toISOString()
+
         };
 
 
-        if (enderecoAtualId) {
+        if (
+          enderecoAtualId
+        ) {
 
           const {
-            data: enderecoAtualizado,
-            error: enderecoUpdateError
-          } = await supabaseClient
-            .from('addresses')
-            .update(endereco)
-            .eq('id', enderecoAtualId)
-            .eq('user_id', usuarioAtual.id)
-            .select();
+            data:
+              enderecoAtualizado,
+            error:
+              enderecoUpdateError
+          } =
+            await supabaseClient
+              .from(
+                'addresses'
+              )
+              .update(
+                endereco
+              )
+              .eq(
+                'id',
+                enderecoAtualId
+              )
+              .eq(
+                'user_id',
+                usuarioAtual.id
+              )
+              .select();
 
 
-          if (enderecoUpdateError) {
+          if (
+            enderecoUpdateError
+          ) {
 
             console.error(
               enderecoUpdateError
             );
 
             accountMessage.textContent =
-              'Erro ao atualizar o endereço: ' +
-              enderecoUpdateError.message;
+              (
+                'Erro ao atualizar o endereço: ' +
+                enderecoUpdateError.message
+              );
 
             return;
+
           }
 
 
           if (
             !enderecoAtualizado ||
-            enderecoAtualizado.length === 0
+            enderecoAtualizado.length ===
+              0
           ) {
 
             accountMessage.textContent =
               'O endereço não foi atualizado.';
 
             return;
+
           }
 
-        } else {
+        }
+
+        else {
 
           const {
-            data: novoEndereco,
-            error: enderecoInsertError
-          } = await supabaseClient
-            .from('addresses')
-            .insert({
-              ...endereco,
-              user_id: usuarioAtual.id
-            })
-            .select()
-            .single();
+            data:
+              novoEndereco,
+            error:
+              enderecoInsertError
+          } =
+            await supabaseClient
+              .from(
+                'addresses'
+              )
+              .insert({
+
+                ...endereco,
+
+                user_id:
+                  usuarioAtual.id
+
+              })
+              .select()
+              .single();
 
 
-          if (enderecoInsertError) {
+          if (
+            enderecoInsertError
+          ) {
 
             console.error(
               enderecoInsertError
             );
 
             accountMessage.textContent =
-              'Erro ao salvar o endereço: ' +
-              enderecoInsertError.message;
+              (
+                'Erro ao salvar o endereço: ' +
+                enderecoInsertError.message
+              );
 
             return;
+
           }
 
 
           enderecoAtualId =
             novoEndereco.id;
+
         }
 
 
         desativarEdicao();
 
+
         await carregarConta();
+
 
         accountMessage.textContent =
           'Dados atualizados com sucesso.';
+
       }
     );
 
+
+    /*
+     * ============================
+     * LOGOUT
+     * ============================
+     */
 
     logoutBtn.addEventListener(
       'click',
       async () => {
 
-        const { error } =
-          await supabaseClient.auth.signOut();
+        const {
+          error
+        } =
+          await supabaseClient
+            .auth
+            .signOut();
 
 
-        if (error) {
+        if (
+          error
+        ) {
 
-          console.error(error);
+          console.error(
+            error
+          );
 
           accountMessage.textContent =
             'Erro ao sair da conta.';
 
           return;
+
         }
 
 
         window.location.href =
           'index.html';
+
       }
     );
 
 
+    /*
+     * ============================
+     * TELEFONE
+     * ============================
+     */
+
     const telefoneInput =
-      document.getElementById('telefone');
+      document.getElementById(
+        'telefone'
+      );
 
 
     telefoneInput.addEventListener(
@@ -642,73 +2220,114 @@
       () => {
 
         let valor =
-          telefoneInput.value
-            .replace(/\D/g, '')
-            .slice(0, 11);
+          telefoneInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            )
+            .slice(
+              0,
+              11
+            );
 
 
-        valor = valor.replace(
-          /^(\d{2})(\d)/,
-          '($1) $2'
-        );
+        valor =
+          valor.replace(
+            /^(\d{2})(\d)/,
+            '($1) $2'
+          );
 
 
-        valor = valor.replace(
-          /(\d{5})(\d{4})$/,
-          '$1-$2'
-        );
+        valor =
+          valor.replace(
+            /(\d{5})(\d{4})$/,
+            '$1-$2'
+          );
 
 
         telefoneInput.value =
           valor;
+
       }
     );
 
+
+    /*
+     * ============================
+     * CEP - MÁSCARA
+     * ============================
+     */
 
     cepInput.addEventListener(
       'input',
       () => {
 
         let valor =
-          cepInput.value
-            .replace(/\D/g, '')
-            .slice(0, 8);
+          cepInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            )
+            .slice(
+              0,
+              8
+            );
 
 
-        valor = valor.replace(
-          /(\d{5})(\d)/,
-          '$1-$2'
-        );
+        valor =
+          valor.replace(
+            /(\d{5})(\d)/,
+            '$1-$2'
+          );
 
 
         cepInput.value =
           valor;
+
       }
     );
 
+
+    /*
+     * ============================
+     * CEP - CONSULTA
+     * ============================
+     */
 
     cepInput.addEventListener(
       'blur',
       async () => {
 
-        if (cepInput.disabled) {
+        if (
+          cepInput.disabled
+        ) {
+
           return;
+
         }
 
 
         const cep =
-          cepInput.value.replace(
-            /\D/g,
-            ''
-          );
+          cepInput
+            .value
+            .replace(
+              /\D/g,
+              ''
+            );
 
 
-        if (cep.length !== 8) {
+        if (
+          cep.length !==
+          8
+        ) {
 
           cepMessage.textContent =
             'Digite um CEP válido.';
 
           return;
+
         }
 
 
@@ -723,30 +2342,39 @@
               `https://viacep.com.br/ws/${cep}/json/`
             );
 
+
           const data =
-            await response.json();
+            await response
+              .json();
 
 
-          if (data.erro) {
+          if (
+            data.erro
+          ) {
 
             cepMessage.textContent =
               'CEP não encontrado.';
 
             return;
+
           }
 
 
           ruaInput.value =
-            data.logradouro || '';
+            data.logradouro ||
+            '';
 
           bairroInput.value =
-            data.bairro || '';
+            data.bairro ||
+            '';
 
           cidadeInput.value =
-            data.localidade || '';
+            data.localidade ||
+            '';
 
           estadoInput.value =
-            data.uf || '';
+            data.uf ||
+            '';
 
 
           cepMessage.textContent =
@@ -754,16 +2382,26 @@
 
 
           document
-            .getElementById('numero')
+            .getElementById(
+              'numero'
+            )
             .focus();
 
-        } catch (erro) {
+        }
 
-          console.error(erro);
+        catch (
+          erro
+        ) {
+
+          console.error(
+            erro
+          );
 
           cepMessage.textContent =
             'Não foi possível consultar o CEP.';
+
         }
+
       }
     );
 
