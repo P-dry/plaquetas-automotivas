@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Recuperar senha | ÍMALLOY</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+</head>
+
+<body>
+
+  <main class="auth-container">
+
+    <section class="auth-card">
+
+      <h1>
+        Recuperar senha
+      </h1>
+
+      <p>
+        Informe o e-mail cadastrado na sua conta.
+        Enviaremos um link para você criar uma nova senha.
+      </p>
+
+
+      <form id="recoveryForm">
+
+        <label for="email">
+          E-mail
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="seuemail@email.com"
+          autocomplete="email"
+          required
+        >
+
+
+        <button
+          id="recoveryButton"
+          type="submit"
+        >
+          Enviar link de recuperação
+        </button>
+
+      </form>
+
+
+      <p id="recoveryMessage"></p>
+
+
+      <p>
+
+        <a href="login.html">
+          Voltar para entrar
+        </a>
+
+      </p>
+
+
+      <p>
+
+        <a href="index.html">
+          Voltar para o site
+        </a>
+
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const recoveryForm =
+      document.getElementById(
+        'recoveryForm'
+      );
+
+    const recoveryButton =
+      document.getElementById(
+        'recoveryButton'
+      );
+
+    const recoveryMessage =
+      document.getElementById(
+        'recoveryMessage'
+      );
+
+
+    /*
+     * Página para onde o link enviado
+     * pelo Supabase deve trazer o cliente.
+     */
+
+    const passwordRedirectUrl =
+      'https://imalloy.com.br/redefinir-senha.html';
+
+
+    recoveryForm.addEventListener(
+      'submit',
+      async event => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById(
+              'email'
+            )
+            .value
+            .trim();
+
+
+        recoveryButton.disabled =
+          true;
+
+        recoveryButton.textContent =
+          'Enviando...';
+
+        recoveryMessage.textContent =
+          '';
+
+
+        try {
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .auth
+              .resetPasswordForEmail(
+                email,
+                {
+
+                  redirectTo:
+                    passwordRedirectUrl
+
+                }
+              );
+
+
+          if (
+            error
+          ) {
+
+            console.error(
+              error
+            );
+
+
+            const mensagem =
+              String(
+                error.message ||
+                ''
+              )
+                .toLowerCase();
+
+
+            if (
+              mensagem.includes(
+                'rate limit'
+              ) ||
+              mensagem.includes(
+                'too many'
+              )
+            ) {
+
+              recoveryMessage.textContent =
+                (
+                  'Foram feitas muitas solicitações. ' +
+                  'Aguarde um pouco antes de tentar novamente.'
+                );
+
+            }
+
+            else {
+
+              recoveryMessage.textContent =
+                (
+                  'Não foi possível enviar o e-mail agora. ' +
+                  'Tente novamente.'
+                );
+
+            }
+
+
+            recoveryButton.disabled =
+              false;
+
+            recoveryButton.textContent =
+              'Enviar link de recuperação';
+
+
+            return;
+
+          }
+
+
+          /*
+           * Não informamos se o e-mail
+           * realmente existe na base.
+           *
+           * Isso evita que terceiros usem
+           * a tela para descobrir quais
+           * e-mails possuem uma conta.
+           */
+
+          recoveryMessage.textContent =
+            (
+              'Se este e-mail estiver cadastrado, ' +
+              'você receberá um link para redefinir sua senha. ' +
+              'Verifique também a caixa de spam.'
+            );
+
+
+          recoveryButton.textContent =
+            'E-mail solicitado';
+
+          recoveryForm.reset();
+
+        }
+
+        catch (
+          erro
+        ) {
+
+          console.error(
+            erro
+          );
+
+
+          recoveryMessage.textContent =
+            (
+              'Não foi possível conectar ao sistema. ' +
+              'Tente novamente.'
+            );
+
+
+          recoveryButton.disabled =
+            false;
+
+          recoveryButton.textContent =
+            'Enviar link de recuperação';
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
